@@ -1,32 +1,49 @@
 import React from "react"
-import { NavLink } from "react-router-dom"
+import {NavLink} from "react-router-dom"
 import style from "./Header.module.scss"
 
-type HeaderPropsType = {
-
-}
+type HeaderPropsType = {}
 
 export const Header = React.memo(function (props: HeaderPropsType) {
 
     return (
         <header className={style.headerBlock}>
-            <div className={style.headerLink}>
-                <NavLink to={"/profile"}>Profile</NavLink>
+            <div>
+                <NavLink to={"/profile"}
+                         className={style.headerLink}>
+                    Profile
+                </NavLink>
             </div>
-            <div className={style.headerLink}>
-                <NavLink to={"/login"}>Login</NavLink>
+            <div>
+                <NavLink to={"/login"}
+                         className={style.headerLink}>
+                    Login
+                </NavLink>
             </div>
-            <div className={style.headerLink}>
-                <NavLink to={"/registration"}>Registration</NavLink>
+            <div>
+                <NavLink to={"/registration"}
+                         className={style.headerLink}>
+                    Registration
+                </NavLink>
             </div>
-            <div className={style.headerLink}>
-                <NavLink to={"/restorePassword"}>RestorePassword</NavLink>
+            <div>
+                <NavLink to={"/restorePassword"}
+                         className={style.headerLink}>
+                    RestorePassword
+                </NavLink>
             </div>
-            <div className={style.headerLink}>
-                <NavLink to={"/updatePassword"}>UpdatePassword</NavLink>
+            <div>
+                <NavLink
+                    to={"/updatePassword"}
+                    className={style.headerLink}>
+                    UpdatePassword
+                </NavLink>
             </div>
-            <div className={style.headerLink}>
-                <NavLink to={"/test"}>Test Page</NavLink>
+            <div>
+                <NavLink to={"/test"}
+                         className={style.headerLink}>
+                    Test Page
+                </NavLink>
             </div>
         </header>
     )
