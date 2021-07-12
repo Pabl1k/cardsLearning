@@ -1,5 +1,6 @@
 import React from "react"
 import {Redirect, Route, Switch} from "react-router-dom"
+import {Header} from "./common/components/header/Header"
 import {Profile} from "./pages/profile/Profile"
 import {Login} from "./pages/login/Login"
 import {Registration} from "./pages/registration/Registration"
@@ -9,12 +10,14 @@ import {PageNotFound} from "./pages/pageNotFound/PageNotFound"
 import {TestComponents} from "./testComponents/TestComponents"
 import "./App.css"
 
+
 function App() {
 
     return (
         <section>
+            <Header/>
             <Switch>
-                <Route exact path={"/"} render={() => <Profile/>}/>
+                <Route exact path={"/profile"} render={() => <Profile/>}/>
                 <Route path={"/login"} render={() => <Login/>}/>
                 <Route path={"/registration"} render={() => <Registration/>}/>
                 <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
