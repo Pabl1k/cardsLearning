@@ -1,5 +1,8 @@
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
+
 .default {
-    background: #0075FF;
+    background: $primaryColor;
     font-family: 'Rubik', sans-serif;
     font-size: 16px;
     color: #F8F9FE;
