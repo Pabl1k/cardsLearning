@@ -1,5 +1,5 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from "react"
-import style from "./Checkbox.module.css"
+import style from "./Checkbox.module.scss"
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -12,8 +12,8 @@ export const Checkbox: React.FC<SuperCheckboxPropsType> = React.memo(({
         type,
         onChange, onChangeChecked,
         className, spanClassName,
-        children, // в эту переменную попадёт текст, типизировать не нужно так как он затипизирован в React.FC
-        ...restProps// все остальные пропсы попадут в объект restProps
+        children,
+        ...restProps
 }) => {
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,6 +33,6 @@ export const Checkbox: React.FC<SuperCheckboxPropsType> = React.memo(({
                 {...restProps}
             />
             {children && <span className={style.spanClassName}>{children}</span>}
-        </label> // благодаря label нажатие на спан передастся в инпут
+        </label>
     )
 })

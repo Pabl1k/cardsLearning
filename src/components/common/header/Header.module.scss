@@ -1,5 +1,5 @@
-@import "./src/common/styles/variebles";
-@import "./src/common/styles/mixins";
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
 
 .headerBlock {
   @include flexBox(flex-row, center, center, nowrap);
@@ -8,7 +8,7 @@
   background-color: $primaryColor;
 
   .headerLink {
-    color: white;
-    margin: 0 15px;
+    @include text($fontFamilyStyle, 16px, 400, $whiteTextColor);
+    margin: 0 16px;
   }
 }

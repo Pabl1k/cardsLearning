@@ -8,6 +8,7 @@ type AddItemFormPropsType = {
     disabled?: boolean
     addItemInputStyle?: string
     addItemButtonStyle?: string
+    errorSpanStyle?: string
 }
 
 export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
@@ -43,18 +44,22 @@ export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
                 value={title}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
+                error={error}
                 disabled={props.disabled}
                 className={props.addItemInputStyle}
             />
-            {error
-                ? <span>{error}</span>
-                : null
-            }
             <Button
                 onClick={addItemHandler}
+                error={error}
                 disabled={props.disabled}
                 className={props.addItemButtonStyle}>Click
             </Button>
+            {error
+                ? <div className={style.errorContainerStyle}>
+                    <span className={props.errorSpanStyle}>{error}</span>
+                </div>
+                : null
+            }
         </div>
     )
 })

@@ -1,18 +1,18 @@
 import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react"
-import style from "./Button.module.css"
+import style from "./Button.module.scss"
 
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 type ButtonPropsType = DefaultButtonPropsType & {
-    red?: boolean
+    error?: string | null
 }
 
 export const Button: React.FC<ButtonPropsType> = React.memo(({
-    red, className,
-    ...restProps
+     error, className,
+     ...restProps
 }) => {
 
-    const finalClassName = `${red ? style.red : style.default} ${className}`
+    const finalClassName = `${error ? style.error : style.default} ${className}`
 
     return (
         <button

@@ -18,11 +18,22 @@
   flex-wrap: $flexWrap;
 }
 
-@mixin text($fontFamily, $fontSize, $fontWeight, $textColor) {
+@mixin text($fontFamily, $fontSize, $fontWeight, $whiteTextColor) {
   font-family: $fontFamily;
   font-size: $fontSize;
   font-weight: $fontWeight;
-  color: $textColor;
+  color: $whiteTextColor;
+}
+
+@mixin inputAndTextArea($width, $height, $fonstSize, $textColor, $border) {
+  width: $width;
+  height: $height;
+  border: $border;
+  border-radius: 8px;
+  outline: none;
+  padding: 4px;
+  transition: .3s;
+  @include text($fontFamilyStyle, $fonstSize, 500, $textColor);
 }
 
 @mixin button($width, $height, $fonstSize, $backgroundColor, $borderColor) {
@@ -31,8 +42,7 @@
   background-color: $backgroundColor;
   overflow: hidden;
   border: 3px solid $borderColor;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  transition: .5s;
-  @include text($fontFamilyStyle, $fonstSize, 400, $textColor);
+  border-radius: 6px;
+  transition: .3s;
+  @include text($fontFamilyStyle, $fonstSize, 400, $whiteTextColor);
 }

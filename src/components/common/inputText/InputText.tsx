@@ -1,12 +1,12 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from "react"
-import style from "./InputText.module.css"
+import style from "./InputText.module.scss"
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 type SuperInputTextPropsType = DefaultInputPropsType & {
     onChangeText?: (value: string) => void
     onEnter?: () => void
-    error?: string
+    error?: string | null
     spanClassName?: string
 }
 
@@ -20,8 +20,8 @@ export const InputText: React.FC<SuperInputTextPropsType> = ({
 }) => {
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange // если есть пропс onChange
-        && onChange(e) // то передать ему е (поскольку onChange не обязателен)
+        onChange
+        && onChange(e)
         onChangeText && onChangeText(e.currentTarget.value)
     }
     const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -31,8 +31,7 @@ export const InputText: React.FC<SuperInputTextPropsType> = ({
         && onEnter()
     }
 
-    const finalSpanClassName = `${style.error} ${spanClassName ? spanClassName : ""}`
-    const finalInputClassName = `${error ? style.errorInput : style.superInput}`
+    const finalInputClassName = `${error ? style.errorInput : style.inputText}`
 
     return (
         <>
@@ -43,7 +42,6 @@ export const InputText: React.FC<SuperInputTextPropsType> = ({
                 className={`${finalInputClassName} ${className}`}
                 {...restProps}
             />
-            {error ? <span className={finalSpanClassName}>{error}</span> : null}
         </>
     )
 }

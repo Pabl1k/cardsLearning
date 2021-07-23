@@ -1,36 +1,31 @@
-.inputText {
-    background: #F8F9FE;
-    font-family: 'Rubik', sans-serif;
-    font-size: 16px;
-    color: #000000;
-    border: 3px solid #0075FF;
-    border-radius: 10px;
-    outline: 0;
-    transition: 0.2s;
-}
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
 
-.inputText:focus {
-    border: 3px solid #005CC8;
+.inputText {
+  @include inputAndTextArea(0, 0, 16px, $blackTextColor, 3px solid $primaryColor);
+
+  &:hover {
+    border-color: $secondColor;
+  }
+
+  &:focus {
+    border-color: $secondColor;
+  }
 }
 
 .errorInput {
-    background: #F8F9FE;
-    font-family: 'Rubik', sans-serif;
-    font-size: 16px;
-    color: #005CC8;
-    border: 3px solid #E75C5C;
-    border-radius: 10px;
-    outline: 0;
-    transition: 0.2s;
+  @include inputAndTextArea(0, 0, 16px, $whiteTextColor, 3px solid $redErrorColor);
+
+  &:hover {
+    border-color: $brightRedErrorColor;
+  }
+
+  &:focus {
+    border-color: $brightRedErrorColor;
+  }
 }
 
-.errorInput:focus {
-    border: 3px solid #D92121;
-}
 
 .error {
-    font-family: 'Rubik', sans-serif;
-    font-size: 16px;
-    color: #D92121;
-    margin: 4px;
+  @include text($fontFamilyStyle, 16, 500, $redErrorColor);
 }

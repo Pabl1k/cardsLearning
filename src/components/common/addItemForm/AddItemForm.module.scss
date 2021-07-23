@@ -1,9 +1,15 @@
-@import "src/common/styles/mixins";
-@import "src/common/styles/variebles";
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
 
 .addItemContainer {
   width: 100%;
-  @include flexBox(row, flex-start, flex-start, nowrap);
-  margin: 10px 0;
+  @include flexBox(row, flex-start, center, nowrap);
+  margin: 6px 0;
+
+  .errorContainerStyle {
+    @include flexBox(row, flex-start, center, nowrap);
+    @include text($fontFamilyStyle, 16px, 600, $redErrorColor);
+  }
 }
+
 

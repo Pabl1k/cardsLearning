@@ -1,13 +1,17 @@
-.labelStyle {
-    display: flex;
-    align-items: center;
-}
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
 
-.checkbox {
+.labelStyle {
+  display: flex;
+  align-items: center;
+
+  .checkbox {
     width: 16px;
     height: 16px;
-}
+  }
 
-.spanClassName {
+  .spanClassName {
+    @include text($fontFamilyStyle, 16px, 400, $blackTextColor);
     text-align: center;
+  }
 }
