@@ -6,7 +6,7 @@ type InitialStateType = {}
 
 const initialState: InitialStateType = {}
 
-export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const updatePasswordReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case TEMPLATE_ACTION:
             return state
