@@ -4,7 +4,7 @@ const initialState: InitialStateType = {}
 
 type InitialStateType = {}
 
-export const reducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const testReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case "":
             return state

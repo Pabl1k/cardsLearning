@@ -1,9 +1,9 @@
 import {applyMiddleware, combineReducers, createStore} from "redux"
 import thunkMiddleware from "redux-thunk"
-import {reducer} from "./reducers/reducer"
+import {testReducer} from "./reducers/test-reducer"
 
 const rootReducer = combineReducers({
-    reducer: reducer,
+    reducer: testReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
