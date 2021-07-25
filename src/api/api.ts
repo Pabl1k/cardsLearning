@@ -1,26 +1,17 @@
 import axios from "axios"
 
 const instance = axios.create({
-    baseURL: "https://BaseULR/",
+    baseURL: "https://neko-back.herokuapp.com/2.0",
     withCredentials: true,
     headers: {}
 })
 
 // api
-/*export const todolistsAPI = {
-    getTodolists() {
-        return instance.get<ResponseType>("ULR")
+export const authAPI = {
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<ResponseType>("auth/login", {email, password, rememberMe})
     },
-    createTodolist(title: string) {
-        return instance.post<ResponseType<{body: BodyType}>>("ULR", {item: item})
-    },
-    deleteTodolist(id: string) {
-        return instance.delete<ResponseType>(`ULR/${id}`)
-    },
-    updateTodolist(id: string, title: string) {
-        return instance.put<ResponseType>(`ULR/${id}`, {item: item})
-    }
-}*/
+}
 
 // types
 export type ResponseType<D = {}> = {
