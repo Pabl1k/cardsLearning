@@ -26,6 +26,14 @@ export const authAPI = {
                       </div>`
         })
     },
+
+    signUp(email: string, password: string) {
+        return instance.post("/auth/register", {email, password})
+    },
+    logout() {
+        return instance.delete('auth/me', {})
+    },
+
 }
 
 // types

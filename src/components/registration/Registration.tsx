@@ -1,6 +1,9 @@
 import React from "react"
 import {useFormik} from "formik"
 import style from "./Registration.module.scss"
+import {SignUpTC} from "../../redux/reducers/registration-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 
 type LoginPropsType = {}
@@ -8,16 +11,18 @@ type LoginPropsType = {}
 type FormikErrorType = {
     email?: string
     password?: string
-    rememberMe?: boolean
+    repeatPassword?: string
 }
 
-export const Registration = React.memo(function (props: LoginPropsType) {
+export const Registration = React.memo((props: LoginPropsType) => {
+    const dispatch = useDispatch()
+    const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
 
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
-            rememberMe: false
+            repeatPassword: ""
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -31,17 +36,22 @@ export const Registration = React.memo(function (props: LoginPropsType) {
             } else if (values.password.length < 6) {
                 errors.password = `Password must be more than six characters.`
             }
+            if (!values.repeatPassword) {
+                errors.repeatPassword = 'Required';
+            } else if (values.password !== values.repeatPassword) {
+                errors.repeatPassword = 'Passwords are not equal';
+            }
             return errors
         },
         onSubmit: (values) => {
-
+            dispatch(SignUpTC(values.email, values.password))
             formik.resetForm()
         }
     })
 
-    // if (isSignUp) {
-    //     return <Redirect to={"/login">
-    // }
+    if (isSignUp) {
+        return <Redirect to={'/login'}/>
+    }
 
     return (
         <>
@@ -75,7 +85,7 @@ export const Registration = React.memo(function (props: LoginPropsType) {
                 <input
                     type="password"
                     placeholder="Repeat Password"
-                    {...formik.getFieldProps("password")}
+                    {...formik.getFieldProps("repeatPassword")}
                 />
                 <button type={"submit"}>Sign Up</button>
             </form>

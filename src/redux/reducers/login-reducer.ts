@@ -1,5 +1,6 @@
 import {Dispatch} from "redux"
 import {authAPI, LoginResponseType} from "../../api/api"
+import {setIsSignUpAC} from "./registration-reducer";
 
 const LOGIN_USER = "LOGIN_USER"
 
@@ -33,6 +34,17 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
         })
         .finally(() => {
             // ...some code
+        })
+}
+
+
+export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.logout()
+        .then(res => {
+            //dispatch()
+        })
+        .catch((error) => {
+            console.log(error)
         })
 }
 
