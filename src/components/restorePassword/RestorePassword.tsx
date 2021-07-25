@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import {NavLink} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
@@ -13,12 +13,8 @@ type FormikErrorType = {
 }
 
 export const RestorePassword = React.memo(function (props: RestorePasswordPropsType) {
-    const dispatch = useDispatch();
 
-    // createdAcc:
-    // email: poiumazaya@gmail.com
-    // password: piatnicaTest
-    // id: 60fd99dcc6db2000047c6c7d
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
