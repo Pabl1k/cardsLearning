@@ -1,4 +1,6 @@
 import React from "react"
+import {useDispatch} from "react-redux"
+import {loginTC} from "../../redux/reducers/login-reducer"
 import {useFormik} from "formik"
 import {Checkbox} from "../common/checkbox/Checkbox"
 import style from "./Login.module.scss"
@@ -12,6 +14,8 @@ type FormikErrorType = {
 }
 
 export const Login = React.memo(function (props: LoginPropsType) {
+
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -34,7 +38,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
             return errors
         },
         onSubmit: (values) => {
-            // dispatch(loginTC(values))
+            dispatch(loginTC(values.email, values.password, values.rememberMe))
             formik.resetForm()
         }
     })
