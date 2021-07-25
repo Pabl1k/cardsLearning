@@ -1,6 +1,7 @@
 import {Dispatch} from "redux"
+import {authAPI, LoginResponseType} from "../../api/api"
 
-const TEMPLATE_ACTION = "TEMPLATE_ACTION"
+const LOGIN_USER = "LOGIN_USER"
 
 type InitialStateType = {}
 
@@ -8,7 +9,7 @@ const initialState: InitialStateType = {}
 
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case TEMPLATE_ACTION:
+        case LOGIN_USER:
             return state
         default:
             return state
@@ -16,24 +17,24 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 }
 
 // actions
-export const templateAC = (body: any) => {
-    return {type: TEMPLATE_ACTION, body: body} as const
+export const loginUserAC = (payload: LoginResponseType) => {
+    return {type: LOGIN_USER, payload} as const
 }
 
 // thunks
-/*export const templateTC = () => (dispatch: Dispatch<ActionsType>) => {
-    someAPI.someMethod()
+export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.login(email, password, rememberMe)
         .then(res => {
-            // dispatch(templateAC(true, res.data.data.email))
+            console.log(res)
+            dispatch(loginUserAC(res.data))
         })
         .catch((error) => {
-            // ...some code
+            console.log(error)
         })
         .finally(() => {
             // ...some code
         })
-}*/
+}
 
 // types
-export type templateActionType = ReturnType<typeof templateAC>
-type ActionsType = templateActionType
+type ActionsType = ReturnType<typeof loginUserAC>

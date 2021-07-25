@@ -1,10 +1,11 @@
 import {Dispatch} from "redux"
+import {PasswordAPI} from "../../api/password-api";
 
 const TEMPLATE_ACTION = "TEMPLATE_ACTION"
 
-type InitialStateType = {}
+const initialState = {}
 
-const initialState: InitialStateType = {}
+type InitialStateType = typeof initialState
 
 export const restorePasswordReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -21,18 +22,17 @@ export const templateAC = (body: any) => {
 }
 
 // thunks
-/*export const templateTC = () => (dispatch: Dispatch<ActionsType>) => {
-    someAPI.someMethod()
-        .then(res => {
-            // dispatch(templateAC(true, res.data.data.email))
+export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
+    PasswordAPI.restorePassword(email)
+        .then((res) => {
+            console.log(res)
         })
-        .catch((error) => {
-            // ...some code
+        .catch(er => {
+            console.log(er)
         })
         .finally(() => {
-            // ...some code
         })
-}*/
+}
 
 // types
 export type templateActionType = ReturnType<typeof templateAC>
