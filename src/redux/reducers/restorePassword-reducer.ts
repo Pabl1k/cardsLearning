@@ -1,5 +1,5 @@
 import {Dispatch} from "redux"
-import {PasswordAPI} from "../../api/password-api";
+import {authAPI} from "../../api/api";
 
 const TEMPLATE_ACTION = "TEMPLATE_ACTION"
 
@@ -23,7 +23,7 @@ export const templateAC = (body: any) => {
 
 // thunks
 export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
-    PasswordAPI.restorePassword(email)
+    authAPI.restorePassword(email)
         .then((res) => {
             console.log(res)
         })
