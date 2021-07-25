@@ -26,12 +26,11 @@ export const authAPI = {
                       </div>`
         })
     },
-
     signUp(email: string, password: string) {
-        return instance.post<ResponseSignUpType>("/auth/register", {email, password})
+        return instance.post<ResponseSignUpType>(`auth/register`, {email, password})
     },
     logout() {
-        return instance.delete('auth/me', {})
+        return instance.delete("auth/me", {})
     },
 
 }
@@ -42,7 +41,7 @@ export type ResponseType<D = {}> = {
 }
 
 export type ResponseSignUpType = {
-    addedUser: {}
+    addedUser: any
     error?: string
 }
 
