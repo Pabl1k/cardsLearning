@@ -1,10 +1,11 @@
 import React from "react"
-import {NavLink} from "react-router-dom";
-import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
-import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer";
-import {InputText} from "../common/inputText/InputText";
-import {Button} from "../common/button/Button";
+import {NavLink} from "react-router-dom"
+import {useFormik} from "formik"
+import {useDispatch} from "react-redux"
+import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer"
+import {InputText} from "../common/inputText/InputText"
+import {Button} from "../common/button/Button"
+import style from "./RestorePassword.module.scss"
 
 type RestorePasswordPropsType = {}
 
@@ -14,25 +15,25 @@ type FormikErrorType = {
 
 export const RestorePassword = React.memo(function (props: RestorePasswordPropsType) {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues: {
-            email: '',
+            email: "",
         },
         validate: (values) => {
-            const error: FormikErrorType = {};
+            const error: FormikErrorType = {}
             if (!values.email) {
-                error.email = 'Required';
+                error.email = "Required"
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                error.email = 'Invalid email address';
+                error.email = "Invalid email address"
             }
-            return error;
+            return error
         },
         onSubmit: values => {
             dispatch(restorePasswordTC(values.email))
-            formik.resetForm();
-        },
+            formik.resetForm()
+        }
     })
     return (
         <div style={{margin: 10}}>
@@ -42,22 +43,21 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                 <p>Forgot your password?</p>
                 <br/>
                 <InputText
-                    style={{width:250, height: 50}}
-                    placeholder='Email'
-                    {...formik.getFieldProps('email')}/>
-
+                    style={{width: 250, height: 50}}
+                    placeholder="Email"
+                    {...formik.getFieldProps("email")}/>
                 {formik.touched.email && formik.errors.email &&
-                <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                <br/><br/><br/>
-                <p>Enter your email address and we will send you a further instructions</p>
+                <div style={{color: "red"}}>{formik.errors.email}</div>}
                 <br/><br/>
+                <p>Enter your email address and we will send you a further instructions</p>
+                <br/>
                 <Button
-                    type={'submit'}
-                    style={{width:150, height: 50}}>Send instructions</Button>
+                    type={"submit"}
+                    style={{width: 150, height: 50}}>Send instructions</Button>
                 <br/><br/>
                 <p>Did you remember your password?</p>
                 <br/>
-                <NavLink to={'/login'}>Try logging in</NavLink>
+                <NavLink to={"/login"}>Try logging in</NavLink>
             </form>
         </div>
     )

@@ -35,5 +35,4 @@ export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
 }
 
 // types
-export type templateActionType = ReturnType<typeof templateAC>
-type ActionsType = templateActionType
+type ActionsType = ReturnType<typeof templateAC>

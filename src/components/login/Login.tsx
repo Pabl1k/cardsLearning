@@ -3,6 +3,8 @@ import {useDispatch} from "react-redux"
 import {loginTC} from "../../redux/reducers/login-reducer"
 import {useFormik} from "formik"
 import {Checkbox} from "../common/checkbox/Checkbox"
+import {InputText} from "../common/inputText/InputText";
+import {Button} from "../common/button/Button"
 import style from "./Login.module.scss"
 
 type LoginPropsType = {}
@@ -33,7 +35,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
             if (!values.password) {
                 errors.password = "Required."
             } else if (values.password.length < 6) {
-                errors.password = `Password must be more than six characters.`
+                errors.password = "Password must be more than six characters."
             }
             return errors
         },
@@ -52,20 +54,22 @@ export const Login = React.memo(function (props: LoginPropsType) {
                 Sign In
             </div>
             <form onSubmit={formik.handleSubmit}>
-                <input
+                <InputText
                     type="text"
                     placeholder="Email"
                     {...formik.getFieldProps("email")}
+                    style={{width: 250, height: 50}}
                 />
                 {
                     formik.touched.email && formik.errors.email
                         ? <div>{formik.errors.email}</div>
                         : null
                 }
-                <input
+                <InputText
                     type="password"
                     placeholder="Password"
                     {...formik.getFieldProps("password")}
+                    style={{width: 250, height: 50}}
                 />
                 {
                     formik.touched.password && formik.errors.password
@@ -77,7 +81,11 @@ export const Login = React.memo(function (props: LoginPropsType) {
                 >
                     Remember me
                 </Checkbox>
-                <button type={"submit"}>Login</button>
+                <Button
+                    type={"submit"}
+                    style={{width: 150, height: 50}}
+                >Login
+                </Button>
             </form>
         </>
     )

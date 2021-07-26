@@ -1,5 +1,5 @@
 import {Dispatch} from "redux"
-import {authAPI, LoginResponseType} from "../../api/api"
+import {authAPI} from "../../api/api"
 
 const LOGIN_USER = "LOGIN_USER"
 
@@ -17,8 +17,8 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 }
 
 // actions
-export const loginUserAC = (payload: LoginResponseType) => {
-    return {type: LOGIN_USER, payload} as const
+export const loginUserAC = () => {
+    return {type: LOGIN_USER} as const
 }
 
 // thunks
@@ -26,7 +26,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
     authAPI.login(email, password, rememberMe)
         .then(res => {
             console.log(res)
-            dispatch(loginUserAC(res.data))
+            // dispatch(loginUserAC(res.data))
         })
         .catch((error) => {
             console.log(error)
