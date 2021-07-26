@@ -1,10 +1,11 @@
 import React from "react"
-import {NavLink} from "react-router-dom";
-import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import {NavLink, Redirect} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer";
 import {InputText} from "../common/inputText/InputText";
 import {Button} from "../common/button/Button";
+import {AppRootStateType} from "../../redux/store";
+import {useFormik} from "formik";
 
 type RestorePasswordPropsType = {}
 
@@ -13,8 +14,8 @@ type FormikErrorType = {
 }
 
 export const RestorePassword = React.memo(function (props: RestorePasswordPropsType) {
-
     const dispatch = useDispatch();
+    const errorMessage = useSelector<AppRootStateType, string | null>(message => message.restorePasswordReducer.errorMessage)
 
     const formik = useFormik({
         initialValues: {
@@ -34,6 +35,11 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
             formik.resetForm();
         },
     })
+
+    if (errorMessage?.slice(0, 8) === 'Recovery') {
+        return <Redirect to={'/login'}/>
+    }
+
     return (
         <div style={{margin: 10}}>
             <form onSubmit={formik.handleSubmit}>
@@ -42,18 +48,20 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                 <p>Forgot your password?</p>
                 <br/>
                 <InputText
-                    style={{width:250, height: 50}}
+                    style={{width: 250, height: 50}}
                     placeholder='Email'
                     {...formik.getFieldProps('email')}/>
 
                 {formik.touched.email && formik.errors.email &&
                 <div style={{color: 'red'}}>{formik.errors.email}</div>}
+                <br/>
+                <p style={{color: 'red'}}>{errorMessage}</p>
                 <br/><br/><br/>
                 <p>Enter your email address and we will send you a further instructions</p>
                 <br/><br/>
                 <Button
                     type={'submit'}
-                    style={{width:150, height: 50}}>Send instructions</Button>
+                    style={{width: 150, height: 50}}>Send instructions</Button>
                 <br/><br/>
                 <p>Did you remember your password?</p>
                 <br/>
