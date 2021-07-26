@@ -1,39 +1,45 @@
 import {Dispatch} from "redux"
+import {authAPI} from "../../api/api";
 
-const TEMPLATE_ACTION = "TEMPLATE_ACTION"
+const SET_IS_SIGN_UP = "registration/SET_IS_SIGN_UP"
 
-type InitialStateType = {}
+type InitialStateType = {
+    isSignUp: boolean
+}
 
-const initialState: InitialStateType = {}
+const initialState: InitialStateType = {
+    isSignUp: false
+}
 
 export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case TEMPLATE_ACTION:
-            return state
+        case SET_IS_SIGN_UP:
+            return {...state, isSignUp: action.value}
         default:
             return state
     }
 }
 
 // actions
-export const templateAC = (body: any) => {
-    return {type: TEMPLATE_ACTION, body: body} as const
+export const setIsSignUpAC = (value: boolean) => {
+    return {type: SET_IS_SIGN_UP, value} as const
 }
 
+
 // thunks
-/*export const templateTC = () => (dispatch: Dispatch<ActionsType>) => {
-    someAPI.someMethod()
+export const SignUpTC = (email: string, password: string) => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.signUp(email, password)
         .then(res => {
-            // dispatch(templateAC(true, res.data.data.email))
+            dispatch(setIsSignUpAC(true))
         })
         .catch((error) => {
-            // ...some code
+            console.log(error)
         })
         .finally(() => {
             // ...some code
         })
-}*/
+}
 
 // types
-export type templateActionType = ReturnType<typeof templateAC>
-type ActionsType = templateActionType
+export type  ActionsType = ReturnType<typeof setIsSignUpAC>
+

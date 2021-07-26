@@ -27,11 +27,23 @@ export const authAPI = {
                       </div>`
         })
     },
+    signUp(email: string, password: string) {
+        return instance.post<ResponseSignUpType>(`auth/register`, {email, password})
+    },
+    logout() {
+        return instance.delete("auth/me", {})
+    },
+
 }
 
 // types
 export type ResponseType<D = {}> = {
     data: D
+}
+
+export type ResponseSignUpType = {
+    addedUser: any
+    error?: string
 }
 
 export type LoginResponseType = {
