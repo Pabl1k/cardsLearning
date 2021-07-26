@@ -1,2 +1,48 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
+
+
+
+.checkEmail {
+  margin: 125px auto 0;
+  padding: 20px 45px;
+
+  width: 415px;
+  height: 470px;
+
+  background-color: $bgWhite;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 35px;
+
+  @extend %ff600;
+  font-size: 26px;
+}
+
+.iconBg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 auto 25px;
+
+  height: 108px;
+  width: 108px;
+
+  background-color: $bgGrayBlue;
+  border-radius: 50%;
+}
+
+.caption {
+  margin-bottom: 20px;
+
+  @extend %ff600;
+  font-size: 22px;
+}
+
+.text {
+  font-size: 16px;
+}

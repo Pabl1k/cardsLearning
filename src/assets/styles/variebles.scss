@@ -6,3 +6,32 @@ $secondColor: #005CC8;
 $redErrorColor: #E75C5C;
 $brightRedErrorColor: #D92121;
 $fontFamilyStyle: 'Mukta', sans-serif;
+
+//nata
+
+$textColor: #2D2E46;
+$bgWhite: #F9F9FE;
+$bgGrayBlue: #D7D8EF;
+$br: 8px;
+
+%sf600 {
+  font-family: SFUIDisplay, sans-serif;
+  font-weight: 600;
+}
+
+%sf500 {
+  font-family: SFUIDisplay, sans-serif;
+  font-weight: 500;
+}
+
+%sf400 {
+  font-family: SFUIDisplay, sans-serif;
+  font-weight: 400;
+}
+
+%ff600 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+//@extend %ff600;
