@@ -8,11 +8,12 @@ import {RestorePassword} from "./components/restorePassword/RestorePassword"
 import {UpdatePassword} from "./components/updatePassword/UpdatePassword"
 import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {TestComponents} from "./testComponents/TestComponents"
-import "./App.css"
+import {CheckEmail} from "./components/checkEmail/CheckEmail"
+import s from "./App.module.scss"
 
 function App() {
     return (
-        <section>
+        <section className={s.pagesContainer}>
             <Header/>
             <Switch>
                 <Route exact path={"/profile"} render={() => <Profile/>}/>
@@ -22,6 +23,7 @@ function App() {
                 <Route path={"/updatePassword"} render={() => <UpdatePassword/>}/>
                 <Route path={"/404"} render={() => <PageNotFound/>}/>
                 <Route exact path={"/test"} render={() => <TestComponents/>}/>
+                <Route exact path={"/checkEmail"} render={() => <CheckEmail/>}/>
                 <Redirect from={"*"} to={"/404"}/>
             </Switch>
         </section>
