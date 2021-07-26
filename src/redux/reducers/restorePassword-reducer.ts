@@ -1,38 +1,44 @@
 import {Dispatch} from "redux"
-import { authAPI } from "../../api/api"
+import {authAPI} from "../../api/api"
 
-const TEMPLATE_ACTION = "TEMPLATE_ACTION"
+const SET_ERROR_MESSAGE = "SET-ERROR-MESSAGE"
 
-const initialState = {}
+const initialState = {
+    errorMessage: null
+}
 
-type InitialStateType = typeof initialState
+type InitialStateType = {
+    errorMessage: string | null
+}
 
 export const restorePasswordReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case TEMPLATE_ACTION:
-            return state
+        case SET_ERROR_MESSAGE :
+            return {...state, errorMessage: action.errorMessage}
         default:
             return state
     }
 }
 
 // actions
-export const templateAC = (body: any) => {
-    return {type: TEMPLATE_ACTION, body: body} as const
-}
+export const setErrorMessageAC = (errorMessage: string) => ({type: SET_ERROR_MESSAGE, errorMessage: errorMessage})
 
 // thunks
 export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
     authAPI.restorePassword(email)
         .then((res) => {
-            console.log(res)
+            if (res.status === 200) {
+                console.log(res)
+                dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
+            }
         })
         .catch(er => {
             console.log(er)
+            dispatch(setErrorMessageAC(`Account with email: ${email}, does not exist`))
         })
         .finally(() => {
         })
 }
 
 // types
-type ActionsType = ReturnType<typeof templateAC>
+type ActionsType = ReturnType<typeof setErrorMessageAC>
