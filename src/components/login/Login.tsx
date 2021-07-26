@@ -1,5 +1,7 @@
 import React from "react"
-import {useDispatch} from "react-redux"
+import {Redirect} from "react-router-dom"
+import {useDispatch, useSelector} from "react-redux"
+import {AppRootStateType} from "../../redux/store"
 import {loginTC} from "../../redux/reducers/login-reducer"
 import {useFormik} from "formik"
 import {Checkbox} from "../common/checkbox/Checkbox"
@@ -17,6 +19,7 @@ type FormikErrorType = {
 
 export const Login = React.memo(function (props: LoginPropsType) {
 
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -44,6 +47,10 @@ export const Login = React.memo(function (props: LoginPropsType) {
             formik.resetForm()
         }
     })
+
+    if (isLoggedIn) {
+        return <Redirect to={"/profile"}/>
+    }
 
     return (
         <>
