@@ -1,7 +1,5 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
-import {authAPI, LoginResponseType} from "../../api/api"
-import {setIsSignUpAC} from "./registration-reducer";
 
 const LOGIN_USER = "LOGIN_USER"
 
