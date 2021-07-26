@@ -5,6 +5,9 @@ import {SignUpTC} from "../../redux/reducers/registration-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
+import {InputText} from "../common/inputText/InputText";
+import {Button} from "../common/button/Button";
+
 
 type LoginPropsType = {}
 
@@ -54,41 +57,57 @@ export const Registration = React.memo((props: LoginPropsType) => {
     }
 
     return (
-        <>
-            <div>
-                It-Incubator
-            </div>
-            <div>
-                Sign Up
-            </div>
+        <div className={style.signUp} style={{margin: 100}}>
+
             <form onSubmit={formik.handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Email"
-                    {...formik.getFieldProps("email")}
-                />
+                <p>
+                    It-Incubator</p>
+                <br/>
+                <p>
+                    Sign Up
+                </p>
+                <br/>
+                <div>
+                    <InputText
+                        type="text"
+                        placeholder="Email"
+                        {...formik.getFieldProps("email")}
+                        style={{width: 250, height: 50}}
+                    />
+                </div>
                 {
                     formik.touched.email && formik.errors.email
                         ? <div>{formik.errors.email}</div>
                         : null
                 }
-                <input
-                    type="password"
-                    placeholder="Password"
-                    {...formik.getFieldProps("password")}
-                />
+                <div>
+                    <InputText
+                        type="password"
+                        placeholder="Password"
+                        {...formik.getFieldProps("password")}
+                        style={{width: 250, height: 50}}
+                    />
+                </div>
                 {
                     formik.touched.password && formik.errors.password
                         ? <div>{formik.errors.password}</div>
                         : null
                 }
-                <input
-                    type="password"
-                    placeholder="Repeat Password"
-                    {...formik.getFieldProps("repeatPassword")}
-                />
-                <button type={"submit"}>Sign Up</button>
+                <div>
+                    <InputText
+                        type="password"
+                        placeholder="Repeat Password"
+                        {...formik.getFieldProps("repeatPassword")}
+                        style={{width: 250, height: 50}}
+                    />
+                </div>
+                <div>
+                    <Button type={"submit"}
+                            style={{width: 150, height: 50}}
+                    >Sign Up</Button>
+                </div>
             </form>
-        </>
+        </div>
+
     )
 })
