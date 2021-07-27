@@ -1,2 +1,35 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
+
+.registration {
+  @extend %loginBlock;
+}
+
+.title {
+  @extend %loginTitle;
+}
+
+.caption {
+  @extend %loginCaption;
+}
+
+.inputBox {
+  margin-bottom: 85px;
+}
+
+.inputWrap {
+  margin-bottom: 25px;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 25px;
+}
+
+.button {
+  @extend  %btn;
+}
+

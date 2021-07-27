@@ -78,8 +78,26 @@ $brBtn: 30px;
   letter-spacing: 0.01em;
   border-radius: $brBtn;
   color: $textLight;
+  background-color: $accent;
   border: none;
   cursor: pointer;
   transition: .2s;
 }
+
+%linkTry {
+  font-size: 16px;
+  @extend %sf600;
+  color: $accent;
+
+  &:hover {
+    text-decoration: underline;
+    color: lighten($accent, 10%);
+  }
+
+  &:active {
+    color: darken($accent, 10%);
+  }
+}
+
+
 
