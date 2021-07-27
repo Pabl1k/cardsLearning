@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer";
 import s from "./RestorePassword.module.scss"
 import {InputTextMUI} from "../common/inputText/InputTextMUI";
+import {Button} from "../common/button/Button";
 
 type RestorePasswordPropsType = {}
 
@@ -49,7 +50,6 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
 
     return (
 
-
         <div className={s.forgot}>
             <form onSubmit={formik.handleSubmit}>
                 <h1 className={s.title}>It-incubator</h1>
@@ -70,11 +70,11 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                     Enter your email address and we will send you further instructions
                 </p>
 
-                <button className={s.button}>Send Instructions</button>
+                <Button className={s.button}>Send Instructions</Button>
 
                 <p className={s.password}>Did you remember your password?</p>
 
-               {/* <InputText
+                {/* <InputText
                     style={{width: 250, height: 50}}
                     placeholder='Email'
                     {...formik.getFieldProps('email')}/>
@@ -93,9 +93,6 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
 
                 <NavLink to={'/login'} className={s.try}>Try logging in</NavLink>
             </form>
-
         </div>
-
-
     )
 })

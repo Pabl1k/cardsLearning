@@ -1,14 +1,12 @@
 import React, {useState} from "react"
 import s from "./UpdatePassword.module.scss"
 import {InputTextMUI} from "../common/inputText/InputTextMUI";
-import {NavLink} from "react-router-dom";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {IconButton} from "@material-ui/core";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
+import {Button} from "../common/button/Button";
 
-type UpdatePasswordPropsType = {
-
-}
+type UpdatePasswordPropsType = {}
 
 export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsType) {
 
@@ -23,7 +21,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
 
     return (
         <div className={s.create}>
-            <form >
+            <form>
                 <h1 className={s.title}>It-incubator</h1>
 
                 <h2 className={s.caption}>Create new password</h2>
@@ -53,12 +51,9 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
                     Create new password and we will send you further instructions to email
                 </p>
 
-                <button className={s.button}>Create new password</button>
+                <Button className={s.button}>Create new password</Button>
 
             </form>
-
         </div>
-
-
     )
 })

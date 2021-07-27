@@ -8,9 +8,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {}
 }));
 
-interface IProps {
-    label: string
-}
+
 
 export const InputTextMUI = (props: TextFieldProps) => {
     const classes = useStyles()

@@ -175,7 +175,5 @@ export const Registration = React.memo((props: LoginPropsType) => {
                 {/*<button type={"submit"}>Sign Up</button>*/}
             </form>
         </div>
-
-
     )
 })

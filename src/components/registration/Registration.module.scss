@@ -29,7 +29,10 @@
   padding-bottom: 25px;
 }
 
-.button {
-  @extend  %btn;
+.button:first-child {
+  @extend %btnCancel;
 }
+
+
+
 
