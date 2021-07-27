@@ -8,6 +8,7 @@ import {Checkbox} from "../common/checkbox/Checkbox"
 import {InputText} from "../common/inputText/InputText";
 import {Button} from "../common/button/Button"
 import style from "./Login.module.scss"
+import {RequestStatusType} from "../../redux/reducers/app-reducer";
 
 type LoginPropsType = {}
 
@@ -18,7 +19,7 @@ type FormikErrorType = {
 }
 
 export const Login = React.memo(function (props: LoginPropsType) {
-
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
@@ -83,14 +84,14 @@ export const Login = React.memo(function (props: LoginPropsType) {
                         ? <div>{formik.errors.password}</div>
                         : null
                 }
-                <Checkbox
-                    {...formik.getFieldProps("rememberMe")}
+                <Checkbox disabled={status === "loading"}
+                          {...formik.getFieldProps("rememberMe")}
                 >
                     Remember me
                 </Checkbox>
-                <Button
-                    type={"submit"}
-                    style={{width: 150, height: 50}}
+                <Button disabled={status === "loading"}
+                        type={"submit"}
+                        style={{width: 150, height: 50}}
                 >Login
                 </Button>
             </form>

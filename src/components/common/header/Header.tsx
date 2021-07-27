@@ -2,14 +2,17 @@ import React from "react"
 import {NavLink} from "react-router-dom"
 import style from "./Header.module.scss"
 import {Button} from "../button/Button";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logoutTC} from "../../../redux/reducers/login-reducer";
+import {AppRootStateType} from "../../../redux/store";
+import {RequestStatusType} from "../../../redux/reducers/app-reducer";
 
 
 type HeaderPropsType = {}
 
 export const Header = React.memo(function (props: HeaderPropsType) {
     const dispatch = useDispatch()
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
@@ -53,7 +56,8 @@ export const Header = React.memo(function (props: HeaderPropsType) {
                 </NavLink>
             </div>
             <div>
-                <Button style={{width: 150, height: 50, color: "white"}}
+                <Button disabled={status === "loading"}
+                        style={{width: 150, height: 50, color: "white"}}
                         onClick={logoutHandler}
                         className={style.headerLink}>
                     Log out

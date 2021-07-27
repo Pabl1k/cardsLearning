@@ -7,6 +7,7 @@ import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer";
 import {InputText} from "../common/inputText/InputText";
 import {Button} from "../common/button/Button";
 import style from "./RestorePassword.module.scss"
+import {RequestStatusType} from "../../redux/reducers/app-reducer";
 
 type RestorePasswordPropsType = {}
 
@@ -18,6 +19,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
 
     const dispatch = useDispatch()
     const errorMessage = useSelector<AppRootStateType, string | null>(message => message.restorePasswordReducer.errorMessage)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
 
     const formik = useFormik({
         initialValues: {
@@ -62,6 +64,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                 <p>Enter your email address and we will send you a further instructions</p>
                 <br/><br/>
                 <Button
+                    disabled={status === "loading"}
                     type={'submit'}
                     style={{width: 150, height: 50}}>Send instructions</Button>
                 <br/><br/>

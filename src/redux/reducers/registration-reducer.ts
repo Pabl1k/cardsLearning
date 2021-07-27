@@ -1,11 +1,8 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../api/api";
+import {setAppStatusAC} from "./app-reducer";
 
 const SET_IS_SIGN_UP = "registration/SET_IS_SIGN_UP"
-
-type InitialStateType = {
-    isSignUp: boolean
-}
 
 const initialState: InitialStateType = {
     isSignUp: false
@@ -28,12 +25,15 @@ export const setIsSignUpAC = (value: boolean) => {
 
 // thunks
 export const SignUpTC = (email: string, password: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
     authAPI.signUp(email, password)
         .then(res => {
+            dispatch(setAppStatusAC("succeeded"))
             dispatch(setIsSignUpAC(true))
         })
         .catch((error) => {
             console.log(error)
+            dispatch(setAppStatusAC('failed'))
         })
         .finally(() => {
             // ...some code
@@ -41,5 +41,10 @@ export const SignUpTC = (email: string, password: string) => (dispatch: Dispatch
 }
 
 // types
-export type  ActionsType = ReturnType<typeof setIsSignUpAC>
+export type  ActionsType =
+    | ReturnType<typeof setIsSignUpAC>
+    | ReturnType<typeof setAppStatusAC>
 
+type InitialStateType = {
+    isSignUp: boolean
+}

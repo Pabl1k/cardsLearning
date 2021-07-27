@@ -10,11 +10,19 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {TestComponents} from "./testComponents/TestComponents"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import s from "./App.module.scss"
+import LinearProgress from '@material-ui/core/LinearProgress';
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./redux/store";
+import {RequestStatusType} from "./redux/reducers/app-reducer";
 
 function App() {
+
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
+
     return (
         <section className={s.pagesContainer}>
             <Header/>
+            {status === "loading" && <LinearProgress color="secondary"/>}
             <Switch>
                 <Route exact path={"/profile"} render={() => <Profile/>}/>
                 <Route path={"/login"} render={() => <Login/>}/>

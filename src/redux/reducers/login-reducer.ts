@@ -1,5 +1,6 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
+import {setAppStatusAC} from "./app-reducer";
 
 const LOGIN_USER = "LOGIN_USER"
 
@@ -45,16 +46,18 @@ export const loginUserAC = (email: string, name: string, avatar: string | undefi
 
 // thunks
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType>) => {
-    //dispatch()
+    dispatch(setAppStatusAC("loading"))
     authAPI.login(email, password, rememberMe)
         .then(res => {
             console.log(res)
+            dispatch(setAppStatusAC("succeeded"))
             dispatch(loginUserAC(res.data.email, res.data.name, res.data.avatar, res.data.publicCardPacksCount, true))
         })
         .catch((e) => {
             console.log(e)
             const error = e.response ? e.response.data.error : (`${e.message}. More details in the console`)
             console.log(error)
+            dispatch(setAppStatusAC('failed'))
         })
         .finally(() => {
             // ...some code
@@ -63,14 +66,18 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
 
 
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
     authAPI.logout()
         .then(res => {
-            //dispatch()
+            dispatch(setAppStatusAC("succeeded"))
         })
         .catch((error) => {
             console.log(error)
+            dispatch(setAppStatusAC('failed'))
         })
 }
 
 // types
-type ActionsType = ReturnType<typeof loginUserAC>
+type ActionsType =
+    | ReturnType<typeof loginUserAC>
+    | ReturnType<typeof setAppStatusAC>

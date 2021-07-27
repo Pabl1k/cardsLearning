@@ -1,25 +1,25 @@
-import {Dispatch} from "redux"
+const APP_SET_STATUS = 'APP/SET-STATUS'
 
-const TEMPLATE_ACTION = "TEMPLATE_ACTION"
-
-type InitialStateType = {}
-
-const initialState: InitialStateType = {}
+const initialState = {
+    status: 'idle' as RequestStatusType
+}
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case TEMPLATE_ACTION:
-            return state
+        case APP_SET_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
 }
 
-// actions
-export const templateAC = (body: any) => {
-    return {type: TEMPLATE_ACTION, body: body} as const
-}
 
+// actions
+export const setAppStatusAC = (status: RequestStatusType) => ({type: APP_SET_STATUS, status} as const)
+// types
+type InitialStateType = typeof initialState
+export type ActionsType = ReturnType<typeof setAppStatusAC>
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 // thunks
 /*export const templateTC = () => (dispatch: Dispatch<ActionsType>) => {
     someAPI.someMethod()
@@ -33,7 +33,3 @@ export const templateAC = (body: any) => {
             // ...some code
         })
 }*/
-
-// types
-export type templateActionType = ReturnType<typeof templateAC>
-type ActionsType = templateActionType

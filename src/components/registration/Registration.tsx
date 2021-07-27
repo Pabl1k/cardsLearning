@@ -7,6 +7,7 @@ import {AppRootStateType} from "../../redux/store";
 import {Redirect} from "react-router-dom";
 import {InputText} from "../common/inputText/InputText";
 import {Button} from "../common/button/Button";
+import {RequestStatusType} from "../../redux/reducers/app-reducer";
 
 
 type LoginPropsType = {}
@@ -20,6 +21,7 @@ type FormikErrorType = {
 export const Registration = React.memo((props: LoginPropsType) => {
     const dispatch = useDispatch()
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
 
     const formik = useFormik({
         initialValues: {
@@ -102,7 +104,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                     />
                 </div>
                 <div>
-                    <Button type={"submit"}
+                    <Button disabled={status === "loading"} type={"submit"}
                             style={{width: 150, height: 50}}
                     >Sign Up</Button>
                 </div>
