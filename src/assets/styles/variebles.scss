@@ -10,9 +10,12 @@ $fontFamilyStyle: 'Mukta', sans-serif;
 //nata
 
 $textColor: #2D2E46;
+$textLight: #ECECF9;
+$accent: #21268F;
 $bgWhite: #F9F9FE;
 $bgGrayBlue: #D7D8EF;
 $br: 8px;
+$brBtn: 30px;
 
 %sf600 {
   font-family: SFUIDisplay, sans-serif;
@@ -35,3 +38,48 @@ $br: 8px;
 }
 
 //@extend %ff600;
+
+%loginBlock {
+  margin: 0 auto;
+  padding: 25px 35px;
+
+  max-width: 415px;
+  width: 100%;
+  min-height: 470px;
+
+  background-color: $bgWhite;
+  border-radius: 8px;
+  text-align: center;
+}
+
+%loginTitle {
+  margin-bottom: 35px;
+
+  @extend %ff600;
+  font-size: 26px
+}
+
+%loginCaption {
+  margin-bottom: 40px;
+
+  @extend %ff600;
+  font-size: 22px;
+}
+
+%btn {
+  min-height: 35px;
+  width: 100%;
+
+  padding: 10px;
+
+  @extend %sf500;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  border-radius: $brBtn;
+  color: $textLight;
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+}
+

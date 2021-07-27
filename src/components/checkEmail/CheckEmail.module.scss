@@ -4,22 +4,11 @@
 
 
 .checkEmail {
-  margin: 125px auto 0;
-  padding: 20px 45px;
-
-  width: 415px;
-  height: 470px;
-
-  background-color: $bgWhite;
-  border-radius: 8px;
-  text-align: center;
+  @extend %loginBlock;
 }
 
 .title {
-  margin-bottom: 35px;
-
-  @extend %ff600;
-  font-size: 26px;
+  @extend %loginTitle;
 }
 
 .iconBg {
@@ -37,10 +26,9 @@
 }
 
 .caption {
-  margin-bottom: 20px;
+  @extend  %loginCaption;
 
-  @extend %ff600;
-  font-size: 22px;
+  margin-bottom: 20px;
 }
 
 .text {

@@ -6,6 +6,8 @@
   width: 100%;
   height: 80px;
   background-color: $primaryColor;
+  position: fixed;
+  top: 0;
 
   .headerLink {
     @include text($fontFamilyStyle, 16px, 400, $whiteTextColor);

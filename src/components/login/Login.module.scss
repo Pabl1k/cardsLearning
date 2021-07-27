@@ -1,2 +1,98 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
+
+
+.login {
+  @extend %loginBlock;
+}
+
+.title {
+  @extend %loginTitle;
+}
+
+.caption {
+  @extend %loginCaption;
+}
+
+.inputBox {
+  margin-bottom: 40px;
+}
+
+.inputWrap {
+  margin-bottom: 25px;
+}
+
+.infoWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 80px;
+}
+
+.forgotLink {
+  font-size: 14px;
+  line-height: 1.2;
+  color: $accent;
+
+  &:hover {
+    text-decoration: underline;
+    color: lighten($accent, 10%);
+  }
+
+  &:active {
+    color: darken($accent, 10%);
+  }
+}
+
+.button {
+  margin-bottom: 30px;
+
+  max-width: 255px;
+  @extend %btn;
+  background-color: $accent;
+
+  //box-shadow: 0 4px 18px #21268F, inset 0 1px 0 #000000;
+
+  box-shadow:
+          0 4px 18px rgba(33, 38, 143, .35),
+          inset 0 1px 0  rgba(255, 255, 255, .3);
+
+
+  &:hover {
+    background-color: lighten($accent, 5%);
+  }
+
+  &:active {
+    background-color: darken($accent, 5%);
+  }
+
+
+}
+
+.account {
+  display: block;
+
+  margin-bottom: 10px;
+
+  @extend %sf600;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: .5;
+}
+
+.singUp {
+  font-size: 16px;
+  @extend %sf600;
+  color: $accent;
+
+  &:hover {
+    text-decoration: underline;
+    color: lighten($accent, 10%);
+  }
+
+  &:active {
+    color: darken($accent, 10%);
+  }
+}
+
