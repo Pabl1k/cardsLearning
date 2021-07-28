@@ -5,7 +5,7 @@ import {AppRootStateType} from "../../redux/store"
 import {loginTC} from "../../redux/reducers/login-reducer"
 import {useFormik} from "formik"
 import {Checkbox} from "../common/checkbox/Checkbox"
-import {InputText} from "../common/inputText/InputText";
+import {InputText} from "../common/inputText/InputText"
 import {Button} from "../common/button/Button"
 import style from "./Login.module.scss"
 
@@ -19,7 +19,7 @@ type FormikErrorType = {
 
 export const Login = React.memo(function (props: LoginPropsType) {
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.userData.isLoggedIn)
     const dispatch = useDispatch()
 
     const formik = useFormik({

@@ -11,9 +11,8 @@ type ProfilePropsType = {}
 
 export const Profile = React.memo(function (props: ProfilePropsType) {
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const userName = useSelector<AppRootStateType, string>(state => state.loginReducer.name)
-    const userAvatar = useSelector<AppRootStateType, string | undefined | null>(state => state.loginReducer.avatar)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.userData.isLoggedIn)
+    const {userName, userAvatar} = useSelector((state: AppRootStateType) => state.loginReducer.userData)
     const dispatch = useDispatch()
 
     if (!isLoggedIn) {

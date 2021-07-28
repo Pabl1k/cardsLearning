@@ -5,9 +5,9 @@ const LOGIN_USER = "LOGIN_USER"
 
 type InitialStateType = {
     userData: {
-        email: string
-        name: string
-        avatar: string | undefined | null
+        userEmail: string
+        userName: string
+        userAvatar: string | undefined | null
         publicCardsCount: number
         isLoggedIn: boolean
     }
@@ -15,9 +15,9 @@ type InitialStateType = {
 
 const initialState: InitialStateType = {
     userData: {
-        email: "",
-        name: "",
-        avatar: "",
+        userEmail: "",
+        userName: "",
+        userAvatar: "",
         publicCardsCount: 0,
         isLoggedIn: false,
     }
@@ -36,9 +36,9 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 }
 
 // actions
-export const loginUserAC = (email: string, name: string, avatar: string | undefined | null,
+export const loginUserAC = (userEmail: string, userName: string, userAvatar: string | undefined | null,
                             publicCardsCount: number, isLoggedIn: boolean) => {
-    return {type: LOGIN_USER, payload: {email, name, avatar, publicCardsCount, isLoggedIn}} as const
+    return {type: LOGIN_USER, payload: {userEmail, userName, userAvatar, publicCardsCount, isLoggedIn}} as const
 }
 
 // thunks
