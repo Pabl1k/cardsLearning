@@ -49,6 +49,20 @@
 
 //nata
 
+
+@mixin flex($flex-direction: row, $align-items: center, $justifyContent: space-between) {
+  display: flex;
+  flex-direction: $flex-direction;
+  align-items: $align-items;
+  justify-content: $justifyContent;}
+
+//   @include flex(column);
+//   @include flex();
+//   @include flex(center, flex-start);
+//   @include flex(center, center);
+
+
+
 @mixin media($width, $type:max) {
   @if map_has_key($breakpoints, $width) {
     $width: map_get($breakpoints, $width);

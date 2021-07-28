@@ -32,9 +32,12 @@ const useStyles = makeStyles({
             fontSize: "14px",
             lineHeight: "1.2",
             color: "#2D2E46",
-        }
+        },
+        '& .MuiIconButton-label': {
+            color: "#2D2E46",
+        },
     }
-})
+});
 
 export const Login = React.memo(function (props: LoginPropsType) {
 
@@ -85,8 +88,8 @@ export const Login = React.memo(function (props: LoginPropsType) {
 
 
     return (
-        <div className={s.login}>
 
+        <div className={s.login}>
             <h1 className={s.title}>
                 It-Incubator
             </h1>
@@ -109,7 +112,6 @@ export const Login = React.memo(function (props: LoginPropsType) {
                     </div>
 
                     <div className={s.inputWrap}>
-
                         <InputTextMUI
                             type={showPassword ? 'text' : 'password'}
                             value={password}
@@ -132,7 +134,6 @@ export const Login = React.memo(function (props: LoginPropsType) {
                 </div>
 
                 <div className={s.infoWrap}>
-
                     <FormControlLabel
                         className={classes.root}
                         control={

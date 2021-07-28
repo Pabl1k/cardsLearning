@@ -22,11 +22,20 @@
 }
 
 .btns {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex();
 
   padding-bottom: 25px;
+
+  @include media(xs) {
+    flex-direction: column-reverse;
+  }
+}
+
+.button {
+  @include media(xs) {
+    max-width: 125px;
+    margin-bottom: 30px;
+  }
 }
 
 .button:first-child {
