@@ -17,6 +17,7 @@ type FormikErrorType = {
 export const RestorePassword = React.memo(function (props: RestorePasswordPropsType) {
 
     const dispatch = useDispatch()
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const errorMessage = useSelector<AppRootStateType, string | null>(message => message.restorePasswordReducer.errorMessage)
 
     const formik = useFormik({
@@ -40,6 +41,10 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
 
     if (errorMessage?.slice(0, 8) === 'Recovery') {
         return <Redirect to={'/login'}/>
+    }
+
+    if (isLoggedIn) {
+        return <Redirect to={"/profile"}/>
     }
 
     return (

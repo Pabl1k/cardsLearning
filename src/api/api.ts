@@ -15,7 +15,7 @@ const instance = axios.create({
 // api
 export const authAPI = {
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<UserDataType>("auth/login", {email, password, rememberMe})
+        return instance.post<LoginUserResponseType>("auth/login", {email, password, rememberMe})
     },
     me() {
         return instance.post<UserDataType>("auth/me", {})
@@ -49,11 +49,7 @@ export type ResponseType<D = {}> = {
     data: D
 }
 
-export type LoginUserResponseType = {
-    token: string
-    tokenDeathTime: number
-    updatedUser: UserDataType
-}
+export type LoginUserResponseType = UserDataType
 
 export type UpdateUserDataResponseType = {
     token: string

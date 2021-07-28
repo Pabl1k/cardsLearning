@@ -1,22 +1,29 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
+import {setIsLoggedInAC} from "./login-reducer"
 
 const TEMPLATE_ACTION = "TEMPLATE_ACTION"
 
-const initialState = {
-    _id: "",
-    email: "",
-    name: "",
-    avatar: "",
-    publicCardPacksCount: 0,
-    created: "",
-    updated: "",
-    isAdmin: false,
-    verified: false,
-    rememberMe: false,
-    error: "" as string | null | undefined
+type InitialStateType = {
+    userData: {
+        _id: string
+        /*userEmail: string
+        userName: string
+        userAvatar: string | undefined | null
+        publicCardPacksCount: number*/
+    }
 }
-type InitialStateType = typeof initialState
+
+const initialState = {
+    userData: {
+        _id: "",
+        /*userEmail: "",
+        userName: "",
+        userAvatar: "",
+        publicCardPacksCount: 0*/
+    }
+}
+
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -28,17 +35,17 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 
 // actions
-export const templateAC = (email: string, name: string, avatar: string | undefined | null,
-                            publicCardsCount: number, isLoggedIn?: boolean) => {
-    return {type: TEMPLATE_ACTION, email, name, avatar, publicCardsCount, isLoggedIn} as const
+export const templateAC = (body: any) => {
+    return {type: TEMPLATE_ACTION, body: body} as const
 }
 
 // thunks
-export const templateTC = (isLoggedIn: boolean = true) => (dispatch: Dispatch<ActionsType>) => {
+export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
     authAPI.me()
         .then(res => {
-            const {email, name, avatar, publicCardPacksCount} = res.data
-            dispatch(templateAC(email, name, avatar, publicCardPacksCount, isLoggedIn))
+            if (res.data._id) {
+                dispatch(setIsLoggedInAC(true))
+            }
         })
         .catch((error) => {
             console.log(error)
@@ -49,5 +56,5 @@ export const templateTC = (isLoggedIn: boolean = true) => (dispatch: Dispatch<Ac
 }
 
 // types
-export type templateActionType = ReturnType<typeof templateAC>
-type ActionsType = templateActionType
+type ActionsType = ReturnType<typeof templateAC>
+    | ReturnType<typeof setIsLoggedInAC>

@@ -2,6 +2,7 @@ import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
 
 const LOGIN_USER = "LOGIN_USER"
+const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
 
 type InitialStateType = {
     userData: {
@@ -9,8 +10,9 @@ type InitialStateType = {
         userName: string
         userAvatar: string | undefined | null
         publicCardsCount: number
-        isLoggedIn: boolean
+
     }
+    isLoggedIn: boolean
 }
 
 const initialState: InitialStateType = {
@@ -19,8 +21,8 @@ const initialState: InitialStateType = {
         userName: "",
         userAvatar: "",
         publicCardsCount: 0,
-        isLoggedIn: false,
-    }
+    },
+    isLoggedIn: false
 }
 
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -28,7 +30,13 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
         case LOGIN_USER:
             return {
                 ...state,
-                userData: {...action.payload}
+                userData: {...action.payload},
+                isLoggedIn: action.payload.isLoggedIn
+            }
+        case SET_IS_LOGGED_IN:
+            return {
+                ...state,
+                isLoggedIn: action.isLoggedIn
             }
         default:
             return state
@@ -41,11 +49,16 @@ export const loginUserAC = (userEmail: string, userName: string, userAvatar: str
     return {type: LOGIN_USER, payload: {userEmail, userName, userAvatar, publicCardsCount, isLoggedIn}} as const
 }
 
+export const setIsLoggedInAC = (isLoggedIn: boolean) => {
+    return {type: SET_IS_LOGGED_IN, isLoggedIn} as const
+}
+
 // thunks
 export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch<ActionsType>) => {
     authAPI.login(email, password, rememberMe)
         .then(res => {
             console.log(res)
+            // dispatch(setIsLoggedInAC(true))
             dispatch(loginUserAC(res.data.email, res.data.name, res.data.avatar, res.data.publicCardPacksCount, true))
         })
         .catch((e) => {
@@ -60,7 +73,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
 export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
     authAPI.logout()
         .then(res => {
-            //dispatch()
+            dispatch(setIsLoggedInAC(false))
         })
         .catch((error) => {
             console.log(error)
@@ -69,3 +82,4 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
 
 // types
 type ActionsType = ReturnType<typeof loginUserAC>
+    | ReturnType<typeof setIsLoggedInAC>

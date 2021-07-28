@@ -19,7 +19,7 @@ type FormikErrorType = {
 
 export const Login = React.memo(function (props: LoginPropsType) {
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.userData.isLoggedIn)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
     const formik = useFormik({

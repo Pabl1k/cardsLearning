@@ -19,7 +19,7 @@ const initialState: InitialStateType = {
     }
 }
 
-export const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case CHANGE_USER_DATA:
             return {...state, userData: {...action.payload}}

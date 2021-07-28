@@ -1,10 +1,10 @@
 import React from "react"
 import {useFormik} from "formik"
+import {Redirect} from "react-router-dom"
+import {SignUpTC} from "../../redux/reducers/registration-reducer"
+import {useDispatch, useSelector} from "react-redux"
+import {AppRootStateType} from "../../redux/store"
 import style from "./Registration.module.scss"
-import {SignUpTC} from "../../redux/reducers/registration-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../redux/store";
-import {Redirect} from "react-router-dom";
 
 type LoginPropsType = {}
 
@@ -16,6 +16,7 @@ type FormikErrorType = {
 
 export const Registration = React.memo((props: LoginPropsType) => {
     const dispatch = useDispatch()
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
 
     const formik = useFormik({
@@ -51,6 +52,10 @@ export const Registration = React.memo((props: LoginPropsType) => {
 
     if (isSignUp) {
         return <Redirect to={'/login'}/>
+    }
+
+    if (isLoggedIn) {
+        return <Redirect to={"/profile"}/>
     }
 
     return (
