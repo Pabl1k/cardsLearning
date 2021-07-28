@@ -2,7 +2,7 @@ import axios from "axios"
 
 // createdAcc:
 // email: poiumazaya@gmail.com
-// password: piatnicaTest
+// password: newPiatnicaTest
 // id: 60fd99dcc6db2000047c6c7d
 
 const instance = axios.create({
@@ -24,11 +24,9 @@ export const authAPI = {
         return instance.post<RestorePasswordResponseType>(`auth/forgot`, {
             email: email,
             from: `test-front-admin <ai73a@yandex.by>`,
-            message: ''
-            // добавить HTML-файл от Наталии
-            // message: `<div style="background-color: lime; padding: 15px">
-            //                 Click <a href='http://localhost:3000/it-incubator-friday-project#/updatePassword/$token$'>here</a> to recover your password
-            //           </div>`
+            message: `<div style="background-color: lime; padding: 15px">
+                            Click <a href='http://localhost:3000/it-incubator-friday-project#/updatePassword/$token$'>here</a> to restore your password
+                      </div>`
         })
     },
     signUp(email: string, password: string) {
@@ -37,6 +35,13 @@ export const authAPI = {
     logout() {
         return instance.delete("auth/me", {})
     },
+    setNewPassword(newPassword: string, resetPasswordToken: string) {
+        debugger
+        return instance.post(`/auth/set-new-password`, {
+            password: newPassword,
+            resetPasswordToken
+        })
+    }
 }
 
 export const profileAPI = {

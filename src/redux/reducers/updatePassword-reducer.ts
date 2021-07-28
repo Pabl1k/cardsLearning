@@ -1,39 +1,46 @@
 import {Dispatch} from "redux"
+import {authAPI} from "../../api/api";
 
-const TEMPLATE_ACTION = "TEMPLATE_ACTION"
+const IS_SUCCESS = "IS_SUCCESS"
 
-type InitialStateType = {}
+type InitialStateType = {
+    isSuccess: boolean
+}
 
-const initialState: InitialStateType = {}
+const initialState: InitialStateType = {
+    isSuccess: false
+}
 
 export const updatePasswordReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case TEMPLATE_ACTION:
-            return state
+        case IS_SUCCESS:
+            return {...state, isSuccess: action.isSuccess}
         default:
             return state
     }
 }
 
 // actions
-export const templateAC = (body: any) => {
-    return {type: TEMPLATE_ACTION, body: body} as const
+export const isSuccessAC = (isSuccess: boolean) => {
+    return {type: IS_SUCCESS, isSuccess} as const
 }
 
 // thunks
-/*export const templateTC = () => (dispatch: Dispatch<ActionsType>) => {
-    someAPI.someMethod()
+export const updatePasswordTC = (newPassword: string, token: string) => (dispatch: Dispatch<ActionsType>) => {
+    debugger
+    authAPI.setNewPassword(newPassword, token)
         .then(res => {
-            // dispatch(templateAC(true, res.data.data.email))
+            if (res.status === 200) {
+                dispatch(isSuccessAC(true))
+            }
         })
-        .catch((error) => {
-            // ...some code
+        .catch((er) => {
+            console.log(er)
         })
         .finally(() => {
-            // ...some code
+            console.log('finally')
         })
-}*/
+}
 
 // types
-export type templateActionType = ReturnType<typeof templateAC>
-type ActionsType = templateActionType
+type ActionsType = ReturnType<typeof isSuccessAC>
