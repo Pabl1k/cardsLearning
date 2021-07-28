@@ -26,10 +26,6 @@ export const Registration = React.memo((props: LoginPropsType) => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
-    // временные стэйты для values инпутов нужно будет заменить на правильные из редакса
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [confirmPassword, setConfirmPassword] = useState<string>("");
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -91,8 +87,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                         <InputTextMUI
                             type={"email"}
                             autoComplete='off'
-                            value={email}
-                            onChange={(e) => setEmail(e.currentTarget.value)}
+                            {...formik.getFieldProps("email")}
                             label={"Email"}
                             helperText={formik.errors.password}
                         />
@@ -101,8 +96,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                     <div className={s.inputWrap}>
                         <InputTextMUI
                             type={showPassword ? 'text' : 'password'}
-                            value={password}
-                            onChange={(e) => setPassword(e.currentTarget.value)}
+                            {...formik.getFieldProps("password")}
                             label={"Password"}
                             InputProps={{
                                 endAdornment: (
@@ -122,8 +116,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                     <div className={s.inputWrap}>
                         <InputTextMUI
                             type={showPassword ? 'text' : 'password'}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.currentTarget.value)}
+                            {...formik.getFieldProps("repeatPassword")}
                             label={"Confirm password"}
                             InputProps={{
                                 endAdornment: (
@@ -151,33 +144,6 @@ export const Registration = React.memo((props: LoginPropsType) => {
                         Register
                     </Button>
                 </div>
-
-                {/*<input
-                        type="text"
-                        placeholder="Email"
-                        {...formik.getFieldProps("email")}
-                    />
-                    {
-                        formik.touched.email && formik.errors.email
-                            ? <div>{formik.errors.email}</div>
-                            : null
-                    }
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        {...formik.getFieldProps("password")}
-                    />
-                    {
-                        formik.touched.password && formik.errors.password
-                            ? <div>{formik.errors.password}</div>
-                            : null
-                    }
-                    <input
-                        type="password"
-                        placeholder="Repeat Password"
-                        {...formik.getFieldProps("repeatPassword")}
-                    />*/}
-                {/*<button type={"submit"}>Sign Up</button>*/}
             </form>
         </div>
     )

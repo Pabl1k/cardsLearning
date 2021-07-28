@@ -19,9 +19,11 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
         return <Redirect to={"/profile"}/>
     }
 
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    // временные стэйты для values инпутов нужно будет заменить на правильные из редакса
-    const [password, setPassword] = useState<string>("");
+    const showPassword = false
+    /*// временные стэйты для values инпутов нужно будет заменить на правильные из редакса
+    const [password, setPassword] = useState<string>("");*/
+
+    // !!!! Добавить useFormik !!!!!
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -39,15 +41,15 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
 
                     <InputTextMUI
                         type={showPassword ? 'text' : 'password'}
-                        value={password}
-                        onChange={(e) => setPassword(e.currentTarget.value)}
+                        // value={password} !!!!!
+                        // onChange={(e) => setPassword(e.currentTarget.value)} !!!!!!
                         label={"Password"}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
-                                        onClick={() => setShowPassword(!showPassword)}
+                                        //onClick={() => setShowPassword(!showPassword)} !!!!!
                                         onMouseDown={handleMouseDownPassword}
                                     >
                                         {showPassword ? <Visibility/> : <VisibilityOff/>}

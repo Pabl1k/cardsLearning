@@ -44,11 +44,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
     const dispatch = useDispatch()
 
     const classes = useStyles();
-
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    // временные стэйты для values инпутов нужно будет заменить на правильные из редакса
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -102,18 +98,15 @@ export const Login = React.memo(function (props: LoginPropsType) {
                         <InputTextMUI
                             type={"email"}
                             autoComplete='off'
-                            value={email}
-                            onChange={(e) => setEmail(e.currentTarget.value)}
+                            {...formik.getFieldProps("email")}
                             label={"Email"}
                             helperText={formik.errors.password}
                         />
                     </div>
-
                     <div className={s.inputWrap}>
                         <InputTextMUI
                             type={showPassword ? 'text' : 'password'}
-                            value={password}
-                            onChange={(e) => setPassword(e.currentTarget.value)}
+                            {...formik.getFieldProps("password")}
                             label={"Password"}
                             InputProps={{
                                 endAdornment: (
@@ -130,7 +123,6 @@ export const Login = React.memo(function (props: LoginPropsType) {
                         />
                     </div>
                 </div>
-
                 <div className={s.infoWrap}>
                     <FormControlLabel
                         className={classes.root}
@@ -142,57 +134,23 @@ export const Login = React.memo(function (props: LoginPropsType) {
                             />
                         }
                         label="Remember Me"/>
-
                     <NavLink to={"/"}
                              className={s.forgotLink}>
                         Forgot Password
                     </NavLink>
                 </div>
 
-                <Button className={s.button}>
+                <Button type={"submit"}
+                        className={s.button}>
                     Login
                 </Button>
 
                 <span className={s.account}>Don’t have an account?</span>
 
-
                 <NavLink to={"/"}
                          className={s.singUp}>
                     Sign Up
                 </NavLink>
-
-                {/* <InputText
-                    type="text"
-                    placeholder="Email"
-                    {...formik.getFieldProps("email")}
-
-                />
-                {
-                    formik.touched.email && formik.errors.email
-                        ? <div>{formik.errors.email}</div>
-                        : null
-                }
-                <InputText
-                    type="password"
-                    placeholder="Password"
-                    {...formik.getFieldProps("password")}
-                    style={{width: 250, height: 50}}
-                />
-                {
-                    formik.touched.password && formik.errors.password
-                        ? <div>{formik.errors.password}</div>
-                        : null
-                }
-                <Checkbox
-                    {...formik.getFieldProps("rememberMe")}
-                >
-                    Remember me
-                </Checkbox>
-                <Button
-                    type={"submit"}
-                    style={{width: 150, height: 50}}
-                >Login
-                </Button>*/}
             </form>
         </div>
     )

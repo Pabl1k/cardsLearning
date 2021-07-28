@@ -21,11 +21,6 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const errorMessage = useSelector<AppRootStateType, string | null>(message => message.restorePasswordReducer.errorMessage)
 
-
-// временные стэйты для values инпутов нужно будет заменить на правильные из редакса
-    const [email, setEmail] = useState<string>("");
-
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -65,8 +60,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                     <InputTextMUI
                         type={"email"}
                         autoComplete='off'
-                        value={email}
-                        onChange={(e) => setEmail(e.currentTarget.value)}
+                        {...formik.getFieldProps('email')}
                         label={"Email"}
                         helperText={formik.errors.email}
                     />
@@ -78,23 +72,6 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                 <Button className={s.button}>Send Instructions</Button>
 
                 <p className={s.password}>Did you remember your password?</p>
-
-                {/* <InputText
-                    style={{width: 250, height: 50}}
-                    placeholder='Email'
-                    {...formik.getFieldProps('email')}/>
-
-                {formik.touched.email && formik.errors.email &&
-                <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                <br/>
-                <p style={{color: 'red'}}>{errorMessage}</p>
-                <br/><br/><br/>
-                <p>Enter your email address and we will send you a further instructions</p>
-                <br/><br/>
-                <Button
-                    type={'submit'}
-                    style={{width: 150, height: 50}}>Send instructions</Button>
-                <br/><br/>*/}
 
                 <NavLink to={'/login'} className={s.try}>Try logging in</NavLink>
             </form>
