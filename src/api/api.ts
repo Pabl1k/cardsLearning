@@ -15,7 +15,7 @@ const instance = axios.create({
 // api
 export const authAPI = {
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<LoginResponseType>("auth/login", {email, password, rememberMe})
+        return instance.post<UserDataResponseType>("auth/login", {email, password, rememberMe})
     },
     restorePassword(email: string) {
         return instance.post<RestorePasswordResponseType>(`auth/forgot`, {
@@ -35,21 +35,22 @@ export const authAPI = {
     },
 }
 
+export const profileAPI = {
+    updateUserData(name: string, avatar: string) {
+        return instance.put<UserDataResponseType>("auth/me", {name, avatar})
+    }
+}
+
 // types
 export type ResponseType<D = {}> = {
     data: D
 }
 
-export type ResponseSignUpType = {
-    addedUser: any
-    error?: string
-}
-
-export type LoginResponseType = {
+export type UserDataResponseType = {
     _id: string
     email: string
     name: string
-    avatar: string | undefined
+    avatar: string | undefined | null
     publicCardPacksCount: number
 
     created: Date
@@ -58,6 +59,11 @@ export type LoginResponseType = {
     verified: boolean
     rememberMe: boolean
 
+    error?: string
+}
+
+export type ResponseSignUpType = {
+    addedUser: any
     error?: string
 }
 

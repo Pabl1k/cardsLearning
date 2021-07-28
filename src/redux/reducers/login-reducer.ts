@@ -7,7 +7,7 @@ type InitialStateType = {
     _id: string
     email: string
     name: string
-    avatar: string | undefined
+    avatar: string | undefined | null
     publicCardsCount: number
     isLoggedIn: boolean
 }
@@ -38,7 +38,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 }
 
 // actions
-export const loginUserAC = (email: string, name: string, avatar: string | undefined,
+export const loginUserAC = (email: string, name: string, avatar: string | undefined | null,
                             publicCardsCount: number, isLoggedIn: boolean) => {
     return {type: LOGIN_USER, email, name, avatar, publicCardsCount, isLoggedIn} as const
 }
