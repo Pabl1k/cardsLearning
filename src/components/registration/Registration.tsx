@@ -1,6 +1,6 @@
 import React from "react"
 import {useFormik} from "formik"
-import {Redirect} from "react-router-dom"
+import {Redirect, useHistory} from "react-router-dom"
 import {SignUpTC} from "../../redux/reducers/registration-reducer"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
@@ -21,10 +21,12 @@ type FormikErrorType = {
 }
 
 export const Registration = React.memo((props: LoginPropsType) => {
+
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
+    const history = useHistory()
 
     /*const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);*/
@@ -34,6 +36,9 @@ export const Registration = React.memo((props: LoginPropsType) => {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
+    const RedirectToLoginHandler = () => {
+        history.push('/login')
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -41,6 +46,8 @@ export const Registration = React.memo((props: LoginPropsType) => {
             password: "",
             repeatPassword: ""
         },
+
+
         validate: (values) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
@@ -141,7 +148,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                 </div>
 
                 <div className={s.btns}>
-                    <Button className={s.button}>
+                    <Button className={s.button} onClick={RedirectToLoginHandler}>
                         Cancel
                     </Button>
 
