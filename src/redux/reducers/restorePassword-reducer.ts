@@ -1,5 +1,6 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
+import {setAppStatusAC} from "./app-reducer";
 
 const SET_ERROR_MESSAGE = "SET-ERROR-MESSAGE"
 
@@ -25,20 +26,25 @@ export const setErrorMessageAC = (errorMessage: string) => ({type: SET_ERROR_MES
 
 // thunks
 export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     authAPI.restorePassword(email)
         .then((res) => {
             if (res.status === 200) {
                 console.log(res)
                 dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
+                dispatch(setAppStatusAC("succeeded"))
             }
         })
         .catch(er => {
             console.log(er)
             dispatch(setErrorMessageAC(`Account with email: ${email}, does not exist`))
+            dispatch(setAppStatusAC('failed'))
         })
         .finally(() => {
         })
 }
 
 // types
-type ActionsType = ReturnType<typeof setErrorMessageAC>
+type ActionsType =
+    | ReturnType<typeof setErrorMessageAC>
+    | ReturnType<typeof setAppStatusAC>

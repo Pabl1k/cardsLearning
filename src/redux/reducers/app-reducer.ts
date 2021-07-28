@@ -2,7 +2,7 @@ import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
 import {setIsLoggedInAC} from "./login-reducer"
 
-const TEMPLATE_ACTION = "TEMPLATE_ACTION"
+const APP_SET_STATUS = 'APP/SET-STATUS'
 
 type InitialStateType = {
     userData: {
@@ -12,6 +12,7 @@ type InitialStateType = {
         userAvatar: string | undefined | null
         publicCardPacksCount: number*/
     }
+    status: RequestStatusType
 }
 
 const initialState = {
@@ -21,23 +22,22 @@ const initialState = {
         userName: "",
         userAvatar: "",
         publicCardPacksCount: 0*/
-    }
+    },
+    status: 'idle' as RequestStatusType
 }
 
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case TEMPLATE_ACTION:
-            return state
+        case APP_SET_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
 }
 
 // actions
-export const templateAC = (body: any) => {
-    return {type: TEMPLATE_ACTION, body: body} as const
-}
+export const setAppStatusAC = (status: RequestStatusType) => ({type: APP_SET_STATUS, status} as const)
 
 // thunks
 export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
@@ -56,5 +56,6 @@ export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
 }
 
 // types
-type ActionsType = ReturnType<typeof templateAC>
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type ActionsType = ReturnType<typeof setAppStatusAC>
     | ReturnType<typeof setIsLoggedInAC>

@@ -1,9 +1,10 @@
-import React, {useState} from "react"
+import React from "react"
 import {useFormik} from "formik"
 import {Redirect} from "react-router-dom"
 import {SignUpTC} from "../../redux/reducers/registration-reducer"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
+import {RequestStatusType} from "../../redux/reducers/app-reducer";
 import {InputTextMUI} from "../common/inputText/InputTextMUI";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {IconButton} from "@material-ui/core";
@@ -23,9 +24,12 @@ export const Registration = React.memo((props: LoginPropsType) => {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
 
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+    /*const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);*/
+
+    const showPassword = false // !!!! исправить
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -103,7 +107,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
-                                            onClick={() => setShowPassword(!showPassword)}
+                                            // onClick={() => setShowPassword(!showPassword)} !!!! исправить
                                             onMouseDown={handleMouseDownPassword}
                                         >
                                             {showPassword ? <Visibility/> : <VisibilityOff/>}
@@ -123,10 +127,11 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
-                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                            // onClick={() => setShowConfirmPassword(!showConfirmPassword)} !!!! исправить
                                             onMouseDown={handleMouseDownPassword}
                                         >
-                                            {showConfirmPassword ? <Visibility/> : <VisibilityOff/>}
+                                            {/*!!!! исправить
+                                            {showConfirmPassword ? <Visibility/> : <VisibilityOff/>}*/}
                                         </IconButton>
                                     </InputAdornment>)
                             }}
@@ -140,7 +145,10 @@ export const Registration = React.memo((props: LoginPropsType) => {
                         Cancel
                     </Button>
 
-                    <Button className={s.button}>
+                    <Button
+                        type={"submit"}
+                        disabled={status === "loading"}
+                        className={s.button}>
                         Register
                     </Button>
                 </div>

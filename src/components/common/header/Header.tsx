@@ -5,6 +5,7 @@ import {Button} from "../button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutTC} from "../../../redux/reducers/login-reducer";
 import {AppRootStateType} from "../../../redux/store";
+import {RequestStatusType} from "../../../redux/reducers/app-reducer";
 
 
 type HeaderPropsType = {}
@@ -14,6 +15,7 @@ export const Header = React.memo(function (props: HeaderPropsType) {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
@@ -24,6 +26,7 @@ export const Header = React.memo(function (props: HeaderPropsType) {
                 ? <div>
                     <Button style={{width: 150, height: 50, color: "white"}}
                             onClick={logoutHandler}
+                            disabled={status === "loading"}
                             className={style.headerLink}>
                         Log out
                     </Button>

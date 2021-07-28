@@ -7,6 +7,7 @@ import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer";
 import s from "./RestorePassword.module.scss"
 import {InputTextMUI} from "../common/inputText/InputTextMUI";
 import {Button} from "../common/button/Button";
+import {RequestStatusType} from "../../redux/reducers/app-reducer";
 
 type RestorePasswordPropsType = {}
 
@@ -20,6 +21,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const errorMessage = useSelector<AppRootStateType, string | null>(message => message.restorePasswordReducer.errorMessage)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
 
     const formik = useFormik({
         initialValues: {
@@ -69,7 +71,11 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                     Enter your email address and we will send you further instructions
                 </p>
 
-                <Button className={s.button}>Send Instructions</Button>
+                <Button
+                    disabled={status === "loading"}
+                    className={s.button}>
+                    Send Instructions
+                </Button>
 
                 <p className={s.password}>Did you remember your password?</p>
 

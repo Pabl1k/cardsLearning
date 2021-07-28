@@ -10,6 +10,7 @@ import {Visibility, VisibilityOff} from "@material-ui/icons";
 import {InputTextMUI} from "../common/inputText/InputTextMUI";
 import {Button} from "../common/button/Button"
 import s from "./Login.module.scss"
+import {RequestStatusType} from "../../redux/reducers/app-reducer";
 
 type LoginPropsType = {}
 
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 export const Login = React.memo(function (props: LoginPropsType) {
-
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
@@ -141,6 +142,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
                 </div>
 
                 <Button type={"submit"}
+                        disabled={status === "loading"}
                         className={s.button}>
                     Login
                 </Button>
