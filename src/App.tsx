@@ -12,7 +12,8 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import s from "./App.module.scss"
 import {AppRootStateType} from "./redux/store";
-import {CircularProgress} from "@material-ui/core";
+import {Backdrop, CircularProgress, makeStyles} from "@material-ui/core";
+import Preloader from "./components/common/preloader/Preloader";
 
 function App() {
 
@@ -23,16 +24,10 @@ function App() {
         dispatch(initializeAppTC())
     }, [dispatch])
 
-    if (status === "loading") {
-        return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress/>
-        </div>
-    }
     return (
         <section className={s.pagesContainer}>
             <Header/>
-            {/*{status === "loading" && <LinearProgress color="secondary"/>}*/}
+            {status === "loading" && <Preloader/>}
             <Switch>
                 <Route exact path={"/profile"} render={() => <Profile/>}/>
                 <Route path={"/login"} render={() => <Login/>}/>
