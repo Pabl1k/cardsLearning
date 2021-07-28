@@ -56,6 +56,12 @@ export const Header = React.memo(function (props: HeaderPropsType) {
                             RestorePassword
                         </NavLink>
                     </div>
+                    {<div>
+                        <NavLink to={"/checkEmail"}
+                                 className={style.headerLink}>
+                            Check email
+                        </NavLink>
+                    </div>}
                     <div>
                         <NavLink
                             to={"/updatePassword"}
@@ -63,13 +69,7 @@ export const Header = React.memo(function (props: HeaderPropsType) {
                             UpdatePassword
                         </NavLink>
                     </div>
-                    {/* для отображения страницы check email */}
-                    {/*<div>
-                        <NavLink to={"/checkEmail"}
-                                 className={style.headerLink}>
-                            check email
-                        </NavLink>
-                    </div>*/}
+
                 </>
             }
         </header>

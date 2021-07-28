@@ -25,6 +25,7 @@ export const authAPI = {
             email: email,
             from: `test-front-admin <ai73a@yandex.by>`,
             message: ''
+            // добавить HTML-файл от Наталии
             // message: `<div style="background-color: lime; padding: 15px">
             //                 Click <a href='http://localhost:3000/it-incubator-friday-project#/updatePassword/$token$'>here</a> to recover your password
             //           </div>`
