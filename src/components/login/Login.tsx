@@ -25,7 +25,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
     const formik = useFormik({
         initialValues: {
             email: "",
-            password: "",
+            newPassword: "",
             rememberMe: false
         },
         validate: (values) => {
@@ -35,15 +35,15 @@ export const Login = React.memo(function (props: LoginPropsType) {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = "Invalid email address."
             }
-            if (!values.password) {
+            if (!values.newPassword) {
                 errors.password = "Required."
-            } else if (values.password.length < 6) {
+            } else if (values.newPassword.length < 6) {
                 errors.password = "Password must be more than six characters."
             }
             return errors
         },
         onSubmit: (values) => {
-            dispatch(loginTC(values.email, values.password, values.rememberMe))
+            dispatch(loginTC(values.email, values.newPassword, values.rememberMe))
             formik.resetForm()
         }
     })
@@ -79,8 +79,8 @@ export const Login = React.memo(function (props: LoginPropsType) {
                     style={{width: 250, height: 50}}
                 />
                 {
-                    formik.touched.password && formik.errors.password
-                        ? <div>{formik.errors.password}</div>
+                    formik.touched.newPassword && formik.errors.newPassword
+                        ? <div>{formik.errors.newPassword}</div>
                         : null
                 }
                 <Checkbox

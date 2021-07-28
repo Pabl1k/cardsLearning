@@ -21,7 +21,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
     const formik = useFormik({
         initialValues: {
             email: "",
-            password: "",
+            newPassword: "",
             repeatPassword: ""
         },
         validate: (values) => {
@@ -31,20 +31,20 @@ export const Registration = React.memo((props: LoginPropsType) => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = "Invalid email address."
             }
-            if (!values.password) {
+            if (!values.newPassword) {
                 errors.password = "Required."
-            } else if (values.password.length < 6) {
+            } else if (values.newPassword.length < 6) {
                 errors.password = `Password must be more than six characters.`
             }
             if (!values.repeatPassword) {
                 errors.repeatPassword = 'Required';
-            } else if (values.password !== values.repeatPassword) {
+            } else if (values.newPassword !== values.repeatPassword) {
                 errors.repeatPassword = 'Passwords are not equal';
             }
             return errors
         },
         onSubmit: (values) => {
-            dispatch(SignUpTC(values.email, values.password))
+            dispatch(SignUpTC(values.email, values.newPassword))
             formik.resetForm()
         }
     })
@@ -78,8 +78,8 @@ export const Registration = React.memo((props: LoginPropsType) => {
                     {...formik.getFieldProps("password")}
                 />
                 {
-                    formik.touched.password && formik.errors.password
-                        ? <div>{formik.errors.password}</div>
+                    formik.touched.newPassword && formik.errors.newPassword
+                        ? <div>{formik.errors.newPassword}</div>
                         : null
                 }
                 <input

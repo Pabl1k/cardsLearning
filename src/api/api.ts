@@ -3,11 +3,12 @@ import axios from "axios"
 // createdAcc:
 // email: poiumazaya@gmail.com
 // password: piatnicaTest
+// newPass: newPiatnicaTest
 // id: 60fd99dcc6db2000047c6c7d
 
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0",
-    baseURL: "http://localhost:7542/2.0/",
+    baseURL: "https://neko-back.herokuapp.com/2.0",
+    // baseURL: "http://localhost:7542/2.0/",
     withCredentials: true,
     headers: {}
 })
@@ -15,24 +16,31 @@ const instance = axios.create({
 // api
 export const authAPI = {
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<LoginResponseType>("auth/login", {email, password, rememberMe})
+        return instance.post<LoginResponseType>("auth/login", {email, password: password, rememberMe})
     },
     restorePassword(email: string) {
         return instance.post<RestorePasswordResponseType>(`auth/forgot`, {
             email: email,
             from: `test-front-admin <ai73a@yandex.by>`,
-            message: ''
-            // message: `<div style="background-color: lime; padding: 15px">
-            //                 Click <a href='http://localhost:3000/it-incubator-friday-project#/updatePassword/$token$'>here</a> to recover your password
-            //           </div>`
+            // message: ''
+            message: `<div style="background-color: lime; padding: 15px">
+                            Click <a href='http://localhost:3000/it-incubator-friday-project#/updatePassword/$token$'>here</a> to restore your password
+                      </div>`
         })
     },
     signUp(email: string, password: string) {
-        return instance.post<ResponseSignUpType>(`auth/register`, {email, password})
+        return instance.post<ResponseSignUpType>(`auth/register`, {email, password: password})
     },
     logout() {
         return instance.delete("auth/me", {})
     },
+    setNewPassword(newPassword: string, resetPasswordToken: string) {
+        debugger
+        return instance.post(`/auth/set-new-password`, {
+            password: newPassword,
+            resetPasswordToken
+        })
+    }
 }
 
 // types

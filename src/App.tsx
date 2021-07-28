@@ -20,11 +20,11 @@ function App() {
                 <Route path={"/login"} render={() => <Login/>}/>
                 <Route path={"/registration"} render={() => <Registration/>}/>
                 <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
-                <Route path={"/updatePassword"} render={() => <UpdatePassword/>}/>
+                <Route path={"/updatePassword/:token"} render={() => <UpdatePassword/>}/>
                 <Route path={"/404"} render={() => <PageNotFound/>}/>
                 <Route exact path={"/test"} render={() => <TestComponents/>}/>
                 <Route exact path={"/checkEmail"} render={() => <CheckEmail/>}/>
-                <Redirect from={"*"} to={"/404"}/>
+                {/*<Redirect from={"*"} to={"/404"}/>*/}
             </Switch>
         </section>
     )

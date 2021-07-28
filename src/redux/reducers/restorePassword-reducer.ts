@@ -27,14 +27,11 @@ export const setErrorMessageAC = (errorMessage: string) => ({type: SET_ERROR_MES
 export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
     authAPI.restorePassword(email)
         .then((res) => {
-            if (res.status === 200) {
-                console.log(res)
-                dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
-            }
+
         })
-        .catch(er => {
-            console.log(er)
-            dispatch(setErrorMessageAC(`Account with email: ${email}, does not exist`))
+        .catch(e => {
+            const error = e.response.data.error
+            dispatch(setErrorMessageAC(error))
         })
         .finally(() => {
         })
