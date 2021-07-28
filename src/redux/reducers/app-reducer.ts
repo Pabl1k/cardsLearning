@@ -1,10 +1,22 @@
 import {Dispatch} from "redux"
+import {authAPI} from "../../api/api"
 
 const TEMPLATE_ACTION = "TEMPLATE_ACTION"
 
-type InitialStateType = {}
-
-const initialState: InitialStateType = {}
+const initialState = {
+    _id: "",
+    email: "",
+    name: "",
+    avatar: "",
+    publicCardPacksCount: 0,
+    created: "",
+    updated: "",
+    isAdmin: false,
+    verified: false,
+    rememberMe: false,
+    error: "" as string | null | undefined
+}
+type InitialStateType = typeof initialState
 
 export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -16,23 +28,25 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 
 // actions
-export const templateAC = (body: any) => {
-    return {type: TEMPLATE_ACTION, body: body} as const
+export const templateAC = (email: string, name: string, avatar: string | undefined | null,
+                            publicCardsCount: number, isLoggedIn?: boolean) => {
+    return {type: TEMPLATE_ACTION, email, name, avatar, publicCardsCount, isLoggedIn} as const
 }
 
 // thunks
-/*export const templateTC = () => (dispatch: Dispatch<ActionsType>) => {
-    someAPI.someMethod()
+export const templateTC = (isLoggedIn: boolean = true) => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.me()
         .then(res => {
-            // dispatch(templateAC(true, res.data.data.email))
+            const {email, name, avatar, publicCardPacksCount} = res.data
+            dispatch(templateAC(email, name, avatar, publicCardPacksCount, isLoggedIn))
         })
         .catch((error) => {
-            // ...some code
+            console.log(error)
         })
         .finally(() => {
             // ...some code
         })
-}*/
+}
 
 // types
 export type templateActionType = ReturnType<typeof templateAC>

@@ -15,7 +15,10 @@ const instance = axios.create({
 // api
 export const authAPI = {
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<UserDataResponseType>("auth/login", {email, password, rememberMe})
+        return instance.post<UserDataType>("auth/login", {email, password, rememberMe})
+    },
+    me() {
+        return instance.post<UserDataType>("auth/me", {})
     },
     restorePassword(email: string) {
         return instance.post<RestorePasswordResponseType>(`auth/forgot`, {
@@ -36,8 +39,8 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    updateUserData(name: string, avatar: string) {
-        return instance.put<UserDataResponseType>("auth/me", {name, avatar})
+    updateUserData(name: string, avatar: string | undefined | null) {
+        return instance.put<UpdateUserDataResponseType>("auth/me", {name, avatar})
     }
 }
 
@@ -46,7 +49,31 @@ export type ResponseType<D = {}> = {
     data: D
 }
 
-export type UserDataResponseType = {
+export type LoginUserResponseType = {
+    token: string
+    tokenDeathTime: number
+    updatedUser: UserDataType
+}
+
+export type UpdateUserDataResponseType = {
+    token: string
+    tokenDeathTime: number
+    updatedUser: UserDataType
+}
+
+export type ResponseSignUpType = {
+    addedUser: any
+    error?: string
+}
+
+type RestorePasswordResponseType = {
+    answer: boolean
+    html: boolean
+    info: string
+    success: boolean
+}
+
+export type UserDataType = {
     _id: string
     email: string
     name: string
@@ -60,16 +87,4 @@ export type UserDataResponseType = {
     rememberMe: boolean
 
     error?: string
-}
-
-export type ResponseSignUpType = {
-    addedUser: any
-    error?: string
-}
-
-type RestorePasswordResponseType = {
-    answer: boolean
-    html: boolean
-    info: string
-    success: boolean
 }
