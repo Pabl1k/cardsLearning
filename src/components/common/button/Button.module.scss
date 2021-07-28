@@ -2,11 +2,34 @@
 @import "./src/assets/styles/mixins.scss";
 
 .default {
-  @include button(0, 0, 16px, $primaryColor, $primaryColor);
+  min-height: 35px;
+  width: 100%;
+  max-width: 185px;
+
+  padding: 10px;
+
+  @extend %sf500;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: $textLight;
+
+  background-color: $accent;
+  box-shadow:
+          0 4px 18px rgba(33, 38, 143, .35),
+          inset 0 1px 0  rgba(255, 255, 255, .3);
+  border-radius: $brBtn;
+  border: none;
+  cursor: pointer;
+
+  transition: .2s;
 
   &:hover {
-    border-color: $secondColor;
-    cursor: pointer;
+    background-color: lighten($accent, 5%);
+  }
+
+  &:active {
+    background-color: darken($accent, 5%);
   }
 
   &:focus {
@@ -14,17 +37,51 @@
   }
 }
 
-.error {
-  @include button(0, 0, 16px, $redErrorColor, $redErrorColor);
-  background: $redErrorColor;
+//Стили для кнопок cancel и delete (если надо для логики
+// переключать), я использовала шаблонные переменные для
+// переопределения стилей %btnDelete и %btnCancel
 
-  &:hover {
-    border-color: $brightRedErrorColor;
-    cursor: pointer;
-  }
+//
+//cancel {
+//  max-width: 125px;
+//  width: 100%;
+//
+//  background-color: $bgGrayBlue;
+//  color: rgba(33, 38, 143, .8);
+//  box-shadow: none;
+//
+//  &:hover {
+//    background-color: lighten($bgGrayBlue, 5%);
+//  }
+//
+//  &:active {
+//    background-color: darken($bgGrayBlue, 5%);
+//  }
+//
+//  &:focus {
+//    outline: none;
+//  }
+//}
 
-  &:focus {
-    outline: none;
-  }
-}
+//delete {
+//  color: $bgWhite;
+//  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+//
+//  background-color: $bgDelete;
+//  box-shadow: 0px 4px 18px rgba(241, 69, 61, 0.35),
+//  inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+//
+//
+//  &:hover {
+//    background-color: lighten($bgDelete, 5%);
+//  }
+//
+//  &:active {
+//    background-color: darken($bgDelete, 5%);
+//  }
+//
+//  &:focus {
+//    outline: none;
+//  }
+//}
 

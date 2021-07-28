@@ -1,12 +1,12 @@
-import React from "react"
+import React, {useState} from "react"
 import {NavLink, Redirect} from "react-router-dom";
 import {useFormik} from "formik";
 import {AppRootStateType} from "../../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer";
-import {InputText} from "../common/inputText/InputText";
+import s from "./RestorePassword.module.scss"
+import {InputTextMUI} from "../common/inputText/InputTextMUI";
 import {Button} from "../common/button/Button";
-import style from "./RestorePassword.module.scss"
 
 type RestorePasswordPropsType = {}
 
@@ -14,11 +14,17 @@ type FormikErrorType = {
     email?: string
 }
 
+
 export const RestorePassword = React.memo(function (props: RestorePasswordPropsType) {
 
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const errorMessage = useSelector<AppRootStateType, string | null>(message => message.restorePasswordReducer.errorMessage)
+
+
+// временные стэйты для values инпутов нужно будет заменить на правильные из редакса
+    const [email, setEmail] = useState<string>("");
+
 
     const formik = useFormik({
         initialValues: {
@@ -48,13 +54,32 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
     }
 
     return (
-        <div style={{margin: 10}}>
+
+        <div className={s.forgot}>
             <form onSubmit={formik.handleSubmit}>
-                <p>It-incubator</p>
-                <br/>
-                <p>Forgot your password?</p>
-                <br/>
-                <InputText
+                <h1 className={s.title}>It-incubator</h1>
+
+                <h2 className={s.caption}>Forgot your password?</h2>
+
+                <div className={s.inputWrap}>
+                    <InputTextMUI
+                        type={"email"}
+                        autoComplete='off'
+                        value={email}
+                        onChange={(e) => setEmail(e.currentTarget.value)}
+                        label={"Email"}
+                        helperText={formik.errors.email}
+                    />
+                </div>
+                <p className={s.text}>
+                    Enter your email address and we will send you further instructions
+                </p>
+
+                <Button className={s.button}>Send Instructions</Button>
+
+                <p className={s.password}>Did you remember your password?</p>
+
+                {/* <InputText
                     style={{width: 250, height: 50}}
                     placeholder='Email'
                     {...formik.getFieldProps('email')}/>
@@ -69,10 +94,9 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                 <Button
                     type={'submit'}
                     style={{width: 150, height: 50}}>Send instructions</Button>
-                <br/><br/>
-                <p>Did you remember your password?</p>
-                <br/>
-                <NavLink to={'/login'}>Try logging in</NavLink>
+                <br/><br/>*/}
+
+                <NavLink to={'/login'} className={s.try}>Try logging in</NavLink>
             </form>
         </div>
     )

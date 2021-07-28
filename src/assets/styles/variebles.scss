@@ -10,9 +10,23 @@ $fontFamilyStyle: 'Mukta', sans-serif;
 //nata
 
 $textColor: #2D2E46;
+$textLight: #ECECF9;
+$accent: #21268F;
+
 $bgWhite: #F9F9FE;
 $bgGrayBlue: #D7D8EF;
+$bgMenu: #EBE0E9;
+$bgDelete: #F1453D;
+
 $br: 8px;
+$brBtn: 30px;
+
+
+//template variables
+
+//@extend %ff600;
+
+//FONTS
 
 %sf600 {
   font-family: SFUIDisplay, sans-serif;
@@ -34,4 +48,104 @@ $br: 8px;
   font-weight: 600;
 }
 
-//@extend %ff600;
+
+//LOGIN
+
+%loginBlock {
+  margin: 0 auto;
+  padding: 25px 35px;
+
+  max-width: 415px;
+  width: 100%;
+  min-height: 470px;
+
+  background-color: $bgWhite;
+  border-radius: 8px;
+  text-align: center;
+}
+
+%loginTitle {
+  margin-bottom: 35px;
+
+  @extend %ff600;
+  font-size: 26px
+}
+
+%loginCaption {
+  margin-bottom: 40px;
+
+  @extend %ff600;
+  font-size: 22px;
+}
+
+//BTNS
+
+%btnCancel {
+  max-width: 125px;
+  width: 100%;
+
+  background-color: $bgGrayBlue;
+  color: rgba(33, 38, 143, .8);
+  box-shadow: none;
+
+  &:hover {
+    background-color: lighten($bgGrayBlue, 5%);
+  }
+
+  &:active {
+    background-color: darken($bgGrayBlue, 5%);
+  }
+}
+
+%btnDelete {
+  color: $bgWhite;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+
+  background-color: $bgDelete;
+  box-shadow: 0px 4px 18px rgba(241, 69, 61, 0.35),
+  inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+
+
+  &:hover {
+    background-color: lighten($bgDelete, 5%);
+  }
+
+  &:active {
+    background-color: darken($bgDelete, 5%);
+  }
+}
+
+
+//LINKS
+
+%linkTry {
+  font-size: 16px;
+  @extend %sf600;
+  color: $accent;
+
+  &:hover {
+    text-decoration: underline;
+    color: lighten($accent, 10%);
+  }
+
+  &:active {
+    color: darken($accent, 10%);
+  }
+}
+
+// Breakpoints
+
+//             @include media(xs) {    }
+
+$breakpoints: (
+        xs: 574.8px,
+        sm: 766.8px,
+        md: 990.8px,
+        lg: 1023.8px,
+        xl: 1199.8px,
+);
+
+
+
+
+

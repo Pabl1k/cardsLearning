@@ -1,2 +1,47 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
+
+.registration {
+  @extend %loginBlock;
+}
+
+.title {
+  @extend %loginTitle;
+}
+
+.caption {
+  @extend %loginCaption;
+}
+
+.inputBox {
+  margin-bottom: 85px;
+}
+
+.inputWrap {
+  margin-bottom: 25px;
+}
+
+.btns {
+  @include flex();
+
+  padding-bottom: 25px;
+
+  @include media(xs) {
+    flex-direction: column-reverse;
+  }
+}
+
+.button {
+  @include media(xs) {
+    max-width: 125px;
+    margin-bottom: 30px;
+  }
+}
+
+.button:first-child {
+  @extend %btnCancel;
+}
+
+
+
+

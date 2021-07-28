@@ -39,6 +39,7 @@ export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
     }
 
     return (
+
         <div className={style.addItemContainer}>
             <InputText
                 value={title}
