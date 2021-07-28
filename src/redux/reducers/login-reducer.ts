@@ -1,6 +1,6 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
-import {setAppStatusAC} from "./app-reducer";
+import {setAppStatusAC} from "./app-reducer"
 
 const LOGIN_USER = "LOGIN_USER"
 const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
@@ -11,7 +11,6 @@ type InitialStateType = {
         userName: string
         userAvatar: string | undefined | null
         publicCardsCount: number
-
     }
     isLoggedIn: boolean
 }

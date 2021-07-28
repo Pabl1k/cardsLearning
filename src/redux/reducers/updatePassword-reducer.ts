@@ -1,5 +1,5 @@
 import {Dispatch} from "redux"
-import {authAPI} from "../../api/api";
+import {authAPI} from "../../api/api"
 
 const IS_SUCCESS = "IS_SUCCESS"
 

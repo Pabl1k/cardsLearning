@@ -7,7 +7,6 @@ import {logoutTC} from "../../../redux/reducers/login-reducer";
 import {AppRootStateType} from "../../../redux/store";
 import {RequestStatusType} from "../../../redux/reducers/app-reducer";
 
-
 type HeaderPropsType = {}
 
 export const Header = React.memo(function (props: HeaderPropsType) {
@@ -62,14 +61,13 @@ export const Header = React.memo(function (props: HeaderPropsType) {
                             Check email
                         </NavLink>
                     </div>}
-                    <div>
+                    {/*<div>
                         <NavLink
                             to={"/updatePassword"}
                             className={style.headerLink}>
                             UpdatePassword
                         </NavLink>
-                    </div>
-
+                    </div>*/}
                 </>
             }
         </header>

@@ -19,6 +19,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     const dispatch = useDispatch()
 
     const isSuccess = useSelector<AppRootStateType, boolean>(state => state.updatePasswordReducer.isSuccess)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
 
     console.log(`token: ` + token)
     type FormikErrorType = {
@@ -47,8 +48,6 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     if (isSuccess) {
         return <Redirect to={'/login'} />
     }
-
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
 
     if (isLoggedIn) {
         return <Redirect to={"/profile"}/>
