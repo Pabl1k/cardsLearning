@@ -18,7 +18,6 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     // const {token} = useParams<Record<string, string | undefined>>()
     const {token} = useParams<any>()
 
-
     const isSuccess = useSelector<AppRootStateType, boolean>(state => state.updatePasswordReducer.isSuccess)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
@@ -84,8 +83,10 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
                                 </InputAdornment>)
                         }}
                     />
-                    {formik.touched.newPassword && formik.errors.newPassword &&
-                    <div style={{color: "red"}}>{formik.errors.newPassword}</div>}
+                    {formik.touched.newPassword && formik.errors.newPassword // !!!!
+                        ? <div>{formik.errors.newPassword}</div>
+                        : <div></div>
+                    }
                 </div>
                 <p className={s.text}>Create new password and we will send you further instructions to email</p>
                 <Button

@@ -91,8 +91,11 @@ export const Registration = React.memo((props: LoginPropsType) => {
                             {...formik.getFieldProps("email")}
                             label={"Email"}
                             autoComplete="off"
-                            helperText={formik.errors.email}
                         />
+                        {formik.touched.email && formik.errors.email // !!!!
+                            ? <div>{formik.errors.email}</div>
+                            : <div></div>
+                        }
                     </div>
                     <div className={s.inputWrap}>
                         <InputTextMUI
@@ -111,8 +114,11 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                         </IconButton>
                                     </InputAdornment>)
                             }}
-                            helperText={formik.errors.password}
                         />
+                        {formik.touched.password && formik.errors.password // !!!!
+                            ? <div>{formik.errors.password}</div>
+                            : <div></div>
+                        }
                     </div>
                     <div className={s.inputWrap}>
                         <InputTextMUI
@@ -131,8 +137,11 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                         </IconButton>
                                     </InputAdornment>)
                             }}
-                            helperText={formik.errors.repeatPassword}
                         />
+                        {formik.errors.repeatPassword // !!!!
+                            ? <div>{formik.errors.repeatPassword}</div>
+                            : <div></div>
+                        }
                     </div>
                 </div>
                 <div className={s.btns}>

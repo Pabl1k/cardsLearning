@@ -60,8 +60,11 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                         {...formik.getFieldProps("email")}
                         label={"Email"}
                         autoComplete="off"
-                        helperText={formik.errors.email}
                     />
+                    {formik.touched.email && formik.errors.email // !!!!
+                        ? <div>{formik.errors.email}</div>
+                        : <div></div>
+                    }
                 </div>
                 <p className={s.text}>
                     Enter your email address and we will send you further instructions
