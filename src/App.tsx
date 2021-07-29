@@ -1,7 +1,7 @@
 import React, {useEffect} from "react"
 import {Redirect, Route, Switch} from "react-router-dom"
-import {useDispatch} from "react-redux"
-import {initializeAppTC} from "./redux/reducers/app-reducer"
+import {useDispatch, useSelector} from "react-redux"
+import {initializeAppTC, RequestStatusType} from "./redux/reducers/app-reducer"
 import {Header} from "./components/common/header/Header"
 import {Profile} from "./components/profile/Profile"
 import {Login} from "./components/login/Login"
@@ -11,10 +11,9 @@ import {UpdatePassword} from "./components/updatePassword/UpdatePassword"
 import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import s from "./App.module.scss"
-import LinearProgress from '@material-ui/core/LinearProgress';
-import {useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
-import {RequestStatusType} from "./redux/reducers/app-reducer";
+import {Backdrop, CircularProgress, makeStyles} from "@material-ui/core";
+import Preloader from "./components/common/preloader/Preloader";
 
 function App() {
 
@@ -28,7 +27,7 @@ function App() {
     return (
         <section className={s.pagesContainer}>
             <Header/>
-            {status === "loading" && <LinearProgress color="secondary"/>}
+            {status === "loading" && <Preloader/>}
             <Switch>
                 <Route exact path={"/profile"} render={() => <Profile/>}/>
                 <Route path={"/login"} render={() => <Login/>}/>

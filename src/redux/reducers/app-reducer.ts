@@ -41,14 +41,17 @@ export const setAppStatusAC = (status: RequestStatusType) => ({type: APP_SET_STA
 
 // thunks
 export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
     authAPI.me()
         .then(res => {
             if (res.data._id) {
                 dispatch(setIsLoggedInAC(true))
+                dispatch(setAppStatusAC("succeeded"))
             }
         })
         .catch((error) => {
             console.log(error)
+            dispatch(setAppStatusAC('failed'))
         })
         .finally(() => {
             // ...some code
