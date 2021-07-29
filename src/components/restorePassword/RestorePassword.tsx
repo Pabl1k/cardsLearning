@@ -46,7 +46,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
     }
 
     if (isLoggedIn) {
-        return <Redirect to={"/profile"}/>
+        return <Redirect to={"/"}/>
     }
 
     return (
@@ -71,6 +71,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                 </p>
 
                 <Button
+                    type={"submit"}
                     disabled={status === "loading"}
                     className={s.button}>
                     Send Instructions

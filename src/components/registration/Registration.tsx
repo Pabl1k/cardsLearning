@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {useFormik} from "formik"
-import {Redirect, useHistory} from "react-router-dom"
+import {NavLink, Redirect, useHistory} from "react-router-dom"
 import {SignUpTC} from "../../redux/reducers/registration-reducer"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
@@ -76,7 +76,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
     }
 
     if (isLoggedIn) {
-        return <Redirect to={"/profile"}/>
+        return <Redirect to={"/"}/>
     }
 
     return (
@@ -145,9 +145,10 @@ export const Registration = React.memo((props: LoginPropsType) => {
 
                 <div className={s.btns}>
                     <Button className={s.button} onClick={RedirectToLoginHandler}>
-                        Cancel
+                        <NavLink to={"/login"}>
+                            Cancel
+                        </NavLink>
                     </Button>
-
                     <Button
                         type={"submit"}
                         disabled={status === "loading"}

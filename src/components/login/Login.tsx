@@ -79,7 +79,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
     })
 
     if (isLoggedIn) {
-        return <Redirect to={"/profile"}/>
+        return <Redirect to={"/"}/>
     }
 
     return (
@@ -135,22 +135,19 @@ export const Login = React.memo(function (props: LoginPropsType) {
                                 size={"small"}
                             />
                         }
+                        {...formik.getFieldProps("rememberMe")}
                         label="Remember Me"/>
-                    <NavLink to={"/"}
+                    <NavLink to={"/restorePassword"}
                              className={s.forgotLink}>
                         Forgot Password
                     </NavLink>
                 </div>
-
                 <Button type={"submit"}
                         disabled={status === "loading"}
-                        className={s.button}>
-                    Login
+                        className={s.button}>Login
                 </Button>
-
                 <span className={s.account}>Don’t have an account?</span>
-
-                <NavLink to={"/"}
+                <NavLink to={"/registration"}
                          className={s.singUp}>
                     Sign Up
                 </NavLink>

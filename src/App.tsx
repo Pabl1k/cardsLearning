@@ -28,7 +28,7 @@ function App() {
             <Header/>
             {status === "loading" && <Preloader/>}
             <Switch>
-                <Route exact path={"/profile"} render={() => <Profile/>}/>
+                <Route exact path={"/"} render={() => <Profile/>}/>
                 <Route path={"/login"} render={() => <Login/>}/>
                 <Route path={"/registration"} render={() => <Registration/>}/>
                 <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>

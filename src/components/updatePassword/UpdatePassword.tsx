@@ -51,7 +51,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     }
 
     if (isLoggedIn) {
-        return <Redirect to={"/profile"}/>
+        return <Redirect to={"/"}/>
     }
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
