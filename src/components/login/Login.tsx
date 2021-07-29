@@ -40,17 +40,17 @@ const useStyles = makeStyles({
 });
 
 export const Login = React.memo(function (props: LoginPropsType) {
+
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
     const classes = useStyles();
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
+        event.preventDefault()
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -101,7 +101,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
                             autoComplete='off'
                             {...formik.getFieldProps("email")}
                             label={"Email"}
-                            helperText={formik.errors.password}
+                            helperText={formik.errors.email}
                         />
                     </div>
                     <div className={s.inputWrap}>
@@ -109,6 +109,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
                             type={showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps("password")}
                             label={"Password"}
+                            helperText={formik.errors.password}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">

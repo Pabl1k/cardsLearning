@@ -15,7 +15,6 @@ type FormikErrorType = {
     email?: string
 }
 
-
 export const RestorePassword = React.memo(function (props: RestorePasswordPropsType) {
 
     const dispatch = useDispatch()

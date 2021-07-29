@@ -20,6 +20,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
 
     const isSuccess = useSelector<AppRootStateType, boolean>(state => state.updatePasswordReducer.isSuccess)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
+    const [showPassword, setShowPassword] = useState<boolean>(false)
 
     console.log(`token: ` + token)
     type FormikErrorType = {
@@ -53,12 +54,6 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
         return <Redirect to={"/profile"}/>
     }
 
-    const showPassword = false
-    /*// временные стэйты для values инпутов нужно будет заменить на правильные из редакса
-    const [password, setPassword] = useState<string>("");*/
-
-    // !!!! Добавить useFormik !!!!!
-
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
@@ -82,7 +77,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
-                                        //onClick={() => setShowPassword(!showPassword)} !!!!!
+                                        onClick={() => setShowPassword(!showPassword)}
                                         onMouseDown={handleMouseDownPassword}
                                     >
                                         {showPassword ? <Visibility/> : <VisibilityOff/>}
@@ -101,7 +96,6 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
                     type={'submit'}
                     className={s.button}>
                     Create new password</Button>
-
             </form>
         </div>
     )

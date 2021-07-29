@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {useFormik} from "formik"
 import {Redirect} from "react-router-dom"
 import {SignUpTC} from "../../redux/reducers/registration-reducer"
@@ -26,10 +26,8 @@ export const Registration = React.memo((props: LoginPropsType) => {
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
 
-    /*const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);*/
-
-    const showPassword = false // !!!! исправить
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -84,30 +82,28 @@ export const Registration = React.memo((props: LoginPropsType) => {
                 Sign Up
             </h2>
             <form onSubmit={formik.handleSubmit}>
-
                 <div className={s.inputBox}>
-
                     <div className={s.inputWrap}>
                         <InputTextMUI
                             type={"email"}
                             autoComplete='off'
                             {...formik.getFieldProps("email")}
                             label={"Email"}
-                            helperText={formik.errors.password}
+                            helperText={formik.errors.email}
                         />
                     </div>
-
                     <div className={s.inputWrap}>
                         <InputTextMUI
                             type={showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps("password")}
                             label={"Password"}
+                            helperText={formik.errors.password}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
-                                            // onClick={() => setShowPassword(!showPassword)} !!!! исправить
+                                            onClick={() => setShowPassword(!showPassword)}
                                             onMouseDown={handleMouseDownPassword}
                                         >
                                             {showPassword ? <Visibility/> : <VisibilityOff/>}
@@ -119,19 +115,19 @@ export const Registration = React.memo((props: LoginPropsType) => {
 
                     <div className={s.inputWrap}>
                         <InputTextMUI
-                            type={showPassword ? 'text' : 'password'}
+                            type={showConfirmPassword ? 'text' : 'password'}
                             {...formik.getFieldProps("repeatPassword")}
                             label={"Confirm password"}
+                            helperText={formik.errors.repeatPassword}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
-                                            // onClick={() => setShowConfirmPassword(!showConfirmPassword)} !!!! исправить
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                             onMouseDown={handleMouseDownPassword}
                                         >
-                                            {/*!!!! исправить
-                                            {showConfirmPassword ? <Visibility/> : <VisibilityOff/>}*/}
+                                            {showConfirmPassword ? <Visibility/> : <VisibilityOff/>}
                                         </IconButton>
                                     </InputAdornment>)
                             }}
