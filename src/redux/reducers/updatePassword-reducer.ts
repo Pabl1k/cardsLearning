@@ -34,11 +34,11 @@ export const updatePasswordTC = (newPassword: string, token: string) => (dispatc
                 dispatch(isSuccessAC(true))
             }
         })
-        .catch((er) => {
-            console.log(er)
+        .catch((e) => {
+            console.log(e)
         })
         .finally(() => {
-            console.log('finally')
+            // ...some code
         })
 }
 

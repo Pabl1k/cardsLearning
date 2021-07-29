@@ -1,5 +1,5 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from "react"
-import style from "./Checkbox.module.scss"
+import s from "./Checkbox.module.scss"
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -22,17 +22,17 @@ export const Checkbox: React.FC<SuperCheckboxPropsType> = React.memo(({
         onChangeChecked && onChangeChecked(e.currentTarget.checked)
     }
 
-    const finalInputClassName = `${style.checkbox} ${className ? className : ""}`
+    const finalInputClassName = `${s.checkbox} ${className ? className : ""}`
 
     return (
-        <label className={style.labelStyle}>
+        <label className={s.labelStyle}>
             <input
                 type={"checkbox"}
                 onChange={onChangeCallback}
                 className={finalInputClassName}
                 {...restProps}
             />
-            {children && <span className={style.spanClassName}>{children}</span>}
+            {children && <span className={s.spanClassName}>{children}</span>}
         </label>
     )
 })

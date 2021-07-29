@@ -2,10 +2,8 @@ import React from "react"
 import {Redirect} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
-import {updateUserNameTC} from "../../redux/reducers/profile-reducer"
-import {EditableSpan} from "../common/editableSpan/EditableSpan"
 import defaultUserAvatar from "./../../assets/images/defaultUserAvatar.png"
-import style from "./Profile.module.scss"
+import s from "./Profile.module.scss"
 
 type ProfilePropsType = {}
 
@@ -19,12 +17,8 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
         return <Redirect to={"/login"}/>
     }
 
-    const updateUserName = (userName: string) => {
-        dispatch(updateUserNameTC(userName, ""))
-    }
-
     return (
-        <>
+        <div>
             Profile page:
             {userAvatar
                 ? <div>
@@ -35,12 +29,6 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
                 </div>
             }
             <p>UserName: {userName}</p>
-            <p>User's Avatar: {userAvatar}</p>
-            <EditableSpan
-                value={userName}
-                onChangeValue={updateUserName}
-                editableSpanInputStyle={style.demoEditableSpanInputStyle}
-            />
-        </>
+        </div>
     )
 })

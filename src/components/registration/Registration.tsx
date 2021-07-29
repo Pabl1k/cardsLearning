@@ -1,15 +1,15 @@
 import React, {useState} from "react"
-import {useFormik} from "formik"
 import {NavLink, Redirect, useHistory} from "react-router-dom"
-import {SignUpTC} from "../../redux/reducers/registration-reducer"
+import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
-import {RequestStatusType} from "../../redux/reducers/app-reducer";
-import {InputTextMUI} from "../common/inputText/InputTextMUI";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import {IconButton} from "@material-ui/core";
-import {Visibility, VisibilityOff} from "@material-ui/icons";
-import {Button} from "../common/button/Button";
+import {SignUpTC} from "../../redux/reducers/registration-reducer"
+import {RequestStatusType} from "../../redux/reducers/app-reducer"
+import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {Button} from "../common/button/Button"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import {IconButton} from "@material-ui/core"
+import {Visibility, VisibilityOff} from "@material-ui/icons"
 import s from "./Registration.module.scss"
 
 type LoginPropsType = {}
@@ -22,20 +22,21 @@ type FormikErrorType = {
 
 export const Registration = React.memo((props: LoginPropsType) => {
 
-    const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
+    const dispatch = useDispatch()
     const history = useHistory()
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
+        event.preventDefault()
+    }
+
     const RedirectToLoginHandler = () => {
-        history.push('/login')
+        history.push("/login")
     }
 
     const formik = useFormik({
@@ -44,8 +45,6 @@ export const Registration = React.memo((props: LoginPropsType) => {
             password: "",
             repeatPassword: ""
         },
-
-
         validate: (values) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
@@ -56,12 +55,12 @@ export const Registration = React.memo((props: LoginPropsType) => {
             if (!values.password) {
                 errors.password = "Required."
             } else if (values.password.length < 6) {
-                errors.password = `Password must be more than six characters.`
+                errors.password = "Password must be more than six characters."
             }
             if (!values.repeatPassword) {
-                errors.repeatPassword = 'Required';
+                errors.repeatPassword = "Required."
             } else if (values.password !== values.repeatPassword) {
-                errors.repeatPassword = 'Passwords are not equal';
+                errors.repeatPassword = "Passwords are not equal."
             }
             return errors
         },
@@ -72,7 +71,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
     })
 
     if (isSignUp) {
-        return <Redirect to={'/login'}/>
+        return <Redirect to={"/login"}/>
     }
 
     if (isLoggedIn) {
@@ -82,29 +81,24 @@ export const Registration = React.memo((props: LoginPropsType) => {
     return (
 
         <div className={s.registration}>
-            <h1 className={s.title}>
-                It-Incubator
-            </h1>
-            <h2 className={s.caption}>
-                Sign Up
-            </h2>
+            <h1 className={s.title}>It-Incubator</h1>
+            <h2 className={s.caption}>Sign Up</h2>
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.inputBox}>
                     <div className={s.inputWrap}>
                         <InputTextMUI
                             type={"email"}
-                            autoComplete='off'
                             {...formik.getFieldProps("email")}
                             label={"Email"}
+                            autoComplete="off"
                             helperText={formik.errors.email}
                         />
                     </div>
                     <div className={s.inputWrap}>
                         <InputTextMUI
-                            type={showPassword ? 'text' : 'password'}
+                            type={showPassword ? "text" : "password"}
                             {...formik.getFieldProps("password")}
                             label={"Password"}
-                            helperText={formik.errors.password}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -117,15 +111,14 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                         </IconButton>
                                     </InputAdornment>)
                             }}
+                            helperText={formik.errors.password}
                         />
                     </div>
-
                     <div className={s.inputWrap}>
                         <InputTextMUI
-                            type={showConfirmPassword ? 'text' : 'password'}
+                            type={showConfirmPassword ? "text" : "password"}
                             {...formik.getFieldProps("repeatPassword")}
                             label={"Confirm password"}
-                            helperText={formik.errors.repeatPassword}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -138,22 +131,18 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                         </IconButton>
                                     </InputAdornment>)
                             }}
+                            helperText={formik.errors.repeatPassword}
                         />
                     </div>
-
                 </div>
-
                 <div className={s.btns}>
-                    <Button className={s.button} onClick={RedirectToLoginHandler}>
-                        <NavLink to={"/login"}>
-                            Cancel
-                        </NavLink>
+                    <Button onClick={RedirectToLoginHandler} className={s.button}>
+                        <NavLink to={"/login"}>Cancel</NavLink>
                     </Button>
                     <Button
                         type={"submit"}
                         disabled={status === "loading"}
-                        className={s.button}>
-                        Register
+                        className={s.button}>Register
                     </Button>
                 </div>
             </form>

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react"
 import {InputText} from "../inputText/InputText"
 import {Button} from "../button/Button"
-import style from "./AddItemForm.module.scss"
+import s from "./AddItemForm.module.scss"
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -13,8 +13,8 @@ type AddItemFormPropsType = {
 
 export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
 
-    let [title, setTitle] = useState<string>("")
-    let [error, setError] = useState<string | null>(null)
+    const [title, setTitle] = useState<string>("")
+    const [error, setError] = useState<string | null>(null)
 
     const addItemHandler = () => {
         if (title.trim() !== "") {
@@ -39,8 +39,7 @@ export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
     }
 
     return (
-
-        <div className={style.addItemContainer}>
+        <div className={s.addItemContainer}>
             <InputText
                 value={title}
                 onChange={onChangeHandler}
@@ -56,7 +55,7 @@ export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
                 className={props.addItemButtonStyle}>Click
             </Button>
             {error
-                ? <div className={style.errorContainerStyle}>
+                ? <div className={s.errorContainerStyle}>
                     <span className={props.errorSpanStyle}>{error}</span>
                 </div>
                 : null

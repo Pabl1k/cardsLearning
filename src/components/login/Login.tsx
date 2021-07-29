@@ -1,16 +1,34 @@
 import React, {useState} from "react"
 import {NavLink, Redirect} from "react-router-dom"
+import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {loginTC} from "../../redux/reducers/login-reducer"
-import {useFormik} from "formik"
-import {Checkbox, FormControlLabel, IconButton, makeStyles} from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import {Visibility, VisibilityOff} from "@material-ui/icons";
-import {InputTextMUI} from "../common/inputText/InputTextMUI";
+import {RequestStatusType} from "../../redux/reducers/app-reducer"
+import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {Checkbox, FormControlLabel, IconButton, makeStyles} from "@material-ui/core"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import {Visibility, VisibilityOff} from "@material-ui/icons"
 import {Button} from "../common/button/Button"
 import s from "./Login.module.scss"
-import {RequestStatusType} from "../../redux/reducers/app-reducer";
+
+const useStyles = makeStyles({
+    root: {
+        '&:hover': {
+            backgroundColor: "transparent"
+        },
+        '& .MuiTypography-body1': {
+            fontFamily: "SFUIDisplay, sans-serif",
+            fontWeight: 400,
+            fontSize: "14px",
+            lineHeight: "1.2",
+            color: "#2D2E46"
+        },
+        '& .MuiIconButton-label': {
+            color: "#2D2E46"
+        }
+    }
+})
 
 type LoginPropsType = {}
 
@@ -20,32 +38,12 @@ type FormikErrorType = {
     rememberMe?: boolean
 }
 
-
-const useStyles = makeStyles({
-    root: {
-        '&:hover': {
-            backgroundColor: 'transparent',
-        },
-        '& .MuiTypography-body1': {
-            fontFamily: "SFUIDisplay, sans-serif",
-            fontWeight: 400,
-            fontSize: "14px",
-            lineHeight: "1.2",
-            color: "#2D2E46",
-        },
-        '& .MuiIconButton-label': {
-            color: "#2D2E46",
-        },
-    }
-});
-
 export const Login = React.memo(function (props: LoginPropsType) {
 
+    const classes = useStyles()
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
-
-    const classes = useStyles();
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -83,33 +81,25 @@ export const Login = React.memo(function (props: LoginPropsType) {
     }
 
     return (
-
         <div className={s.login}>
-            <h1 className={s.title}>
-                It-Incubator
-            </h1>
-            <h2 className={s.caption}>
-                Sign In
-            </h2>
+            <h1 className={s.title}>It-Incubator</h1>
+            <h2 className={s.caption}>Sign In</h2>
             <form onSubmit={formik.handleSubmit}>
-
                 <div className={s.inputBox}>
-
                     <div className={s.inputWrap}>
                         <InputTextMUI
                             type={"email"}
-                            autoComplete='off'
                             {...formik.getFieldProps("email")}
                             label={"Email"}
+                            autoComplete="off"
                             helperText={formik.errors.email}
                         />
                     </div>
                     <div className={s.inputWrap}>
                         <InputTextMUI
-                            type={showPassword ? 'text' : 'password'}
+                            type={showPassword ? "text" : "password"}
                             {...formik.getFieldProps("password")}
                             label={"Password"}
-                            helperText={formik.errors.password}
                             InputProps={{
                                 endAdornment: (
                                     <InputAdornment position="end">
@@ -122,35 +112,32 @@ export const Login = React.memo(function (props: LoginPropsType) {
                                         </IconButton>
                                     </InputAdornment>)
                             }}
+                            helperText={formik.errors.password}
                         />
                     </div>
                 </div>
                 <div className={s.infoWrap}>
                     <FormControlLabel
-                        className={classes.root}
+                        label="Remember Me"
                         control={
                             <Checkbox
+                                {...formik.getFieldProps("rememberMe")}
                                 name="checkedB"
                                 color="default"
                                 size={"small"}
                             />
                         }
-                        {...formik.getFieldProps("rememberMe")}
-                        label="Remember Me"/>
-                    <NavLink to={"/restorePassword"}
-                             className={s.forgotLink}>
-                        Forgot Password
-                    </NavLink>
+                        className={classes.root}
+                    />
+                    <NavLink to={"/restorePassword"} className={s.forgotLink}>Forgot Password</NavLink>
                 </div>
-                <Button type={"submit"}
-                        disabled={status === "loading"}
-                        className={s.button}>Login
+                <Button
+                    type={"submit"}
+                    disabled={status === "loading"}
+                    className={s.button}>Login
                 </Button>
                 <span className={s.account}>Don’t have an account?</span>
-                <NavLink to={"/registration"}
-                         className={s.singUp}>
-                    Sign Up
-                </NavLink>
+                <NavLink to={"/registration"} className={s.singUp}>Sign Up</NavLink>
             </form>
         </div>
     )

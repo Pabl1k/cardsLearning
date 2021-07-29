@@ -1,6 +1,6 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
-import {setAppStatusAC} from "./app-reducer";
+import {setAppStatusAC} from "./app-reducer"
 
 const SET_ERROR_MESSAGE = "SET-ERROR-MESSAGE"
 
@@ -14,7 +14,7 @@ type InitialStateType = {
 
 export const restorePasswordReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case SET_ERROR_MESSAGE :
+        case SET_ERROR_MESSAGE:
             return {...state, errorMessage: action.errorMessage}
         default:
             return state
@@ -35,16 +35,16 @@ export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
                 dispatch(setAppStatusAC("succeeded"))
             }
         })
-        .catch(er => {
-            console.log(er)
+        .catch(e => {
+            console.log(e)
             dispatch(setErrorMessageAC(`Account with email: ${email}, does not exist`))
-            dispatch(setAppStatusAC('failed'))
+            dispatch(setAppStatusAC("failed"))
         })
         .finally(() => {
+            // ...some code
         })
 }
 
 // types
-type ActionsType =
-    | ReturnType<typeof setErrorMessageAC>
+type ActionsType = ReturnType<typeof setErrorMessageAC>
     | ReturnType<typeof setAppStatusAC>
