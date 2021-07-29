@@ -12,7 +12,6 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import s from "./App.module.scss"
 import {AppRootStateType} from "./redux/store";
-import {Backdrop, CircularProgress, makeStyles} from "@material-ui/core";
 import Preloader from "./components/common/preloader/Preloader";
 
 function App() {
