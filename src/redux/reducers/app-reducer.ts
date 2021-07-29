@@ -2,7 +2,7 @@ import {Dispatch} from "redux"
 import {authAPI} from "../../api/api"
 import {setIsLoggedInAC} from "./login-reducer"
 
-const APP_SET_STATUS = 'APP/SET-STATUS'
+const APP_SET_STATUS = "APP/SET-STATUS"
 
 type InitialStateType = {
     userData: {
@@ -23,7 +23,7 @@ const initialState = {
         userAvatar: "",
         publicCardPacksCount: 0*/
     },
-    status: 'idle' as RequestStatusType
+    status: "idle" as RequestStatusType
 }
 
 
@@ -41,14 +41,17 @@ export const setAppStatusAC = (status: RequestStatusType) => ({type: APP_SET_STA
 
 // thunks
 export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatusAC("loading"))
     authAPI.me()
         .then(res => {
             if (res.data._id) {
                 dispatch(setIsLoggedInAC(true))
+                dispatch(setAppStatusAC("succeeded"))
             }
         })
-        .catch((error) => {
-            console.log(error)
+        .catch((e) => {
+            console.log(e)
+            dispatch(setAppStatusAC("failed"))
         })
         .finally(() => {
             // ...some code
@@ -56,6 +59,6 @@ export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
 }
 
 // types
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 export type ActionsType = ReturnType<typeof setAppStatusAC>
     | ReturnType<typeof setIsLoggedInAC>

@@ -15,10 +15,10 @@ const instance = axios.create({
 // api
 export const authAPI = {
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<LoginUserResponseType>("auth/login", {email, password, rememberMe})
+        return instance.post<LoginUserResponseType>(`auth/login`, {email, password, rememberMe})
     },
     me() {
-        return instance.post<UserDataType>("auth/me", {})
+        return instance.post<UserDataType>(`auth/me`, {})
     },
     restorePassword(email: string) {
         return instance.post<RestorePasswordResponseType>(`auth/forgot`, {
@@ -33,10 +33,9 @@ export const authAPI = {
         return instance.post<ResponseSignUpType>(`auth/register`, {email, password})
     },
     logout() {
-        return instance.delete("auth/me", {})
+        return instance.delete(`auth/me`, {})
     },
     setNewPassword(newPassword: string, resetPasswordToken: string) {
-        debugger
         return instance.post(`/auth/set-new-password`, {
             password: newPassword,
             resetPasswordToken
@@ -46,7 +45,7 @@ export const authAPI = {
 
 export const profileAPI = {
     updateUserData(name: string, avatar: string | undefined | null) {
-        return instance.put<UpdateUserDataResponseType>("auth/me", {name, avatar})
+        return instance.put<UpdateUserDataResponseType>(`auth/me`, {name, avatar})
     }
 }
 

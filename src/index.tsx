@@ -8,13 +8,11 @@ import reportWebVitals from "./reportWebVitals"
 import "./index.css"
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <HashRouter>
-                <App/>
-            </HashRouter>
-        </Provider>
-    </React.StrictMode>,
+    <Provider store={store}>
+        <HashRouter>
+            <App/>
+        </HashRouter>
+    </Provider>,
     document.getElementById("root")
 )
 

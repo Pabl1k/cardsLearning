@@ -41,8 +41,8 @@ export const updateUserNameTC = (userName: string, userAvatar: string | undefine
             let {name, email, avatar} = res.data.updatedUser
             dispatch(updateUserData(name, email, avatar))
         })
-        .catch((error) => {
-            console.log(error)
+        .catch((e) => {
+            console.log(e)
         })
         .finally(() => {
             // ...some code

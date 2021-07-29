@@ -1,5 +1,5 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from "react"
-import style from "./InputText.module.scss"
+import s from "./InputText.module.scss"
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
@@ -24,6 +24,7 @@ export const InputText: React.FC<SuperInputTextPropsType> = ({
         && onChange(e)
         onChangeText && onChangeText(e.currentTarget.value)
     }
+
     const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
         onKeyPress && onKeyPress(e)
         e.key === "Enter"
@@ -31,7 +32,7 @@ export const InputText: React.FC<SuperInputTextPropsType> = ({
         && onEnter()
     }
 
-    const finalInputClassName = `${error ? style.errorInput : style.inputText}`
+    const finalInputClassName = `${error ? s.errorInput : s.inputText}`
 
     return (
         <>

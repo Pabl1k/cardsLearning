@@ -59,14 +59,14 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
     authAPI.login(email, password, rememberMe)
         .then(res => {
             console.log(res)
-            // dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC("succeeded"))
+            // dispatch(setIsLoggedInAC(true))
             dispatch(loginUserAC(res.data.email, res.data.name, res.data.avatar, res.data.publicCardPacksCount, true))
         })
         .catch((e) => {
             const error = e.response ? e.response.data.error : (`${e.message}. More details in the console`)
             console.log(error)
-            dispatch(setAppStatusAC('failed'))
+            dispatch(setAppStatusAC("failed"))
         })
         .finally(() => {
             // ...some code
@@ -82,7 +82,7 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
         })
         .catch((error) => {
             console.log(error)
-            dispatch(setAppStatusAC('failed'))
+            dispatch(setAppStatusAC("failed"))
         })
 }
 

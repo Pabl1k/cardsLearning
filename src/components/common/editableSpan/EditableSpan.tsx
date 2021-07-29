@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react"
-import {useDispatch} from "react-redux"
-import {InputText} from "../inputText/InputText";
+import {InputText} from "../inputText/InputText"
+import s from "./EditableSpan.module.scss"
 
 type EditableSpanPropsType = {
     value: string
@@ -11,15 +11,14 @@ type EditableSpanPropsType = {
 
 export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
 
-    let [editMode, setEditMode] = useState(false)
-    let [title, setTitle] = useState(props.value)
-
-    const dispatch = useDispatch()
+    const [editMode, setEditMode] = useState(false)
+    const [title, setTitle] = useState(props.value)
 
     const activateEditMode = () => {
         setEditMode(true)
         setTitle(props.value)
     }
+
     const activateViewMode = () => {
         if (title !== "") {
             setEditMode(false)
@@ -29,6 +28,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
             props.onChangeValue(props.value)
         }
     }
+
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
