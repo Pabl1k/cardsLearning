@@ -11,6 +11,7 @@ import {IconButton} from "@material-ui/core";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 import {Button} from "../common/button/Button";
 import s from "./Registration.module.scss"
+import {MainTitle} from "../common/mainTitle/MainTitle";
 
 type LoginPropsType = {}
 
@@ -77,9 +78,9 @@ export const Registration = React.memo((props: LoginPropsType) => {
     return (
 
         <div className={s.registration}>
-            <h1 className={s.title}>
-                It-Incubator
-            </h1>
+
+            <MainTitle/>
+
             <h2 className={s.caption}>
                 Sign Up
             </h2>

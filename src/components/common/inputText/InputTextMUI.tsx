@@ -6,16 +6,7 @@ import {TextFieldProps} from "@material-ui/core/TextField/TextField";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-        // '&:hover': {
-        //     backgroundColor: 'transparent',
-        // },
-        // '& .MuiTypography-body1': {
-        //     fontFamily: "SFUIDisplay, sans-serif",
-        //     fontWeight: 400,
-        //     fontSize: "14px",
-        //     lineHeight: "1.2",
-        //     color: "#2D2E46",
-        // },
+
         '& .MuiInputBase-input': {
             fontFamily: "SFUIDisplay, sans-serif",
             fontWeight: 500,
@@ -49,18 +40,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         },
     }
 }));
-//MuiSvgIcon-root
-//<style>
-// .MuiInput-underline:after
-// height: 1.582417607307434px;
-// width: 347px;
-// left: 0px;
-// top: 46.41748046875px;
-// border-radius: 0px; #24254A 20%
 
-
-
-// opacity: 0.5;
 
 export const InputTextMUI = (props: TextFieldProps) => {
     const classes = useStyles()

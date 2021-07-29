@@ -5,11 +5,8 @@
   @extend %loginBlock;
 }
 
-.title {
-  @extend %loginTitle;
-}
-
 .caption {
+  margin-top: 35px;
   @extend %loginCaption;
 }
 

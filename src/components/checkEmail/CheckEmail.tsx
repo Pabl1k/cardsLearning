@@ -4,6 +4,7 @@ import {AppRootStateType} from "../../redux/store"
 import {Redirect} from "react-router-dom"
 import s from "./CheckEmail.module.scss"
 import icon from "../../assets/images/email.svg"
+import {MainTitle} from "../common/mainTitle/MainTitle";
 
 export const CheckEmail = () => {
 
@@ -15,7 +16,9 @@ export const CheckEmail = () => {
 
     return (
         <div className={s.checkEmail}>
-            <h1 className={s.title}>It-incubator</h1>
+
+         <MainTitle/>
+
             <div className={s.iconBg}>
                 <img className={s.icon} src={icon} alt="icon"/>
             </div>

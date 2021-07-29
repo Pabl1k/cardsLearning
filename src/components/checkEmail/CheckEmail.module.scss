@@ -7,16 +7,12 @@
   @extend %loginBlock;
 }
 
-.title {
-  @extend %loginTitle;
-}
-
 .iconBg {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  margin: 0 auto 25px;
+  margin: 25px auto;
 
   height: 108px;
   width: 108px;

@@ -8,6 +8,7 @@ import s from "./RestorePassword.module.scss"
 import {InputTextMUI} from "../common/inputText/InputTextMUI";
 import {Button} from "../common/button/Button";
 import {RequestStatusType} from "../../redux/reducers/app-reducer";
+import {MainTitle} from "../common/mainTitle/MainTitle";
 
 type RestorePasswordPropsType = {}
 
@@ -54,7 +55,8 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
 
         <div className={s.forgot}>
             <form onSubmit={formik.handleSubmit}>
-                <h1 className={s.title}>It-incubator</h1>
+
+                <MainTitle/>
 
                 <h2 className={s.caption}>Forgot your password?</h2>
 

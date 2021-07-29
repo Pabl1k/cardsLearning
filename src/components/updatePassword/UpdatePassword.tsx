@@ -10,6 +10,7 @@ import {Visibility, VisibilityOff} from "@material-ui/icons";
 import {Button} from "../common/button/Button";
 import s from "./UpdatePassword.module.scss"
 import { useFormik } from "formik";
+import {MainTitle} from "../common/mainTitle/MainTitle";
 
 type UpdatePasswordPropsType = {}
 
@@ -67,7 +68,8 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     return (
         <div className={s.create}>
             <form onSubmit={formik.handleSubmit}>
-                <h1 className={s.title}>It-incubator</h1>
+
+                <MainTitle/>
 
                 <h2 className={s.caption}>Create new password</h2>
 

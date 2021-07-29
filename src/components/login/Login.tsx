@@ -11,6 +11,7 @@ import {InputTextMUI} from "../common/inputText/InputTextMUI";
 import {Button} from "../common/button/Button"
 import s from "./Login.module.scss"
 import {RequestStatusType} from "../../redux/reducers/app-reducer";
+import {MainTitle} from "../common/mainTitle/MainTitle";
 
 type LoginPropsType = {}
 
@@ -85,9 +86,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
     return (
 
         <div className={s.login}>
-            <h1 className={s.title}>
-                It-Incubator
-            </h1>
+            <MainTitle/>
             <h2 className={s.caption}>
                 Sign In
             </h2>
