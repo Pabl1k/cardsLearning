@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-}))
 
 export const InputTextMUI = (props: TextFieldProps) => {
 

@@ -4,12 +4,9 @@ import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer"
-import {RequestStatusType} from "../../redux/reducers/app-reducer"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import {Button} from "../common/button/Button"
 import s from "./RestorePassword.module.scss"
-import {InputTextMUI} from "../common/inputText/InputTextMUI";
-import {Button} from "../common/button/Button";
 import {RequestStatusType} from "../../redux/reducers/app-reducer";
 import {MainTitle} from "../common/mainTitle/MainTitle";
 
@@ -69,7 +66,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                     />
                     {formik.touched.email && formik.errors.email // !!!!
                         ? <div>{formik.errors.email}</div>
-                        : <div></div>
+                        : <div>&nbsp;</div>
                     }
                 </div>
                 <p className={s.text}>

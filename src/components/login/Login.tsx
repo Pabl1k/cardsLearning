@@ -6,32 +6,14 @@ import {AppRootStateType} from "../../redux/store"
 import {loginTC} from "../../redux/reducers/login-reducer"
 import {RequestStatusType} from "../../redux/reducers/app-reducer"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
-import {Checkbox, FormControlLabel, IconButton, makeStyles} from "@material-ui/core"
+import {Checkbox, FormControlLabel, IconButton} from "@material-ui/core"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import {Visibility, VisibilityOff} from "@material-ui/icons"
 import {Button} from "../common/button/Button"
 import s from "./Login.module.scss"
-import {RequestStatusType} from "../../redux/reducers/app-reducer";
 import {MainTitle} from "../common/mainTitle/MainTitle";
+import {useStyles} from "./checkBoxStyle";
 
-
-const useStyles = makeStyles({
-    root: {
-        '&:hover': {
-            backgroundColor: "transparent"
-        },
-        '& .MuiTypography-body1': {
-            fontFamily: "SFUIDisplay, sans-serif",
-            fontWeight: 400,
-            fontSize: "14px",
-            lineHeight: "1.2",
-            color: "#2D2E46"
-        },
-        '& .MuiIconButton-label': {
-            color: "#2D2E46"
-        }
-    }
-})
 
 type LoginPropsType = {}
 
@@ -85,8 +67,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
 
     return (
         <div className={s.login}>
-            <h1 className={s.title}>It-Incubator</h1>
-            <h2 className={s.caption}>Sign In</h2>
+
             <MainTitle/>
             <h2 className={s.caption}>
                 Sign In
@@ -103,7 +84,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
                         />
                         {formik.touched.email && formik.errors.email // !!!!
                                 ? <div>{formik.errors.email}</div>
-                                : <div></div>
+                                : <div>&nbsp;</div>
                         }
                     </div>
                     <div className={s.inputWrap}>
@@ -126,7 +107,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
                         />
                         {formik.touched.password && formik.errors.password // !!!!
                             ? <div>{formik.errors.password}</div>
-                            : <div></div>
+                            : <div>&nbsp;</div>
                         }
                     </div>
                 </div>

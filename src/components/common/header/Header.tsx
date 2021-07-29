@@ -56,6 +56,12 @@ export const Header = React.memo(function (props: HeaderPropsType) {
                             Check email
                         </NavLink>
                     </div>}
+                    {<div>
+                        <NavLink to={"/404"}
+                                 className={s.headerLink}>
+                            404
+                        </NavLink>
+                    </div>}
                 </>
             }
         </header>

@@ -2,20 +2,116 @@
 @import "./src/assets/styles/mixins.scss";
 
 .pageNotFoundBlock {
-  height: 80vh;
-  @include flexBox(column, center, center, nowrap);
-  @include text($fontFamilyStyle, 36px, 600, $primaryColor);
+  min-height: 80vh;
 
-  @media only screen and (max-width: 750px) {
-    font-size: 32px;
+  .container {
+    max-width: 1030px;
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
   }
-  @media only screen and (max-width: 700px) {
-    font-size: 28px;
+
+  .inner {
+    @include flex(column, center, center);
   }
-  @media only screen and (max-width: 600px) {
-    font-size: 26px;
+
+  .number {
+    @extend %ff600;
+    font-size: 70px;
+    color: $accent;
+
+    @include media(sm) {
+      font-size: 50px;
+    }
   }
-  @media only screen and (max-width: 500px) {
+
+  .error {
+    margin-bottom: 40px;
+    @extend %ff600;
+    font-size: 50px;
+    color: $accent;
+    text-align: center;
+
+    @include media(sm) {
+      font-sise: 30px;
+      margin-bottom: 30px;
+    }
+
+    @include media(xs) {
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .text {
+    margin-bottom: 50px;
+
+    @extend %sf600;
     font-size: 24px;
+    color: $textColor;
+    text-align: center;
+
+    @include media(sm) {
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+  }
+
+  .link {
+    min-height: 60px;
+    width: 100%;
+    max-width: 265px;
+
+    padding: 20px;
+
+    @extend %sf500;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: $textLight;
+    text-align: center;
+
+    background-color: $accent;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .3);
+    border-radius: $brBtn;
+    border: none;
+    cursor: pointer;
+
+    transition: .2s;
+
+    @include media(sm) {
+      min-height: 35px;
+      max-width: 185px;
+
+      padding: 10px;
+
+      font-size: 16px;
+    }
+
+    &:hover {
+      background-color: lighten($accent, 5%);
+    }
+
+    &:active {
+      background-color: darken($accent, 5%);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .wrapIcon {
+    max-width: 265px;
+
+    @include media(sm) {
+      max-width: 185px;
+    }
+  }
+
+  .search {
+    width: 100%;
+    color: currentColor;
   }
 }

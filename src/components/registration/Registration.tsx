@@ -82,8 +82,6 @@ export const Registration = React.memo((props: LoginPropsType) => {
     return (
 
         <div className={s.registration}>
-            <h1 className={s.title}>It-Incubator</h1>
-            <h2 className={s.caption}>Sign Up</h2>
 
             <MainTitle/>
 
@@ -101,7 +99,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                         />
                         {formik.touched.email && formik.errors.email // !!!!
                             ? <div>{formik.errors.email}</div>
-                            : <div>''</div>
+                            : <div>&nbsp;</div>
                         }
                     </div>
                     <div className={s.inputWrap}>
@@ -124,7 +122,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                         />
                         {formik.touched.password && formik.errors.password // !!!!
                             ? <div>{formik.errors.password}</div>
-                            : <div>''</div>
+                            : <div>&nbsp;</div>
                         }
                     </div>
                     <div className={s.inputWrap}>
@@ -147,7 +145,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                         />
                         {formik.errors.repeatPassword // !!!!
                             ? <div>{formik.errors.repeatPassword}</div>
-                            : <div>''</div>
+                            : <div>&nbsp;</div>
                         }
                     </div>
                 </div>

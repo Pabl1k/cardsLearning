@@ -86,7 +86,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
                     />
                     {formik.touched.newPassword && formik.errors.newPassword // !!!!
                         ? <div>{formik.errors.newPassword}</div>
-                        : <div></div>
+                        : <div>&nbsp;</div>
                     }
                 </div>
                 <p className={s.text}>Create new password and we will send you further instructions to email</p>

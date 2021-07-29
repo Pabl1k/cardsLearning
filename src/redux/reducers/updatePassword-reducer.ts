@@ -27,7 +27,6 @@ export const isSuccessAC = (isSuccess: boolean) => {
 
 // thunks
 export const updatePasswordTC = (newPassword: string, token: string) => (dispatch: Dispatch<ActionsType>) => {
-    debugger
     authAPI.setNewPassword(newPassword, token)
         .then(res => {
             if (res.status === 200) {

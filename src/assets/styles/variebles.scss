@@ -52,7 +52,7 @@ $brBtn: 30px;
 //LOGIN
 
 %loginBlock {
-  margin: 0 auto;
+  //margin: 60px 20px;
   padding: 25px 35px;
 
   max-width: 415px;
@@ -128,7 +128,7 @@ $brBtn: 30px;
 
 // Breakpoints
 
-//             @include media(xs) {    }
+//             @include media(sm) {    }
 
 $breakpoints: (
         xs: 574.8px,
