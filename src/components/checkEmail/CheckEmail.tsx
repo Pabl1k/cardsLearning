@@ -2,8 +2,8 @@ import React from "react"
 import {Redirect} from "react-router-dom"
 import {useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
+import {MainTitle} from "../common/mainTitle/MainTitle"
 import icon from "../../assets/images/email.svg"
-import {MainTitle} from "../common/mainTitle/MainTitle";
 import s from "./CheckEmail.module.scss"
 
 export const CheckEmail = () => {
@@ -16,9 +16,7 @@ export const CheckEmail = () => {
 
     return (
         <div className={s.checkEmail}>
-
          <MainTitle/>
-
             <div className={s.iconBg}>
                 <img src={icon} alt="icon" className={s.icon}/>
             </div>

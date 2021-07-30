@@ -4,13 +4,13 @@ import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {updatePasswordTC} from "../../redux/reducers/updatePassword-reducer"
-import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {MainTitle} from "../common/mainTitle/MainTitle"
 import {Button} from "../common/button/Button"
+import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import {IconButton} from "@material-ui/core"
 import {Visibility, VisibilityOff} from "@material-ui/icons"
 import s from "./UpdatePassword.module.scss"
-import {MainTitle} from "../common/mainTitle/MainTitle";
 
 type UpdatePasswordPropsType = {}
 
@@ -84,7 +84,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
                                 </InputAdornment>)
                         }}
                     />
-                    {formik.touched.newPassword && formik.errors.newPassword // !!!!
+                    {formik.touched.newPassword && formik.errors.newPassword
                         ? <div>{formik.errors.newPassword}</div>
                         : <div>&nbsp;</div>
                     }

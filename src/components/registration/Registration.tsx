@@ -5,13 +5,13 @@ import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {SignUpTC} from "../../redux/reducers/registration-reducer"
 import {RequestStatusType} from "../../redux/reducers/app-reducer"
+import {MainTitle} from "../common/mainTitle/MainTitle"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import {Button} from "../common/button/Button"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import {IconButton} from "@material-ui/core"
 import {Visibility, VisibilityOff} from "@material-ui/icons"
 import s from "./Registration.module.scss"
-import {MainTitle} from "../common/mainTitle/MainTitle";
 
 type LoginPropsType = {}
 
@@ -82,12 +82,8 @@ export const Registration = React.memo((props: LoginPropsType) => {
     return (
 
         <div className={s.registration}>
-
             <MainTitle/>
-
-            <h2 className={s.caption}>
-                Sign Up
-            </h2>
+            <h2 className={s.caption}>Sign Up</h2>
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.inputBox}>
                     <div className={s.inputWrap}>
@@ -97,7 +93,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                             label={"Email"}
                             autoComplete="off"
                         />
-                        {formik.touched.email && formik.errors.email // !!!!
+                        {formik.touched.email && formik.errors.email
                             ? <div>{formik.errors.email}</div>
                             : <div>&nbsp;</div>
                         }
@@ -120,7 +116,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                     </InputAdornment>)
                             }}
                         />
-                        {formik.touched.password && formik.errors.password // !!!!
+                        {formik.touched.password && formik.errors.password
                             ? <div>{formik.errors.password}</div>
                             : <div>&nbsp;</div>
                         }
@@ -143,14 +139,16 @@ export const Registration = React.memo((props: LoginPropsType) => {
                                     </InputAdornment>)
                             }}
                         />
-                        {formik.errors.repeatPassword // !!!!
+                        {formik.touched.repeatPassword && formik.errors.repeatPassword
                             ? <div>{formik.errors.repeatPassword}</div>
                             : <div>&nbsp;</div>
                         }
                     </div>
                 </div>
                 <div className={s.btns}>
-                    <Button onClick={RedirectToLoginHandler} className={s.button}>
+                    <Button
+                        onClick={RedirectToLoginHandler}
+                        className={s.button}>
                         <NavLink to={"/login"}>Cancel</NavLink>
                     </Button>
                     <Button

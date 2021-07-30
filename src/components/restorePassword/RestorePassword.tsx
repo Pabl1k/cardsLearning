@@ -4,11 +4,11 @@ import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {restorePasswordTC} from "../../redux/reducers/restorePassword-reducer"
-import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {RequestStatusType} from "../../redux/reducers/app-reducer"
+import {MainTitle} from "../common/mainTitle/MainTitle"
 import {Button} from "../common/button/Button"
+import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import s from "./RestorePassword.module.scss"
-import {RequestStatusType} from "../../redux/reducers/app-reducer";
-import {MainTitle} from "../common/mainTitle/MainTitle";
 
 type RestorePasswordPropsType = {}
 

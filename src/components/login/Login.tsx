@@ -6,14 +6,13 @@ import {AppRootStateType} from "../../redux/store"
 import {loginTC} from "../../redux/reducers/login-reducer"
 import {RequestStatusType} from "../../redux/reducers/app-reducer"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {MainTitle} from "../common/mainTitle/MainTitle"
+import {Button} from "../common/button/Button"
 import {Checkbox, FormControlLabel, IconButton} from "@material-ui/core"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import {Visibility, VisibilityOff} from "@material-ui/icons"
-import {Button} from "../common/button/Button"
+import {useStyles} from "./CheckboxStyles"
 import s from "./Login.module.scss"
-import {MainTitle} from "../common/mainTitle/MainTitle";
-import {useStyles} from "./checkBoxStyle";
-
 
 type LoginPropsType = {}
 
@@ -67,11 +66,8 @@ export const Login = React.memo(function (props: LoginPropsType) {
 
     return (
         <div className={s.login}>
-
             <MainTitle/>
-            <h2 className={s.caption}>
-                Sign In
-            </h2>
+            <h2 className={s.caption}>Sign In</h2>
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.inputBox}>
                     <div className={s.inputWrap}>
@@ -80,9 +76,8 @@ export const Login = React.memo(function (props: LoginPropsType) {
                             {...formik.getFieldProps("email")}
                             label={"Email"}
                             autoComplete="off"
-
                         />
-                        {formik.touched.email && formik.errors.email // !!!!
+                        {formik.touched.email && formik.errors.email
                                 ? <div>{formik.errors.email}</div>
                                 : <div>&nbsp;</div>
                         }
@@ -105,7 +100,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
                                     </InputAdornment>)
                             }}
                         />
-                        {formik.touched.password && formik.errors.password // !!!!
+                        {formik.touched.password && formik.errors.password
                             ? <div>{formik.errors.password}</div>
                             : <div>&nbsp;</div>
                         }

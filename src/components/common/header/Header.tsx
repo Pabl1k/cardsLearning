@@ -27,41 +27,25 @@ export const Header = React.memo(function (props: HeaderPropsType) {
                     <Button style={{width: 150, height: 50, color: "white"}}
                             onClick={logoutHandler}
                             disabled={status === "loading"}
-                            className={s.headerLink}>
-                        Log out
+                            className={s.headerLink}>Log out
                     </Button>
                 </div>
                 : <>
                     <div>
-                        <NavLink to={"/login"}
-                                 className={s.headerLink}>
-                            Login
-                        </NavLink>
+                        <NavLink to={"/login"} className={s.headerLink}>Login</NavLink>
                     </div>
                     <div>
-                        <NavLink to={"/registration"}
-                                 className={s.headerLink}>
-                            Registration
-                        </NavLink>
+                        <NavLink to={"/registration"} className={s.headerLink}>Registration</NavLink>
                     </div>
                     <div>
-                        <NavLink to={"/restorePassword"}
-                                 className={s.headerLink}>
-                            RestorePassword
-                        </NavLink>
+                        <NavLink to={"/restorePassword"} className={s.headerLink}>RestorePassword</NavLink>
                     </div>
-                    {<div>
-                        <NavLink to={"/checkEmail"}
-                                 className={s.headerLink}>
-                            Check email
-                        </NavLink>
-                    </div>}
-                    {<div>
-                        <NavLink to={"/404"}
-                                 className={s.headerLink}>
-                            404
-                        </NavLink>
-                    </div>}
+                    <div>
+                        <NavLink to={"/checkEmail"} className={s.headerLink}>Check email</NavLink>
+                    </div>
+                    <div>
+                        <NavLink to={"/404"} className={s.headerLink}>404</NavLink>
+                    </div>
                 </>
             }
         </header>
