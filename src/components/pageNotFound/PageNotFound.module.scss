@@ -33,7 +33,7 @@
     text-align: center;
 
     @include media(sm) {
-      font-sise: 30px;
+      font-size: 30px;
       margin-bottom: 30px;
     }
 
@@ -44,7 +44,7 @@
   }
 
   .text {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 
     @extend %sf600;
     font-size: 24px;
@@ -104,6 +104,7 @@
 
   .wrapIcon {
     max-width: 265px;
+    margin-bottom: 25px;
 
     @include media(sm) {
       max-width: 185px;

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react"
-import {Route, Switch} from "react-router-dom"
+import {Redirect, Route, Switch} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "./redux/store"
 import {initializeAppTC, RequestStatusType} from "./redux/reducers/app-reducer"
@@ -33,8 +33,9 @@ function App() {
                 <Route path={"/registration"} render={() => <Registration/>}/>
                 <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
                 <Route path={"/updatePassword/:token"} render={() => <UpdatePassword/>}/>
-                <Route path={"/404"} render={() => <PageNotFound/>}/>
                 <Route exact path={"/checkEmail"} render={() => <CheckEmail/>}/>
+                <Route path={"/404"} render={() => <PageNotFound/>}/>
+                <Redirect from={"*"} to={"/404"}/>
             </Switch>
         </section>
     )
