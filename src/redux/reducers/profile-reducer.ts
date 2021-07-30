@@ -5,6 +5,7 @@ const CHANGE_USER_DATA = "CHANGE_USER_DATA"
 
 type InitialStateType = {
     userData: {
+        _id: string
         userName: string
         userEmail: string
         userAvatar: string | undefined | null
@@ -13,6 +14,7 @@ type InitialStateType = {
 
 const initialState: InitialStateType = {
     userData: {
+        _id: "",
         userName: "",
         userEmail: "",
         userAvatar: ""
@@ -29,17 +31,16 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 // actions
-export const updateUserData = (userName: string, userEmail: string, userAvatar: string | undefined | null) => {
-    return {type: CHANGE_USER_DATA, payload: {userName, userEmail, userAvatar}} as const
+export const updateUserData = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null) => {
+    return {type: CHANGE_USER_DATA, payload: {_id, userName, userEmail, userAvatar}} as const
 }
 
 // thunks
-// export const updateUserNameTC = (userName: string, userEmail: string, userAvatar: string | undefined | null) => (dispatch: Dispatch<ActionsType>) => {
-export const updateUserNameTC = (userName: string, userAvatar: string | undefined | null) => (dispatch: Dispatch<ActionsType>) => {
+export const updateUserNameTC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null) => (dispatch: Dispatch<ActionsType>) => {
     profileAPI.updateUserData(userName, userAvatar)
         .then(res => {
-            let {name, email, avatar} = res.data.updatedUser
-            dispatch(updateUserData(name, email, avatar))
+            let {_id, name, email, avatar} = res.data.updatedUser
+            dispatch(updateUserData(_id, name, email, avatar))
         })
         .catch((e) => {
             console.log(e)

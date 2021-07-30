@@ -6,10 +6,9 @@ import axios from "axios"
 // id: 60fd99dcc6db2000047c6c7d
 
 const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-    // baseURL: "http://localhost:7542/2.0/",
-    withCredentials: true,
-    headers: {}
+    // baseURL: "https://neko-back.herokuapp.com/2.0",
+    baseURL: "http://localhost:7542/2.0/",
+    withCredentials: true
 })
 
 // api
@@ -50,10 +49,6 @@ export const profileAPI = {
 }
 
 // types
-export type ResponseType<D = {}> = {
-    data: D
-}
-
 export type LoginUserResponseType = UserDataType
 
 export type UpdateUserDataResponseType = {

@@ -29,11 +29,9 @@ export const restorePasswordTC = (email: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC("loading"))
     authAPI.restorePassword(email)
         .then((res) => {
-            if (res.status === 200) {
-                console.log(res)
-                dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
-                dispatch(setAppStatusAC("succeeded"))
-            }
+            console.log(res)
+            dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
+            dispatch(setAppStatusAC("succeeded"))
         })
         .catch(e => {
             console.log(e)

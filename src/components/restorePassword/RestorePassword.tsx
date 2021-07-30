@@ -43,7 +43,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
     })
 
     if (errorMessage?.slice(0, 8) === "Recovery") {
-        return <Redirect to={"/login"}/>
+        return <Redirect to={"/checkEmail"}/>
     }
 
     if (isLoggedIn) {
@@ -64,7 +64,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                         label={"Email"}
                         autoComplete="off"
                     />
-                    {formik.touched.email && formik.errors.email // !!!!
+                    {formik.touched.email && formik.errors.email
                         ? <div>{formik.errors.email}</div>
                         : <div>&nbsp;</div>
                     }
