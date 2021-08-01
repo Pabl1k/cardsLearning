@@ -5,6 +5,7 @@ import {AppRootStateType} from "../../redux/store"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import icon from "../../assets/images/email.svg"
 import s from "./CheckEmail.module.scss"
+import {ProfileAvatar} from "../common/profileAvatar/ProfileAvatar";
 
 export const CheckEmail = () => {
 
@@ -24,6 +25,7 @@ export const CheckEmail = () => {
             <p className={s.text}>
                 We’ve sent an Email with instructions to example@mail.com
             </p>
+            <ProfileAvatar/>
         </div>
     )
 }

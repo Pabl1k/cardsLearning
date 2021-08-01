@@ -1,0 +1,40 @@
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.headerMenu{
+  margin-top: 60px;
+
+  min-height: 60px;
+  background-color: $bgMenu;
+}
+
+.container {
+  @extend %container;
+}
+
+.inner {
+  @include flex();
+
+  @include media(sm) {
+    flex-direction: column;
+  }
+}
+
+.titleWrap {
+  margin-right: 170px;
+
+  @include media(sm) {
+    margin-right: 0;
+  }
+}
+
+.tabPack {
+  background: url(../../../assets/images/packsIcon.svg) no-repeat 25% 50%;
+}
+
+.tabProfile {
+  background: url(../../../assets/images/profileIcon.svg) no-repeat 30% 50%;
+}
+
+
+
