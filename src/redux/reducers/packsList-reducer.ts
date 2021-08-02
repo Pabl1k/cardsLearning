@@ -19,6 +19,7 @@ export type CardPacksType = {
     updated?: string
     more_id?: string
     __v?: number
+    
 }
 
 const initialState = {

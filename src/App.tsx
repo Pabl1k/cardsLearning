@@ -33,9 +33,6 @@ function App() {
         return null
     }
 
-    console.log(pathname)
-    console.log(typeof pathname)
-
     useEffect(() => {
         dispatch(initializeAppTC())
     }, [dispatch])

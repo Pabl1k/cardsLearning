@@ -12,7 +12,7 @@ export const PacksList = () => {
 
     return (
         <>
-
+            <input type="text" value={"inputvalue"}/>
         </>
     )
 }
