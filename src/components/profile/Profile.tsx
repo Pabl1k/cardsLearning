@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import defaultUserAvatar from "./../../assets/images/defaultUserAvatar.png"
 import s from "./Profile.module.scss"
-import {CardPacks} from "./cardsPack/CardPacks";
 
 type ProfilePropsType = {}
 
@@ -30,11 +29,6 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
                 </div>
             }
             <p>UserName: {userName}</p>
-
-            <br/>
-            <br/>
-            <br/>
-            <CardPacks/>
         </div>
     )
 })

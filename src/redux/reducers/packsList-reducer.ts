@@ -1,7 +1,8 @@
-import {Dispatch} from "redux";
-import {profileAPI} from "../../api/api";
+import {Dispatch} from "redux"
+import {profileAPI} from "../../api/api"
 
-const MAX_CARDS_COUNT = 'MAX-CARDS-COUNT'
+const MAX_CARDS_COUNT = "MAX-CARDS-COUNT"
+
 export type CardPacksType = {
     _id: string
     user_id?: string
@@ -32,7 +33,7 @@ const initialState = {
 }
 type CardPacksInitialStateType = typeof initialState
 
-export const cardPacksReducer = (state = initialState, action: ActionsType): CardPacksInitialStateType => {
+export const packsListReducer = (state = initialState, action: ActionsType): CardPacksInitialStateType => {
     switch (action.type) {
         case "MAX-CARDS-COUNT":
             return {...state, maxCardsCount: action.maxCount}

@@ -3,8 +3,6 @@ import {Redirect, Route, Switch} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "./redux/store"
 import {initializeAppTC, RequestStatusType} from "./redux/reducers/app-reducer"
-import {Header} from "./components/common/header/Header"
-import {Profile} from "./components/profile/Profile"
 import {Login} from "./components/login/Login"
 import {Registration} from "./components/registration/Registration"
 import {RestorePassword} from "./components/restorePassword/RestorePassword"
@@ -13,6 +11,8 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import Preloader from "./components/common/preloader/Preloader"
 import s from "./App.module.scss"
+import {PacksList} from "./components/main/packsList/PacksList";
+import {Profile} from "./components/profile/Profile";
 
 function App() {
 
@@ -25,10 +25,10 @@ function App() {
 
     return (
         <section className={s.pagesContainer}>
-            <Header/>
             {status === "loading" && <Preloader/>}
             <Switch>
-                <Route exact path={"/"} render={() => <Profile/>}/>
+                <Route exact path={"/"} render={() => <PacksList/>}/>
+                <Route path={"/profile"} render={() => <Profile/>}/>
                 <Route path={"/login"} render={() => <Login/>}/>
                 <Route path={"/registration"} render={() => <Registration/>}/>
                 <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
