@@ -6,8 +6,8 @@ import axios from "axios"
 // id: 60fd99dcc6db2000047c6c7d
 
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0",
-    baseURL: "http://localhost:7542/2.0/",
+    baseURL: "https://neko-back.herokuapp.com/2.0",
+    // baseURL: "http://localhost:7542/2.0/",
     withCredentials: true
 })
 
@@ -45,6 +45,9 @@ export const authAPI = {
 export const profileAPI = {
     updateUserData(name: string, avatar: string | undefined | null) {
         return instance.put<UpdateUserDataResponseType>(`auth/me`, {name, avatar})
+    },
+    getCards(id?: string) {
+        return instance.get(`/cards/pack?min=3&max=15&sortPacks=0updated&page=1&pageCount=4&user_id=${id ? id : ''}`)
     }
 }
 
