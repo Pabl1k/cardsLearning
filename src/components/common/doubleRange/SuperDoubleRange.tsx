@@ -27,7 +27,7 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
                 min={0}
-                max={100}
+                max={113}
             />
         </div>
     )
