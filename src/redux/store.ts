@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     registrationReducer: registrationReducer,
     restorePasswordReducer: restorePasswordReducer,
     updatePasswordReducer: updatePasswordReducer,
-    cardPacks: packsListReducer
+    packsList: packsListReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
