@@ -4,54 +4,11 @@ import {MainTitle} from "../mainTitle/MainTitle";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import {makeStyles, Theme} from '@material-ui/core/styles';
+import {useStyles} from "./TabsStyles";
 
 // import avatar from "../../../assets/images/avatar.png"
 
 // type ProfileAvatarPropsType = {}
-
-const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        flexGrow: 1,
-
-        '& .MuiAppBar-colorPrimary': {
-            backgroundColor: "#EBE0E9",
-            color: "#2D2E46"
-        },
-
-        '& .MuiPaper-elevation4': {
-            boxShadow: "none",
-        },
-
-        '& .PrivateTabIndicator-colorSecondary-4': {
-            backgroundColor: "#21268F",
-            width: "175px",
-            height: "3px",
-        },
-
-        '& .MuiTab-textColorInherit.Mui-selected': {
-            backgroundColor: "#DCCCDB",
-        },
-
-        '& .MuiButtonBase-root': {
-            height: "60px",
-            width: "175px",
-        },
-
-        '& .MuiTab-wrapper': {
-            paddingLeft: "40px",
-            textTransform: "none",
-            fontFamily: "SFUIDisplay, sans-serif",
-            fontWeight: 400,
-            fontSize: "14px",
-            lineHeight: "1.05",
-            letterSpacing: ".4px",
-        },
-
-    }
-
-
-}));
 
 export const HeaderMenu = () => {
     const classes = useStyles();

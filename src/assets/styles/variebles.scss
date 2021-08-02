@@ -79,6 +79,15 @@ $brBtn: 30px;
   font-size: 22px;
 }
 
+%subTitle {
+  margin-bottom: 20px;
+
+  @extend %sf600;
+  font-size: 16px;
+  line-height: 1.1;
+  text-align: left;
+}
+
 //BTNS
 
 %btn {

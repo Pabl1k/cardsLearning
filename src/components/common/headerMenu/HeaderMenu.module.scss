@@ -24,12 +24,16 @@
   margin-right: 170px;
 
   @include media(sm) {
-    margin-right: 0;
+    margin: 10px 0;
   }
 }
 
 .tabPack {
   background: url(../../../assets/images/packsIcon.svg) no-repeat 25% 50%;
+
+  @include media(xs) {
+    background-position-x: 15%;
+  }
 }
 
 .tabProfile {

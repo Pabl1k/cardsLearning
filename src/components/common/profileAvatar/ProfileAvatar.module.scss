@@ -1,10 +1,9 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
 
-.profileAvatar{
+.profileAvatar {
   max-width: 125px;
   width: 100%;
-
 
   background-color: transparent;
 }
@@ -31,11 +30,15 @@
   position: absolute;
   top: 64px;
   right: -3px;
-  
+
   border-radius: 50%;
   border: none;
   background-image: url(./../../../assets/images/photoIcon.svg);
+  cursor: pointer;
 
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .name {
