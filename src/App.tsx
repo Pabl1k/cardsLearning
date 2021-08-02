@@ -23,15 +23,18 @@ function App() {
 
     const {pathname} = useLocation()
 
-    const HeaderMenu = () => {
-        const IS_PACKS_LIST_PATH = pathname === "/"
-        const IS_PROFILE_PATH = pathname === "/profile"
+    const showHeaderMenu = () => {
+        const IS_PACKS_LIST_PATH = pathname === "/" // false
+        const IS_PROFILE_PATH = pathname === "/profile" //
 
         if (IS_PACKS_LIST_PATH || IS_PROFILE_PATH) {
             return <HeaderMenu/>
         }
         return null
     }
+
+    console.log(pathname)
+    console.log(typeof pathname)
 
     useEffect(() => {
         dispatch(initializeAppTC())
@@ -40,7 +43,7 @@ function App() {
     return (
         <div>
             {/*<Header/>*/}
-            {/*{HeaderMenu()}*/}
+            {showHeaderMenu()}
             <section className={s.pagesContainer}>
                 {status === "loading" && <Preloader/>}
                 <Switch>

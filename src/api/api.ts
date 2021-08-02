@@ -46,7 +46,7 @@ export const profileAPI = {
     updateUserData(name: string, avatar: string | undefined | null) {
         return instance.put<UpdateUserDataResponseType>(`auth/me`, {name, avatar})
     },
-    getCards(id?: string) {
+    getPacks(id?: string) {
         return instance.get(`/cards/pack?min=3&max=15&sortPacks=0updated&page=1&pageCount=4&user_id=${id ? id : ''}`)
     }
 }
