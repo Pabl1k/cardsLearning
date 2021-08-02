@@ -4,7 +4,6 @@ import avatar from "../../../assets/images/avatar.png"
 
 // type ProfileAvatarPropsType = {}
 
-
 export const ProfileAvatar = () => {
 
     return (

@@ -28,7 +28,7 @@ const initialState = {
     cardPacksTotalCount: 2520,
     minCardsCount: 0,
     maxCardsCount: 103,
-    token: '',
+    token: "",
     tokenDeathTime: 1627834611541
 }
 type CardPacksInitialStateType = typeof initialState
@@ -47,13 +47,13 @@ const maxCardsCountAC = (maxCount: number) => ({type: MAX_CARDS_COUNT, maxCount}
 
 // TC
 export const fetchCardsTC = () => (dispatch: Dispatch) => {
-    profileAPI.getCards()
+    profileAPI.getPacks()
         .then(res => {
             console.log(res.data)
             // dispatch(maxCardsCountAC(res.data.maxCardsCount))
         })
         .catch(er => {
-            alert(er.message)
+            // alert(er.message)
         })
 }
 

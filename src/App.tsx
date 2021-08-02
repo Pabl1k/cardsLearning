@@ -1,5 +1,5 @@
 import React, {useEffect} from "react"
-import {Redirect, Route, Switch} from "react-router-dom"
+import {Redirect, Route, Switch, useLocation} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "./redux/store"
 import {initializeAppTC, RequestStatusType} from "./redux/reducers/app-reducer"
@@ -10,24 +10,37 @@ import {UpdatePassword} from "./components/updatePassword/UpdatePassword"
 import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import Preloader from "./components/common/preloader/Preloader"
+import {PacksList} from "./components/packsList/PacksList"
+import {Profile} from "./components/profile/Profile"
+import {HeaderMenu} from "./components/common/headerMenu/HeaderMenu"
+/*import {Header} from "./components/common/header/Header"*/
 import s from "./App.module.scss"
-import {HeaderMenu} from "./components/common/headerMenu/HeaderMenu";
-import {PacksList} from "./components/main/packsList/PacksList";
-import {Profile} from "./components/profile/Profile";
 
 function App() {
 
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const dispatch = useDispatch()
 
+    const {pathname} = useLocation()
+
+    const HeaderMenu = () => {
+        const IS_PACKS_LIST_PATH = pathname === "/"
+        const IS_PROFILE_PATH = pathname === "/profile"
+
+        if (IS_PACKS_LIST_PATH || IS_PROFILE_PATH) {
+            return <HeaderMenu/>
+        }
+        return null
+    }
+
     useEffect(() => {
         dispatch(initializeAppTC())
     }, [dispatch])
 
     return (
-
         <div>
-            <HeaderMenu/>
+            {/*<Header/>*/}
+            {/*{HeaderMenu()}*/}
             <section className={s.pagesContainer}>
                 {status === "loading" && <Preloader/>}
                 <Switch>
