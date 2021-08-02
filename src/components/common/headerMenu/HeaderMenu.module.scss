@@ -2,7 +2,6 @@
 @import "./src/assets/styles/mixins.scss";
 
 .headerMenu {
-
   min-height: 60px;
   background-color: $bgMenu;
 }
@@ -37,6 +36,12 @@
 
 .tabProfile {
   background: url(../../../assets/images/profileIcon.svg) no-repeat 30% 50%;
+}
+
+.logoutButton {
+  width: 140px;
+  height: 40px;
+  color: $whiteTextColor;
 }
 
 

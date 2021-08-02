@@ -1,5 +1,5 @@
 import {Dispatch} from "redux"
-import {profileAPI} from "../../api/api"
+import {paksListAPI} from "../../api/api"
 
 const MAX_CARDS_COUNT = "MAX-CARDS-COUNT"
 const SET_NAME = "SET-NAME"
@@ -24,14 +24,15 @@ const setNameAC = (name: any) => ({type: SET_NAME, name} as const)
 
 // TC
 export const fetchCardsTC = () => (dispatch: Dispatch) => {
-    profileAPI.getPacks()
+    paksListAPI.getPacks()
         .then(res => {
             console.log(res.data)
             dispatch(setNameAC(res.data.cardPacks))
         })
-        .catch(er => {
-            // alert(er.message)
+        .catch(e => {
+            // alert(e.message)
         })
 }
 
-type ActionsType = ReturnType<typeof maxCardsCountAC> | ReturnType<typeof setNameAC>
+type ActionsType = ReturnType<typeof maxCardsCountAC>
+    | ReturnType<typeof setNameAC>

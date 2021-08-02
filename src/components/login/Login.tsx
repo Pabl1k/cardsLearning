@@ -11,7 +11,7 @@ import {Button} from "../common/button/Button"
 import {Checkbox, FormControlLabel, IconButton} from "@material-ui/core"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import {Visibility, VisibilityOff} from "@material-ui/icons"
-import {useStyles} from "./CheckboxStyles"
+import {useStyles} from "./LoginStyles"
 import s from "./Login.module.scss"
 
 type LoginPropsType = {}
@@ -66,7 +66,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
 
     return (
         <div className={s.login}>
-            <MainTitle/>
+            <MainTitle title={"It-Incubator"}/>
             <h2 className={s.caption}>Sign In</h2>
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.inputBox}>
@@ -78,8 +78,8 @@ export const Login = React.memo(function (props: LoginPropsType) {
                             autoComplete="off"
                         />
                         {formik.touched.email && formik.errors.email
-                                ? <div>{formik.errors.email}</div>
-                                : <div>&nbsp;</div>
+                            ? <div>{formik.errors.email}</div>
+                            : <div>&nbsp;</div>
                         }
                     </div>
                     <div className={s.inputWrap}>

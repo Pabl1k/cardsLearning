@@ -1,6 +1,11 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
 
+.checkEmailBlock {
+  @include flexBox(row, center, center, nowrap);
+  height: 80vh;
+}
+
 .checkEmail {
   @extend %loginBlock;
 }

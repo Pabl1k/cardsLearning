@@ -10,7 +10,7 @@ type SuperInputTextPropsType = DefaultInputPropsType & {
     spanClassName?: string
 }
 
-export const InputText: React.FC<SuperInputTextPropsType> = ({
+export const InputText: React.FC<SuperInputTextPropsType> = React.memo(({
     type,
     onChange, onChangeText,
     onKeyPress, onEnter,
@@ -45,4 +45,4 @@ export const InputText: React.FC<SuperInputTextPropsType> = ({
             />
         </>
     )
-}
+})

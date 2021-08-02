@@ -44,10 +44,17 @@ export const authAPI = {
 export const profileAPI = {
     updateUserData(name: string, avatar: string | undefined | null) {
         return instance.put<UpdateUserDataResponseType>(`auth/me`, {name, avatar})
-    },
-    getPacks(id?: string) {
-        return instance.get(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ''}`)
     }
+}
+
+export const paksListAPI = {
+    getPacks(id?: string) {
+        return instance.get(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+    }
+}
+
+export const cardsAPI = {
+
 }
 
 // types
