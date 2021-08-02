@@ -2,117 +2,52 @@
 @import "./src/assets/styles/mixins.scss";
 
 .pageNotFoundBlock {
-  min-height: 80vh;
+  @extend %loginBlock;
+}
 
-  .container {
-    max-width: 1030px;
-    width: 100%;
-    padding: 0 15px;
-    margin: 0 auto;
-  }
+.number {
+  @extend %ff600;
+  font-size: 70px;
+  color: $textColor;
 
-  .inner {
-    @include flex(column, center, center);
-  }
-
-  .number {
-    @extend %ff600;
-    font-size: 70px;
-    color: $accent;
-
-    @include media(sm) {
-      font-size: 50px;
-    }
-  }
-
-  .error {
-    margin-bottom: 40px;
-    @extend %ff600;
+  @include media(sm) {
     font-size: 50px;
-    color: $accent;
-    text-align: center;
-
-    @include media(sm) {
-      font-size: 30px;
-      margin-bottom: 30px;
-    }
-
-    @include media(xs) {
-      font-size: 26px;
-      margin-bottom: 30px;
-    }
   }
+}
 
-  .text {
-    margin-bottom: 25px;
+.error {
+  @extend %loginCaption;
 
-    @extend %sf600;
-    font-size: 24px;
-    color: $textColor;
-    text-align: center;
+  margin-bottom: 0;
 
-    @include media(sm) {
-      margin-bottom: 30px;
-      font-size: 16px;
-    }
+  font-size: 30px;
+}
+
+
+.wrapIcon {
+  max-width: 200px;
+  height: 150px;
+
+  margin: 0 auto;
+
+  @include media(xs) {
+    max-height: 140px;
   }
+}
 
-  .link {
-    min-height: 60px;
-    width: 100%;
-    max-width: 265px;
+.search {
+  width: 80%;
+}
 
-    padding: 20px;
+.text {
+  font-size: 16px;
 
-    @extend %sf500;
-    font-size: 20px;
-    line-height: 1.2;
-    letter-spacing: 0.01em;
-    color: $textLight;
-    text-align: center;
+  margin-bottom: 35px;
+}
 
-    background-color: $accent;
-    box-shadow: 0 4px 18px rgba(33, 38, 143, .35),
-    inset 0 1px 0 rgba(255, 255, 255, .3);
-    border-radius: $brBtn;
-    border: none;
-    cursor: pointer;
-
-    transition: .2s;
-
-    @include media(sm) {
-      min-height: 35px;
-      max-width: 185px;
-
-      padding: 10px;
-
-      font-size: 16px;
-    }
-
-    &:hover {
-      background-color: lighten($accent, 5%);
-    }
-
-    &:active {
-      background-color: darken($accent, 5%);
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .wrapIcon {
-    max-width: 265px;
-    margin-bottom: 25px;
-
-    @include media(sm) {
-      max-width: 185px;
-    }
-  }
-
-  .search {
-    width: 100%;
-    color: currentColor;
-  }
+.linkHome {
+  display: block;
+  margin: 0 auto 40px;
+  max-width: 255px;
+  @extend %btn;
 }

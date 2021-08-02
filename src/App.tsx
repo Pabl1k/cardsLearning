@@ -11,6 +11,7 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import Preloader from "./components/common/preloader/Preloader"
 import s from "./App.module.scss"
+import {HeaderMenu} from "./components/common/headerMenu/HeaderMenu";
 import {PacksList} from "./components/main/packsList/PacksList";
 import {Profile} from "./components/profile/Profile";
 
@@ -24,20 +25,25 @@ function App() {
     }, [dispatch])
 
     return (
-        <section className={s.pagesContainer}>
-            {status === "loading" && <Preloader/>}
-            <Switch>
-                <Route exact path={"/"} render={() => <PacksList/>}/>
-                <Route path={"/profile"} render={() => <Profile/>}/>
-                <Route path={"/login"} render={() => <Login/>}/>
-                <Route path={"/registration"} render={() => <Registration/>}/>
-                <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
-                <Route path={"/updatePassword/:token"} render={() => <UpdatePassword/>}/>
-                <Route exact path={"/checkEmail"} render={() => <CheckEmail/>}/>
-                <Route path={"/404"} render={() => <PageNotFound/>}/>
-                <Redirect from={"*"} to={"/404"}/>
-            </Switch>
-        </section>
+
+        <div>
+            <HeaderMenu/>
+            <section className={s.pagesContainer}>
+                {status === "loading" && <Preloader/>}
+                <Switch>
+                    <Route exact path={"/"} render={() => <PacksList/>}/>
+                    <Route path={"/profile"} render={() => <Profile/>}/>
+                    <Route path={"/login"} render={() => <Login/>}/>
+                    <Route path={"/registration"} render={() => <Registration/>}/>
+                    <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
+                    <Route path={"/updatePassword/:token"} render={() => <UpdatePassword/>}/>
+                    <Route exact path={"/checkEmail"} render={() => <CheckEmail/>}/>
+                    <Route path={"/404"} render={() => <PageNotFound/>}/>
+                    <Redirect from={"*"} to={"/404"}/>
+                </Switch>
+            </section>
+        </div>
+
     )
 }
 

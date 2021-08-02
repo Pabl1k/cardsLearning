@@ -24,6 +24,14 @@ $brBtn: 30px;
 
 //template variables
 
+
+%container {
+  max-width: 1030px;
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
 //@extend %ff600;
 
 //FONTS
@@ -71,7 +79,52 @@ $brBtn: 30px;
   font-size: 22px;
 }
 
+%subTitle {
+  margin-bottom: 20px;
+
+  @extend %sf600;
+  font-size: 16px;
+  line-height: 1.1;
+  text-align: left;
+}
+
 //BTNS
+
+%btn {
+  min-height: 35px;
+  width: 100%;
+  max-width: 185px;
+
+  padding: 10px;
+
+  @extend %sf500;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: $textLight;
+
+  background-color: $accent;
+  box-shadow:
+          0 4px 18px rgba(33, 38, 143, .35),
+          inset 0 1px 0  rgba(255, 255, 255, .3);
+  border-radius: $brBtn;
+  border: none;
+  cursor: pointer;
+
+  transition: .2s;
+
+  &:hover {
+    background-color: lighten($accent, 5%);
+  }
+
+  &:active {
+    background-color: darken($accent, 5%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
 
 %btnCancel {
   max-width: 125px;
