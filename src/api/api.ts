@@ -3,6 +3,7 @@ import axios from "axios"
 // createdAcc:
 // email: poiumazaya@gmail.com
 // password: newPiatnicaTest
+// id: 60fd99dcc6db2000047c6c7d
 
 const instance = axios.create({
     // baseURL: "https://neko-back.herokuapp.com/2.0",
@@ -50,6 +51,15 @@ export const profileAPI = {
 export const paksListAPI = {
     getPacks(id?: string) {
         return instance.get(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+    },
+    addPack() {
+        return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
+    },
+    deletePack(id: string) {
+        return instance.delete(`cards/pack?id=${id}`)
+    },
+    updatePack(id: string) {
+        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: 'NewName'}})
     }
 }
 
