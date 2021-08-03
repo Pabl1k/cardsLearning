@@ -4,8 +4,8 @@ import {fetchCardsTC} from "../../redux/reducers/packsList-reducer"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {DoubleRange} from "../common/doubleRange/DoubleRange"
-import s from "./PacksList.module.scss"
 import {ItemsFilterSpan} from "../common/itemsFilterSpan/ItemsFilterSpan"
+import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}
 

@@ -53,9 +53,6 @@ export const HeaderMenu = React.memo(() => {
                     </div>
                 </div>
             </div>
-            <NataPacksList/>
-
-
         </div>
     )
 })
