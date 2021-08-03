@@ -16,6 +16,8 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {Preloader} from "./components/common/preloader/Preloader"
 import s from "./App.module.scss"
 import {TableMe} from "./components/common/tableMe/TableStyles";
+import {Header} from "./components/common/header/Header";
+import {NataPacksList} from "./components/packsList/NataPacksList";
 /*import {Header} from "./components/common/header/Header"*/
 
 function App() {
@@ -53,6 +55,10 @@ function App() {
         <>
             {/*<Header/>*/}
             {showHeaderMenu()}
+
+              <HeaderMenu/>
+
+
             <section className={s.pagesContainer}>
                 {status === "loading" && <Preloader/>}
                 <Switch>

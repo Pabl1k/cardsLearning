@@ -10,6 +10,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./TabsStyles"
 import s from "./HeaderMenu.module.scss"
+import {NataPacksList} from "../../packsList/NataPacksList";
 
 export const HeaderMenu = React.memo(() => {
 
@@ -52,6 +53,9 @@ export const HeaderMenu = React.memo(() => {
                     </div>
                 </div>
             </div>
+            <NataPacksList/>
+
+
         </div>
     )
 })

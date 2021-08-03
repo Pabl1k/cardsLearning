@@ -1,0 +1,44 @@
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.packsList {
+  padding: 25px 0;
+
+  min-height: 635px;
+}
+
+.container {
+  @extend %container;
+}
+
+.inner {
+  @include flex(row, stretch, flex-start);
+  border-radius: $br;
+
+}
+
+.aside {
+  padding: 35px 25px;
+
+  width: 243px;
+
+  background-color: $textLight;
+}
+
+.content {
+  padding: 25px 40px 25px 50px;
+
+  width: 100%;
+
+  background-color: #ffffff;
+
+}
+
+.topWrap {
+  @include flex();
+
+}
+
+.button {
+  margin: 15px 0 25px 25px
+}

@@ -14,11 +14,16 @@ export const TableMe = () => {
     const StyledTableCell = withStyles((theme: Theme) =>
         createStyles({
             head: {
-                backgroundColor: theme.palette.common.black,
-                color: theme.palette.common.white,
+                backgroundColor: "#ECECF9",
+                color: "#2D2E46",
+                fontFamily: "SFUIDisplay, sans-serif",
+                fontWeight: 600,
+                lineHeight: "1.05",
+
             },
             body: {
-                fontSize: 14,
+                fontSize: 13,
+                boxShadow: "0px 4px 14px rgba(45, 46, 70, 0.15",
             },
         }),
     )(TableCell);
@@ -63,7 +68,7 @@ export const TableMe = () => {
                         <StyledTableCell align="right">Cards</StyledTableCell>
                         <StyledTableCell align="right">Last&nbsp;updated</StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
-                        <StyledTableCell align="right">Actios</StyledTableCell>
+                        <StyledTableCell align="right">Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

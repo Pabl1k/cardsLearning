@@ -9,6 +9,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             borderRadius: "2px",
             backgroundColor: "#ECECF9",
             opacity: ".5",
+
         },
 
         search: {
