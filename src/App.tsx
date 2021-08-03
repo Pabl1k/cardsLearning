@@ -15,7 +15,7 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {Preloader} from "./components/common/preloader/Preloader"
 import s from "./App.module.scss"
-import {TableMe} from "./components/common/tableMe/TableStyles";
+import {TableMUI} from "./components/common/tableMUI/TableMUI";
 import {Header} from "./components/common/header/Header";
 import {NataPacksList} from "./components/packsList/NataPacksList";
 /*import {Header} from "./components/common/header/Header"*/

@@ -7,26 +7,27 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import React from "react";
+import {TableSortLabel} from "@material-ui/core";
 
-export const TableMe = () => {
+const StyledTableCell = withStyles((theme: Theme) =>
+    createStyles({
+        head: {
+            backgroundColor: "#ECECF9",
+            color: "#2D2E46",
+            fontFamily: "SFUIDisplay, sans-serif",
+            fontWeight: 600,
+            lineHeight: "1.05",
 
+        },
+        body: {
+            fontSize: 13,
+            boxShadow: "0px 4px 14px rgba(45, 46, 70, 0.15",
+        },
+    }),
+)(TableCell);
 
-    const StyledTableCell = withStyles((theme: Theme) =>
-        createStyles({
-            head: {
-                backgroundColor: "#ECECF9",
-                color: "#2D2E46",
-                fontFamily: "SFUIDisplay, sans-serif",
-                fontWeight: 600,
-                lineHeight: "1.05",
+export const TableMUI = () => {
 
-            },
-            body: {
-                fontSize: 13,
-                boxShadow: "0px 4px 14px rgba(45, 46, 70, 0.15",
-            },
-        }),
-    )(TableCell);
 
     const StyledTableRow = withStyles((theme: Theme) =>
         createStyles({
@@ -50,12 +51,6 @@ export const TableMe = () => {
         createData('Gingerbread', 356, 16.0, 49, 3.9),
     ];
 
-    const useStyles = makeStyles({
-        table: {
-            maxWidth: 700,
-        },
-    });
-
 
     return (
         <TableContainer component={Paper}>
@@ -65,7 +60,8 @@ export const TableMe = () => {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell align="right">Cards</StyledTableCell>
+                        <StyledTableCell sortDirection="desc" align="right"> <TableSortLabel>Cards            </TableSortLabel>
+                        </StyledTableCell>
                         <StyledTableCell align="right">Last&nbsp;updated</StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
                         <StyledTableCell align="right">Actions</StyledTableCell>

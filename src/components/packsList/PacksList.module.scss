@@ -3,8 +3,6 @@
 
 .packsList {
   padding: 25px 0;
-
-  min-height: 635px;
 }
 
 .container {
@@ -12,6 +10,8 @@
 }
 
 .inner {
+  min-height: 635px;
+
   @include flex(row, stretch, flex-start);
   border-radius: $br;
 

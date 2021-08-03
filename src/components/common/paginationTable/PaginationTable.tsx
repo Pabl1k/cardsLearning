@@ -1,38 +1,54 @@
 import React from "react"
+import {createStyles, makeStyles} from '@material-ui/core/styles';
+import s from "./PaginationTable.module.scss"
+
 
 
 // import {useStyles} from "./PaginationTable";
-import {Pagination, PaginationItem} from "@material-ui/lab";
-import {Link, MemoryRouter, Route} from "react-router-dom";
+import {Pagination} from "@material-ui/lab";
+import {Typography} from "@material-ui/core";
 // import { useStyles } from "./PaginationTable";
 
+
+const useStyles = makeStyles((theme) =>
+    createStyles({
+        root: {
+            '& > * + *': {
+                marginTop: theme.spacing(2),
+            },
+
+            '& .MuiTypography-body1': {
+                display: "none",
+            }
+        },
+    }),
+);
+
 export const PaginationTable = () => {
-    // const classes = useStyles();
-    const query = new URLSearchParams;
-    const page = parseInt(query.get('page') || '1', 10);
+    const classes = useStyles();
+    const [page, setPage] = React.useState(1);
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
 
     return (
-        <MemoryRouter initialEntries={['/inbox']} initialIndex={0}>
-            <Route>
-                {({ location }) => {
-                    const query = new URLSearchParams(location.search);
-                    const page = parseInt(query.get('page') || '1', 10);
-                    return (
-                        <Pagination
-                            page={page}
-                            count={10}
-                            renderItem={(item) => (
-                                <PaginationItem
-                                    component={Link}
-                                    to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
-                                    {...item}
-                                />
-                            )}
-                        />
-                    );
-                }}
-            </Route>
-        </MemoryRouter>
-    )
+        <div className={classes.root}>
+            <div className={s.p}>
+
+            <Typography>Page: {page}</Typography>
+            <Pagination count={10} page={page} onChange={handleChange}/>
+
+
+                <span>Show</span>
+                <select>
+                    <option value="10">10</option>
+                </select>
+                <span>Cards per Page</span>
+
+            </div>
+
+        </div>
+    );
 }
+
 

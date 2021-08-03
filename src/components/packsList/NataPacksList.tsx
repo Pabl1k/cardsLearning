@@ -6,7 +6,7 @@ import {DoubleRange} from "../common/doubleRange/DoubleRange";
 import {TableTitle} from "../common/tableTitle/TableTitle";
 import {Search} from "../common/search/Search";
 import {Button} from "../common/button/Button";
-import {TableMe} from "../common/tableMe/TableStyles";
+import {TableMUI} from "../common/tableMUI/TableMUI";
 import {ButtonSmall} from "../common/buttonSmall/ButtonSmall";
 import {PaginationTable} from "../common/paginationTable/PaginationTable";
 
@@ -41,7 +41,7 @@ export const NataPacksList = React.memo((props: NataPacksListPropsType) => {
                             <Button className={s.button}>Add new pack</Button>
                         </div>
 
-                        <TableMe/>
+                        <TableMUI/>
                         <PaginationTable/>
 
 
