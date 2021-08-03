@@ -53,9 +53,7 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
     return (
         <div className={s.forgot}>
             <form onSubmit={formik.handleSubmit}>
-
-                <MainTitle/>
-
+                <MainTitle title={"It-Incubator"}/>
                 <h2 className={s.caption}>Forgot your password?</h2>
                 <div className={s.inputWrap}>
                     <InputTextMUI

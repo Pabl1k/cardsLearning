@@ -5,12 +5,8 @@ import {AppRootStateType} from "../../redux/store"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import icon from "../../assets/images/email.svg"
 import s from "./CheckEmail.module.scss"
-import {ProfileAvatar} from "../common/profileAvatar/ProfileAvatar";
-import {TabsShowPacks} from "../common/tabsShowPacks/TabsShowPacks";
-import {NumberCards} from "../common/numberCards/NumberCards";
-import {Search} from "../common/search/Search";
 
-export const CheckEmail = () => {
+export const CheckEmail = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
 
@@ -19,20 +15,17 @@ export const CheckEmail = () => {
     }
 
     return (
-        <div className={s.checkEmail}>
-            <MainTitle/>
-            <div className={s.iconBg}>
-                <img src={icon} alt="icon" className={s.icon}/>
+        <div className={s.checkEmailBlock}>
+            <div className={s.checkEmail}>
+                <MainTitle title={"It-Incubator"}/>
+                <div className={s.iconBg}>
+                    <img src={icon} alt="icon" className={s.icon}/>
+                </div>
+                <h2 className={s.caption}>Check Email</h2>
+                <p className={s.text}>
+                    We’ve sent an Email with instructions to example@mail.com
+                </p>
             </div>
-            <h2 className={s.caption}>Check Email</h2>
-            <p className={s.text}>
-                We’ve sent an Email with instructions to example@mail.com
-            </p>
-            <ProfileAvatar/>
-            <TabsShowPacks/>
-            <NumberCards/>
-            <Search/>
-            {/*<TableMe/>*/}
         </div>
     )
-}
+})

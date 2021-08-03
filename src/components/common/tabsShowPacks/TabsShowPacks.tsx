@@ -1,25 +1,21 @@
 import React from "react"
+import AppBar from "@material-ui/core/AppBar"
+import Tabs from "@material-ui/core/Tabs"
+import Tab from "@material-ui/core/Tab"
+import {useStyles} from "./TabsStylesShowPacks"
 import s from "./TabsShowPacks.module.scss"
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import {useStyles} from "./TabsStylesShowPacks";
 
+export const TabsShowPacks = React.memo(() => {
 
-
-export const TabsShowPacks = () => {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const classes = useStyles()
+    const [value, setValue] = React.useState(0)
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
-    };
-
-
+        setValue(newValue)
+    }
 
     return (
         <div className={s.tabsShowPacks}>
-
             <h2 className={s.title}>Show packs cards</h2>
             <div className={classes.root}>
                 <AppBar position="static">
@@ -29,7 +25,6 @@ export const TabsShowPacks = () => {
                     </Tabs>
                 </AppBar>
             </div>
-
         </div>
     )
-}
+})

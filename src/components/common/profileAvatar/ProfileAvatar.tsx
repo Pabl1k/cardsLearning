@@ -1,11 +1,10 @@
 import React from "react"
-import s from "./ProfileAvatar.module.scss"
 import avatar from "../../../assets/images/avatar.png"
+import s from "./ProfileAvatar.module.scss"
 
-// type ProfileAvatarPropsType = {}
+type ProfileAvatarPropsType = {}
 
-
-export const ProfileAvatar = () => {
+export const ProfileAvatar = React.memo((props: ProfileAvatarPropsType) => {
 
     return (
         <div className={s.profileAvatar}>
@@ -15,7 +14,6 @@ export const ProfileAvatar = () => {
             </div>
             <h2 className={s.name}>Ivan Ivanov</h2>
             <span className={s.career}>Front-end developer</span>
-
         </div>
     )
-}
+})

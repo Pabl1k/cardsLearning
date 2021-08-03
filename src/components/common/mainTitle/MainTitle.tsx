@@ -1,11 +1,14 @@
 import React from "react"
 import s from "./MainTitle.module.scss"
 
-export const MainTitle = () => {
+type MainTitlePropsType = {
+    title: string
+}
 
+export const MainTitle = React.memo((props: MainTitlePropsType) => {
     return (
         <h1 className={s.mainTitle}>
-            It-Incubator
+            {props.title}
         </h1>
     )
-}
+})

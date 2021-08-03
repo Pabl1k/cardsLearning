@@ -80,9 +80,8 @@ export const Registration = React.memo((props: LoginPropsType) => {
     }
 
     return (
-
         <div className={s.registration}>
-            <MainTitle/>
+            <MainTitle title={"It-Incubator"}/>
             <h2 className={s.caption}>Sign Up</h2>
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.inputBox}>

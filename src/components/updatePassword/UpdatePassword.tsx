@@ -16,15 +16,12 @@ type UpdatePasswordPropsType = {}
 
 export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsType) {
 
-    // const {token} = useParams<Record<string, string | undefined>>()
-    const {token} = useParams<any>()
-
     const isSuccess = useSelector<AppRootStateType, boolean>(state => state.updatePasswordReducer.isSuccess)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
-    const [showPassword, setShowPassword] = useState<boolean>(false)
 
-    console.log(`token: ${token}`)
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const {token} = useParams<any>()
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
@@ -64,7 +61,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     return (
         <div className={s.create}>
             <form onSubmit={formik.handleSubmit}>
-                <MainTitle/>
+                <MainTitle title={"It-Incubator"}/>
                 <h2 className={s.caption}>Create new password</h2>
                 <div className={s.inputWrap}>
                     <InputTextMUI
