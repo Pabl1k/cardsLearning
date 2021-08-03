@@ -1,9 +1,9 @@
 import {Dispatch} from "redux"
 import {CardPacksResponseType, packsListAPI} from "../../api/api"
-import {setDoubleRangeMaxValueAC} from "./doubleRange-reducer"
 
 enum PACKS_LIST_ACTION_TYPE {
-    SET_PACKS_LIST = "SET-PACKS-LIST"
+    SET_PACKS_LIST = "SET-PACKS-LIST",
+    SET_NEW_MAX_VALUE = "SET-NEW-MAX-VALUE"
 }
 
 const packsListInitialState: Array<CardPacksResponseType> = []
@@ -23,6 +23,11 @@ const setPacksListAC = (packsList: Array<CardPacksResponseType>) => ({
     packsList
 } as const)
 
+export const setDoubleRangeMaxValueAC = (newMaxValue: number) => ({
+    type: PACKS_LIST_ACTION_TYPE.SET_NEW_MAX_VALUE,
+    newMaxValue
+} as const)
+
 // TC
 export const fetchCardsTC = (minNumberOfCards: number, maxNumberOfCards: number) => (dispatch: Dispatch) => {
     packsListAPI.getPacks(minNumberOfCards, maxNumberOfCards)
@@ -37,3 +42,5 @@ export const fetchCardsTC = (minNumberOfCards: number, maxNumberOfCards: number)
 }
 
 type PacksListActionsType = ReturnType<typeof setPacksListAC>
+| ReturnType<typeof setDoubleRangeMaxValueAC>
+

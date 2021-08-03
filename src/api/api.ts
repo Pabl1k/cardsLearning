@@ -58,7 +58,7 @@ export const packsListAPI = {
         return instance.delete(`cards/pack?id=${id}`)
     },
     updatePack(id: string) {
-        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: 'NewName'}})
+        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewName"}})
     }
 }
 

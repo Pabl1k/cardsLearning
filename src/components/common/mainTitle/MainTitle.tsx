@@ -3,12 +3,13 @@ import s from "./MainTitle.module.scss"
 
 type MainTitlePropsType = {
     title: string
+    textStyle?: string
 }
 
 export const MainTitle = React.memo((props: MainTitlePropsType) => {
     return (
-        <h1 className={s.mainTitle}>
+        <h2 className={`${s.mainTitle} ${props.textStyle}`}>
             {props.title}
-        </h1>
+        </h2>
     )
 })

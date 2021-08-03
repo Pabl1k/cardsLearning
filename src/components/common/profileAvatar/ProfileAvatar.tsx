@@ -5,7 +5,6 @@ import s from "./ProfileAvatar.module.scss"
 type ProfileAvatarPropsType = {}
 
 export const ProfileAvatar = React.memo((props: ProfileAvatarPropsType) => {
-
     return (
         <div className={s.profileAvatar}>
             <div className={s.avatarWrap}>

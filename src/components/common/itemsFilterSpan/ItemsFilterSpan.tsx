@@ -15,13 +15,13 @@ export const ItemsFilterSpan = React.memo((props: ItemsFilterSpanPropsType) => {
 
     return (
         <span onClick={onStatusChangeHandler} className={s.spanTitle}>
-                {props.title}
+            {props.title}
             {props.status === "down"
                 ? "▼"
                 : props.status === "up"
                     ? "▲"
                     : null
             }
-            </span>
+        </span>
     )
 })

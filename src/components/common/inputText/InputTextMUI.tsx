@@ -1,49 +1,16 @@
 import React from "react"
 import FormControl from "@material-ui/core/FormControl"
-import {createStyles, makeStyles, TextField, Theme} from "@material-ui/core"
+import {TextField} from "@material-ui/core"
 import {TextFieldProps} from "@material-ui/core/TextField/TextField"
+import {useStyles} from "./InputTextMUIStyles"
+import s from "./InputTextMUI.module.scss"
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-    root: {
+type InputTextMUIPropsType = {} & TextFieldProps
 
-        '& .MuiInputBase-input': {
-            fontFamily: "SFUIDisplay, sans-serif",
-            fontWeight: 500,
-            fontSize: "16px",
-            lineHeight: "1.5",
-            color: "#2D2E46",
-        },
-
-        '& .MuiFormLabel-root': {
-            fontFamily: "SFUIDisplay, sans-serif",
-            fontWeight: 400,
-            fontSize: "13px",
-            lineHeight: "1.5",
-            color: "#24254A",
-            opacity: ".5"
-        },
-
-        '& .MuiInput-underline:before': {
-            height: "1.6px",
-            color: "#24254A",
-            opacity: ".2"
-        },
-
-        '& .MuiInput-underline:after': {
-            color: "#21268F",
-            opacity: ".2"
-        },
-
-        '& .MuiSvgIcon-root': {
-            color: "#2D2E46",
-        }
-    }
-}))
-
-
-export const InputTextMUI = (props: TextFieldProps) => {
+export const InputTextMUI = React.memo((props: InputTextMUIPropsType) => {
 
     const classes = useStyles()
+
     const {...restProps} = props
 
     return (
@@ -53,4 +20,4 @@ export const InputTextMUI = (props: TextFieldProps) => {
             />
         </FormControl>
     )
-}
+})

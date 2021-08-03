@@ -1,5 +1,5 @@
-import {makeStyles, Theme} from "@material-ui/core/styles";
-import {alpha, createStyles} from "@material-ui/core";
+import {makeStyles, Theme} from "@material-ui/core/styles"
+import {alpha, createStyles} from "@material-ui/core"
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
 
         search: {
-            position: 'relative',
+            position: "relative",
             borderRadius: theme.shape.borderRadius,
             backgroundColor: alpha(theme.palette.common.white, 0.15),
             '&:hover': {
@@ -21,24 +21,24 @@ export const useStyles = makeStyles((theme: Theme) =>
             },
             marginRight: theme.spacing(2),
             marginLeft: 0,
-            width: '100%',
+            width: "100%",
         },
 
         searchIcon: {
             padding: theme.spacing(0, 2),
-            height: '100%',
-            position: 'absolute',
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            height: "100%",
+            position: "absolute",
+            pointerEvents: "none",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
         },
 
         inputInput: {
             padding: theme.spacing(1, 1, 1, 0),
             paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-            transition: theme.transitions.create('width'),
-            width: '100%',
+            transition: theme.transitions.create("width"),
+            width: "100%",
         },
 
         input: {
@@ -51,5 +51,5 @@ export const useStyles = makeStyles((theme: Theme) =>
             letterSpacing: ".7px",
             borderRadius: "2px",
         },
-    }),
-);
+    })
+)

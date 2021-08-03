@@ -28,7 +28,7 @@ function App() {
         dispatch(initializeAppTC())
     }, [dispatch])
 
-    if(status === "loading") {
+    if (status === "loading") {
         return <div style={{position: "fixed", top: "40%", textAlign: "center", width: "100%"}}>
             <CircularProgress
                 size={70}
@@ -36,13 +36,11 @@ function App() {
         </div>
     }
 
-
     return (
         <>
             {isLoggedIn && pathname !== "/404"
                 ? <HeaderMenu/>
-                : null
-            }
+                : null}
             <section className={s.pagesContainer}>
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
