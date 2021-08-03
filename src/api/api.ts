@@ -3,8 +3,8 @@ import axios from "axios"
 //id="60fdcc41c6db2000047c6c84"
 
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0",
-    baseURL: "http://localhost:7542/2.0/",
+    baseURL: "https://neko-back.herokuapp.com/2.0",
+    // baseURL: "http://localhost:7542/2.0/",
     withCredentials: true
 })
 
@@ -45,7 +45,10 @@ export const profileAPI = {
     }
 }
 
-export const packsAPI = {
+export const paksListAPI = {
+    getPacks(id?: string) {
+        return instance.get(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+    },
     addPack() {
         return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
     },
@@ -56,6 +59,11 @@ export const packsAPI = {
         return instance.put(`cards/pack`, {cardsPack: {_id: id, name: 'NewName'}})
     }
 }
+
+export const cardsAPI = {
+
+}
+
 // types
 export type LoginUserResponseType = UserDataType
 

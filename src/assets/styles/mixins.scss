@@ -49,12 +49,12 @@
 
 //nata
 
-
 @mixin flex($flex-direction: row, $align-items: center, $justifyContent: space-between) {
   display: flex;
   flex-direction: $flex-direction;
   align-items: $align-items;
-  justify-content: $justifyContent;}
+  justify-content: $justifyContent;
+}
 
 //   @include flex(column);
 //   @include flex();
