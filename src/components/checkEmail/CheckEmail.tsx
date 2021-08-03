@@ -8,6 +8,7 @@ import s from "./CheckEmail.module.scss"
 import {ProfileAvatar} from "../common/profileAvatar/ProfileAvatar";
 import {TabsShowPacks} from "../common/tabsShowPacks/TabsShowPacks";
 import {NumberCards} from "../common/numberCards/NumberCards";
+import {Search} from "../common/search/Search";
 
 export const CheckEmail = () => {
 
@@ -19,7 +20,7 @@ export const CheckEmail = () => {
 
     return (
         <div className={s.checkEmail}>
-         <MainTitle/>
+            <MainTitle/>
             <div className={s.iconBg}>
                 <img src={icon} alt="icon" className={s.icon}/>
             </div>
@@ -30,6 +31,8 @@ export const CheckEmail = () => {
             <ProfileAvatar/>
             <TabsShowPacks/>
             <NumberCards/>
+            <Search/>
+            {/*<TableMe/>*/}
         </div>
     )
 }

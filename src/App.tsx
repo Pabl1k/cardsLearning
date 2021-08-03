@@ -14,6 +14,7 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import Preloader from "./components/common/preloader/Preloader"
 import s from "./App.module.scss"
 import {HeaderMenu} from "./components/common/headerMenu/HeaderMenu";
+import {TableMe} from "./components/common/tableMe/TableStyles";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
 
         <div>
             <HeaderMenu/>
+            <TableMe/>
             <section className={s.pagesContainer}>
                 <Header/>
                 {status === "loading" && <Preloader/>}
