@@ -8,6 +8,7 @@ import {profileReducer} from "./reducers/profile-reducer"
 import {registrationReducer} from "./reducers/registration-reducer"
 import {restorePasswordReducer} from "./reducers/restorePassword-reducer"
 import {updatePasswordReducer} from "./reducers/updatePassword-reducer"
+import {doubleRangeReducer} from "./reducers/doubleRange-reducer";
 
 const rootReducer = combineReducers({
     appReducer: appReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     loginReducer: loginReducer,
     registrationReducer: registrationReducer,
     restorePasswordReducer: restorePasswordReducer,
-    updatePasswordReducer: updatePasswordReducer
+    updatePasswordReducer: updatePasswordReducer,
+    doubleRange: doubleRangeReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
