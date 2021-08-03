@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
             color: "#2D2E46",
         }
     }
-}));
+}))
 
 
 export const InputTextMUI = (props: TextFieldProps) => {
