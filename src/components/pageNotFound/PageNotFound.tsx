@@ -14,6 +14,6 @@ export const PageNotFound = React.memo(() => {
             <p className={s.text}>MOST LIKELY THE PAGE <br/>YOU ARE LOOKING FOR THERE</p>
             <NavLink to="/" className={s.linkHome}>Back to home</NavLink>
         </div>
-    )
+)
 })
 
