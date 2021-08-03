@@ -1,38 +1,39 @@
 import {Dispatch} from "redux"
-import {paksListAPI} from "../../api/api"
+import {CardPacksResponseType, packsListAPI} from "../../api/api"
+import {setDoubleRangeMaxValueAC} from "./doubleRange-reducer"
 
-const MAX_CARDS_COUNT = "MAX-CARDS-COUNT"
-const SET_NAME = "SET-NAME"
+enum PACKS_LIST_ACTION_TYPE {
+    SET_PACKS_LIST = "SET-PACKS-LIST"
+}
 
-const initialState: Array<any> = []
+const packsListInitialState: Array<CardPacksResponseType> = []
 
-export const packsListReducer = (state = initialState, action: ActionsType) => {
+export const packsListReducer = (state = packsListInitialState, action: PacksListActionsType): Array<CardPacksResponseType> => {
     switch (action.type) {
-        case "MAX-CARDS-COUNT":
-            return {...state, maxCardsCount: action.maxCount}
-        case SET_NAME:
-            return action.name.map((name: { name: any }) => name.name)
+        case PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST:
+            return action.packsList.map(packsList => ({...packsList}))
         default:
             return state
     }
 }
 
 // AC
-const maxCardsCountAC = (maxCount: number) => ({type: MAX_CARDS_COUNT, maxCount} as const)
-
-const setNameAC = (name: any) => ({type: SET_NAME, name} as const)
+const setPacksListAC = (packsList: Array<CardPacksResponseType>) => ({
+    type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST,
+    packsList
+} as const)
 
 // TC
-export const fetchCardsTC = () => (dispatch: Dispatch) => {
-    paksListAPI.getPacks()
+export const fetchCardsTC = (minNumberOfCards: number, maxNumberOfCards: number) => (dispatch: Dispatch) => {
+    packsListAPI.getPacks(minNumberOfCards, maxNumberOfCards)
         .then(res => {
             console.log(res.data)
-            dispatch(setNameAC(res.data.cardPacks))
+            dispatch(setPacksListAC(res.data.cardPacks))
+            dispatch(setDoubleRangeMaxValueAC(res.data.maxCardsCount))
         })
         .catch(e => {
             // alert(e.message)
         })
 }
 
-type ActionsType = ReturnType<typeof maxCardsCountAC>
-    | ReturnType<typeof setNameAC>
+type PacksListActionsType = ReturnType<typeof setPacksListAC>
