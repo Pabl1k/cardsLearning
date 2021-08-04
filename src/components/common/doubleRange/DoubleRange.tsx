@@ -27,10 +27,12 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
                     onChange={handleChange}
                     valueLabelDisplay="on"
                     aria-labelledby="range-slider"
-                    min={1}
+                    min={props.minValue}
                     max={props.maxValue}
                 />
             </div>
+            <br/>
+            <button>Apply range values</button>
         </div>
     )
 })

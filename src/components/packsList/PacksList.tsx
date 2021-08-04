@@ -18,7 +18,7 @@ type PacksListPropsType = {}
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-
+    const {minCardsCount, maxCardsCount} = useSelector( (state: AppRootStateType) => state.packsListReducer)
     const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
 
@@ -37,8 +37,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                     <div className={s.aside}>
                         <TabsShowPacks/>
                         <DoubleRange
-                            minValue={0} // Сюда закинуть значения из стейта
-                            maxValue={100} // Сюда закинуть значения из стейта
+                            minValue={minCardsCount}
+                            maxValue={maxCardsCount}
                         />
                     </div>
                     <div className={s.content}>
