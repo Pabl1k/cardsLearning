@@ -1,5 +1,5 @@
 import React from "react"
-import {CardPacksResponseType} from "../../../api/api"
+import {CardPacksResponseType, GetPacksResponseType} from "../../../api/api"
 import {useSelector} from "react-redux"
 import {AppRootStateType} from "../../../redux/store"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
@@ -13,9 +13,14 @@ import {TableSortLabel} from "@material-ui/core"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
 
-export const PacksListTableMUI = React.memo(() => {
+type PacksListTableMUIPropsType = {
+    tableState: Array<CardPacksResponseType>
+}
 
-    const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer)
+export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
+
+    // const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer)
+    // const arr = props.tableState
 
     return (
         <TableContainer component={Paper}>
@@ -33,7 +38,7 @@ export const PacksListTableMUI = React.memo(() => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {packsListState.map((pack) => (
+                    {props.tableState.map((pack) => (
                         <StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">{pack.name}</StyledTableCell>
                             <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>

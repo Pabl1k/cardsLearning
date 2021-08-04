@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
@@ -10,15 +10,21 @@ import {PacksListTableMUI} from "./packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import s from "./PacksList.module.scss"
+import {fetchCardsStateTC} from "../../redux/reducers/packsList-reducer";
+import {CardPacksResponseType, GetPacksResponseType} from "../../api/api";
 
 type PacksListPropsType = {}
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    // const minValue = useSelector<AppRootStateType, number>(state => state.packsListReducer.minValue)
-    // const maxValue = useSelector<AppRootStateType, number>(state => state.packsListReducer.maxValue)
+
+    const cardsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchCardsStateTC())
+    }, [])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -41,7 +47,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             <SearchInput/>
                             <Button className={s.button}>Add new pack</Button>
                         </div>
-                        <PacksListTableMUI/>
+                        <PacksListTableMUI tableState={cardsListState}/>
                         <PaginationTable/>
                     </div>
                 </div>
