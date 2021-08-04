@@ -2,6 +2,8 @@ import React, {useEffect} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
+import {fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {CardPacksResponseType} from "../../api/api"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
@@ -10,8 +12,6 @@ import {PacksListTableMUI} from "./packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import s from "./PacksList.module.scss"
-import {fetchCardsStateTC} from "../../redux/reducers/packsList-reducer";
-import {CardPacksResponseType, GetPacksResponseType} from "../../api/api";
 
 type PacksListPropsType = {}
 
@@ -19,11 +19,11 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
 
-    const cardsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
+    const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchCardsStateTC())
+        dispatch(fetchPacksStateTC())
     }, [])
 
     if (!isLoggedIn) {
@@ -47,7 +47,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             <SearchInput/>
                             <Button className={s.button}>Add new pack</Button>
                         </div>
-                        <PacksListTableMUI tableState={cardsListState}/>
+                        <PacksListTableMUI tableState={packsListState}/>
                         <PaginationTable/>
                     </div>
                 </div>

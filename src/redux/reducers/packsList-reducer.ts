@@ -12,7 +12,7 @@ const packsListInitialState = {
     minCardsCount: 0,
     page: 0,
     pageCount: 0,
-    token: '',
+    token: "",
     tokenDeathTime: 0
 }
 type PackStateType = typeof packsListInitialState
@@ -35,10 +35,9 @@ const setPacksStateAC = (packsState: GetPacksResponseType) => ({
 } as const)
 
 // TC
-export const fetchCardsStateTC = () => (dispatch: Dispatch) => {
+export const fetchPacksStateTC = () => (dispatch: Dispatch) => {
     packsListAPI.getPacks()
         .then(res => {
-            debugger
             dispatch(setPacksStateAC(res.data))
         })
         .catch(e => {

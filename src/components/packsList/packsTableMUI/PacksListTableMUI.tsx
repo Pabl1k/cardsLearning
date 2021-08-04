@@ -19,9 +19,6 @@ type PacksListTableMUIPropsType = {
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
-    // const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer)
-    // const arr = props.tableState
-
     return (
         <TableContainer component={Paper}>
             <Table
