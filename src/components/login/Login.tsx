@@ -28,6 +28,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
+
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,9 +37,9 @@ export const Login = React.memo(function (props: LoginPropsType) {
 
     const formik = useFormik({
         initialValues: {
-            email: "",
-            password: "",
-            rememberMe: false
+            email: "poiumazaya@gmail.com",
+            password: "newPiatnicaTest",
+            rememberMe: true// false
         },
         validate: (values) => {
             const errors: FormikErrorType = {}

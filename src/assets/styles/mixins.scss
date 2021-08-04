@@ -36,15 +36,15 @@
   @include text($fontFamilyStyle, $fonstSize, 500, $textColor);
 }
 
-@mixin button($width, $height, $fonstSize, $backgroundColor, $borderColor) {
+@mixin button($width, $height, $fonstSize, $backgroundColor, $border) {
   width: $width;
   height: $height;
   background-color: $backgroundColor;
   overflow: hidden;
-  border: 3px solid $borderColor;
+  border: $border;
   border-radius: 6px;
   transition: .3s;
-  @include text($fontFamilyStyle, $fonstSize, 400, $whiteTextColor);
+  @include text($fontFamilyStyle, $fonstSize, 400, $textColor);
 }
 
 //nata

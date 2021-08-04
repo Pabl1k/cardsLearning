@@ -1,0 +1,13 @@
+@import "../../../assets/styles/variebles";
+@import "../../../assets/styles/mixins";
+
+.tabsShowPacks {
+  width: 196px;
+}
+
+.title {
+  @extend %subTitle;
+}
+
+
+

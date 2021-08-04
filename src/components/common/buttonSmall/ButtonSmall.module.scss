@@ -1,0 +1,18 @@
+@import "./src/assets/styles/variebles.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.buttonSmall {
+  padding: 7px;
+
+  border: none;
+  border-radius: 2px;
+  background-color: $bgGrayBlue;
+
+  color: $accent;
+  @extend %sf600;
+  font-size: 12px;
+  line-height: 1.05;
+  text-transform: capitalize;
+
+  cursor: pointer;
+}

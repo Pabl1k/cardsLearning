@@ -1,6 +1,9 @@
 import axios from "axios"
 
 //id="60fdcc41c6db2000047c6c84"
+// createdAcc:
+// email: poiumazaya@gmail.com
+// password: newPiatnicaTest
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0",
@@ -45,9 +48,9 @@ export const profileAPI = {
     }
 }
 
-export const paksListAPI = {
-    getPacks(id?: string) {
-        return instance.get(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+export const packsListAPI = {
+    getPacks(min: number, max: number, id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=${min}&max=${max}&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
     },
     addPack() {
         return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
@@ -56,7 +59,7 @@ export const paksListAPI = {
         return instance.delete(`cards/pack?id=${id}`)
     },
     updatePack(id: string) {
-        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: 'NewName'}})
+        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewName"}})
     }
 }
 
@@ -77,6 +80,7 @@ export const cardsAPI = {
     },
 
 }
+
 
 // types
 export type LoginUserResponseType = UserDataType
@@ -115,14 +119,25 @@ export type UserDataType = {
     error?: string
 }
 
-export type PackType = {
+type GetPacksResponseType = {
+    cardPacks: Array<CardPacksResponseType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type CardPacksResponseType = {
     cardsCount: number
     created: string
     grade: number
     more_id: string
     name: string
     path: string
-    private: boolean
+    private: false
     rating: number
     shots: number
     type: string
@@ -132,3 +147,4 @@ export type PackType = {
     __v: number
     _id: string
 }
+

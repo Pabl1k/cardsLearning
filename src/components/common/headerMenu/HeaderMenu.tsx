@@ -8,10 +8,12 @@ import {Button} from "../button/Button"
 import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
-import {useStyles} from "./TabsStyles"
+import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
 
-export const HeaderMenu = React.memo(() => {
+type HeaderMenuPropsType = {}
+
+export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
 
     const classes = useStyles()
 
