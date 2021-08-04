@@ -3,7 +3,7 @@ import {NavLink, Redirect, useHistory} from "react-router-dom"
 import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
-import {SignUpTC} from "../../redux/reducers/registration-reducer"
+import {signUpTC} from "../../redux/reducers/registration-reducer"
 import {RequestStatusType} from "../../redux/reducers/app-reducer"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
@@ -67,7 +67,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
             return errors
         },
         onSubmit: (values) => {
-            dispatch(SignUpTC(values.email, values.password))
+            dispatch(signUpTC(values.email, values.password))
             formik.resetForm()
         }
     })

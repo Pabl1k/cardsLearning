@@ -1,5 +1,7 @@
-import {Dispatch} from "redux"
+import {ThunkAction} from "redux-thunk"
 import {CardPacksResponseType, GetPacksResponseType, packsListAPI} from "../../api/api"
+import {AppActionsType, AppRootStateType} from "../store"
+import {setAppStatusAC} from "./app-reducer"
 
 enum PACKS_LIST_ACTION_TYPE {
     SET_PACKS_LIST = "SET-PACKS-LIST",
@@ -18,7 +20,7 @@ const packsListInitialState = {
 
 type PackStateType = typeof packsListInitialState
 
-export const packsListReducer = (state = packsListInitialState, action: PacksListActionsType): PackStateType => {
+export const packsListReducer = (state = packsListInitialState, action: PacksListReducerActionsType): PackStateType => {
     switch (action.type) {
         case PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST:
             return action.packsState
@@ -32,24 +34,32 @@ const setPacksListStateAC = (packsState: GetPacksResponseType) => (
     {type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST, packsState} as const)
 
 // TC
-export const fetchPacksStateTC = () => (dispatch: Dispatch) => {
-    packsListAPI.getPacks()
-        .then(res => {
-            dispatch(setPacksListStateAC(res.data))
-        })
-        .catch(e => {
-            // alert(e.message)
-        })
-}
+export const fetchPacksStateTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        packsListAPI.getPacks()
+            .then(res => {
+                dispatch(setPacksListStateAC(res.data))
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch(e => {
+                console.log(e.message)
+                // dispatch(setAppStatusAC("failed"))
+            })
+    }
 
-export const addNewPackStateTC = () => (dispatch: Dispatch) => {
-    packsListAPI.addPack()
-        .then(res => {
-            dispatch(fetchPacksStateTC())
-        })
-        .catch(e => {
-            // alert(e.message)
-        })
-}
+export const addNewPackStateTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        packsListAPI.addPack()
+            .then(res => {
+                dispatch(fetchPacksStateTC())
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch(e => {
+                console.log(e.message)
+                // dispatch(setAppStatusAC("failed"))
+            })
+    }
 
-type PacksListActionsType = ReturnType<typeof setPacksListStateAC>
+export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>

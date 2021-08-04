@@ -1,11 +1,13 @@
-import {Dispatch} from "redux"
+import {ThunkAction} from "redux-thunk"
 import {cardsAPI} from "../../api/api"
+import {AppActionsType, AppRootStateType} from "../store"
+import {setAppStatusAC} from "./app-reducer"
 
 const initialState: InitialStateType = {}
 
 type InitialStateType = {}
 
-export const cardsListReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListReducerActionsType): InitialStateType => {
     switch (action.type) {
         case "CARD/SET-CARDS":
             return state
@@ -20,18 +22,22 @@ export const setCardsAC = (packId: string) => {
 }
 
 // thunks
-export const getCardsTC = (packId: string) => (dispatch: Dispatch<ActionsType>) => {
-    cardsAPI.getCards(packId)
-        .then(res => {
-            dispatch(setCardsAC(res.data))
-        })
-        .catch((error) => {
-            // handleServerNetworkError(error, dispatch)
-            console.log(error)
-        })
-        .finally(() => {
-        })
-}
+export const getCardsTC = (packId: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        cardsAPI.getCards(packId)
+            .then(res => {
+                dispatch(setCardsAC(res.data))
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch((e) => {
+                console.log(e)
+                // dispatch(setAppStatusAC("failed"))
+            })
+            .finally(() => {
+                // some code...
+            })
+    }
 
 // types
-type ActionsType = ReturnType<typeof setCardsAC>
+export type CardsListReducerActionsType = ReturnType<typeof setCardsAC>
