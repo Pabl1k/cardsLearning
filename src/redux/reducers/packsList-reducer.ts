@@ -23,7 +23,6 @@ export const packsListReducer = (state = packsListInitialState, action: PacksLis
         case PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST:
             return action.packsState
         default:
-            debugger
             return state
     }
 }
