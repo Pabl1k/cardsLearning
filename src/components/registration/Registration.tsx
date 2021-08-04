@@ -27,6 +27,7 @@ export const Registration = React.memo((props: LoginPropsType) => {
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const dispatch = useDispatch()
+
     const history = useHistory()
 
     const [showPassword, setShowPassword] = useState<boolean>(false)

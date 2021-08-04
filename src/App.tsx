@@ -13,56 +13,36 @@ import {RestorePassword} from "./components/restorePassword/RestorePassword"
 import {UpdatePassword} from "./components/updatePassword/UpdatePassword"
 import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
-import {Preloader} from "./components/common/preloader/Preloader"
+import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
-import {TableMUI} from "./components/common/tableMUI/TableMUI";
-import {Header} from "./components/common/header/Header";
-import {NataPacksList} from "./components/packsList/NataPacksList";
-/*import {Header} from "./components/common/header/Header"*/
+
 
 function App() {
 
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
     const {pathname} = useLocation()
-
-    const showHeaderMenu = () => {
-        const IS_LOGIN_PATH = pathname === "/login"
-        const IS_REGISTRATION_PATH = pathname === "/registration"
-        const IS_RESTORE_PASSWORD_PATH = pathname === "/restorePassword"
-        const IS_UPDATE_PASSWORD_PATH = pathname === "/updatePassword" // !!! fix with token !!!
-        const IS_CHECK_EMAIL_PATH = pathname === "/checkEmail"
-        const IS_404_PATH = pathname === "/404"
-
-        if (IS_LOGIN_PATH || IS_REGISTRATION_PATH || IS_RESTORE_PASSWORD_PATH ||
-            IS_UPDATE_PASSWORD_PATH || IS_CHECK_EMAIL_PATH || IS_404_PATH) {
-            return null
-        } else {
-            return <HeaderMenu/>
-        }
-    }
 
     useEffect(() => {
         dispatch(initializeAppTC())
     }, [dispatch])
 
+    if (status === "loading") {
+        return <div style={{position: "fixed", top: "40%", textAlign: "center", width: "100%"}}>
+            <CircularProgress
+                size={70}
+            />
+        </div>
+    }
+
     return (
-
-        // <div>
-        //     <HeaderMenu/>
-        //     <TableMe/>
         <>
-            {/*<Header/>*/}
-            {showHeaderMenu()}
-
-              <HeaderMenu/>
-
-
+            {isLoggedIn && pathname !== "/404"
+                ? <HeaderMenu/>
+                : null}
             <section className={s.pagesContainer}>
-                <NataPacksList/>
-
-                {status === "loading" && <Preloader/>}
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
                     <Route exact path={"/cardslist"} render={() => <CardsList/>}/>

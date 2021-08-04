@@ -5,14 +5,14 @@ export const useStyles = makeStyles((theme: Theme) => ({
         flexGrow: 1,
 
         '& .MuiSlider-rail': {
-            backgroundColor: "#21268F;",
+            backgroundColor: "#21268F",
             opacity: ".5",
             height: "5px",
             borderRadius: "10px",
         },
 
         '& .MuiSlider-track': {
-            backgroundColor: "#21268F;",
+            backgroundColor: "#21268F",
             height: "5px",
             borderRadius: "10px",
         },
@@ -30,10 +30,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
         //     width: "32px",
         //     borderRadius: 3px,
         // },
-
-
     }
-
-}));
+}))
 
 

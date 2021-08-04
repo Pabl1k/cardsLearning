@@ -47,9 +47,18 @@ export const profileAPI = {
     }
 }
 
-export const paksListAPI = {
-    getPacks(id?: string) {
-        return instance.get(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+export const packsListAPI = {
+    getPacks(min: number, max: number, id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=${min}&max=${max}&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+    },
+    addPack() {
+        return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
+    },
+    deletePack(id: string) {
+        return instance.delete(`cards/pack?id=${id}`)
+    },
+    updatePack(id: string) {
+        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewName"}})
     }
 }
 
@@ -92,4 +101,33 @@ export type UserDataType = {
     rememberMe: boolean
 
     error?: string
+}
+
+type GetPacksResponseType = {
+    cardPacks: Array<CardPacksResponseType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type CardPacksResponseType = {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: false
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
 }

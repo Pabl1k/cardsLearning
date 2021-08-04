@@ -5,7 +5,9 @@ import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./TabsStylesShowPacks"
 import s from "./TabsShowPacks.module.scss"
 
-export const TabsShowPacks = React.memo(() => {
+type TabsShowPacksPropsType = {}
+
+export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
 
     const classes = useStyles()
     const [value, setValue] = React.useState(0)
