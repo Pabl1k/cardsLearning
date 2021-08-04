@@ -2,7 +2,7 @@
 @import "./src/assets/styles/mixins.scss";
 
 .packsList {
-  padding: 25px 0;
+  //padding: 25px 0;
 
   width: 100%;
 }
@@ -17,14 +17,29 @@
   @include flex(row, stretch, flex-start);
   border-radius: $br;
 
+  @include media(md) {
+    flex-direction: column;
+  }
+
 }
 
 .aside {
+  @include flex(column, center, flex-start);
   padding: 35px 25px;
 
   width: 243px;
 
   background-color: $textLight;
+  border-radius: 8px  0 0 8px;
+
+  @include media(md) {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    border-radius: 8px 8px 0 0;
+
+  }
 }
 
 .content {
@@ -34,6 +49,12 @@
   max-width: 765px;
 
   background-color: #ffffff;
+  border-radius: 0 8px 8px 0;
+
+  @include media(md) {
+    max-width: 100%;
+    border-radius: 0  0 8px 8px;
+  }
 
 }
 
@@ -50,3 +71,5 @@
 .button {
   margin: 15px 0 25px 25px;
 }
+
+

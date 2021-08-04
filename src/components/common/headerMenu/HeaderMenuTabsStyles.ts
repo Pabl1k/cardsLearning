@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
             boxShadow: "none",
         },
 
-        '& .PrivateTabIndicator-colorSecondary-4': {
+        '& .PrivateTabIndicator-root-14': {
             backgroundColor: "#21268F",
             width: "175px",
             height: "3px",
