@@ -45,7 +45,7 @@ function App() {
             <section className={s.pagesContainer}>
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
-                    <Route exact path={"/cardslist"} render={() => <CardsList/>}/>
+                    <Route exact path={"/cardslist/:_cardsPack_id"} render={() => <CardsList/>}/>  {/* настроить URL-параметр для id колоды */}
                     <Route path={"/profile"} render={() => <Profile/>}/>
                     <Route path={"/login"} render={() => <Login/>}/>
                     <Route path={"/registration"} render={() => <Registration/>}/>

@@ -1,4 +1,5 @@
 import React from "react"
+import {NavLink} from "react-router-dom"
 import {CardPacksResponseType} from "../../../api/api"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
 import TableRow from "@material-ui/core/TableRow"
@@ -35,13 +36,18 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 <TableBody>
                     {props.tableState.map((pack) => (
                         <StyledTableRow key={pack._id}>
-                            <StyledTableCell component="th" scope="row">{pack.name}</StyledTableCell>
+                            <StyledTableCell component="th" scope="row">
+                                <NavLink to={`/cardsList/${pack._id}`}>
+                                    {pack.name}
+                                </NavLink>
+                            </StyledTableCell>
                             <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
                             <StyledTableCell align="right">{pack.updated.slice(0, 10)}</StyledTableCell>
                             <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
                             <StyledTableCell align="right">
                                 <div className={s.buttonsContainer}>
-                                    <ButtonSmall text={"delete"} style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
+                                    <ButtonSmall text={"delete"}
+                                                 style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
                                     <ButtonSmall text={"edit"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
                                     <ButtonSmall text={"learn"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
                                 </div>
