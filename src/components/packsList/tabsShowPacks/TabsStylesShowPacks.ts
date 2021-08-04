@@ -44,6 +44,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
             lineHeight: "1.05",
             letterSpacing: ".4px",
         },
+
     }
 
 }));

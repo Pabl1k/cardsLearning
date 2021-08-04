@@ -16,6 +16,7 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
 
+
 function App() {
 
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)

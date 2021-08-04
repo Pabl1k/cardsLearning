@@ -10,6 +10,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
+import {CardInfo} from "../cardInfo/CardInfo";
 
 type HeaderMenuPropsType = {}
 
@@ -54,6 +55,7 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                     </div>
                 </div>
             </div>
+
         </div>
     )
 })
