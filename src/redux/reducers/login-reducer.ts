@@ -8,6 +8,7 @@ const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
 
 type InitialStateType = {
     userData: {
+        _id: string
         userEmail: string
         userName: string
         userAvatar: string | undefined | null
@@ -18,6 +19,7 @@ type InitialStateType = {
 
 const initialState: InitialStateType = {
     userData: {
+        _id: "",
         userEmail: "",
         userName: "",
         userAvatar: "",
@@ -45,9 +47,8 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
 }
 
 // actions
-export const loginUserAC = (userEmail: string, userName: string, userAvatar: string | undefined | null,
-                            publicCardsCount: number, isLoggedIn: boolean) => {
-    return {type: LOGIN_USER, payload: {userEmail, userName, userAvatar, publicCardsCount, isLoggedIn}} as const
+export const loginUserAC = (_id: string, userEmail: string, userName: string,userAvatar: string | undefined | null, publicCardsCount: number, isLoggedIn: boolean) => {
+    return {type: LOGIN_USER, payload: {_id, userEmail, userName, userAvatar, publicCardsCount, isLoggedIn}} as const
 }
 
 export const setIsLoggedInAC = (isLoggedIn: boolean) => {
@@ -60,7 +61,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         dispatch(setAppStatusAC("loading"))
         authAPI.login(email, password, rememberMe)
             .then(res => {
-                dispatch(loginUserAC(res.data.email, res.data.name, res.data.avatar, res.data.publicCardPacksCount, true))
+                dispatch(loginUserAC(res.data._id, res.data.email, res.data.name, res.data.avatar, res.data.publicCardPacksCount, true))
                 dispatch(setAppStatusAC("succeeded"))
             })
             .catch((e) => {

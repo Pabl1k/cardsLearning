@@ -1,5 +1,7 @@
 import React from "react"
 import {NavLink} from "react-router-dom"
+import {useSelector} from "react-redux"
+import {AppRootStateType} from "../../../redux/store"
 import {CardPacksResponseType} from "../../../api/api"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
@@ -12,12 +14,13 @@ import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
 
-
 type PacksListTableMUIPropsType = {
     tableState: Array<CardPacksResponseType>
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
+
+    const user_id = useSelector<AppRootStateType, string>(state => state.loginReducer.userData._id)
 
     return (
         <TableContainer component={Paper}>
@@ -56,10 +59,20 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                             <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
                             <StyledTableCell align="right">
                                 <div className={s.buttonsContainer}>
-                                    <ButtonSmall text={"delete"}
-                                                 style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
-                                    <ButtonSmall text={"edit"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                                    <ButtonSmall text={"learn"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                    {user_id === pack.user_id
+                                        ? <>
+                                            <ButtonSmall text={"delete"}
+                                                         style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
+                                            <ButtonSmall text={"edit"}
+                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                            <ButtonSmall text={"learn"}
+                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                        </>
+                                        : <>
+                                            <ButtonSmall text={"learn"}
+                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                        </>
+                                    }
                                 </div>
                             </StyledTableCell>
                         </StyledTableRow>

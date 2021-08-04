@@ -39,6 +39,7 @@ export const fetchPacksStateTC = (): ThunkAction<void, AppRootStateType, unknown
         // dispatch(setAppStatusAC("loading"))
         packsListAPI.getPacks()
             .then(res => {
+                console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
                 // dispatch(setAppStatusAC("succeeded"))
             })
@@ -48,18 +49,32 @@ export const fetchPacksStateTC = (): ThunkAction<void, AppRootStateType, unknown
             })
     }
 
-export const addNewPackStateTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const addNewPackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
-        dispatch(setAppStatusAC("loading"))
+        // dispatch(setAppStatusAC("loading"))
         packsListAPI.addPack()
             .then(res => {
                 dispatch(fetchPacksStateTC())
-                dispatch(setAppStatusAC("succeeded"))
+                // dispatch(setAppStatusAC("succeeded"))
             })
             .catch(e => {
                 console.log(e.message)
-                dispatch(setAppStatusAC("failed"))
+                // dispatch(setAppStatusAC("failed"))
             })
     }
+
+/*export const deletePackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        packsListAPI.deletePack()
+            .then(res => {
+                dispatch(fetchPacksStateTC())
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch(e => {
+                console.log(e.message)
+                // dispatch(setAppStatusAC("failed"))
+            })
+    }*/
 
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
