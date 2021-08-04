@@ -27,9 +27,9 @@ export const NataPacksList = React.memo((props: NataPacksListPropsType) => {
 
                         {/*убрать!!! (для отрисовки использовала)*/}
                         <ButtonSmall text={"delete"} style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
-                        <br/>
+
                         <ButtonSmall text={"edit"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                        <br/>
+
                         <ButtonSmall text={"learn"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
 
                     </div>

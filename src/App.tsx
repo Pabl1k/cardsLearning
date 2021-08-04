@@ -60,6 +60,8 @@ function App() {
 
 
             <section className={s.pagesContainer}>
+                <NataPacksList/>
+
                 {status === "loading" && <Preloader/>}
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
