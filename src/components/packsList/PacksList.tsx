@@ -1,7 +1,9 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
+import {fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {CardPacksResponseType} from "../../api/api"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
@@ -16,9 +18,13 @@ type PacksListPropsType = {}
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    // const minValue = useSelector<AppRootStateType, number>(state => state.packsListReducer.minValue)
-    // const maxValue = useSelector<AppRootStateType, number>(state => state.packsListReducer.maxValue)
+    const {minCardsCount, maxCardsCount} = useSelector( (state: AppRootStateType) => state.packsListReducer)
+    const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchPacksStateTC())
+    }, [])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -31,8 +37,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                     <div className={s.aside}>
                         <TabsShowPacks/>
                         <DoubleRange
-                            minValue={0} // Сюда закинуть значения из стейта
-                            maxValue={100} // Сюда закинуть значения из стейта
+                            minValue={minCardsCount}
+                            maxValue={maxCardsCount}
                         />
                     </div>
                     <div className={s.content}>
@@ -41,7 +47,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             <SearchInput/>
                             <Button className={s.button}>Add new pack</Button>
                         </div>
-                        <PacksListTableMUI/>
+                        <PacksListTableMUI tableState={packsListState}/>
                         <PaginationTable/>
                     </div>
                 </div>

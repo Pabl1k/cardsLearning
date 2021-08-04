@@ -1,5 +1,6 @@
 import axios from "axios"
 
+//id="60fdcc41c6db2000047c6c84"
 // createdAcc:
 // email: poiumazaya@gmail.com
 // password: newPiatnicaTest
@@ -48,8 +49,8 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
-    getPacks(min: number, max: number, id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=${min}&max=${max}&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+    getPacks(id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
     },
     addPack() {
         return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
@@ -63,8 +64,33 @@ export const packsListAPI = {
 }
 
 export const cardsAPI = {
+    getCards(packId: string, answer?: string, question?: string, min?: number, max?: number, sortCards?: string, page?: number, pageCount?: number) {
+        return instance.get(`/cards/card`, {
+            params: {
+                cardAnswer: answer,
+                cardQuestion: question,
+                cardsPack_id: packId,
+                min,
+                max,
+                sortCards,
+                page,
+                pageCount
+            }
+        })
+    },
+    addCard(packId: string, answer?: string, question?: string) {
+        return instance.post(`/cards/card`, {card: {cardsPack_id: packId, answer, question}})
+    },
+    deleteCard(cardId: string) {
+        return instance.delete(`/cards/card?id=${cardId}`)
+    },
+    updateCard(cardId: string, question?: string, comments?: string) {
+        return instance.put(`/cards/card`, {card: {_id: cardId, question, comments}})
+    }
+
 
 }
+
 
 // types
 export type LoginUserResponseType = UserDataType
@@ -103,7 +129,7 @@ export type UserDataType = {
     error?: string
 }
 
-type GetPacksResponseType = {
+export type GetPacksResponseType = {
     cardPacks: Array<CardPacksResponseType>
     cardPacksTotalCount: number
     maxCardsCount: number
@@ -131,3 +157,4 @@ export type CardPacksResponseType = {
     __v: number
     _id: string
 }
+

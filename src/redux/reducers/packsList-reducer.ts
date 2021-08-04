@@ -1,46 +1,45 @@
 import {Dispatch} from "redux"
-import {CardPacksResponseType, packsListAPI} from "../../api/api"
+import {CardPacksResponseType, GetPacksResponseType, packsListAPI} from "../../api/api"
 
 enum PACKS_LIST_ACTION_TYPE {
     SET_PACKS_LIST = "SET-PACKS-LIST",
-    SET_NEW_MAX_VALUE = "SET-NEW-MAX-VALUE"
 }
 
-const packsListInitialState: Array<CardPacksResponseType> = []
+const packsListInitialState = {
+    cardPacks: [] as Array<CardPacksResponseType>,
+    cardPacksTotalCount: 0,
+    minCardsCount: 0,
+    maxCardsCount: 0,
+    page: 0,
+    pageCount: 0,
+    token: "",
+    tokenDeathTime: 0
+}
 
-export const packsListReducer = (state = packsListInitialState, action: PacksListActionsType): Array<CardPacksResponseType> => {
+type PackStateType = typeof packsListInitialState
+
+export const packsListReducer = (state = packsListInitialState, action: PacksListActionsType): PackStateType => {
     switch (action.type) {
         case PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST:
-            return action.packsList.map(packsList => ({...packsList}))
+            return action.packsState
         default:
             return state
     }
 }
 
 // AC
-const setPacksListAC = (packsList: Array<CardPacksResponseType>) => ({
-    type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST,
-    packsList
-} as const)
-
-export const setDoubleRangeMaxValueAC = (newMaxValue: number) => ({
-    type: PACKS_LIST_ACTION_TYPE.SET_NEW_MAX_VALUE,
-    newMaxValue
-} as const)
+const setPacksListStateAC = (packsState: GetPacksResponseType) => (
+    {type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST, packsState} as const)
 
 // TC
-export const fetchCardsTC = (minNumberOfCards: number, maxNumberOfCards: number) => (dispatch: Dispatch) => {
-    packsListAPI.getPacks(minNumberOfCards, maxNumberOfCards)
+export const fetchPacksStateTC = () => (dispatch: Dispatch) => {
+    packsListAPI.getPacks()
         .then(res => {
-            console.log(res.data)
-            dispatch(setPacksListAC(res.data.cardPacks))
-            dispatch(setDoubleRangeMaxValueAC(res.data.maxCardsCount))
+            dispatch(setPacksListStateAC(res.data))
         })
         .catch(e => {
             // alert(e.message)
         })
 }
 
-type PacksListActionsType = ReturnType<typeof setPacksListAC>
-| ReturnType<typeof setDoubleRangeMaxValueAC>
-
+type PacksListActionsType = ReturnType<typeof setPacksListStateAC>
