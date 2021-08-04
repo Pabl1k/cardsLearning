@@ -21,7 +21,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     const dispatch = useDispatch()
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
-    const {token} = useParams<any>()
+    const {token} = useParams<{token: string}>()
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()

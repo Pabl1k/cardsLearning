@@ -42,4 +42,14 @@ export const fetchPacksStateTC = () => (dispatch: Dispatch) => {
         })
 }
 
+export const addNewPackStateTC = () => (dispatch: Dispatch) => {
+    packsListAPI.addPack()
+        .then(res => {
+            dispatch(fetchPacksStateTC())
+        })
+        .catch(e => {
+            // alert(e.message)
+        })
+}
+
 type PacksListActionsType = ReturnType<typeof setPacksListStateAC>

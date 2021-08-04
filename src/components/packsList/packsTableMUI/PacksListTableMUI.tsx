@@ -1,6 +1,7 @@
 import React from "react"
 import {NavLink} from "react-router-dom"
 import {CardPacksResponseType} from "../../../api/api"
+import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
@@ -8,10 +9,9 @@ import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
-import {TableSortLabel} from "@material-ui/core"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
-import { ItemsFilterSpan } from "../../common/itemsFilterSpan/ItemsFilterSpan"
+
 
 type PacksListTableMUIPropsType = {
     tableState: Array<CardPacksResponseType>
@@ -28,13 +28,17 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     <TableRow>
                         <StyledTableCell>Name</StyledTableCell>
                         <StyledTableCell sortDirection="desc" align="right">
-                            <TableSortLabel>Cards</TableSortLabel>
-                            {/*<ItemsFilterSpan
+                            <ItemsFilterSpan
                                 title={"Cards"}
                                 status={"down"}
-                            />*/}
+                            />
                         </StyledTableCell>
-                        <StyledTableCell align="right">Last&nbsp;updated</StyledTableCell>
+                        <StyledTableCell align="right">
+                            <ItemsFilterSpan
+                                title={"Last updated"}
+                                status={"down"}
+                            />
+                        </StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
                         <StyledTableCell align="right">Actions</StyledTableCell>
                     </TableRow>
