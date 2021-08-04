@@ -55,8 +55,6 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                     </div>
                 </div>
             </div>
-            <CardInfo/>
-
 
         </div>
     )

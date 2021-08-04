@@ -3,6 +3,7 @@ import {makeStyles, Theme} from "@material-ui/core/styles"
 export const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
+        padding: "0 15px",
 
         '& .MuiSlider-rail': {
             backgroundColor: "#21268F",
@@ -24,12 +25,22 @@ export const useStyles = makeStyles((theme: Theme) => ({
             border: "4px solid #21268F",
         },
 
-        // '& .PrivateValueLabel-offset-10': {
-        //     backgroundColor: "#21268F",
-        //     height: "24px",
-        //     width: "32px",
-        //     borderRadius: 3px,
-        // },
+        '& .PrivateValueLabel-circle-12': {
+            width: "32px",
+            height: "24px",
+            transform: "none",
+            borderRadius: "3px",
+            backgroundColor: "#21268F",
+        },
+
+        '& .PrivateValueLabel-label-13': {
+            transform: "none",
+        },
+
+        '& .PrivateValueLabel-thumb-9.PrivateValueLabel-open-10 .PrivateValueLabel-offset-11': {
+            transform:  "translateY(3px)",
+
+        },
     }
 }))
 

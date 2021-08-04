@@ -18,9 +18,9 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
 
     return (
         <div className={classes.root}>
-            <div className={s.p}>
+            <div className={s.pagination}>
                 <Typography>Page: {page}</Typography>
-                <Pagination count={10} page={page} onChange={handleChange}/>
+                <Pagination size={"small"} count={10} page={page} onChange={handleChange}/>
                 <span>Show</span>
                 <select>
                     <option value="10">10</option>

@@ -8,6 +8,7 @@
 
 .container {
   @extend %container;
+  position: relative;
 }
 
 .inner {
@@ -42,6 +43,9 @@
   width: 140px;
   height: 40px;
   color: $whiteTextColor;
+  position: absolute;
+  right: 0;
+  top: 15%;
 }
 
 

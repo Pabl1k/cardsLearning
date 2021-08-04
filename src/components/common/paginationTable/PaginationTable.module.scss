@@ -1,6 +1,6 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
 
-.p {
-  @include flex();
+.pagination {
+  @include flex(row, center, flex-start);
 }
