@@ -3,7 +3,6 @@ import React, {useState} from "react"
 import s from "./CardInfo.module.scss"
 import {InputTextMUI} from "../inputText/InputTextMUI";
 import {Button} from "../button/Button";
-import {NavLink} from "react-router-dom";
 
 type LoginPropsType = {}
 
