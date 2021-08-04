@@ -11,6 +11,7 @@ import TableBody from "@material-ui/core/TableBody"
 import {TableSortLabel} from "@material-ui/core"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+import { ItemsFilterSpan } from "../../common/itemsFilterSpan/ItemsFilterSpan"
 
 type PacksListTableMUIPropsType = {
     tableState: Array<CardPacksResponseType>
@@ -26,7 +27,12 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell sortDirection="desc" align="right"> <TableSortLabel>Cards</TableSortLabel>
+                        <StyledTableCell sortDirection="desc" align="right">
+                            <TableSortLabel>Cards</TableSortLabel>
+                            {/*<ItemsFilterSpan
+                                title={"Cards"}
+                                status={"down"}
+                            />*/}
                         </StyledTableCell>
                         <StyledTableCell align="right">Last&nbsp;updated</StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
