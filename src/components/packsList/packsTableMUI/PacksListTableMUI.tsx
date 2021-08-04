@@ -11,11 +11,11 @@ import TableBody from "@material-ui/core/TableBody"
 import {TableSortLabel} from "@material-ui/core"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
-import { ItemsFilterSpan } from "../../common/itemsFilterSpan/ItemsFilterSpan"
 
 type PacksListTableMUIPropsType = {
     tableState: Array<CardPacksResponseType>
 }
+
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
@@ -27,16 +27,16 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell sortDirection="desc" align="right">
+                        <StyledTableCell sortDirection="desc" >
                             <TableSortLabel>Cards</TableSortLabel>
                             {/*<ItemsFilterSpan
                                 title={"Cards"}
                                 status={"down"}
                             />*/}
                         </StyledTableCell>
-                        <StyledTableCell align="right">Last&nbsp;updated</StyledTableCell>
-                        <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
-                        <StyledTableCell align="right">Actions</StyledTableCell>
+                        <StyledTableCell>Last&nbsp;updated</StyledTableCell>
+                        <StyledTableCell>Created&nbsp;by</StyledTableCell>
+                        <StyledTableCell>Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -47,10 +47,10 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                     {pack.name}
                                 </NavLink>
                             </StyledTableCell>
-                            <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
-                            <StyledTableCell align="right">{pack.updated.slice(0, 10)}</StyledTableCell>
-                            <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
-                            <StyledTableCell align="right">
+                            <StyledTableCell>{pack.cardsCount}</StyledTableCell>
+                            <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
+                            <StyledTableCell>{pack.user_name}</StyledTableCell>
+                            <StyledTableCell>
                                 <div className={s.buttonsContainer}>
                                     <ButtonSmall text={"delete"}
                                                  style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
