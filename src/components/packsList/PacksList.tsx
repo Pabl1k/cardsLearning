@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import {fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {addNewPackStateTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
 import {CardPacksResponseType} from "../../api/api"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -31,15 +31,12 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     },[])
 
     const addNewPack = useCallback(() => {
-
+        dispatch(addNewPackStateTC())
     },[])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
     }
-
-    // console.log(`main: ${minCardsCount}`)
-    // console.log(`max: ${maxCardsCount}`)
 
     return (
         <div className={s.packsList}>

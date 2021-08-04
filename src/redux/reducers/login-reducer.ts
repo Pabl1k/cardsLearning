@@ -60,7 +60,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         dispatch(setAppStatusAC("loading"))
         authAPI.login(email, password, rememberMe)
             .then(res => {
-                console.log(res)
                 dispatch(loginUserAC(res.data.email, res.data.name, res.data.avatar, res.data.publicCardPacksCount, true))
                 dispatch(setAppStatusAC("succeeded"))
             })

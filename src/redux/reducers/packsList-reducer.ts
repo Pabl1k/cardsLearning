@@ -44,21 +44,21 @@ export const fetchPacksStateTC = (): ThunkAction<void, AppRootStateType, unknown
             })
             .catch(e => {
                 console.log(e.message)
-                // dispatch(setAppStatusAC("failed"))
+                //dispatch(setAppStatusAC("failed"))
             })
     }
 
 export const addNewPackStateTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
-        // dispatch(setAppStatusAC("loading"))
+        dispatch(setAppStatusAC("loading"))
         packsListAPI.addPack()
             .then(res => {
                 dispatch(fetchPacksStateTC())
-                // dispatch(setAppStatusAC("succeeded"))
+                dispatch(setAppStatusAC("succeeded"))
             })
             .catch(e => {
                 console.log(e.message)
-                // dispatch(setAppStatusAC("failed"))
+                dispatch(setAppStatusAC("failed"))
             })
     }
 
