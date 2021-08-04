@@ -26,6 +26,7 @@ const setNameAC = (name: any) => ({type: SET_NAME, name} as const)
 export const fetchCardsTC = () => (dispatch: Dispatch) => {
     paksListAPI.getPacks()
         .then(res => {
+            debugger
             console.log(res.data)
             dispatch(setNameAC(res.data.cardPacks))
         })

@@ -61,6 +61,20 @@ export const paksListAPI = {
 }
 
 export const cardsAPI = {
+    getCards(packId: string, answer?: string, question?: string, min?: number, max?: number, sortCards?: string, page?: number, pageCount?: number) {
+        return instance.get(`/cards/card`, {
+            params: {
+                cardAnswer: answer,
+                cardQuestion: question,
+                cardsPack_id: packId,
+                min,
+                max,
+                sortCards,
+                page,
+                pageCount
+            }
+        })
+    },
 
 }
 
@@ -99,4 +113,22 @@ export type UserDataType = {
     rememberMe: boolean
 
     error?: string
+}
+
+export type PackType = {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
 }
