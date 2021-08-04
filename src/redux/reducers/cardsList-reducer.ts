@@ -1,12 +1,17 @@
 import {Dispatch} from "redux"
+import {cardsAPI} from "../../api/api";
 
-const initialState: InitialStateType = {}
+const initialState: InitialStateType = {
 
-type InitialStateType = {}
+}
+
+type InitialStateType = {
+
+}
 
 export const cardsListReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case "":
+        case "CARD/SET-CARDS":
             return state
         default:
             return state
@@ -14,22 +19,23 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
 }
 
 // actions
-export const templateAC = (body: any) => {
-    return {type: "", body: body} as const
+export const setCardsAC = (packId:string) => {
+    return {type: "CARD/SET-CARDS", packId} as const
 }
 
 // thunks
-/*export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
-    someAPI.someMethod()
+export const getCardsTC = (packId:string) => (dispatch: Dispatch<ActionsType>) => {
+    cardsAPI. getCards(packId)
         .then(res => {
-            // dispatch(setIsLoggedInAC(true, res.data.data.email))
+             dispatch(setCardsAC( res.data))
         })
         .catch((error) => {
             // handleServerNetworkError(error, dispatch)
+            console.log(error)
         })
         .finally(() => {
         })
-}*/
+}
 
 // types
-type ActionsType = ReturnType<typeof templateAC>
+type ActionsType = ReturnType<typeof setCardsAC>

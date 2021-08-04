@@ -78,6 +78,16 @@ export const cardsAPI = {
             }
         })
     },
+    addCard(packId: string, answer?: string, question?: string) {
+        return instance.post(`/cards/card`, {card: {cardsPack_id: packId, answer, question}})
+    },
+    deleteCard(cardId: string) {
+        return instance.delete(`/cards/card?id=${cardId}`)
+    },
+    updateCard(cardId: string, question?: string, comments?: string) {
+        return instance.put(`/cards/card`, {card: {_id: cardId, question, comments}})
+    }
+
 
 }
 

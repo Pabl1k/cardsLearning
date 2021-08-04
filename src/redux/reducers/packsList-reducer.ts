@@ -32,7 +32,6 @@ export const setDoubleRangeMaxValueAC = (newMaxValue: number) => ({
 export const fetchCardsTC = (minNumberOfCards: number, maxNumberOfCards: number) => (dispatch: Dispatch) => {
     packsListAPI.getPacks(minNumberOfCards, maxNumberOfCards)
         .then(res => {
-            debugger
             console.log(res.data)
             dispatch(setPacksListAC(res.data.cardPacks))
             dispatch(setDoubleRangeMaxValueAC(res.data.maxCardsCount))
