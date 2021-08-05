@@ -1,22 +1,25 @@
 import React from "react"
-import {ButtonSmall} from "../buttonSmall/ButtonSmall"
 import {Pagination} from "@material-ui/lab"
 import {Typography} from "@material-ui/core"
 import {useStyles} from "./PaginationTableStyles"
 import s from "./PaginationTable.module.scss"
+import {useDispatch} from "react-redux";
 
 type PaginationTablePropsType = {
-
+    count: number
+    page: number
+    getNExtCardPortion: (pageNumber: number) => void
 }
 
 export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
 
     const classes = useStyles()
 
-    const [page, setPage] = React.useState(1)
+    const [page, setPage] = React.useState(props.page)
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value)
+        props.getNExtCardPortion(value)
     }
 
     return (
@@ -24,7 +27,7 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
             <div className={s.pagination}>
                 <div className={s.paginationMUI}>
                     <Typography>Page: {page}</Typography>
-                    <Pagination size={"small"} count={10} page={page} onChange={handleChange}/>
+                    <Pagination size={"small"} count={props.count} page={page} onChange={handleChange}/>
                 </div>
                 <div className={s.show}>
                     <span>Show</span>

@@ -7,7 +7,6 @@ import {CardType} from "../../api/api"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
-import {RatingMUI} from "../common/rating/Rating"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
 
@@ -19,6 +18,11 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const cardsState = useSelector<AppRootStateType, Array<CardType>>(state => state.cardsListReducer.cards)
     const {packId} = useParams<{ packId: string }>();
+    const page = useSelector<AppRootStateType, number>(state => state.cardsListReducer.page)
+    const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cardsListReducer.cardsTotalCount)
+    const pageSize = useSelector<AppRootStateType, number>(state => state.cardsListReducer.pageCount)
+
+    const count = Math.ceil(cardsTotalCount / pageSize)
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -35,6 +39,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         return <Redirect to={"/login"}/>
     }
 
+    const getNExtCardPortion = (pageNumber: number) => {
+        dispatch(getCardsTC(packId, pageNumber))
+    }
+
 
     return (
         <div className={s.cardsList}>
@@ -48,7 +56,8 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <SearchInput/>
                     </div>
                     <CardsListTableMUI tableState={cardsState}/>
-                    <PaginationTable/>
+                    <PaginationTable getNExtCardPortion={getNExtCardPortion} page={page}
+                                     count={count}/>
                 </div>
             </div>
         </div>

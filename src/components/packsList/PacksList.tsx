@@ -66,7 +66,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             >Add new pack</Button>
                         </div>
                         <PacksListTableMUI tableState={packsListState}/>
-                        <PaginationTable/>
+                        {/*<PaginationTable/>*/}
                     </div>
                 </div>
             </div>
