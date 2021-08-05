@@ -9,6 +9,7 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./CardsListTableMUIStyles"
 import s from "./CardsListTableMUI.module.scss"
+import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan";
 
 type CardsListTableMUIPropsType = {
     tableState: Array<CardType>
@@ -24,9 +25,24 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Question</StyledTableCell>
-                        <StyledTableCell>Answer</StyledTableCell>
-                        <StyledTableCell>Last&nbsp;updated</StyledTableCell>
-                        <StyledTableCell>Grade</StyledTableCell>
+                        <StyledTableCell>
+                            <ItemsFilterSpan
+                                title={"Answer"}
+                                status={"down"}
+                            />
+                        </StyledTableCell>
+                        <StyledTableCell>
+                            <ItemsFilterSpan
+                                title={"Last updated"}
+                                status={"down"}
+                            />
+                        </StyledTableCell>
+                        <StyledTableCell>
+                            <ItemsFilterSpan
+                                title={"Grade"}
+                                status={"down"}
+                            />
+                        </StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
