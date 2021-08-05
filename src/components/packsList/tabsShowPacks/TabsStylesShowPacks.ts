@@ -32,7 +32,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
             color: "#ffffff",
         },
 
-        '& .PrivateTabIndicator-colorSecondary-4': {
+        '& .MuiTabs-indicator': {
             backgroundColor: "transparent",
         },
 

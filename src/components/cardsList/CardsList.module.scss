@@ -1,2 +1,51 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
+
+
+.cardsList {
+  width: 100%;
+}
+
+.container {
+  @extend %container;
+}
+
+.inner {
+  padding: 20px 25px 25px;
+
+  min-height: 635px;
+
+  background-color: #FEFEFF;
+  border-radius: $br;
+}
+
+.topWrap {
+  @include flex(row, center, flex-start);
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: block;
+
+  margin-right: 10px;
+
+  width: 24px;
+  height: 24px;
+
+  background: transparent url("../../assets/images/arrow.svg") no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+
+.tableTitle {
+  @extend %ff600;
+  font-size: 22px;
+  color: $textColor;
+}
+
+.searchWrap {
+  margin-bottom: 25px;
+}
+
+

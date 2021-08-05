@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
             boxShadow: "none",
         },
 
-        '& .PrivateTabIndicator-colorSecondary-4': {
+        '& .MuiTabs-indicator': {
             backgroundColor: "#21268F",
             width: "175px",
             height: "3px",

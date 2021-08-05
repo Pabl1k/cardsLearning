@@ -13,6 +13,7 @@
 
 .inner {
   @include flex();
+  position: relative;
 
   @include media(sm) {
     flex-direction: column;
@@ -43,6 +44,8 @@
   width: 140px;
   height: 40px;
   color: $whiteTextColor;
+  position: absolute;
+  right: 15px;
 }
 
 

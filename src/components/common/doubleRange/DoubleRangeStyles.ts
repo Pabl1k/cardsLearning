@@ -23,24 +23,56 @@ export const useStyles = makeStyles((theme: Theme) => ({
             height: "16px",
             width: "16px",
             border: "4px solid #21268F",
+
+            '& span': {
+                width: "32px",
+                height: "24px",
+                transform: "none",
+                borderRadius: "3px",
+                backgroundColor: "#21268F",
+                top: "-22px",
+
+                '& span': {
+                    transform: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                },
+
+            },
         },
 
-        '& .PrivateValueLabel-circle-12': {
-            width: "32px",
-            height: "24px",
-            transform: "none",
-            borderRadius: "3px",
-            backgroundColor: "#21268F",
-        },
+        // '& .PrivateValueLabel-circle-12': {
+        //     width: "32px",
+        //     height: "24px",
+        //     transform: "none",
+        //     borderRadius: "3px",
+        //     backgroundColor: "#21268F",
+        // },
 
-        '& .PrivateValueLabel-label-13': {
-            transform: "none",
-        },
+        // '& .PrivateValueLabel-label-13': {
+        //     transform: "none",
+        // },
 
-        '& .PrivateValueLabel-thumb-9.PrivateValueLabel-open-10 .PrivateValueLabel-offset-11': {
-            transform:  "translateY(3px)",
-
-        },
+        // '& .PrivateValueLabel-thumb-9.PrivateValueLabel-open-10 .PrivateValueLabel-offset-11': {
+        //     transform:  "translateY(3px)",
+        // },
+        //
+        // '& .PrivateValueLabel-circle-23': {
+        //     width: "32px",
+        //     height: "24px",
+        //     transform: "none",
+        //     borderRadius: "3px",
+        //     backgroundColor: "#21268F",
+        // },
+        //
+        // '& .PrivateValueLabel-label-24': {
+        //     transform: "none",
+        // },
+        //
+        // '& .PrivateValueLabel-thumb-20.PrivateValueLabel-open-21 .PrivateValueLabel-offset-22': {
+        //     transform:  "translateY(3px)",
+        // },
     }
 }))
 

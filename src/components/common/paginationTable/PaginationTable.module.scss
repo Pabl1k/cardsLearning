@@ -3,4 +3,25 @@
 
 .pagination {
   @include flex(row, center, flex-start);
+
+  @include media(sm) {
+    flex-direction: column;
+  }
 }
+
+.show {
+  margin-top: 20px;
+
+  font-size: 12px;
+  line-height: 1.05;
+  letter-spacing: 0em;
+}
+
+span {
+  padding: 0 3px;
+}
+//.paginationMUI {
+//  @include media(xs) {
+//    display: none;
+//  }
+//}

@@ -54,10 +54,10 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                     {pack.name}
                                 </NavLink>
                             </StyledTableCell>
-                            <StyledTableCell align="right">{pack.cardsCount}</StyledTableCell>
-                            <StyledTableCell align="right">{pack.updated.slice(0, 10)}</StyledTableCell>
-                            <StyledTableCell align="right">{pack.user_name}</StyledTableCell>
-                            <StyledTableCell align="right">
+                            <StyledTableCell>{pack.cardsCount}</StyledTableCell>
+                            <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
+                            <StyledTableCell>{pack.user_name}</StyledTableCell>
+                            <StyledTableCell>
                                 <div className={s.buttonsContainer}>
                                     {user_id === pack.user_id
                                         ? <>

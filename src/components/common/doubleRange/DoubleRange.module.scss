@@ -2,8 +2,6 @@
 @import "./src/assets/styles/mixins.scss";
 
 .numberCards {
-  margin-top: 45px;
-
   width: 196px;
 }
 
@@ -11,6 +9,10 @@
   margin-bottom: 40px;
 
   @extend %subTitle;
+}
+
+.none {
+  display: none;
 }
 
 
