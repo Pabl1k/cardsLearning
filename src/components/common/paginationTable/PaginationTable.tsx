@@ -13,6 +13,7 @@ type PaginationTablePropsType = {
 }
 
 export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
+
     const classes = useStyles()
     const theme = useTheme()
     const isPhoneSize = useMediaQuery(theme.breakpoints.down("xs"))

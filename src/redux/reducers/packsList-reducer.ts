@@ -20,7 +20,7 @@ const initialState = {
 
     user_id: "",
 
-    tabsShowPacksStatus: 1
+    tabsShowPacksStatus: 1 as TabsShowPacksStatusType
 }
 
 type InitialStateType = typeof initialState
