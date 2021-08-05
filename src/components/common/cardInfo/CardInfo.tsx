@@ -31,7 +31,6 @@ export const CardInfo = React.memo((props: LoginPropsType) => {
                 <div className={s.inputWrap}>
                     <InputTextMUI
                         type={"text"}
-
                         label={"Question"}
                         autoComplete="off"
                     />
@@ -45,7 +44,6 @@ export const CardInfo = React.memo((props: LoginPropsType) => {
                 <div className={s.inputWrap}>
                     <InputTextMUI
                         type={"text"}
-
                         label={"Answer"}
                         autoComplete="off"
                     />

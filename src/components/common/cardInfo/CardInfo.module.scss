@@ -3,11 +3,13 @@
 
 .cardInfo {
   @extend %loginBlock;
+  padding-top: 35px;
+  min-height: 445px;
 }
 
 .caption {
-  margin-top: 10px;
   @extend %loginCaption;
+  margin-bottom: 25px;
 }
 
 .inputBox {
@@ -15,7 +17,26 @@
 }
 
 .inputWrap {
-  margin-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file {
+  text-align: left;
+  transform: translateX(-90px);
+}
+
+.label {
+  display: block;
+  margin-top: 15px;
+
+  font-size: 13px;
+  line-height: 1.1;
+  text-align: left;
+  color: #21268F;
 }
 
 .btns {
@@ -39,27 +60,6 @@
 
 .button:first-child {
   @extend %btnCancel;
-}
-
-//.button:last-child {
-//  @extend %btnCancel;
-//}
-
-.label {
-  text-align: left;
-  position: relative;
-  left: -131px;
-
-}
-
-input[type="file"] {
-  display: none;
-}
-
-.file {
-  text-align: left;
-  transform: translateX(-90px);
-
 }
 
 
