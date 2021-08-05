@@ -46,9 +46,7 @@ function App() {
                 ? <HeaderMenu/>
                 : null}
             <section className={s.pagesContainer}>
-                <ProfileAvatar/>
-                <CardInfo/>
-                <NataCardsList/>
+
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
                     <Route exact path={"/cardslist/:_cardsPack_id"}
