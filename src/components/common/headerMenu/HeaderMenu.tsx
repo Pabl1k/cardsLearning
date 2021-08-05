@@ -37,21 +37,24 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                     <div className={s.titleWrap}>
                         <MainTitle title={"It-Incubator"}/>
                     </div>
-                    <div className={classes.root}>
-                        <AppBar position="static">
-                            <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">
-                                <Tab label="Packs list" className={s.tabPack}/>
-                                <Tab label="Profile" className={s.tabProfile}/>
-                            </Tabs>
-                        </AppBar>
+
+                    <div className={s.tabsWrap}>
+                        <div className={classes.root}>
+                            <AppBar position="static">
+                                <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">
+                                    <Tab label="Packs list" className={s.tabPack}/>
+                                    <Tab label="Profile" className={s.tabProfile}/>
+                                </Tabs>
+                            </AppBar>
+                        </div>
                     </div>
-                    <div>
-                        <Button
-                            onClick={onLogoutClickHandler}
-                            disabled={status === "loading"}
-                            className={s.logoutButton}>Log out
-                        </Button>
-                    </div>
+
+                    <Button
+                        onClick={onLogoutClickHandler}
+                        disabled={status === "loading"}
+                        className={s.logoutButton}>Log out
+                    </Button>
+
                 </div>
             </div>
         </div>
