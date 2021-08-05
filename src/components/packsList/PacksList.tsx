@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
@@ -14,29 +14,34 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}
+export type ShowValueType = 5 | 10 | 15
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const {minCardsCount, maxCardsCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
+
+    const [pageValue, setPageValue] = useState<number>(1)
+    const [cardsPerPageValue, setCardsPerPageValue] = useState<ShowValueType>(10)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchPacksStateTC())
-    }, [])
+        dispatch(fetchPacksStateTC(pageValue, cardsPerPageValue))
+    }, [pageValue, cardsPerPageValue])
 
     const applyDoubleRangeValues = useCallback(() => {
 
-    },[])
+    }, [])
 
     const addNewPack = useCallback(() => {
         dispatch(addNewPackTC())
-    },[dispatch])
+    }, [dispatch])
 
     const deletePack = useCallback(() => {
         // dispatch(addNewPackStateTC())
-    },[dispatch])
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -66,7 +71,10 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             >Add new pack</Button>
                         </div>
                         <PacksListTableMUI tableState={packsListState}/>
-                        <PaginationTable/>
+                        <PaginationTable
+                            page={pageValue}
+                            setPage={setPageValue}
+                            setCardsPerPage={setCardsPerPageValue}/>
                     </div>
                 </div>
             </div>

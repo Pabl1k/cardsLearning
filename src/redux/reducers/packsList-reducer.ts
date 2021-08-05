@@ -1,7 +1,6 @@
 import {ThunkAction} from "redux-thunk"
 import {CardPacksResponseType, GetPacksResponseType, packsListAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
-import {setAppStatusAC} from "./app-reducer"
 
 enum PACKS_LIST_ACTION_TYPE {
     SET_PACKS_LIST = "SET-PACKS-LIST",
@@ -34,10 +33,10 @@ const setPacksListStateAC = (packsState: GetPacksResponseType) => (
     {type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST, packsState} as const)
 
 // TC
-export const fetchPacksStateTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const fetchPacksStateTC = (pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
-        packsListAPI.getPacks()
+        packsListAPI.getPacks(pageNumber, cardsPerPage)
             .then(res => {
                 console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
