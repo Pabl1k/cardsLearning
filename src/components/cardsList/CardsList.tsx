@@ -21,7 +21,6 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const page = useSelector<AppRootStateType, number>(state => state.cardsListReducer.page)
     const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cardsListReducer.cardsTotalCount)
     const pageSize = useSelector<AppRootStateType, number>(state => state.cardsListReducer.pageCount)
-
     const count = Math.ceil(cardsTotalCount / pageSize)
     const dispatch = useDispatch()
     const history = useHistory()
