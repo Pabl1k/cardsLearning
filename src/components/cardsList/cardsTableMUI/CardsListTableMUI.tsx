@@ -8,8 +8,8 @@ import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./CardsListTableMUIStyles"
+import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import s from "./CardsListTableMUI.module.scss"
-import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan";
 
 type CardsListTableMUIPropsType = {
     tableState: Array<CardType>
