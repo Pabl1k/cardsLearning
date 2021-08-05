@@ -7,9 +7,9 @@ import {useStyles} from "./PaginationTableStyles"
 import {ShowValueType} from "../../packsList/PacksList";
 
 type PaginationTablePropsType = {
-    page: number
-    setPage: (value: number) => void
-    setCardsPerPage: (value: ShowValueType) => void
+    item: number
+    setItem: (value: number) => void
+    setPerPage: (value: ShowValueType) => void
 }
 
 export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
@@ -18,20 +18,20 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
     const isPhoneSize = useMediaQuery(theme.breakpoints.down("xs"))
 
     const onPageChangeHandler = (event: ChangeEvent<unknown>, value: number) => {
-        props.setPage(value)
+        props.setItem(value)
     }
     const onCardsPerPageChangeHandler = (e: ChangeEvent<any>) => {
-        props.setCardsPerPage(e.currentTarget.value)
+        props.setPerPage(e.currentTarget.value)
     }
 
     return (
         <div className={classes.root}>
             <div className={s.pagination}>
                 <div className={s.paginationMUI}>
-                    <Typography>Page: {props.page}</Typography>
+                    <Typography>Page: {props.item}</Typography>
                     {isPhoneSize
-                        ? <Pagination size={"small"} count={5} page={props.page} onChange={onPageChangeHandler}/>
-                        : <Pagination size={"small"} count={10} page={props.page} onChange={onPageChangeHandler}/>
+                        ? <Pagination size={"small"} count={5} page={props.item} onChange={onPageChangeHandler}/>
+                        : <Pagination size={"small"} count={10} page={props.item} onChange={onPageChangeHandler}/>
                     }
                 </div>
                 <div className={s.show}>

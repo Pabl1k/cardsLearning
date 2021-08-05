@@ -23,13 +23,13 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
 
     const [pageValue, setPageValue] = useState<number>(1)
-    const [cardsPerPageValue, setCardsPerPageValue] = useState<ShowValueType>(10)
+    const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchPacksStateTC(pageValue, cardsPerPageValue))
-    }, [pageValue, cardsPerPageValue])
+        dispatch(fetchPacksStateTC(pageValue, packsPerPageValue))
+    }, [pageValue, packsPerPageValue])
 
     const applyDoubleRangeValues = useCallback(() => {
 
@@ -72,9 +72,9 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         </div>
                         <PacksListTableMUI tableState={packsListState}/>
                         <PaginationTable
-                            page={pageValue}
-                            setPage={setPageValue}
-                            setCardsPerPage={setCardsPerPageValue}/>
+                            item={pageValue}
+                            setItem={setPageValue}
+                            setPerPage={setPacksPerPageValue}/>
                     </div>
                 </div>
             </div>
