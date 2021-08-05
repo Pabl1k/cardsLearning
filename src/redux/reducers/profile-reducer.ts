@@ -1,5 +1,7 @@
-import {Dispatch} from "redux"
+import {ThunkAction} from "redux-thunk"
 import {profileAPI} from "../../api/api"
+import {AppActionsType, AppRootStateType} from "../store"
+import {setAppStatusAC} from "./app-reducer"
 
 const CHANGE_USER_DATA = "CHANGE_USER_DATA"
 
@@ -21,7 +23,7 @@ const initialState: InitialStateType = {
     }
 }
 
-export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionsType): InitialStateType => {
     switch (action.type) {
         case CHANGE_USER_DATA:
             return {...state, userData: {...action.payload}}
@@ -31,24 +33,28 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 // actions
-export const updateUserData = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null) => {
+export const updateUserDataAC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null) => {
     return {type: CHANGE_USER_DATA, payload: {_id, userName, userEmail, userAvatar}} as const
 }
 
 // thunks
-export const updateUserNameTC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null) => (dispatch: Dispatch<ActionsType>) => {
-    profileAPI.updateUserData(userName, userAvatar)
-        .then(res => {
-            let {_id, name, email, avatar} = res.data.updatedUser
-            dispatch(updateUserData(_id, name, email, avatar))
-        })
-        .catch((e) => {
-            console.log(e)
-        })
-        .finally(() => {
-            // ...some code
-        })
-}
+export const updateUserNameTC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        profileAPI.updateUserData(userName, userAvatar)
+            .then(res => {
+                let {_id, name, email, avatar} = res.data.updatedUser
+                dispatch(updateUserDataAC(_id, name, email, avatar))
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch((e) => {
+                console.log(e)
+                // dispatch(setAppStatusAC("failed"))
+            })
+            .finally(() => {
+                // ...some code
+            })
+    }
 
 // types
-export type ActionsType = ReturnType<typeof updateUserData>
+export type ProfileReducerActionsType = ReturnType<typeof updateUserDataAC>

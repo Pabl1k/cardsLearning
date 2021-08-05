@@ -1,5 +1,7 @@
-import {Dispatch} from "redux"
+import {ThunkAction} from "redux-thunk"
 import {authAPI} from "../../api/api"
+import {AppActionsType, AppRootStateType} from "../store"
+import {setAppStatusAC} from "./app-reducer"
 
 const IS_SUCCESS = "IS_SUCCESS"
 
@@ -11,7 +13,7 @@ const initialState: InitialStateType = {
     isSuccess: false
 }
 
-export const updatePasswordReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const updatePasswordReducer = (state: InitialStateType = initialState, action: UpdatePasswordReducerActionsType): InitialStateType => {
     switch (action.type) {
         case IS_SUCCESS:
             return {...state, isSuccess: action.isSuccess}
@@ -26,20 +28,22 @@ export const isSuccessAC = (isSuccess: boolean) => {
 }
 
 // thunks
-export const updatePasswordTC = (newPassword: string, token: string) => (dispatch: Dispatch<ActionsType>) => {
-    authAPI.setNewPassword(newPassword, token)
-        .then(res => {
-            if (res.status === 200) {
+export const updatePasswordTC = (newPassword: string, token: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"))
+        authAPI.setNewPassword(newPassword, token)
+            .then(res => {
                 dispatch(isSuccessAC(true))
-            }
-        })
-        .catch((e) => {
-            console.log(e)
-        })
-        .finally(() => {
-            // ...some code
-        })
-}
+                dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch((e) => {
+                console.log(e)
+                dispatch(setAppStatusAC("failed"))
+            })
+            .finally(() => {
+                // ...some code
+            })
+    }
 
 // types
-type ActionsType = ReturnType<typeof isSuccessAC>
+export type UpdatePasswordReducerActionsType = ReturnType<typeof isSuccessAC>

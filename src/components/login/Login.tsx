@@ -39,7 +39,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
         initialValues: {
             email: "poiumazaya@gmail.com",
             password: "newPiatnicaTest",
-            rememberMe: true// false
+            rememberMe: false
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -113,7 +113,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
                         control={
                             <Checkbox
                                 {...formik.getFieldProps("rememberMe")}
-                                name="checkedB"
+                                name="rememberMe"
                                 color="default"
                                 size={"small"}
                             />

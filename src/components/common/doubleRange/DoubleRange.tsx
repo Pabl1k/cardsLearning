@@ -6,6 +6,7 @@ import s from "./DoubleRange.module.scss"
 type DoubleRangePropsType = {
     minValue: number
     maxValue: number
+    onButtonClick: () => void
 }
 
 export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
@@ -32,7 +33,10 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
                 />
             </div>
             <br/>
-            <button className={s.none}>Apply range values</button>
+            <button
+                onClick={props.onButtonClick}
+                className={s.none}
+            >Apply range values</button>
         </div>
     )
 })

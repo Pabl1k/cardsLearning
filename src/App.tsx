@@ -15,10 +15,6 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
-import {NataCardsList} from "./components/cardsList/NataCardsList";
-import {CardInfo} from "./components/common/cardInfo/CardInfo";
-import {ProfileAvatar} from "./components/common/profileAvatar/ProfileAvatar";
-
 
 function App() {
 
@@ -46,7 +42,6 @@ function App() {
                 ? <HeaderMenu/>
                 : null}
             <section className={s.pagesContainer}>
-
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
                     <Route exact path={"/cardslist/:_cardsPack_id"}

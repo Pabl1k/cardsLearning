@@ -1,15 +1,13 @@
 import React, {useState} from "react"
-
+import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {Button} from "../common/button/Button"
 import s from "./CardInfo.module.scss"
-import {InputTextMUI} from "../inputText/InputTextMUI";
-import {Button} from "../button/Button";
 
 type LoginPropsType = {}
 
 
 export const CardInfo = React.memo((props: LoginPropsType) => {
 
-    //
     //
     // const [showPassword, setShowPassword] = useState<boolean>(false)
     // const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
@@ -22,11 +20,9 @@ export const CardInfo = React.memo((props: LoginPropsType) => {
     //     history.push("/login")
     // }
 
-
     return (
         <div className={s.cardInfo}>
             <h2 className={s.caption}>Card Info</h2>
-
             <div className={s.inputBox}>
                 <div className={s.inputWrap}>
                     <InputTextMUI
@@ -34,28 +30,23 @@ export const CardInfo = React.memo((props: LoginPropsType) => {
                         label={"Question"}
                         autoComplete="off"
                     />
-
                     <label className={s.label}>
                         <input className={s.file} type="file"/>
                         + Attach file
                     </label>
                 </div>
-
                 <div className={s.inputWrap}>
                     <InputTextMUI
                         type={"text"}
                         label={"Answer"}
                         autoComplete="off"
                     />
-
                     <label className={s.label}>
                         <input className={s.file} type="file"/>
                         + Attach file
                     </label>
                 </div>
             </div>
-
-
             <div className={s.btns}>
                 <Button className={s.button}>
                     Cancel
@@ -64,7 +55,6 @@ export const CardInfo = React.memo((props: LoginPropsType) => {
                     Save
                 </Button>
             </div>
-
         </div>
     )
 })

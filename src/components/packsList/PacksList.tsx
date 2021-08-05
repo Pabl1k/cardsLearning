@@ -1,8 +1,8 @@
-import React, {useEffect} from "react"
+import React, {useCallback, useEffect} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import {fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {addNewPackTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
 import {CardPacksResponseType} from "../../api/api"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -26,6 +26,18 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(fetchPacksStateTC())
     }, [])
 
+    const applyDoubleRangeValues = useCallback(() => {
+
+    },[])
+
+    const addNewPack = useCallback(() => {
+        dispatch(addNewPackTC())
+    },[dispatch])
+
+    const deletePack = useCallback(() => {
+        // dispatch(addNewPackStateTC())
+    },[dispatch])
+
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
     }
@@ -40,15 +52,18 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             <DoubleRange
                                 minValue={minCardsCount}
                                 maxValue={maxCardsCount}
+                                onButtonClick={applyDoubleRangeValues}
                             />
                         </div>
-
                     </div>
                     <div className={s.content}>
                         <MainTitle title={"Packs list"} textStyle={s.tableTitle}/>
                         <div className={s.topWrap}>
                             <SearchInput/>
-                            <Button className={s.button}>Add new pack</Button>
+                            <Button
+                                onClick={addNewPack}
+                                className={s.button}
+                            >Add new pack</Button>
                         </div>
                         <PacksListTableMUI tableState={packsListState}/>
                         <PaginationTable/>

@@ -1,5 +1,6 @@
-import {Dispatch} from "redux"
+import {ThunkAction} from "redux-thunk"
 import {authAPI} from "../../api/api"
+import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
 const SET_IS_SIGN_UP = "registration/SET_IS_SIGN_UP"
@@ -12,7 +13,7 @@ const initialState: InitialStateType = {
     isSignUp: false
 }
 
-export const registrationReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationReducerActionsType): InitialStateType => {
     switch (action.type) {
         case SET_IS_SIGN_UP:
             return {...state, isSignUp: action.value}
@@ -27,22 +28,22 @@ export const setIsSignUpAC = (value: boolean) => {
 }
 
 // thunks
-export const SignUpTC = (email: string, password: string) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
-    authAPI.signUp(email, password)
-        .then(res => {
-            dispatch(setAppStatusAC("succeeded"))
-            dispatch(setIsSignUpAC(true))
-        })
-        .catch((e) => {
-            console.log(e)
-            dispatch(setAppStatusAC("failed"))
-        })
-        .finally(() => {
-            // ...some code
-        })
-}
+export const signUpTC = (email: string, password: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        dispatch(setAppStatusAC("loading"))
+        authAPI.signUp(email, password)
+            .then(res => {
+                dispatch(setAppStatusAC("succeeded"))
+                dispatch(setIsSignUpAC(true))
+            })
+            .catch((e) => {
+                console.log(e)
+                dispatch(setAppStatusAC("failed"))
+            })
+            .finally(() => {
+                // ...some code
+            })
+    }
 
 // types
-export type ActionsType = ReturnType<typeof setIsSignUpAC>
-    | ReturnType<typeof setAppStatusAC>
+export type RegistrationReducerActionsType = ReturnType<typeof setIsSignUpAC>
