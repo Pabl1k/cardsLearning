@@ -35,7 +35,7 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
             <br/>
             <button
                 onClick={props.onButtonClick}
-                className={s.none}
+                /*className={s.none}*/
             >Apply range values</button>
         </div>
     )
