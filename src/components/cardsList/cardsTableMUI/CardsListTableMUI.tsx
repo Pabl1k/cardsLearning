@@ -11,6 +11,7 @@ import TableBody from "@material-ui/core/TableBody"
 import {TableSortLabel} from "@material-ui/core"
 import {StyledTableCell, StyledTableRow} from "./CardsListTableMUIStyles"
 import s from "./CardsListTableMUI.module.scss"
+import {RatingMUI} from "../../common/rating/Rating";
 
 type CardsListTableMUIPropsType = {
     tableState: Array<CardPacksResponseType>
@@ -36,10 +37,9 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                     {props.tableState.map((pack) => (
                         <StyledTableRow key={pack._id}>
                             <StyledTableCell>{pack.user_name}</StyledTableCell>
-                            <StyledTableCell>{pack.cardsCount}</StyledTableCell>
-                            <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
                             <StyledTableCell>{pack.user_name}</StyledTableCell>
-
+                            <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
+                            <StyledTableCell><RatingMUI value={3}/></StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

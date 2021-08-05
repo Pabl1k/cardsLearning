@@ -39,8 +39,6 @@ export const NataCardsList = React.memo((props: CardsListPropsType) => {
 
                     <PaginationTable/>
 
-                    {/*закинуть в таблицу*/}
-                    <RatingMUI value={3}/>
 
                 </div>
             </div>

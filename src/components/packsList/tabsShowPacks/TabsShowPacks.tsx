@@ -21,7 +21,7 @@ export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
             <h2 className={s.title}>Show packs cards</h2>
             <div className={classes.root}>
                 <AppBar position="static">
-                    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                    <Tabs  value={value} onChange={handleChange} aria-label="simple tabs example">
                         <Tab label="My" className={s.tabMy}/>
                         <Tab label="All" className={s.tabAll}/>
                     </Tabs>
