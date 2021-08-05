@@ -41,7 +41,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <SearchInput/>
                     </div>
                     <CardsListTableMUI tableState={cardsState}/>
-                    <PaginationTable/>
+                    {/*<PaginationTable/>*/}
                 </div>
             </div>
         </div>

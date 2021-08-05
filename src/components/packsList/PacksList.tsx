@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
@@ -13,6 +13,7 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}
+export type ShowValueType = 5 | 10 | 15
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
@@ -21,9 +22,12 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const {cardPacks, minCardsCount, maxCardsCount, page, tabsShowPacksStatus} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const dispatch = useDispatch()
 
+    const [pageValue, setPageValue] = useState<number>(1)
+    const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
+
     useEffect(() => {
-        dispatch(fetchPacksStateTC(page))
-    }, [dispatch, page])
+        dispatch(fetchPacksStateTC(pageValue, packsPerPageValue))
+    }, [dispatch, pageValue, packsPerPageValue])
 
     /*const changeTabsShowPacksStatusClick = useCallback((tabsShowPacksStatus: TabsShowPacksStatusType) => {
         dispatch(fetchPacksStateAfterTabsShowTC(userId, tabsShowPacksStatus))
@@ -31,7 +35,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const applyDoubleRangeValues = useCallback(() => {
 
-    },[])
+    }, [])
 
     const addNewPack = useCallback(() => {
         // dispatch(addNewPackTC())
@@ -39,7 +43,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const deletePack = useCallback(() => {
         // dispatch(addNewPackStateTC())
-    },[dispatch])
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -75,7 +79,11 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             user_id={userId}
                             tableState={cardPacks}
                         />
-                        <PaginationTable/>
+                        <PaginationTable
+                            item={pageValue}
+                            setItem={setPageValue}
+                            setPerPage={setPacksPerPageValue}
+                        />
                     </div>
                 </div>
             </div>

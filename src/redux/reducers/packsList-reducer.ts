@@ -3,26 +3,13 @@ import {CardPacksResponseType, GetPacksResponseType, packsListAPI} from "../../a
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-const SET_PACKS_LIST = "SET-PACKS-LIST"
-const CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS"
-
-type InitialStateType = {
-    cardPacks: Array<CardPacksResponseType>
-    cardPacksTotalCount: number
-    minCardsCount: number
-    maxCardsCount: number
-    page: number
-    pageCount: number
-    token: string,
-    tokenDeathTime: number,
-
-    user_id: string
-
-    tabsShowPacksStatus: TabsShowPacksStatusType
+enum PACKS_LIST_ACTION_TYPE {
+    SET_PACKS_LIST = "SET-PACKS-LIST",
+    CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS"
 }
 
-const initialState: InitialStateType = {
-    cardPacks: [],
+const initialState = {
+    cardPacks: [] as Array<CardPacksResponseType>,
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
@@ -36,14 +23,16 @@ const initialState: InitialStateType = {
     tabsShowPacksStatus: 1
 }
 
+type InitialStateType = typeof initialState
+
 export const packsListReducer = (state = initialState, action: PacksListReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case SET_PACKS_LIST:
+        case PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST:
             return {
                 ...state,
                 ...action.packsState
             }
-        case CHANGE_TABS_SHOW_PACKS_STATUS:
+        case PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS:
             return {...state, tabsShowPacksStatus: action.tabsShowPacksStatus}
         default:
             return state
@@ -52,16 +41,17 @@ export const packsListReducer = (state = initialState, action: PacksListReducerA
 
 // AC
 const setPacksListStateAC = (packsState: GetPacksResponseType) => (
-    {type: SET_PACKS_LIST, packsState} as const)
+    {type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST, packsState} as const)
 
 const changesTabsShowPacksStatusAC = (tabsShowPacksStatus: TabsShowPacksStatusType) => (
-    {type: CHANGE_TABS_SHOW_PACKS_STATUS, tabsShowPacksStatus} as const)
+    {type: PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS, tabsShowPacksStatus} as const)
+
 
 // TC
-export const fetchPacksStateTC = (page: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const fetchPacksStateTC = (pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
-        packsListAPI.getPacks(page)
+        packsListAPI.getPacks(pageNumber, cardsPerPage)
             .then(res => {
                 console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
