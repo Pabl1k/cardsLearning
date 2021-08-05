@@ -1,5 +1,5 @@
-@import "./src/assets/styles/variebles.scss";
-@import "./src/assets/styles/mixins.scss";
+@import "../../assets/styles/variebles";
+@import "../../assets/styles/mixins";
 
 .cardInfo {
   @extend %loginBlock;
