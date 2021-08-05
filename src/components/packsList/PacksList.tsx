@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import {fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {fetchPacksStateAfterDoubleRangeTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
@@ -19,7 +19,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const userId = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
-    const {cardPacks, minCardsCount, maxCardsCount, page, tabsShowPacksStatus} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {cardPacks, minCardsCount, maxCardsCount, tabsShowPacksStatus} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const dispatch = useDispatch()
 
     const [pageValue, setPageValue] = useState<number>(1)
@@ -29,12 +29,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(fetchPacksStateTC(pageValue, packsPerPageValue))
     }, [dispatch, pageValue, packsPerPageValue])
 
-    /*const changeTabsShowPacksStatusClick = useCallback((tabsShowPacksStatus: TabsShowPacksStatusType) => {
-        dispatch(fetchPacksStateAfterTabsShowTC(userId, tabsShowPacksStatus))
-    },[])*/
-
-    const applyDoubleRangeValues = useCallback(() => {
-
+    const applyDoubleRangeValues = useCallback((min: number, max: number) => {
+        dispatch(fetchPacksStateAfterDoubleRangeTC(min, max))
     }, [])
 
     const addNewPack = useCallback(() => {

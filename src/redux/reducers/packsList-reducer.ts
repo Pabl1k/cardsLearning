@@ -79,6 +79,22 @@ export const fetchPacksStateAfterTabsShowTC = (tabsShowPacksStatus: TabsShowPack
             })
     }
 
+export const fetchPacksStateAfterDoubleRangeTC = (min: number, max: number, user_id?: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        packsListAPI.getPacksAfterDoubleRange(min, max)
+            .then(res => {
+                console.log(res.data)
+                dispatch(setPacksListStateAC(res.data))
+                // changesTabsShowPacksStatusAC(tabsShowPacksStatus)
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch(e => {
+                console.log(e.message)
+                //dispatch(setAppStatusAC("failed"))
+            })
+    }
+
 export const addNewPackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))

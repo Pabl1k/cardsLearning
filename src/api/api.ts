@@ -49,11 +49,14 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
-    getPacks(pageNumber?: number, cardsPerPage?: number, id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${cardsPerPage}&user_id=${id ? id : ""}`)
+    getPacks(pageNumber?: number, cardsPerPage?: number, user_id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${cardsPerPage}&user_id=${user_id ? user_id : ""}`)
     },
-    getPacksAfterTabsShow(user_id: string | undefined) {
+    getPacksAfterTabsShow(user_id?: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
+    },
+    getPacksAfterDoubleRange(min: number, max: number, user_id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=${min}&max=${max}&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
     },
     addPack() {
         return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
