@@ -3,23 +3,34 @@ import {cardsAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-const initialState: InitialStateType = {}
+const SET_CARDS = "CARD/SET-CARDS"
 
-type InitialStateType = {}
+const initialState = {
+    cards: [] as Array<CardType>,
+    cardsTotalCount: 0,
+    pageCount: 0,
+    page: 0,
+    maxGrade: 0,
+    minGrade: 0,
+    packUserId: "",
+    token: "",
+    tokenDeathTime: 0,
+}
+
+type InitialStateType = typeof initialState
 
 export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case "CARD/SET-CARDS":
-            return state
+        case SET_CARDS:
+            return action.cardsState
         default:
             return state
     }
 }
 
 // actions
-export const setCardsAC = (packId: string) => {
-    return {type: "CARD/SET-CARDS", packId} as const
-}
+export const setCardsAC = (cardsState: GetCardsResponseType) =>
+    ({type: SET_CARDS, cardsState} as const)
 
 // thunks
 export const getCardsTC = (packId: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>

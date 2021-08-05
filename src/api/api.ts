@@ -65,7 +65,7 @@ export const packsListAPI = {
 
 export const cardsAPI = {
     getCards(packId: string, answer?: string, question?: string, min?: number, max?: number, sortCards?: string, page?: number, pageCount?: number) {
-        return instance.get(`/cards/card`, {
+        return instance.get< GetCardsResponseType>('/cards/card', {
             params: {
                 cardAnswer: answer,
                 cardQuestion: question,
@@ -157,3 +157,31 @@ export type CardPacksResponseType = {
     _id: string
 }
 
+export type GetCardsResponseType = {
+    cards: Array<CardType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    packUserId: string
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type CardType = {
+    answer: string
+    cardsPack_id: string
+    comments: string
+    created: string
+    grade: number
+    more_id: string
+    question: string
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    __v: number
+    _id: string
+}

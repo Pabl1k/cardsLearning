@@ -1,6 +1,6 @@
-import React from "react"
-import {Redirect} from "react-router-dom"
-import {useSelector} from "react-redux"
+import React, {useEffect} from "react"
+import {Redirect, useParams} from "react-router-dom"
+import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {CardPacksResponseType} from "../../api/api"
 import {MainTitle} from "../common/mainTitle/MainTitle"
@@ -9,13 +9,21 @@ import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {RatingMUI} from "../common/rating/Rating"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
+import {getCardsTC} from "../../redux/reducers/cardsList-reducer";
+import {CardType} from "../../api/api";
 
 type CardsListPropsType = {}
 
 export const CardsList = React.memo((props: CardsListPropsType) => {
 
-    const cardsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
+    const cardsState = useSelector<AppRootStateType, Array<CardType>>(state => state.cardsListReducer.cards)
+    const {packId} = useParams<{ packId: string }>();
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCardsTC(packId))
+    }, [dispatch, packId])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -32,8 +40,17 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     <div className={s.searchWrap}>
                         <SearchInput/>
                     </div>
-                    <CardsListTableMUI tableState={cardsListState}/>
+                    <CardsListTableMUI tableState={cardsState}/>
                     <PaginationTable/>
+
+                    {/*{cardsState.map((card) => (
+                        <tr key={card._id}>
+                            <td>{card.question}</td>
+                            <td>{card.answer}</td>
+                            <td>{card.updated}</td>
+                            <td>{card.grade}</td>
+                        </tr>))
+                    }*/}
                 </div>
             </div>
         </div>
