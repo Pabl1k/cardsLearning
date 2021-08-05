@@ -49,8 +49,11 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
-    getPacks(id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+    getPacks(page: number, user_id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${page}&pageCount=10&user_id=${user_id ? user_id : ""}`)
+    },
+    getPacksAfterTabsShow(user_id: string | undefined) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
     },
     addPack() {
         return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
@@ -87,8 +90,6 @@ export const cardsAPI = {
     updateCard(cardId: string, question?: string, comments?: string) {
         return instance.put(`/cards/card`, {card: {_id: cardId, question, comments}})
     }
-
-
 }
 
 // types
@@ -119,8 +120,8 @@ export type UserDataType = {
     avatar: string | undefined | null
     publicCardPacksCount: number
 
-    created: Date
-    updated: Date
+    created: string
+    updated: string
     isAdmin: boolean
     verified: boolean
     rememberMe: boolean
@@ -131,12 +132,14 @@ export type UserDataType = {
 export type GetPacksResponseType = {
     cardPacks: Array<CardPacksResponseType>
     cardPacksTotalCount: number
-    maxCardsCount: number
     minCardsCount: number
+    maxCardsCount: number
     page: number
     pageCount: number
     token: string
     tokenDeathTime: number
+
+    user_id: string
 }
 
 export type CardPacksResponseType = {

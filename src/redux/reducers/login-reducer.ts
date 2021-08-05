@@ -3,39 +3,18 @@ import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-const LOGIN_USER = "LOGIN_USER"
 const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
 
 type InitialStateType = {
-    userData: {
-        _id: string
-        userEmail: string
-        userName: string
-        userAvatar: string | undefined | null
-        publicCardsCount: number
-    }
     isLoggedIn: boolean
 }
 
 const initialState: InitialStateType = {
-    userData: {
-        _id: "",
-        userEmail: "",
-        userName: "",
-        userAvatar: "",
-        publicCardsCount: 0,
-    },
     isLoggedIn: false
 }
 
 export const loginReducer = (state: InitialStateType = initialState, action: LoginReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case LOGIN_USER:
-            return {
-                ...state,
-                userData: {...action.payload},
-                isLoggedIn: action.payload.isLoggedIn
-            }
         case SET_IS_LOGGED_IN:
             return {
                 ...state,
@@ -47,10 +26,6 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
 }
 
 // actions
-export const loginUserAC = (_id: string, userEmail: string, userName: string,userAvatar: string | undefined | null, publicCardsCount: number, isLoggedIn: boolean) => {
-    return {type: LOGIN_USER, payload: {_id, userEmail, userName, userAvatar, publicCardsCount, isLoggedIn}} as const
-}
-
 export const setIsLoggedInAC = (isLoggedIn: boolean) => {
     return {type: SET_IS_LOGGED_IN, isLoggedIn} as const
 }
@@ -61,7 +36,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         dispatch(setAppStatusAC("loading"))
         authAPI.login(email, password, rememberMe)
             .then(res => {
-                dispatch(loginUserAC(res.data._id, res.data.email, res.data.name, res.data.avatar, res.data.publicCardPacksCount, true))
+                dispatch(setIsLoggedInAC(true))
                 dispatch(setAppStatusAC("succeeded"))
             })
             .catch((e) => {
@@ -89,5 +64,4 @@ export const logoutTC = (): ThunkAction<void, AppRootStateType, unknown, AppActi
     }
 
 // types
-export type LoginReducerActionsType = ReturnType<typeof loginUserAC>
-    | ReturnType<typeof setIsLoggedInAC>
+export type LoginReducerActionsType = ReturnType<typeof setIsLoggedInAC>
