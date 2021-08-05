@@ -4,34 +4,50 @@ import {AppActionsType, AppRootStateType} from "../store"
 import {setIsLoggedInAC} from "./login-reducer"
 
 const APP_SET_STATUS = "APP/SET-STATUS"
+const USER_DATA_TYPE = "USER_DATA_TYPE"
+
+export type UserDataType = {
+    _id: string
+    email: string
+    name: string
+    avatar: string | undefined | null
+    publicCardPacksCount: number
+
+    created: string
+    updated: string
+    isAdmin: boolean
+    verified: boolean
+    rememberMe: boolean
+}
 
 type InitialStateType = {
-    userData: {
-        _id: string
-        /*userEmail: string
-        userName: string
-        userAvatar: string | undefined | null
-        publicCardPacksCount: number*/
-    }
+    userData: UserDataType
     status: RequestStatusType
 }
 
 const initialState = {
     userData: {
         _id: "",
-        /*userEmail: "",
-        userName: "",
-        userAvatar: "",
-        publicCardPacksCount: 0*/
+        email: "",
+        name: "",
+        avatar: "",
+        publicCardPacksCount: 0,
+
+        created: "",
+        updated: "",
+        isAdmin: false,
+        verified: false,
+        rememberMe: false,
     },
     status: "idle" as RequestStatusType
 }
-
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
     switch (action.type) {
         case APP_SET_STATUS:
             return {...state, status: action.status}
+        case USER_DATA_TYPE:
+            return {...state, userData: action.userData}
         default:
             return state
     }
@@ -39,6 +55,7 @@ export const appReducer = (state: InitialStateType = initialState, action: AppRe
 
 // actions
 export const setAppStatusAC = (status: RequestStatusType) => ({type: APP_SET_STATUS, status} as const)
+export const setUserDataAC = (userData: UserDataType) => ({type: USER_DATA_TYPE, userData} as const)
 
 // thunks
 export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
@@ -48,6 +65,7 @@ export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, 
             .then(res => {
                 if (res.data._id) {
                     dispatch(setIsLoggedInAC(true))
+                    dispatch(setUserDataAC(res.data))
                     dispatch(setAppStatusAC("succeeded"))
                 }
             })
@@ -63,3 +81,4 @@ export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, 
 // types
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 export type AppReducerActionsType = ReturnType<typeof setAppStatusAC>
+    | ReturnType<typeof setUserDataAC>

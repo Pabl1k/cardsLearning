@@ -6,21 +6,21 @@ import {setAppStatusAC} from "./app-reducer"
 const CHANGE_USER_DATA = "CHANGE_USER_DATA"
 
 type InitialStateType = {
-    userData: {
+    /*userData: {
         _id: string
         userName: string
         userEmail: string
         userAvatar: string | undefined | null
-    }
+    }*/
 }
 
 const initialState: InitialStateType = {
-    userData: {
+    /*userData: {
         _id: "",
         userName: "",
         userEmail: "",
         userAvatar: ""
-    }
+    }*/
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionsType): InitialStateType => {
@@ -40,16 +40,16 @@ export const updateUserDataAC = (_id: string, userName: string, userEmail: strin
 // thunks
 export const updateUserNameTC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
-        // dispatch(setAppStatusAC("loading"))
+        dispatch(setAppStatusAC("loading"))
         profileAPI.updateUserData(userName, userAvatar)
             .then(res => {
-                let {_id, name, email, avatar} = res.data.updatedUser
+                const {_id, name, email, avatar} = res.data.updatedUser
                 dispatch(updateUserDataAC(_id, name, email, avatar))
-                // dispatch(setAppStatusAC("succeeded"))
+                dispatch(setAppStatusAC("succeeded"))
             })
             .catch((e) => {
                 console.log(e)
-                // dispatch(setAppStatusAC("failed"))
+                dispatch(setAppStatusAC("failed"))
             })
             .finally(() => {
                 // ...some code

@@ -1,9 +1,8 @@
-import React, {useCallback, useEffect} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import {addNewPackTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
-import {CardPacksResponseType} from "../../api/api"
+import {fetchPacksStateAfterDoubleRangeTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
@@ -14,29 +13,33 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}
+export type ShowValueType = 5 | 10 | 15
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const {minCardsCount, maxCardsCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
-    const packsListState = useSelector<AppRootStateType, Array<CardPacksResponseType>>(state => state.packsListReducer.cardPacks)
+    const userId = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
+    const {cardPacks, minCardsCount, maxCardsCount, tabsShowPacksStatus} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const dispatch = useDispatch()
 
+    const [pageValue, setPageValue] = useState<number>(1)
+    const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
+
     useEffect(() => {
-        dispatch(fetchPacksStateTC())
+        dispatch(fetchPacksStateTC(pageValue, packsPerPageValue))
+    }, [dispatch, pageValue, packsPerPageValue])
+
+    const applyDoubleRangeValues = useCallback((min: number, max: number) => {
+        dispatch(fetchPacksStateAfterDoubleRangeTC(min, max))
     }, [])
 
-    const applyDoubleRangeValues = useCallback(() => {
-
-    },[])
-
     const addNewPack = useCallback(() => {
-        dispatch(addNewPackTC())
+        // dispatch(addNewPackTC())
     },[dispatch])
 
     const deletePack = useCallback(() => {
         // dispatch(addNewPackStateTC())
-    },[dispatch])
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -47,7 +50,10 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
             <div className={s.container}>
                 <div className={s.inner}>
                     <div className={s.aside}>
-                        <TabsShowPacks/>
+                        <TabsShowPacks
+                            userId={userId}
+                            showPacksStatus={tabsShowPacksStatus}
+                        />
                         <div className={s.rangeWrap}>
                             <DoubleRange
                                 minValue={minCardsCount}
@@ -65,8 +71,17 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                                 className={s.button}
                             >Add new pack</Button>
                         </div>
-                        <PacksListTableMUI tableState={packsListState}/>
+                        {/*<PacksListTableMUI tableState={packsListState}/>*/}
                         {/*<PaginationTable/>*/}
+                        <PacksListTableMUI
+                            user_id={userId}
+                            tableState={cardPacks}
+                        />
+                        <PaginationTable
+                            item={pageValue}
+                            setItem={setPageValue}
+                            setPerPage={setPacksPerPageValue}
+                        />
                     </div>
                 </div>
             </div>

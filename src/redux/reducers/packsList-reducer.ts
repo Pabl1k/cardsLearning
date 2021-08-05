@@ -5,25 +5,35 @@ import {setAppStatusAC} from "./app-reducer"
 
 enum PACKS_LIST_ACTION_TYPE {
     SET_PACKS_LIST = "SET-PACKS-LIST",
+    CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS"
 }
 
-const packsListInitialState = {
+const initialState = {
     cardPacks: [] as Array<CardPacksResponseType>,
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
-    page: 0,
+    page: 1,
     pageCount: 0,
     token: "",
-    tokenDeathTime: 0
+    tokenDeathTime: 0,
+
+    user_id: "",
+
+    tabsShowPacksStatus: 1 as TabsShowPacksStatusType
 }
 
-type PackStateType = typeof packsListInitialState
+type InitialStateType = typeof initialState
 
-export const packsListReducer = (state = packsListInitialState, action: PacksListReducerActionsType): PackStateType => {
+export const packsListReducer = (state = initialState, action: PacksListReducerActionsType): InitialStateType => {
     switch (action.type) {
         case PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST:
-            return action.packsState
+            return {
+                ...state,
+                ...action.packsState
+            }
+        case PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS:
+            return {...state, tabsShowPacksStatus: action.tabsShowPacksStatus}
         default:
             return state
     }
@@ -33,11 +43,15 @@ export const packsListReducer = (state = packsListInitialState, action: PacksLis
 const setPacksListStateAC = (packsState: GetPacksResponseType) => (
     {type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST, packsState} as const)
 
+const changesTabsShowPacksStatusAC = (tabsShowPacksStatus: TabsShowPacksStatusType) => (
+    {type: PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS, tabsShowPacksStatus} as const)
+
+
 // TC
-export const fetchPacksStateTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const fetchPacksStateTC = (pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
-        packsListAPI.getPacks()
+        packsListAPI.getPacks(pageNumber, cardsPerPage)
             .then(res => {
                 console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
@@ -49,18 +63,50 @@ export const fetchPacksStateTC = (): ThunkAction<void, AppRootStateType, unknown
             })
     }
 
-export const addNewPackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const fetchPacksStateAfterTabsShowTC = (tabsShowPacksStatus: TabsShowPacksStatusType, user_id?: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
-        packsListAPI.addPack()
+        packsListAPI.getPacksAfterTabsShow(user_id)
             .then(res => {
-                dispatch(fetchPacksStateTC())
+                console.log(res.data)
+                dispatch(setPacksListStateAC(res.data))
+                changesTabsShowPacksStatusAC(tabsShowPacksStatus)
                 // dispatch(setAppStatusAC("succeeded"))
             })
             .catch(e => {
                 console.log(e.message)
-                // dispatch(setAppStatusAC("failed"))
+                //dispatch(setAppStatusAC("failed"))
             })
+    }
+
+export const fetchPacksStateAfterDoubleRangeTC = (min: number, max: number, user_id?: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        packsListAPI.getPacksAfterDoubleRange(min, max)
+            .then(res => {
+                console.log(res.data)
+                dispatch(setPacksListStateAC(res.data))
+                // changesTabsShowPacksStatusAC(tabsShowPacksStatus)
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch(e => {
+                console.log(e.message)
+                //dispatch(setAppStatusAC("failed"))
+            })
+    }
+
+export const addNewPackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        /* packsListAPI.addPack()
+             .then(res => {
+                 dispatch(fetchPacksStateTC())
+                 // dispatch(setAppStatusAC("succeeded"))
+             })
+             .catch(e => {
+                 console.log(e.message)
+                 // dispatch(setAppStatusAC("failed"))
+             })*/
     }
 
 /*export const deletePackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
@@ -77,4 +123,6 @@ export const addNewPackTC = (): ThunkAction<void, AppRootStateType, unknown, App
             })
     }*/
 
+export type TabsShowPacksStatusType = 0 | 1
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
+    | ReturnType<typeof changesTabsShowPacksStatusAC>

@@ -6,7 +6,7 @@ import s from "./DoubleRange.module.scss"
 type DoubleRangePropsType = {
     minValue: number
     maxValue: number
-    onButtonClick: () => void
+    onButtonClick: (minValue: number, maxValue: number) => void
 }
 
 export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
@@ -15,8 +15,12 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
 
     const [value, setValue] = useState<number[]>([props.minValue, props.maxValue])
 
-    const handleChange = (event: any, newValue: number | number[]) => {
+    const onDoubleRangeHandleChange = (event: any, newValue: number | number[]) => {
         setValue(newValue as number[])
+    }
+
+    const onButtonClickHandler = () => {
+        props.onButtonClick(value[0], value[1])
     }
 
     return (
@@ -25,7 +29,7 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
             <div className={classes.root}>
                 <Slider
                     value={value}
-                    onChange={handleChange}
+                    onChange={onDoubleRangeHandleChange}
                     valueLabelDisplay="on"
                     aria-labelledby="range-slider"
                     min={props.minValue}
@@ -34,8 +38,7 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
             </div>
             <br/>
             <button
-                onClick={props.onButtonClick}
-                className={s.none}
+                onClick={onButtonClickHandler}
             >Apply range values</button>
         </div>
     )

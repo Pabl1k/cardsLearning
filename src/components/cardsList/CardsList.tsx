@@ -57,6 +57,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     <CardsListTableMUI tableState={cardsState}/>
                     <PaginationTable getNExtCardPortion={getNExtCardPortion} page={page}
                                      count={count}/>
+                    {/*<PaginationTable/>*/}
                 </div>
             </div>
         </div>
