@@ -1,5 +1,5 @@
 import {ThunkAction} from "redux-thunk"
-import {cardsAPI} from "../../api/api"
+import {cardsAPI, CardType, GetCardsResponseType} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 

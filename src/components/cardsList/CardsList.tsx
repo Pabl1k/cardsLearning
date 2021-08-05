@@ -2,15 +2,15 @@ import React, {useEffect} from "react"
 import {Redirect, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
-import {CardPacksResponseType} from "../../api/api"
+import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
+import {CardType} from "../../api/api"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {RatingMUI} from "../common/rating/Rating"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
-import {getCardsTC} from "../../redux/reducers/cardsList-reducer";
-import {CardType} from "../../api/api";
+
 
 type CardsListPropsType = {}
 
@@ -42,15 +42,6 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     </div>
                     <CardsListTableMUI tableState={cardsState}/>
                     <PaginationTable/>
-
-                    {/*{cardsState.map((card) => (
-                        <tr key={card._id}>
-                            <td>{card.question}</td>
-                            <td>{card.answer}</td>
-                            <td>{card.updated}</td>
-                            <td>{card.grade}</td>
-                        </tr>))
-                    }*/}
                 </div>
             </div>
         </div>

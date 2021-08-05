@@ -1,11 +1,13 @@
 import React from "react"
+import {ButtonSmall} from "../buttonSmall/ButtonSmall"
 import {Pagination} from "@material-ui/lab"
 import {Typography} from "@material-ui/core"
 import {useStyles} from "./PaginationTableStyles"
 import s from "./PaginationTable.module.scss"
-import {ButtonSmall} from "../buttonSmall/ButtonSmall";
 
-type PaginationTablePropsType = {}
+type PaginationTablePropsType = {
+
+}
 
 export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
 
@@ -20,7 +22,6 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
     return (
         <div className={classes.root}>
             <div className={s.pagination}>
-
                 <div className={s.paginationMUI}>
                     <Typography>Page: {page}</Typography>
                     <Pagination size={"small"} count={10} page={page} onChange={handleChange}/>
@@ -36,7 +37,6 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
                     </select>
                     <span>Cards per Page</span>
                 </div>
-
             </div>
         </div>
     )

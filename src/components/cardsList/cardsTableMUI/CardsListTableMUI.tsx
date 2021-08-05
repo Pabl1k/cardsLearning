@@ -1,7 +1,5 @@
 import React from "react"
-import {NavLink} from "react-router-dom"
-import {CardPacksResponseType} from "../../../api/api"
-import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
+import {CardType} from "../../../api/api"
 import {RatingMUI} from "../../common/rating/Rating"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
@@ -9,12 +7,11 @@ import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
-import {TableSortLabel} from "@material-ui/core"
 import {StyledTableCell, StyledTableRow} from "./CardsListTableMUIStyles"
 import s from "./CardsListTableMUI.module.scss"
 
 type CardsListTableMUIPropsType = {
-    tableState: Array<CardPacksResponseType>
+    tableState: Array<CardType>
 }
 
 export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) => {
@@ -33,12 +30,12 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.tableState.map((pack) => (
-                        <StyledTableRow key={pack._id}>
-                            <StyledTableCell>{pack.user_name}</StyledTableCell>
-                            <StyledTableCell>{pack.user_name}</StyledTableCell>
-                            <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
-                            <StyledTableCell><RatingMUI value={3}/></StyledTableCell>
+                    {props.tableState.map((card) => (
+                        <StyledTableRow key={card._id}>
+                            <StyledTableCell>{card.question}</StyledTableCell>
+                            <StyledTableCell>{card.answer}</StyledTableCell>
+                            <StyledTableCell>{card.updated.slice(0, 10)}</StyledTableCell>
+                            <StyledTableCell><RatingMUI value={card.grade}/></StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
