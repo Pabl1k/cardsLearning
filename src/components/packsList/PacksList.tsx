@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import {fetchPacksStateAfterDoubleRangeTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {addNewPackTC, deletePackTC, fetchPacksStateAfterDoubleRangeTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
@@ -22,6 +22,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const {cardPacks, minCardsCount, maxCardsCount, tabsShowPacksStatus} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const dispatch = useDispatch()
 
+    // console.log(`UserID: ${userId}`)
+
     const [pageValue, setPageValue] = useState<number>(1)
     const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
 
@@ -30,15 +32,16 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     }, [dispatch, pageValue, packsPerPageValue])
 
     const applyDoubleRangeValues = useCallback((min: number, max: number) => {
+        //dispatch(fetchPacksStateAfterDoubleRangeTC(min, max))
         dispatch(fetchPacksStateAfterDoubleRangeTC(min, max))
-    }, [])
+    }, [dispatch])
 
     const addNewPack = useCallback(() => {
-        // dispatch(addNewPackTC())
-    },[dispatch])
+        dispatch(addNewPackTC(pageValue, packsPerPageValue))
+    }, [dispatch, pageValue, packsPerPageValue])
 
-    const deletePack = useCallback(() => {
-        // dispatch(addNewPackStateTC())
+    const deletePack = useCallback((packId: string) => {
+        dispatch(deletePackTC(packId, pageValue, packsPerPageValue))
     }, [dispatch])
 
     if (!isLoggedIn) {
@@ -74,6 +77,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         <PacksListTableMUI
                             user_id={userId}
                             tableState={cardPacks}
+                            onClickDeletePack={deletePack}
                         />
                         <PaginationTable
                             item={pageValue}

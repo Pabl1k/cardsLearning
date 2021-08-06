@@ -16,9 +16,8 @@ export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
 
     const classes = useStyles()
 
-    const dispatch = useDispatch()
-
     const [value, setValue] = useState<TabsShowPacksStatusType>(props.showPacksStatus)
+    const dispatch = useDispatch()
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: TabsShowPacksStatusType) => {
         setValue(newValue)

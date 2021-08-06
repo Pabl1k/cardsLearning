@@ -53,7 +53,7 @@ export const fetchPacksStateTC = (pageNumber?: number, cardsPerPage?: number): T
         // dispatch(setAppStatusAC("loading"))
         packsListAPI.getPacks(pageNumber, cardsPerPage)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
                 // dispatch(setAppStatusAC("succeeded"))
             })
@@ -68,9 +68,10 @@ export const fetchPacksStateAfterTabsShowTC = (tabsShowPacksStatus: TabsShowPack
         // dispatch(setAppStatusAC("loading"))
         packsListAPI.getPacksAfterTabsShow(user_id)
             .then(res => {
+                // console.log("TabsShowData:")
                 console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
-                changesTabsShowPacksStatusAC(tabsShowPacksStatus)
+                dispatch(changesTabsShowPacksStatusAC(tabsShowPacksStatus))
                 // dispatch(setAppStatusAC("succeeded"))
             })
             .catch(e => {
@@ -86,7 +87,6 @@ export const fetchPacksStateAfterDoubleRangeTC = (min: number, max: number, user
             .then(res => {
                 console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
-                // changesTabsShowPacksStatusAC(tabsShowPacksStatus)
                 // dispatch(setAppStatusAC("succeeded"))
             })
             .catch(e => {
@@ -95,33 +95,34 @@ export const fetchPacksStateAfterDoubleRangeTC = (min: number, max: number, user
             })
     }
 
-export const addNewPackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const addNewPackTC = (pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
-        /* packsListAPI.addPack()
-             .then(res => {
-                 dispatch(fetchPacksStateTC())
-                 // dispatch(setAppStatusAC("succeeded"))
-             })
-             .catch(e => {
-                 console.log(e.message)
-                 // dispatch(setAppStatusAC("failed"))
-             })*/
-    }
-
-/*export const deletePackTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        // dispatch(setAppStatusAC("loading"))
-        packsListAPI.deletePack()
+        packsListAPI.addPack()
             .then(res => {
-                dispatch(fetchPacksStateTC())
+                // console.log(res.data)
+                dispatch(fetchPacksStateTC(pageNumber, cardsPerPage))
                 // dispatch(setAppStatusAC("succeeded"))
             })
             .catch(e => {
                 console.log(e.message)
                 // dispatch(setAppStatusAC("failed"))
             })
-    }*/
+    }
+
+export const deletePackTC = (packId: string, pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        // dispatch(setAppStatusAC("loading"))
+        packsListAPI.deletePack(packId)
+            .then(res => {
+                dispatch(fetchPacksStateTC(pageNumber, cardsPerPage))
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch(e => {
+                console.log(e.message)
+                // dispatch(setAppStatusAC("failed"))
+            })
+    }
 
 export type TabsShowPacksStatusType = 0 | 1
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>

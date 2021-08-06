@@ -1,12 +1,13 @@
 import React from "react"
 import s from "./ButtonSmall.module.scss"
 
-type ButtonSmall = {
+type ButtonSmallPropsType = {
     text: string
     style: any
+    onClick?: any
 }
 
-export const ButtonSmall = React.memo((props: ButtonSmall) => {
+export const ButtonSmall = React.memo((props: ButtonSmallPropsType) => {
     return (
         <button className={s.buttonSmall} style={props.style}>
             {props.text}

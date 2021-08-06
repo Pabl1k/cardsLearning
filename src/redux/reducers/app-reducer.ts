@@ -63,6 +63,7 @@ export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, 
         dispatch(setAppStatusAC("loading"))
         authAPI.me()
             .then(res => {
+                console.log("AuthMe success")
                 if (res.data._id) {
                     dispatch(setIsLoggedInAC(true))
                     dispatch(setUserDataAC(res.data))
@@ -71,6 +72,7 @@ export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, 
             })
             .catch((e) => {
                 console.log(e)
+                console.log("AuthMe failed")
                 dispatch(setAppStatusAC("failed"))
             })
             .finally(() => {

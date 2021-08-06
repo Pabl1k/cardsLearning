@@ -49,8 +49,8 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
-    getPacks(pageNumber?: number, cardsPerPage?: number, user_id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${cardsPerPage}&user_id=${user_id ? user_id : ""}`)
+    getPacks(pageNumber?: number, packsPerPage?: number, user_id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${packsPerPage}&user_id=${user_id ? user_id : ""}`)
     },
     getPacksAfterTabsShow(user_id?: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
@@ -59,13 +59,13 @@ export const packsListAPI = {
         return instance.get<GetPacksResponseType>(`/cards/pack?min=${min}&max=${max}&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
     },
     addPack() {
-        return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
+        return instance.post(`cards/pack`, {cardsPack: {name: "NewPackName"}})
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack?id=${id}`)
     },
     updatePack(id: string) {
-        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewName"}})
+        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewPackName"}})
     }
 }
 
