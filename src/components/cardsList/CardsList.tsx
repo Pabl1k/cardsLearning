@@ -53,16 +53,15 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     <div className={s.searchWrap}>
                         <SearchInput/>
                     </div>
-                    {cards
+                    {cards.length === 0
                         ? <CardsListTableMUI tableState={cards}/>
-                        : () => {
-                            alert("error")
-                        }}
+                        : <div>Empty</div>
+                    }
 
                     <PaginationTableCards item={pageValue}
-                                     setItem={setPageValue}
-                                     setPerPage={setPacksPerPageValue}
-                                     count={count}
+                                          setItem={setPageValue}
+                                          setPerPage={setPacksPerPageValue}
+                                          count={count}
                     />
                 </div>
             </div>
