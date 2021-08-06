@@ -5,6 +5,7 @@ import {setAppStatusAC} from "./app-reducer"
 
 enum PACKS_LIST_ACTION_TYPE {
     SET_PACKS_LIST = "SET-PACKS-LIST",
+    SET_PACKS_FOR_SEARCH = "SET-PACKS-FOR-SEARCH",
     CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS"
 }
 
@@ -17,6 +18,8 @@ const initialState = {
     pageCount: 0,
     token: "",
     tokenDeathTime: 0,
+
+    packsForSearch: [] as Array<CardPacksResponseType>,
 
     user_id: "",
 
@@ -32,6 +35,8 @@ export const packsListReducer = (state = initialState, action: PacksListReducerA
                 ...state,
                 ...action.packsState
             }
+        case PACKS_LIST_ACTION_TYPE.SET_PACKS_FOR_SEARCH:
+            return {...state, packsForSearch: action.packsForSearch}
         case PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS:
             return {...state, tabsShowPacksStatus: action.tabsShowPacksStatus}
         default:
@@ -46,20 +51,30 @@ const setPacksListStateAC = (packsState: GetPacksResponseType) => (
 const changesTabsShowPacksStatusAC = (tabsShowPacksStatus: TabsShowPacksStatusType) => (
     {type: PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS, tabsShowPacksStatus} as const)
 
-
+const setPacksForSearchAC = (packsForSearch: Array<CardPacksResponseType>) => ({type: PACKS_LIST_ACTION_TYPE.SET_PACKS_FOR_SEARCH, packsForSearch} as const)
 // TC
 export const fetchPacksStateTC = (pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
         packsListAPI.getPacks(pageNumber, cardsPerPage)
             .then(res => {
-                // console.log(res.data)
+                console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
                 // dispatch(setAppStatusAC("succeeded"))
             })
             .catch(e => {
                 console.log(e.message)
                 //dispatch(setAppStatusAC("failed"))
+            })
+    }
+export const getPacksForSearchTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        packsListAPI.getPacksForSearch(206)
+            .then(res => {
+                dispatch(setPacksForSearchAC(res.data.cardPacks))
+            })
+            .catch(er => {
+
             })
     }
 
@@ -127,3 +142,4 @@ export const deletePackTC = (packId: string, pageNumber?: number, cardsPerPage?:
 export type TabsShowPacksStatusType = 0 | 1
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
     | ReturnType<typeof changesTabsShowPacksStatusAC>
+    | ReturnType<typeof setPacksForSearchAC>

@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react"
 import {Redirect} from "react-router-dom"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import {addNewPackTC, deletePackTC, fetchPacksStateAfterDoubleRangeTC, fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {addNewPackTC, deletePackTC, fetchPacksStateAfterDoubleRangeTC, getPacksForSearchTC,fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
@@ -19,7 +19,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const userId = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
-    const {cardPacks, minCardsCount, maxCardsCount, tabsShowPacksStatus} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {cardPacks, minCardsCount, maxCardsCount, tabsShowPacksStatus, packsForSearch} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const dispatch = useDispatch()
 
     // console.log(`UserID: ${userId}`)
@@ -27,8 +27,11 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const [pageValue, setPageValue] = useState<number>(1)
     const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
 
+    const [searchValue, setSearchValue] = useState('')
+
     useEffect(() => {
         dispatch(fetchPacksStateTC(pageValue, packsPerPageValue))
+        dispatch(getPacksForSearchTC())
     }, [dispatch, pageValue, packsPerPageValue])
 
     const applyDoubleRangeValues = useCallback((min: number, max: number) => {
@@ -68,7 +71,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                     <div className={s.content}>
                         <MainTitle title={"Packs list"} textStyle={s.tableTitle}/>
                         <div className={s.topWrap}>
-                            <SearchInput/>
+                            <SearchInput setSearchValue={setSearchValue}/>
                             <Button
                                 onClick={addNewPack}
                                 className={s.button}
@@ -78,6 +81,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             user_id={userId}
                             tableState={cardPacks}
                             onClickDeletePack={deletePack}
+                            searchValue={searchValue}
+                            packsForSearch={packsForSearch}
                         />
                         <PaginationTable
                             item={pageValue}

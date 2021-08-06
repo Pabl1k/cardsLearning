@@ -7,9 +7,8 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
+import {ShowValueType} from "../packsList/PacksList"
 import s from "./CardsList.module.scss"
-import {ShowValueType} from "../packsList/PacksList";
-
 
 type CardsListPropsType = {}
 
