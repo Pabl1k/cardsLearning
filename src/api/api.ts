@@ -49,6 +49,9 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
+    /*getPacksFinal(pageNumber?: number, packsPerPage?: number, user_id?: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${packsPerPage}&user_id=${user_id ? user_id : ""}`)
+    },*/
     getPacks(pageNumber?: number, packsPerPage?: number, user_id?: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${packsPerPage}&user_id=${user_id ? user_id : ""}`)
     },
