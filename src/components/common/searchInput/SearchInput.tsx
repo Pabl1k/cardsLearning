@@ -5,7 +5,7 @@ import {useStyles} from "./SearchInputStyles"
 import s from "./SearchInput.module.scss"
 
 type SearchInputPropsType = {
-    setSearchValue: (value: string) => void
+    setSearchValue?: (value: string) => void
 }
 
 export const SearchInput = React.memo((props: SearchInputPropsType) => {
