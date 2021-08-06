@@ -37,6 +37,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(getCardsTC(packId, pageValue, packsPerPageValue))
     }, [dispatch, packId, pageValue, packsPerPageValue])
 
+    console.log(cards)
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -54,15 +55,16 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <SearchInput/>
                     </div>
                     {cards.length === 0
-                        ? <CardsListTableMUI tableState={cards}/>
-                        : <div>Empty</div>
+                        ? <div>Empty</div>
+                        : <>
+                            <CardsListTableMUI tableState={cards}/>
+                            <PaginationTableCards item={pageValue}
+                                                  setItem={setPageValue}
+                                                  setPerPage={setPacksPerPageValue}
+                                                  count={count}
+                            />
+                        </>
                     }
-
-                    <PaginationTableCards item={pageValue}
-                                          setItem={setPageValue}
-                                          setPerPage={setPacksPerPageValue}
-                                          count={count}
-                    />
                 </div>
             </div>
         </div>
