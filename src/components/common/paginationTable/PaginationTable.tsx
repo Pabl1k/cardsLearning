@@ -9,7 +9,7 @@ type PaginationTablePropsType = {
     item: number
     setItem: (value: number) => void
     setPerPage: (value: ShowValueType) => void
-
+    count?: number
 }
 
 export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
@@ -32,7 +32,7 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
                     <Typography>Page: {props.item}</Typography>
                     {isPhoneSize
                         ? <Pagination size={"small"} count={5} page={props.item} onChange={onPageChangeHandler}/>
-                        : <Pagination size={"small"} count={10} page={props.item} onChange={onPageChangeHandler}/>
+                        : <Pagination size={"small"} count={props.count ? props.count : 10} page={props.item} onChange={onPageChangeHandler}/>
                     }
                 </div>
                 <div className={s.show}>

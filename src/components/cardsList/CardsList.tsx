@@ -3,14 +3,12 @@ import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
-import {CardType} from "../../api/api"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
 import {ShowValueType} from "../packsList/PacksList";
-import {PaginationTableCards} from "../common/paginationTable/PaginationTableCards";
 
 
 type CardsListPropsType = {}
@@ -53,15 +51,14 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     <div className={s.searchWrap}>
                         <SearchInput/>
                     </div>
-                    {cards.length === 0
-                        ? <CardsListTableMUI tableState={cards}/>
-                        : <div>Empty</div>
-                    }
 
-                    <PaginationTableCards item={pageValue}
-                                          setItem={setPageValue}
-                                          setPerPage={setPacksPerPageValue}
-                                          count={count}
+                    <CardsListTableMUI tableState={cards}/>
+
+
+                    <PaginationTable item={pageValue}
+                                     setItem={setPageValue}
+                                     setPerPage={setPacksPerPageValue}
+                                     count={count}
                     />
                 </div>
             </div>
