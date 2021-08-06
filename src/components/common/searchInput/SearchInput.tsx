@@ -5,7 +5,7 @@ import {useStyles} from "./SearchInputStyles"
 import s from "./SearchInput.module.scss"
 
 type SearchInputPropsType = {
-    // onSearchItems: () => void
+    setSearchValue: (value: string) => void
 }
 
 export const SearchInput = React.memo((props: SearchInputPropsType) => {
@@ -20,7 +20,7 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-            // props.onSearchItems()
+            props.setSearchValue(title)
         }
     }
 
