@@ -71,8 +71,6 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                                 className={s.button}
                             >Add new pack</Button>
                         </div>
-                        {/*<PacksListTableMUI tableState={packsListState}/>*/}
-                        {/*<PaginationTable/>*/}
                         <PacksListTableMUI
                             user_id={userId}
                             tableState={cardPacks}
