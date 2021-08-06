@@ -25,25 +25,29 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
     }
 
     return (
-        <div className={classes.grow}>
-            <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                    <SearchIcon/>
+        <div className={s.input}>
+            <div className={classes.grow}>
+                <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                        <SearchIcon/>
+                    </div>
+                    <InputBase
+                        type={"text"}
+                        value={title}
+                        onChange={onChangeHandler}
+                        onKeyPress={onKeyPressHandler}
+                        placeholder="Search…"
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                        inputProps={{'aria-label': "search"}}
+                        className={classes.input}
+                    />
                 </div>
-                <InputBase
-                    type={"text"}
-                    value={title}
-                    onChange={onChangeHandler}
-                    onKeyPress={onKeyPressHandler}
-                    placeholder="Search…"
-                    classes={{
-                        // root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                    inputProps={{'aria-label': "search"}}
-                    className={classes.input}
-                />
             </div>
         </div>
+
+
     )
 })

@@ -5,11 +5,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         grow: {
             flexGrow: 1,
-            border: "1px solid #635D80",
             borderRadius: "2px",
             backgroundColor: "#ECECF9",
-            opacity: ".5",
-
+            border: "1px solid lightGray",
         },
 
         search: {
@@ -22,6 +20,7 @@ export const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(2),
             marginLeft: 0,
             width: "100%",
+
         },
 
         searchIcon: {
@@ -32,6 +31,8 @@ export const useStyles = makeStyles((theme: Theme) =>
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            opacity: ".5",
+
         },
 
         inputInput: {
@@ -50,6 +51,13 @@ export const useStyles = makeStyles((theme: Theme) =>
             color: "#2D2E46",
             letterSpacing: ".7px",
             borderRadius: "2px",
+            opacity: ".5",
+        },
+
+        inputRoot: {
+            color: "#2D2E46",
+
+            opacity: 1,
         },
     })
 )
