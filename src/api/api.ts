@@ -6,8 +6,8 @@ import axios from "axios"
 // password: newPiatnicaTest
 
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0",
-    baseURL: "http://localhost:7542/2.0/",
+    baseURL: "https://neko-back.herokuapp.com/2.0",
+    // baseURL: "http://localhost:7542/2.0/",
     withCredentials: true
 })
 
@@ -49,11 +49,14 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
-    /*getPacksFinal(packName: string, min?: number, max?: number, sortPasksOrder?: number, sortPasksFilter?: string, page?: number, pageCount?: number, user_id?: string) {
+    /*getPacksFinal(packName?: string, min?: number, max?: number, sortPasksOrder?: number, sortPasksFilter?: string, page?: number, pageCount?: number, user_id?: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?min=${min ? min : ""}&max=${max ? max : ""}&sortPacks=${sortPasksOrder ? sortPasksOrder : ""}${sortPasksFilter ? sortPasksFilter : ""}&page=${page ? page : ""}&pageCount=${pageCount ? pageCount : ""}&user_id=${user_id ? user_id : ""}`)
     },*/
     getPacks(pageNumber?: number, packsPerPage?: number, user_id?: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${packsPerPage}&user_id=${user_id ? user_id : ""}`)
+    },
+    getPacksForSearch(allPacks: number) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?pageCount=${allPacks}`)
     },
     getPacksAfterTabsShow(user_id?: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
