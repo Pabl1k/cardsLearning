@@ -1,5 +1,5 @@
-import React, {useEffect} from "react"
-import {Redirect, useParams} from "react-router-dom"
+import React, {useEffect, useState} from "react"
+import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
@@ -7,9 +7,10 @@ import {CardType} from "../../api/api"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
-import {RatingMUI} from "../common/rating/Rating"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
+import {ShowValueType} from "../packsList/PacksList";
+import {PaginationTableCards} from "../common/paginationTable/PaginationTableCards";
 
 
 type CardsListPropsType = {}
@@ -17,13 +18,25 @@ type CardsListPropsType = {}
 export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const cardsState = useSelector<AppRootStateType, Array<CardType>>(state => state.cardsListReducer.cards)
+    const {cardsTotalCount, cards, pageCount} = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const {packId} = useParams<{ packId: string }>();
     const dispatch = useDispatch()
+    const history = useHistory()
+    const count = Math.ceil(cardsTotalCount / pageCount)
+
+    console.log(pageCount)
+    const [pageValue, setPageValue] = useState<number>(1)
+    const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
+
+
+    const RedirectToPacksListHandler = () => {
+        history.push("/")
+    }
 
     useEffect(() => {
-        dispatch(getCardsTC(packId))
-    }, [dispatch, packId])
+        dispatch(getCardsTC(packId, pageValue, packsPerPageValue))
+    }, [dispatch, packId, pageValue, packsPerPageValue])
+
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -34,14 +47,22 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
             <div className={s.container}>
                 <div className={s.inner}>
                     <div className={s.topWrap}>
-                        <button className={s.btn}></button>
+                        <button className={s.btn} onClick={RedirectToPacksListHandler}></button>
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>
                         <SearchInput/>
                     </div>
-                    <CardsListTableMUI tableState={cardsState}/>
-                    {/*<PaginationTable/>*/}
+                    {cards.length === 0
+                        ? <CardsListTableMUI tableState={cards}/>
+                        : <div>Empty</div>
+                    }
+
+                    <PaginationTableCards item={pageValue}
+                                          setItem={setPageValue}
+                                          setPerPage={setPacksPerPageValue}
+                                          count={count}
+                    />
                 </div>
             </div>
         </div>

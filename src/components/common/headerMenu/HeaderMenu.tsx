@@ -10,6 +10,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
+import {Link} from "react-router-dom"
 
 type HeaderMenuPropsType = {}
 
@@ -40,8 +41,9 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                     <div className={classes.root}>
                         <AppBar position="static">
                             <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">
-                                <Tab label="Packs list" className={s.tabPack}/>
-                                <Tab label="Profile" className={s.tabProfile}/>
+
+                                <Tab label="Packs list" className={s.tabPack} component={Link} to="/"/>
+                                <Tab label="Profile" className={s.tabProfile} component={Link} to="/profile"/>
                             </Tabs>
                         </AppBar>
                     </div>
