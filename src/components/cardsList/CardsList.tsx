@@ -38,10 +38,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>
-                        <SearchInput/>
+                        {/*<SearchInput/>*/}
                     </div>
                     <CardsListTableMUI tableState={cardsState}/>
-                    {/*<PaginationTable/>*/}
+                    {/*<PaginationTable />*/}
                 </div>
             </div>
         </div>
