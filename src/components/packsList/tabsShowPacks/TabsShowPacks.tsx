@@ -1,31 +1,41 @@
 import React from "react"
-import AppBar from "@material-ui/core/AppBar"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./TabsStylesShowPacks"
 import s from "./TabsShowPacks.module.scss"
 
-type TabsShowPacksPropsType = {}
+type TabsShowPacksPropsType = {
+    userId: string
+    showPacksStatus: boolean
+    changeShowMyPacks: (isShowMyPacks: boolean, userId: string) => void
+}
 
 export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
 
     const classes = useStyles()
-    const [value, setValue] = React.useState(0)
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue)
+    // const [isShowAllOrMy, setIsShowAllOrMy] = useState(false) // switch to redux
+
+    const onAllButtonClick = () => {
+        props.changeShowMyPacks(false, "")
+    }
+
+    const onMyButtonClick = () => {
+        props.changeShowMyPacks(true, props.userId)
     }
 
     return (
         <div className={s.tabsShowPacks}>
-            <h2 className={s.title}>Show packs cards</h2>
+            <h2 className={s.title}>Show packs cards:</h2>
             <div className={classes.root}>
-                <AppBar position="static">
-                    <Tabs  value={value} onChange={handleChange} aria-label="simple tabs example">
-                        <Tab label="My" className={s.tabMy}/>
-                        <Tab label="All" className={s.tabAll}/>
-                    </Tabs>
-                </AppBar>
+                {!props.showPacksStatus
+                    ? <div className={s.tabItemsContainer}>
+                        <button onClick={onAllButtonClick} className={`${s.tabItem} ${s.activeTabItem}`}>All</button>
+                        <button onClick={onMyButtonClick} className={s.tabItem}>My</button>
+                    </div>
+                    : <div className={s.tabItemsContainer}>
+                        <button onClick={onAllButtonClick} className={s.tabItem}>All</button>
+                        <button onClick={onMyButtonClick} className={`${s.tabItem} ${s.activeTabItem}`}>My</button>
+                    </div>
+                }
             </div>
         </div>
     )

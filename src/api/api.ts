@@ -49,23 +49,23 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
-    getPacks(id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${id ? id : ""}`)
+    getPacks(packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?packName=${packName}&min=${min}&max=${max}&sortPacks=${sortPacksOrder}${sortPacksFilter}&page=${page}&pageCount=${pageCount}&user_id=${user_id}`)
     },
     addPack() {
-        return instance.post(`cards/pack`, {cardsPack: {name: "NEW PACK"}})
+        return instance.post(`cards/pack`, {cardsPack: {name: "CREATEDPackName"}})
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack?id=${id}`)
     },
     updatePack(id: string) {
-        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewName"}})
+        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewPackName"}})
     }
 }
 
 export const cardsAPI = {
-    getCards(packId: string, answer?: string, question?: string, min?: number, max?: number, sortCards?: string, page?: number, pageCount?: number) {
-        return instance.get(`/cards/card`, {
+    getCards(packId: string, page?: number, pageCount?: number, answer?: string, question?: string, min?: number, max?: number, sortCards?: string) {
+        return instance.get<GetCardsResponseType>('/cards/card', {
             params: {
                 cardAnswer: answer,
                 cardQuestion: question,
@@ -87,8 +87,6 @@ export const cardsAPI = {
     updateCard(cardId: string, question?: string, comments?: string) {
         return instance.put(`/cards/card`, {card: {_id: cardId, question, comments}})
     }
-
-
 }
 
 // types
@@ -119,8 +117,8 @@ export type UserDataType = {
     avatar: string | undefined | null
     publicCardPacksCount: number
 
-    created: Date
-    updated: Date
+    created: string
+    updated: string
     isAdmin: boolean
     verified: boolean
     rememberMe: boolean
@@ -131,12 +129,14 @@ export type UserDataType = {
 export type GetPacksResponseType = {
     cardPacks: Array<CardPacksResponseType>
     cardPacksTotalCount: number
-    maxCardsCount: number
     minCardsCount: number
+    maxCardsCount: number
     page: number
     pageCount: number
     token: string
     tokenDeathTime: number
+
+    user_id: string
 }
 
 export type CardPacksResponseType = {
@@ -157,3 +157,31 @@ export type CardPacksResponseType = {
     _id: string
 }
 
+export type GetCardsResponseType = {
+    cards: Array<CardType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    packUserId: string
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type CardType = {
+    answer: string
+    cardsPack_id: string
+    comments: string
+    created: string
+    grade: number
+    more_id: string
+    question: string
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    __v: number
+    _id: string
+}

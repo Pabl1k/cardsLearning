@@ -10,7 +10,7 @@ type ProfilePropsType = {}
 export const Profile = React.memo(function (props: ProfilePropsType) {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const {userName, userAvatar} = useSelector((state: AppRootStateType) => state.loginReducer.userData)
+    const {name, avatar} = useSelector((state: AppRootStateType) => state.appReducer.userData)
     const dispatch = useDispatch()
 
     if (!isLoggedIn) {
@@ -20,15 +20,15 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
     return (
         <div>
             Profile page:
-            {userAvatar
+            {avatar
                 ? <div>
-                    <img src={userAvatar} alt={"User's avatar"} style={{width: "60px", height: "60px"}}/>
+                    <img src={avatar} alt={"User's avatar"} style={{width: "60px", height: "60px"}}/>
                 </div>
                 : <div>
                     <img src={defaultUserAvatar} alt={"User's avatar"} style={{width: "60px", height: "60px"}}/>
                 </div>
             }
-            <p>UserName: {userName}</p>
+            <p>UserName: {name}</p>
         </div>
     )
 })
