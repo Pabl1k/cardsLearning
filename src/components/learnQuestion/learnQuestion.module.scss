@@ -1,10 +1,11 @@
 @import "../../assets/styles/variebles";
 @import "../../assets/styles/mixins";
 
-.cardInfo {
+.learnQuestion {
   @extend %loginBlock;
   padding-top: 35px;
-  min-height: 445px;
+
+  min-height: 295px;
 }
 
 .caption {
@@ -12,32 +13,24 @@
   margin-bottom: 25px;
 }
 
-.inputBox {
+.block {
   margin-bottom: 80px;
-}
 
-.inputWrap {
-  margin-bottom: 20px;
-}
-
-input[type="file"] {
-  display: none;
-}
-
-.file {
   text-align: left;
-  transform: translateX(-90px);
+
+  @include media(xs) {
+    text-align: center;
+  }
 }
 
-.label {
-  display: block;
-  margin-top: 15px;
+.action {
+  @extend %sf600;
+  font-size: 16px;
+}
 
-  font-size: 13px;
-  line-height: 1.1;
-  text-align: left;
-  color: #21268F;
-  cursor: pointer;
+.text {
+  @extend %sf400;
+  font-size: 16px;
 }
 
 .btns {
@@ -47,6 +40,9 @@ input[type="file"] {
 
   @include media(xs) {
     flex-direction: column-reverse;
+
+    padding-bottom: 0;
+
   }
 }
 
@@ -61,6 +57,10 @@ input[type="file"] {
 
 .button:first-child {
   @extend %btnCancel;
+}
+
+.button:last-child {
+  max-width: 185px;
 }
 
 

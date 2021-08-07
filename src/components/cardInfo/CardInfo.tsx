@@ -3,10 +3,10 @@ import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import {Button} from "../common/button/Button"
 import s from "./CardInfo.module.scss"
 
-type LoginPropsType = {}
+type CardInfoPropsType = {}
 
 
-export const CardInfo = React.memo((props: LoginPropsType) => {
+export const CardInfo = React.memo((props: CardInfoPropsType) => {
 
     //
     // const [showPassword, setShowPassword] = useState<boolean>(false)

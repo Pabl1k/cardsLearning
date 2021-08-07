@@ -3,7 +3,6 @@ import {Pagination} from "@material-ui/lab"
 import {Typography} from "@material-ui/core"
 import {useStyles} from "./PaginationTableStyles"
 import s from "./PaginationTable.module.scss"
-import {ButtonSmall} from "../buttonSmall/ButtonSmall";
 
 type PaginationTablePropsType = {}
 

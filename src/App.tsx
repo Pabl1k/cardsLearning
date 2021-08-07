@@ -16,6 +16,7 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
 
+
 function App() {
 
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
@@ -43,6 +44,8 @@ function App() {
                 : null}
             <section className={s.pagesContainer}>
                 <Switch>
+
+
                     <Route exact path={"/"} render={() => <PacksList/>}/>
                     <Route exact path={"/cardslist/:_cardsPack_id"}
                            render={() => <CardsList/>}/> {/* настроить URL-параметр для id колоды */}

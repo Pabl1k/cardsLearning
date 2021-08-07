@@ -45,22 +45,6 @@ export const StyledTableRow = withStyles((theme: Theme) =>
                 padding: "10px",
             },
 
-            //
-            // '& .MuiTableCell-head': {
-            //     padding: "10px",
-            // },
-            // '& .WithStyles(ForwardRef(TableCell))-head-30': {
-            //     padding: "10px",
-            // },
-            // '& .MuiTableCell-root': {
-            //     padding: "10px",
-            // },
-            // '& .MuiTableCell-root': {
-            //     padding: "10px",
-            // },
-            // '& .MuiTableCell-root': {
-            //     padding: "10px",
-            // },
         },
     })
 )(TableRow)
