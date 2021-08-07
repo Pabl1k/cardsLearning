@@ -5,23 +5,22 @@ import {useStyles} from "./SearchInputStyles"
 import s from "./SearchInput.module.scss"
 
 type SearchInputPropsType = {
-    setSearchValue?: (value: string) => void
+    onKeyPressEnter: (value: string) => void
 }
 
 export const SearchInput = React.memo((props: SearchInputPropsType) => {
 
     const classes = useStyles()
 
-    const [title, setTitle] = useState<string>("")
+    const [searchValue, setSearchValue] = useState<string>("")
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+        setSearchValue(e.currentTarget.value)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-            if(props.setSearchValue)
-            props.setSearchValue(title)
+            props.onKeyPressEnter(searchValue)
         }
     }
 
@@ -33,7 +32,7 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
                 </div>
                 <InputBase
                     type={"text"}
-                    value={title}
+                    value={searchValue}
                     onChange={onChangeHandler}
                     onKeyPress={onKeyPressHandler}
                     placeholder="Search…"

@@ -25,7 +25,7 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
 
     return (
         <div className={s.numberCards}>
-            <h2 className={s.title}>Number of cards</h2>
+            <h2 className={s.title}>Number of cards:</h2>
             <div className={classes.root}>
                 <Slider
                     value={value}

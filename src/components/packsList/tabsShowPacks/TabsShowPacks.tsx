@@ -1,46 +1,41 @@
-import React, {useEffect, useState} from "react"
-import {useDispatch} from "react-redux"
-import {fetchPacksStateAfterTabsShowTC, TabsShowPacksStatusType} from "../../../redux/reducers/packsList-reducer"
-import AppBar from "@material-ui/core/AppBar"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
+import React from "react"
 import {useStyles} from "./TabsStylesShowPacks"
 import s from "./TabsShowPacks.module.scss"
 
 type TabsShowPacksPropsType = {
     userId: string
-    showPacksStatus: TabsShowPacksStatusType
+    showPacksStatus: boolean
+    changeShowMyPacks: (isShowMyPacks: boolean, userId: string) => void
 }
 
 export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
 
     const classes = useStyles()
 
-    const [value, setValue] = useState<TabsShowPacksStatusType>(props.showPacksStatus)
-    const dispatch = useDispatch()
+    // const [isShowAllOrMy, setIsShowAllOrMy] = useState(false) // switch to redux
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: TabsShowPacksStatusType) => {
-        setValue(newValue)
+    const onAllButtonClick = () => {
+        props.changeShowMyPacks(false, "")
     }
 
-    useEffect(() => {
-        if (value === 1) {
-            dispatch(fetchPacksStateAfterTabsShowTC(value))
-        } else {
-            dispatch(fetchPacksStateAfterTabsShowTC(value, props.userId))
-        }
-    }, [dispatch, value, props.userId])
+    const onMyButtonClick = () => {
+        props.changeShowMyPacks(true, props.userId)
+    }
 
     return (
         <div className={s.tabsShowPacks}>
-            <h2 className={s.title}>Show packs cards</h2>
+            <h2 className={s.title}>Show packs cards:</h2>
             <div className={classes.root}>
-                <AppBar position="static">
-                    <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                        <Tab label="My" className={s.tabMy}/>
-                        <Tab label="All" className={s.tabAll}/>
-                    </Tabs>
-                </AppBar>
+                {!props.showPacksStatus
+                    ? <div className={s.tabItemsContainer}>
+                        <button onClick={onAllButtonClick} className={`${s.tabItem} ${s.activeTabItem}`}>All</button>
+                        <button onClick={onMyButtonClick} className={s.tabItem}>My</button>
+                    </div>
+                    : <div className={s.tabItemsContainer}>
+                        <button onClick={onAllButtonClick} className={s.tabItem}>All</button>
+                        <button onClick={onMyButtonClick} className={`${s.tabItem} ${s.activeTabItem}`}>My</button>
+                    </div>
+                }
             </div>
         </div>
     )

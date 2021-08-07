@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
@@ -30,6 +30,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         history.push("/")
     }
 
+    const applySearchValue = useCallback(() => {
+        // задиспатчик AC, который меняет в стейте searchPackName
+    }, [dispatch])
+
     useEffect(() => {
         dispatch(getCardsTC(packId, pageValue, packsPerPageValue))
     }, [dispatch, packId, pageValue, packsPerPageValue])
@@ -49,16 +53,16 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>
-                        <SearchInput/>
+                        <SearchInput onKeyPressEnter={applySearchValue}/>
                     </div>
                     {cards.length === 0
                         ? <div>Empty</div>
                         : <>
                             <CardsListTableMUI tableState={cards}/>
-                            <PaginationTable item={pageValue}
-                                             setItem={setPageValue}
-                                             setPerPage={setPacksPerPageValue}
-                                             count={count}
+                            <PaginationTable
+                                currentPage={pageValue}
+                                setNewCurrentPage={setPageValue}
+                                setNewPageCount={setPacksPerPageValue}
                             />
                         </>
                     }

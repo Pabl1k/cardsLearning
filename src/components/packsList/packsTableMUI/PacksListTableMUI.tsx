@@ -14,10 +14,8 @@ import s from "./PacksListTableMUI.module.scss"
 
 type PacksListTableMUIPropsType = {
     user_id: string
-    tableState: Array<CardPacksResponseType>
+    packs: Array<CardPacksResponseType>
     onClickDeletePack: (packId: string) => void
-    searchValue: string
-    packsForSearch: Array<CardPacksResponseType>
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
@@ -46,8 +44,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.searchValue === ''
-                    ? props.tableState.map((pack) => (
+                    {props.packs.map((pack) => (
                         <StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
                                 <NavLink to={`/cardsList/${pack._id}`}>
@@ -62,7 +59,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                     {props.user_id === pack.user_id
                                         ? <>
                                             <ButtonSmall text={"delete"}
-                                                         onClick={props.onClickDeletePack(pack._id)}
+                                                         onClick={props.onClickDeletePack}
                                                          style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
                                             <ButtonSmall text={"edit"}
                                                          style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
@@ -77,42 +74,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                 </div>
                             </StyledTableCell>
                         </StyledTableRow>
-                    ))
-                        : props.packsForSearch.filter((pack) => {
-                                if (pack.name.toLowerCase().includes(props.searchValue.toLowerCase())) {
-                                    return pack
-                                }
-                            }).map((pack) => (
-                            <StyledTableRow key={pack._id}>
-                                <StyledTableCell component="th" scope="row">
-                                    <NavLink to={`/cardsList/${pack._id}`}>
-                                        {pack.name}
-                                    </NavLink>
-                                </StyledTableCell>
-                                <StyledTableCell>{pack.cardsCount}</StyledTableCell>
-                                <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
-                                <StyledTableCell>{pack.user_name}</StyledTableCell>
-                                <StyledTableCell>
-                                    <div className={s.buttonsContainer}>
-                                        {props.user_id === pack.user_id
-                                            ? <>
-                                                <ButtonSmall text={"delete"}
-                                                             style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
-                                                <ButtonSmall text={"edit"}
-                                                             style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                                                <ButtonSmall text={"learn"}
-                                                             style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                                            </>
-                                            : <>
-                                                <ButtonSmall text={"learn"}
-                                                             style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                                            </>
-                                        }
-                                    </div>
-                                </StyledTableCell>
-                            </StyledTableRow>
-                        ))
-                    }
+                    ))}
                 </TableBody>
             </Table>
         </TableContainer>
