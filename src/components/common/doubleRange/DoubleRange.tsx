@@ -13,7 +13,7 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
 
     const classes = useStyles()
 
-    const [value, setValue] = useState<number[]>([props.minCardsCount, props.maxCardsCount])
+    const [value, setValue] = useState<number[]>([0, props.maxCardsCount])
 
     const onDoubleRangeHandleChange = (event: any, newValue: number | number[]) => {
         setValue(newValue as number[])

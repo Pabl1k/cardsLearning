@@ -23,16 +23,15 @@ import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}
 
-export type ShowValueType = 5 | 10 | 15
-
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const userId = useSelector<AppRootStateType, string>(state => state.packsListReducer.user_id)
     const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
-    const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packs = useSelector<AppRootStateType, Array<CardPacksResponseType>>((state) => state.packsListReducer.cardPacks)
+    const count = Math.ceil(cardPacksTotalCount / pageCount)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -105,6 +104,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         />
                         <PaginationTable
                             currentPage={page}
+                            count={count}
                             setNewCurrentPage={setNewCurrentPage}
                             setNewPageCount={setNewPageCount}
                         />

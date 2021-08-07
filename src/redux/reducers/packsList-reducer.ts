@@ -23,8 +23,8 @@ const initialState = {
     user_id: "", // id авторизированного пользователя
 
     isShowMyPacks: false, // статус для переключения My и All (по умолчанию All)
-    minCardsDoubleRangeValue: 0,
-    maxCardsDoubleRangeValue: 0,
+    minCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка (по умолчанию)
+    maxCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка (по умолчанию)
     sortPacksOrder: 0, // значение для сортировки по какому-либо пункту.
     sortPacksFilter: "" as SortPacksFilter, // значение для выбора колонки для фильтра
     searchPacksValue: "", // значение для поиска паков
@@ -98,6 +98,7 @@ export const addNewPackTC = (packName: string, min: number, max: number, sortPac
             .then(res => {
                 console.log(res.data)
                 dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+                dispatch(changeShowAllOrMyPacksAC(true, user_id))
             })
             .catch(e => {
                 console.log(e.message)

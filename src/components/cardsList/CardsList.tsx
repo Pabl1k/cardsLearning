@@ -6,8 +6,7 @@ import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
-import {PaginationTable} from "../common/paginationTable/PaginationTable"
-import {ShowValueType} from "../packsList/PacksList"
+import {PaginationTable, ShowValueType} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
 
 type CardsListPropsType = {}
