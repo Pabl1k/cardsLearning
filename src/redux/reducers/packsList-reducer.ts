@@ -5,6 +5,7 @@ import {setAppStatusAC} from "./app-reducer"
 
 const SET_PACKS_LIST_STATE = "SET_PACKS_LIST_STATE"
 const CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS"
+const SET_DOUBLE_RANGE_VALUES = "SET_DOUBLE_RANGE_VALUES"
 const SET_NEW_SEARCH_PACKS_VALUE = "SET_NEW_SEARCH_PACKS_VALUE"
 const SET_NEW_CURRENT_PAGE = "SET_NEW_CURRENT_PAGE"
 const SET_NEW_PAGE_COUNT = "SET_NEW_PAGE_COUNT"
@@ -22,6 +23,8 @@ const initialState = {
     user_id: "", // id авторизированного пользователя
 
     isShowMyPacks: false, // статус для переключения My и All (по умолчанию All)
+    minCardsDoubleRangeValue: 0,
+    maxCardsDoubleRangeValue: 0,
     sortPacksOrder: 0, // значение для сортировки по какому-либо пункту.
     sortPacksFilter: "" as SortPacksFilter, // значение для выбора колонки для фильтра
     searchPacksValue: "", // значение для поиска паков
@@ -35,6 +38,8 @@ export const packsListReducer = (state = initialState, action: PacksListReducerA
             return {...state, ...action.packsState}
         case CHANGE_TABS_SHOW_PACKS_STATUS:
             return {...state, isShowMyPacks: action.isShowMyPacks, user_id: action.userId}
+        case SET_DOUBLE_RANGE_VALUES:
+            return {...state, minCardsDoubleRangeValue: action.minCardsDoubleRangeValue, maxCardsDoubleRangeValue: action.maxCardsDoubleRangeValue}
         case SET_NEW_SEARCH_PACKS_VALUE:
             return {...state, searchPacksValue: action.searchPacksValue}
         case SET_NEW_CURRENT_PAGE:
@@ -53,6 +58,10 @@ export const setPacksListStateAC = (packsState: GetPacksResponseType) => {
 
 export const changeShowAllOrMyPacksAC = (isShowMyPacks: boolean, userId: string) => (
     {type: CHANGE_TABS_SHOW_PACKS_STATUS, isShowMyPacks, userId} as const
+)
+
+export const setDoubleRangesValuesAC = (minCardsDoubleRangeValue: number, maxCardsDoubleRangeValue: number) => (
+    {type: SET_DOUBLE_RANGE_VALUES, minCardsDoubleRangeValue, maxCardsDoubleRangeValue} as const
 )
 
 export const setSearchPacksValueAC = (searchPacksValue: string) => (
@@ -114,6 +123,7 @@ export type SortPacksFilter = "" | "cards" | "lastUpdated"
 
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
     | ReturnType<typeof changeShowAllOrMyPacksAC>
+    | ReturnType<typeof setDoubleRangesValuesAC>
     | ReturnType<typeof setSearchPacksValueAC>
     | ReturnType<typeof setNewCurrentPageAC>
     | ReturnType<typeof setNewPageCountAC>

@@ -7,6 +7,7 @@ import {
     addNewPackTC, changeShowAllOrMyPacksAC,
     deletePackTC,
     fetchPacksTC,
+    setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC,
     setSearchPacksValueAC
@@ -30,21 +31,20 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const userId = useSelector<AppRootStateType, string>(state => state.packsListReducer.user_id)
     const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
-    const {isShowMyPacks} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packs = useSelector<AppRootStateType, Array<CardPacksResponseType>>((state) => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // debugger
-        dispatch(fetchPacksTC(searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, userId))
-    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, userId])
+        dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId))
+    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId])
 
     const changeShowAllOrMyPacks = useCallback((isShowMyPacks: boolean, userId: string) => {
         dispatch(changeShowAllOrMyPacksAC(isShowMyPacks, userId))
     }, [dispatch])
 
-    const applyDoubleRangeValues = useCallback((min: number, max: number) => {
-        // dispatch()
+    const setDoubleRangeValues = useCallback((minCardsDoubleRangeValue: number, maxCardsDoubleRangeValue: number) => {
+        dispatch(setDoubleRangesValuesAC(minCardsDoubleRangeValue, maxCardsDoubleRangeValue))
     }, [dispatch])
 
     const applySearchValue = useCallback((newSearchPacksValue: string) => {
@@ -83,9 +83,9 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         />
                         <div className={s.rangeWrap}>
                             <DoubleRange
-                                minValue={minCardsCount}
-                                maxValue={maxCardsCount}
-                                onButtonClick={applyDoubleRangeValues}
+                                minCardsCount={minCardsCount}
+                                maxCardsCount={maxCardsCount}
+                                setDoubleRangeValues={setDoubleRangeValues}
                             />
                         </div>
                     </div>
