@@ -62,7 +62,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                     {props.user_id === pack.user_id
                                         ? <>
                                             <ButtonSmall text={"delete"}
-                                                         onClick={props.onClickDeletePack}
+                                                         onClick={() => props.onClickDeletePack(pack._id)}
                                                          style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
                                             <ButtonSmall text={"edit"}
                                                          style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>

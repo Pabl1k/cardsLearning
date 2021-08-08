@@ -117,12 +117,10 @@ export const deletePackTC = (packId: string, packName: string, min: number, max:
     (dispatch) => {
         packsListAPI.deletePack(packId)
             .then(res => {
-                console.log("ПАК УДАЛЁН")
                 console.log(res.data)
                 dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             })
             .catch(e => {
-                console.log("ОШИБКА УДАЛЕНИЯ ПАКА")
                 console.log(e.message)
             })
     }
