@@ -1,6 +1,9 @@
 import React from "react"
 import {NavLink} from "react-router-dom"
+import {useSelector} from "react-redux"
 import {CardPacksResponseType} from "../../../api/api"
+import {AppRootStateType} from "../../../redux/store"
+import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
 import TableRow from "@material-ui/core/TableRow"
@@ -16,9 +19,13 @@ type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<CardPacksResponseType>
     onClickDeletePack: (packId: string) => void
+    setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
+
+    const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+
     return (
         <TableContainer component={Paper}>
             <Table
@@ -27,16 +34,12 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell sortDirection="desc" align="right">
-                            <ItemsFilterSpan
-                                title={"Cards"}
-                                status={"down"}
-                            />
-                        </StyledTableCell>
+                        <StyledTableCell align="right">Cards</StyledTableCell>
                         <StyledTableCell align="right">
                             <ItemsFilterSpan
-                                title={"Last updated"}
-                                status={"down"}
+                                title={"Updated"}
+                                status={sortPacksOrder}
+                                setSetStatusValue={props.setNewSortPacksOrderAndFilter}
                             />
                         </StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
@@ -59,7 +62,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                     {props.user_id === pack.user_id
                                         ? <>
                                             <ButtonSmall text={"delete"}
-                                                         onClick={props.onClickDeletePack}
+                                                         onClick={() => props.onClickDeletePack(pack._id)}
                                                          style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
                                             <ButtonSmall text={"edit"}
                                                          style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
