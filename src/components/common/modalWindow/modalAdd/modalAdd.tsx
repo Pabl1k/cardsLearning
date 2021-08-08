@@ -1,10 +1,9 @@
-import React, {useState} from "react"
+import React from "react"
+import {InputTextMUI} from "../../inputText/InputTextMUI"
+import {Button} from "../../button/Button"
 import s from "./modalAdd.module.scss"
-import {Button} from "../../button/Button";
-import {InputTextMUI} from "../../inputText/InputTextMUI";
 
 type ModalAdd = {}
-
 
 export const ModalAdd = React.memo((props: ModalAdd) => {
 

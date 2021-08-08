@@ -1,8 +1,8 @@
-import React, {useState} from "react"
+import React from "react"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {ProfileAvatarBtn} from "../common/profileAvatarBtn/ProfileAvatarBtn"
 import {Button} from "../common/button/Button"
 import s from "./Personal.module.scss"
-import {ProfileAvatarBtn} from "../common/profileAvatarBtn/ProfileAvatarBtn";
 
 type PersonalInfoPropsType = {}
 
@@ -13,7 +13,6 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
         <div className={s.personalInfo}>
             <h2 className={s.caption}>Personal Information</h2>
             <ProfileAvatarBtn/>
-
             <div className={s.inputBox}>
                 <div className={s.inputWrap}>
                     <InputTextMUI
@@ -22,7 +21,6 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
                         autoComplete="off"
                         value={"Ivan"}
                     />
-
                 </div>
                 <div className={s.inputWrap}>
                     <InputTextMUI
@@ -31,7 +29,6 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
                         autoComplete="off"
                         value={"j&johnson@gmail.com"}
                     />
-
                 </div>
             </div>
             <div className={s.btns}>

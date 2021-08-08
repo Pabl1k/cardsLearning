@@ -3,7 +3,7 @@ import {makeStyles, Theme} from "@material-ui/core/styles"
 export const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: "#ffffff;",
+        backgroundColor: "#ffffff",
         color: "#21268F",
         fontSize: "12px",
 
@@ -12,5 +12,4 @@ export const useStyles = makeStyles((theme: Theme) => ({
         },
 
     }
-
-}));
+}))

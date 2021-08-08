@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../../redux/store"
 import {logoutTC} from "../../../redux/reducers/login-reducer"
@@ -10,7 +11,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
-import {Link} from "react-router-dom"
+
 
 type HeaderMenuPropsType = {}
 
