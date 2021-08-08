@@ -1,6 +1,9 @@
 import React from "react"
 import {NavLink} from "react-router-dom"
+import {useSelector} from "react-redux"
 import {CardPacksResponseType} from "../../../api/api"
+import {AppRootStateType} from "../../../redux/store"
+import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
 import TableRow from "@material-ui/core/TableRow"
@@ -11,7 +14,6 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
-import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer";
 
 type PacksListTableMUIPropsType = {
     user_id: string
@@ -21,6 +23,9 @@ type PacksListTableMUIPropsType = {
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
+
+    const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+
     return (
         <TableContainer component={Paper}>
             <Table
@@ -33,7 +38,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                         <StyledTableCell align="right">
                             <ItemsFilterSpan
                                 title={"Updated"}
-                                status={0}
+                                status={sortPacksOrder}
                                 setSetStatusValue={props.setNewSortPacksOrderAndFilter}
                             />
                         </StyledTableCell>

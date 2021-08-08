@@ -23,7 +23,7 @@ export const ItemsFilterSpan = React.memo((props: ItemsFilterSpanPropsType) => {
     return (
         <span onClick={onStatusClickHandler} className={s.spanTitle}>
             {props.title}
-            {props.status === 0 ? <button>▼</button> : <button>▲</button>}
+            {props.status === 0 ? "▼" : "▲"}
         </span>
     )
 })

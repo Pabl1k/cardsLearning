@@ -10,7 +10,7 @@ import {
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC, setNewSortPacksOrderAndFilterAC,
-    setSearchPacksValueAC, SortPacksFilterType, SortPacksOrderType
+    setSearchPacksValueAC, SortPacksOrderType
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -51,7 +51,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setSearchPacksValueAC(newSearchPacksValue))
     }, [dispatch])
 
-    const setNewSortPacksOrderAndFilter = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string/*SortPacksFilterType*/) => {
+    const setNewSortPacksOrderAndFilter = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
         dispatch(setNewSortPacksOrderAndFilterAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
 

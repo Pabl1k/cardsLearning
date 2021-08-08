@@ -13,22 +13,23 @@ const SET_NEW_PAGE_COUNT = "SET_NEW_PAGE_COUNT"
 
 const initialState = {
     cardPacks: [] as Array<CardPacksResponseType>,
-    cardPacksTotalCount: 0, // общее кол-во карт
-    minCardsCount: 0, // значение минимального кол-ва карт для двойного ползунка (по умолчанию)
-    maxCardsCount: 0, // значение максимального кол-ва карт для двойного ползунка (по умолчанию)
-    page: 1, // номер текущей страницы
-    pageCount: 10, // кол-во страниц, которое будет отображаться в таблице
+    cardPacksTotalCount: 0,
+    minCardsCount: 0,
+    maxCardsCount: 0,
+    page: 1,
+    pageCount: 10,
     token: "",
     tokenDeathTime: 0,
 
-    user_id: "", // id авторизированного пользователя
+    user_id: "",
 
-    isShowMyPacks: false, // статус для переключения My и All (по умолчанию All)
-    minCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка
-    maxCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка
-    sortPacksOrder: 0 as SortPacksOrderType,// значение для сортировки по какому-либо пункту.
-    sortPacksFilter: "" /*as SortPacksFilterType*/, // значение для выбора колонки для фильтра
-    searchPacksValue: "", // значение для поиска паков
+    isShowMyPacks: false,
+    minCardsDoubleRangeValue: 0,
+    maxCardsDoubleRangeValue: 0,
+    searchPacksValue: "",
+    sortPacksOrder: 0 as SortPacksOrderType,
+    sortPacksFilter: "",
+
 }
 
 type InitialStateType = typeof initialState
@@ -71,7 +72,7 @@ export const setSearchPacksValueAC = (searchPacksValue: string) => (
     {type: SET_NEW_SEARCH_PACKS_VALUE, searchPacksValue} as const
 )
 
-export const setNewSortPacksOrderAndFilterAC = (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string/*SortPacksFilterType*/) => (
+export const setNewSortPacksOrderAndFilterAC = (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => (
     {type: SET_NEW_SORT_PACKS_ORDER_AND_FILTER, sortPacksOrder, sortPacksFilter} as const
 )
 
@@ -127,7 +128,6 @@ export const deletePackTC = (packId: string, packName: string, min: number, max:
     }
 
 
-export type SortPacksFilterType = "" | "cards" | "lastUpdated"
 export type SortPacksOrderType = 0 | 1
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
     | ReturnType<typeof changeShowAllOrMyPacksAC>
