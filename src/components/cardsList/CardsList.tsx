@@ -1,12 +1,17 @@
-import React, {useCallback, useEffect, useState} from "react"
+import React, {useCallback, useEffect} from "react"
 import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
-import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
+import {
+    getCardsTC,
+    setCardsNewCardsPageCountAC,
+    setCardsNewCurrentPageAC,
+    setSearchCardsValueAC
+} from "../../redux/reducers/cardsList-reducer"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
-import {PaginationTable, ShowValueType} from "../common/paginationTable/PaginationTable"
+import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
 
 type CardsListPropsType = {}
@@ -14,30 +19,31 @@ type CardsListPropsType = {}
 export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const {cardsTotalCount, cards, pageCount} = useSelector((state: AppRootStateType) => state.cardsListReducer)
+    const {cardsTotalCount, cards, pageCount, page, searchCardsValue} = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const count = Math.ceil(cardsTotalCount / pageCount)
     const {packId} = useParams<{ packId: string }>()
     const dispatch = useDispatch()
     const history = useHistory()
 
-    console.log(pageCount)
-    const [pageValue, setPageValue] = useState<number>(1)
-    const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
-
+    useEffect(() => {
+        dispatch(getCardsTC(packId, page, pageCount, searchCardsValue))
+    }, [dispatch, packId, page, pageCount, searchCardsValue])
 
     const RedirectToPacksListHandler = () => {
         history.push("/")
     }
 
-    const applySearchValue = useCallback(() => {
-        // задиспатчик AC, который меняет в стейте searchPackName
+    const setCardsNewCurrentPage = useCallback((newCurrentPage: number) => {
+        dispatch(setCardsNewCurrentPageAC(newCurrentPage))
     }, [dispatch])
 
-    useEffect(() => {
-        dispatch(getCardsTC(packId, pageValue, packsPerPageValue))
-    }, [dispatch, packId, pageValue, packsPerPageValue])
+    const setCardsNewPageCount = useCallback((newPageCount: number) => {
+        dispatch(setCardsNewCardsPageCountAC(newPageCount))
+    }, [dispatch])
 
-    console.log(cards)
+    const setCardsSearchValue = useCallback((newSearchCardsValue: string) => {
+        dispatch(setSearchCardsValueAC(newSearchCardsValue))
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -48,20 +54,21 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
             <div className={s.container}>
                 <div className={s.inner}>
                     <div className={s.topWrap}>
-                        <button className={s.btn} onClick={RedirectToPacksListHandler}></button>
+                        <button className={s.btn} onClick={RedirectToPacksListHandler}/>
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>
-                        <SearchInput onKeyPressEnter={applySearchValue}/>
+                        <SearchInput onKeyPressEnter={setCardsSearchValue}/>
                     </div>
                     {cards.length === 0
                         ? <div>Empty</div>
                         : <>
                             <CardsListTableMUI tableState={cards}/>
                             <PaginationTable
-                                currentPage={pageValue}
-                                setNewCurrentPage={setPageValue}
-                                setNewPageCount={setPacksPerPageValue}
+                                currentPage={page}
+                                count={count}
+                                setNewCurrentPage={setCardsNewCurrentPage}
+                                setNewPageCount={setCardsNewPageCount}
                             />
                         </>
                     }
