@@ -49,7 +49,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>
-                        <SearchInput/>
+                        {/*<SearchInput/>*/}
                     </div>
                     {cards.length === 0
                         ? <div>Empty</div>

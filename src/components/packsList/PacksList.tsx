@@ -71,7 +71,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                     <div className={s.content}>
                         <MainTitle title={"Packs list"} textStyle={s.tableTitle}/>
                         <div className={s.topWrap}>
-                            <SearchInput setSearchValue={setSearchValue}/>
+                            {/*<SearchInput setSearchValue={setSearchValue}/>*/}
                             <Button
                                 onClick={addNewPack}
                                 className={s.button}

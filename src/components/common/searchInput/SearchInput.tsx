@@ -19,9 +19,11 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            props.setSearchValue(title)
-        }
+
+
+        // if (e.key === "Enter") {
+        //     props.setSearchValue(title)
+        // }
     }
 
     return (
