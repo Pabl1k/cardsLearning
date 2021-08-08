@@ -11,11 +11,13 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer";
 
 type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<CardPacksResponseType>
     onClickDeletePack: (packId: string) => void
+    setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
@@ -27,16 +29,12 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell sortDirection="desc" align="right">
-                            <ItemsFilterSpan
-                                title={"Cards"}
-                                status={"down"}
-                            />
-                        </StyledTableCell>
+                        <StyledTableCell align="right">Cards</StyledTableCell>
                         <StyledTableCell align="right">
                             <ItemsFilterSpan
-                                title={"Last updated"}
-                                status={"down"}
+                                title={"Updated"}
+                                status={0}
+                                setSetStatusValue={props.setNewSortPacksOrderAndFilter}
                             />
                         </StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>

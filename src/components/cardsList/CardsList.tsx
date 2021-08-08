@@ -15,10 +15,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const {cardsTotalCount, cards, pageCount} = useSelector((state: AppRootStateType) => state.cardsListReducer)
-    const {packId} = useParams<{ packId: string }>();
+    const count = Math.ceil(cardsTotalCount / pageCount)
+    const {packId} = useParams<{ packId: string }>()
     const dispatch = useDispatch()
     const history = useHistory()
-    const count = Math.ceil(cardsTotalCount / pageCount)
 
     console.log(pageCount)
     const [pageValue, setPageValue] = useState<number>(1)

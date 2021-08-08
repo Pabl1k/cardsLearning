@@ -7,6 +7,7 @@ const SET_PACKS_LIST_STATE = "SET_PACKS_LIST_STATE"
 const CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS"
 const SET_DOUBLE_RANGE_VALUES = "SET_DOUBLE_RANGE_VALUES"
 const SET_NEW_SEARCH_PACKS_VALUE = "SET_NEW_SEARCH_PACKS_VALUE"
+const SET_NEW_SORT_PACKS_ORDER_AND_FILTER = "SET_NEW_SORT_PACKS_ORDER_AND_FILTER"
 const SET_NEW_CURRENT_PAGE = "SET_NEW_CURRENT_PAGE"
 const SET_NEW_PAGE_COUNT = "SET_NEW_PAGE_COUNT"
 
@@ -23,10 +24,10 @@ const initialState = {
     user_id: "", // id авторизированного пользователя
 
     isShowMyPacks: false, // статус для переключения My и All (по умолчанию All)
-    minCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка (по умолчанию)
-    maxCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка (по умолчанию)
-    sortPacksOrder: 0, // значение для сортировки по какому-либо пункту.
-    sortPacksFilter: "" as SortPacksFilter, // значение для выбора колонки для фильтра
+    minCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка
+    maxCardsDoubleRangeValue: 0, // значение минимального кол-ва карт для двойного ползунка
+    sortPacksOrder: 0 as SortPacksOrderType,// значение для сортировки по какому-либо пункту.
+    sortPacksFilter: "" /*as SortPacksFilterType*/, // значение для выбора колонки для фильтра
     searchPacksValue: "", // значение для поиска паков
 }
 
@@ -42,6 +43,8 @@ export const packsListReducer = (state = initialState, action: PacksListReducerA
             return {...state, minCardsDoubleRangeValue: action.minCardsDoubleRangeValue, maxCardsDoubleRangeValue: action.maxCardsDoubleRangeValue}
         case SET_NEW_SEARCH_PACKS_VALUE:
             return {...state, searchPacksValue: action.searchPacksValue}
+        case SET_NEW_SORT_PACKS_ORDER_AND_FILTER:
+            return {...state, sortPacksOrder: action.sortPacksOrder, sortPacksFilter: action.sortPacksFilter}
         case SET_NEW_CURRENT_PAGE:
             return {...state, page: action.page}
         case SET_NEW_PAGE_COUNT:
@@ -66,6 +69,10 @@ export const setDoubleRangesValuesAC = (minCardsDoubleRangeValue: number, maxCar
 
 export const setSearchPacksValueAC = (searchPacksValue: string) => (
     {type: SET_NEW_SEARCH_PACKS_VALUE, searchPacksValue} as const
+)
+
+export const setNewSortPacksOrderAndFilterAC = (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string/*SortPacksFilterType*/) => (
+    {type: SET_NEW_SORT_PACKS_ORDER_AND_FILTER, sortPacksOrder, sortPacksFilter} as const
 )
 
 export const setNewCurrentPageAC = (page: number) => (
@@ -120,11 +127,12 @@ export const deletePackTC = (packId: string, packName: string, min: number, max:
     }
 
 
-export type SortPacksFilter = "" | "cards" | "lastUpdated"
-
+export type SortPacksFilterType = "" | "cards" | "lastUpdated"
+export type SortPacksOrderType = 0 | 1
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
     | ReturnType<typeof changeShowAllOrMyPacksAC>
     | ReturnType<typeof setDoubleRangesValuesAC>
     | ReturnType<typeof setSearchPacksValueAC>
+    | ReturnType<typeof setNewSortPacksOrderAndFilterAC>
     | ReturnType<typeof setNewCurrentPageAC>
     | ReturnType<typeof setNewPageCountAC>

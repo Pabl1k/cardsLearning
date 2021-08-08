@@ -9,8 +9,8 @@ import {
     fetchPacksTC,
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
-    setNewPageCountAC,
-    setSearchPacksValueAC
+    setNewPageCountAC, setNewSortPacksOrderAndFilterAC,
+    setSearchPacksValueAC, SortPacksFilterType, SortPacksOrderType
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -31,10 +31,11 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packs = useSelector<AppRootStateType, Array<CardPacksResponseType>>((state) => state.packsListReducer.cardPacks)
-    const count = Math.ceil(cardPacksTotalCount / pageCount)
     const dispatch = useDispatch()
+    const count = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
+        debugger
         dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId))
     }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId])
 
@@ -46,8 +47,12 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setDoubleRangesValuesAC(minCardsDoubleRangeValue, maxCardsDoubleRangeValue))
     }, [dispatch])
 
-    const applySearchValue = useCallback((newSearchPacksValue: string) => {
+    const setSearchValue = useCallback((newSearchPacksValue: string) => {
         dispatch(setSearchPacksValueAC(newSearchPacksValue))
+    }, [dispatch])
+
+    const setNewSortPacksOrderAndFilter = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string/*SortPacksFilterType*/) => {
+        dispatch(setNewSortPacksOrderAndFilterAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
 
     const setNewCurrentPage = useCallback((newCurrentPage: number) => {
@@ -91,7 +96,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                     <div className={s.content}>
                         <MainTitle title={"Packs list"} textStyle={s.tableTitle}/>
                         <div className={s.topWrap}>
-                            <SearchInput onKeyPressEnter={applySearchValue}/>
+                            <SearchInput onKeyPressEnter={setSearchValue}/>
                             <Button
                                 onClick={addNewPack}
                                 className={s.button}
@@ -101,6 +106,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             user_id={user_id}
                             packs={packs}
                             onClickDeletePack={deletePack}
+                            setNewSortPacksOrderAndFilter={setNewSortPacksOrderAndFilter}
                         />
                         <PaginationTable
                             currentPage={page}
