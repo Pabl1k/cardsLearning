@@ -25,20 +25,19 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    console.log(cards.length)
-    const RedirectToPacksListHandler = () => {
-        history.push("/")
-    }
-
     useEffect(() => {
         dispatch(getCardsTC(packId, page, pageCount, searchCardsValue))
     }, [dispatch, packId, page, pageCount, searchCardsValue])
 
-    const setCardsNewCurrentPage = useCallback((newCurrentPage: number) => { // страница карт
+    const RedirectToPacksListHandler = () => {
+        history.push("/")
+    }
+
+    const setCardsNewCurrentPage = useCallback((newCurrentPage: number) => {
         dispatch(setCardsNewCurrentPageAC(newCurrentPage))
     }, [dispatch])
 
-    const setCardsNewPageCount = useCallback((newPageCount: number) => { // кол-во карт на стр.
+    const setCardsNewPageCount = useCallback((newPageCount: number) => {
         dispatch(setCardsNewCardsPageCountAC(newPageCount))
     }, [dispatch])
 

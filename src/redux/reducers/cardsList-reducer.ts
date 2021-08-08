@@ -11,7 +11,7 @@ const SET_SEARCH_CARDS_VALUE = "CARD/SET_SEARCH_CARDS_VALUE"
 const initialState = {
     cards: [] as Array<CardType>,
     cardsTotalCount: 0,
-    pageCount: 5,
+    pageCount: 10,
     page: 1,
     maxGrade: 0,
     minGrade: 0,
