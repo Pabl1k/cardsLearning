@@ -20,7 +20,7 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-            props.onKeyPressEnter(searchValue)
+            props.onKeyPressEnter(searchValue.trim())
         }
     }
 
