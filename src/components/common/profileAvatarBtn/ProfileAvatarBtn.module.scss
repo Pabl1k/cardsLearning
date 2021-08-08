@@ -12,10 +12,10 @@
 }
 
 .avatarWrap {
-  margin: 0 auto;
-
   width: 96px;
   height: 96px;
+
+  margin: 0 auto;
 
   position: relative;
 }
@@ -26,16 +26,20 @@
   border-radius: 50%;
 }
 
+.photoIcon {
+  width: 32px;
+  height: 32px;
 
-.name {
-  @extend %ff600;
-  font-size: 18px;
-  color: $textColor;
-}
+  position: absolute;
+  top: 64px;
+  right: -3px;
 
-.career {
-  @extend %sf400;
-  font-size: 14px;
-  opacity: .5;
-  color: $textColor;
+  border-radius: 50%;
+  border: none;
+  background-image: url(./../../../assets/images/photoIcon.svg);
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }

@@ -8,7 +8,6 @@ type MainTitlePropsType = {
 
 export const MainTitle = React.memo((props: MainTitlePropsType) => {
 
-
     return (
         <h2 className={`${s.mainTitle} ${props.textStyle}`}>
             {props.title}

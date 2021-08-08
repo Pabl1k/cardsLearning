@@ -49,23 +49,11 @@ export const profileAPI = {
 }
 
 export const packsListAPI = {
-    /*getPacksFinal(packName?: string, min?: number, max?: number, sortPasksOrder?: number, sortPasksFilter?: string, page?: number, pageCount?: number, user_id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=${min ? min : ""}&max=${max ? max : ""}&sortPacks=${sortPasksOrder ? sortPasksOrder : ""}${sortPasksFilter ? sortPasksFilter : ""}&page=${page ? page : ""}&pageCount=${pageCount ? pageCount : ""}&user_id=${user_id ? user_id : ""}`)
-    },*/
-    getPacks(pageNumber?: number, packsPerPage?: number, user_id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=${pageNumber}&pageCount=${packsPerPage}&user_id=${user_id ? user_id : ""}`)
-    },
-    getPacksForSearch(allPacks: number) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?pageCount=${allPacks}`)
-    },
-    getPacksAfterTabsShow(user_id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=3&max=9&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
-    },
-    getPacksAfterDoubleRange(min: number, max: number, user_id?: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?min=${min}&max=${max}&sortPacks=0updated&page=1&pageCount=10&user_id=${user_id ? user_id : ""}`)
+    getPacks(packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?packName=${packName}&min=${min}&max=${max}&sortPacks=${sortPacksOrder}${sortPacksFilter}&page=${page}&pageCount=${pageCount}&user_id=${user_id}`)
     },
     addPack() {
-        return instance.post(`cards/pack`, {cardsPack: {name: "NewPackName"}})
+        return instance.post(`cards/pack`, {cardsPack: {name: "CREATEDPackName"}})
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack?id=${id}`)

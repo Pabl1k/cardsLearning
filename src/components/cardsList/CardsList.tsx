@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
 import {MainTitle} from "../common/mainTitle/MainTitle"
+import {SearchInput} from "../common/searchInput/SearchInput"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
-import {PaginationTable} from "../common/paginationTable/PaginationTable"
-import {ShowValueType} from "../packsList/PacksList"
+import {PaginationTable, ShowValueType} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
 
 type CardsListPropsType = {}
@@ -15,10 +15,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const {cardsTotalCount, cards, pageCount} = useSelector((state: AppRootStateType) => state.cardsListReducer)
-    const {packId} = useParams<{ packId: string }>();
+    const count = Math.ceil(cardsTotalCount / pageCount)
+    const {packId} = useParams<{ packId: string }>()
     const dispatch = useDispatch()
     const history = useHistory()
-    const count = Math.ceil(cardsTotalCount / pageCount)
 
     console.log(pageCount)
     const [pageValue, setPageValue] = useState<number>(1)
@@ -28,6 +28,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const RedirectToPacksListHandler = () => {
         history.push("/")
     }
+
+    const applySearchValue = useCallback(() => {
+        // задиспатчик AC, который меняет в стейте searchPackName
+    }, [dispatch])
 
     useEffect(() => {
         dispatch(getCardsTC(packId, pageValue, packsPerPageValue))
@@ -48,16 +52,16 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>
-                        {/*<SearchInput/>*/}
+                        <SearchInput onKeyPressEnter={applySearchValue}/>
                     </div>
                     {cards.length === 0
                         ? <div>Empty</div>
                         : <>
                             <CardsListTableMUI tableState={cards}/>
-                            <PaginationTable item={pageValue}
-                                             setItem={setPageValue}
-                                             setPerPage={setPacksPerPageValue}
-                                             count={count}
+                            <PaginationTable
+                                currentPage={pageValue}
+                                setNewCurrentPage={setPageValue}
+                                setNewPageCount={setPacksPerPageValue}
                             />
                         </>
                     }

@@ -61,7 +61,7 @@ $brBtn: 30px;
 //LOGIN
 
 %loginBlock {
-  //margin: 60px 20px;
+  margin: 8vh 0;
   padding: 25px 35px;
 
   max-width: 415px;
@@ -191,6 +191,42 @@ $breakpoints: (
         xl: 1199.8px,
 );
 
+// @media (max-width: 630px) {
+//   width: 240px;
+// }
+
+
+
+
+//modal
+
+%modal {
+  padding: 15px 0 5px;
+
+  max-width: 395px;
+  min-height: 225px;
+  width: 100%;
+
+  position: relative;
+  z-index: 5;
+
+  background-color: $bgWhite;
+}
+
+%cross {
+  width: 14px;
+  height: 14px;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+%accentText {
+  @extend %sf600;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
 
 

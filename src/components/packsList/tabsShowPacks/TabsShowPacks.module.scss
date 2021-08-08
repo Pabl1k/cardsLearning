@@ -9,5 +9,24 @@
   @extend %subTitle;
 }
 
+.tabItemsContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.tabItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #ffffff;
+}
+
+.activeTabItem {
+  background-color: #9A91C8;
+}
 
 

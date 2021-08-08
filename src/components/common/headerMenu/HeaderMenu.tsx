@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../../redux/store"
 import {logoutTC} from "../../../redux/reducers/login-reducer"
@@ -10,7 +11,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
-import {Link} from "react-router-dom"
+
 
 type HeaderMenuPropsType = {}
 
@@ -38,22 +39,24 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                     <div className={s.titleWrap}>
                         <MainTitle title={"It-Incubator"}/>
                     </div>
-                    <div className={classes.root}>
-                        <AppBar position="static">
-                            <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">
 
-                                <Tab label="Packs list" className={s.tabPack} component={Link} to="/"/>
-                                <Tab label="Profile" className={s.tabProfile} component={Link} to="/profile"/>
-                            </Tabs>
-                        </AppBar>
+                    <div className={s.tabsWrap}>
+                        <div className={classes.root}>
+                            <AppBar position="static">
+                                <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">
+                                    <Tab label="Packs list" className={s.tabPack} component={Link} to="/"/>
+                                    <Tab label="Profile" className={s.tabProfile} component={Link} to="/profile"/>
+                                </Tabs>
+                            </AppBar>
+                        </div>
                     </div>
-                    <div>
-                        <Button
-                            onClick={onLogoutClickHandler}
-                            disabled={status === "loading"}
-                            className={s.logoutButton}>Log out
-                        </Button>
-                    </div>
+
+                    <Button
+                        onClick={onLogoutClickHandler}
+                        disabled={status === "loading"}
+                        className={s.logoutButton}>Log out
+                    </Button>
+
                 </div>
             </div>
         </div>

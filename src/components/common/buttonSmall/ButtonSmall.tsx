@@ -9,16 +9,8 @@ type ButtonSmallPropsType = {
 
 export const ButtonSmall = React.memo((props: ButtonSmallPropsType) => {
     return (
-        <button className={s.buttonSmall} style={props.style}>
+        <button onClick={props.onClick} className={s.buttonSmall} style={props.style}>
             {props.text}
         </button>
     )
 })
-
-//     Для быстрого использования copy/paste:
-
-// <ButtonSmall text={"delete"} style={{backgroundColor: "#F1453D", color: "#ffffff"}} />
-//
-// <ButtonSmall text={"edit"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}} />
-//
-// <ButtonSmall text={"learn"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>

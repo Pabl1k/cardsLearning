@@ -1,42 +1,34 @@
-import React, {useState} from "react"
+import React from "react"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
+import {ProfileAvatarBtn} from "../common/profileAvatarBtn/ProfileAvatarBtn"
 import {Button} from "../common/button/Button"
-import s from "./CardInfo.module.scss"
+import s from "./Personal.module.scss"
 
-type CardInfoPropsType = {}
+type PersonalInfoPropsType = {}
 
 
-export const CardInfo = React.memo((props: CardInfoPropsType) => {
-
+export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
 
     return (
-        <div className={s.cardInfo}>
-            <h2 className={s.caption}>Card Info</h2>
+        <div className={s.personalInfo}>
+            <h2 className={s.caption}>Personal Information</h2>
+            <ProfileAvatarBtn/>
             <div className={s.inputBox}>
                 <div className={s.inputWrap}>
                     <InputTextMUI
                         type={"text"}
-                        label={"Question"}
+                        label={"Nickname"}
                         autoComplete="off"
-                        value={"How \"This\" works in JavaScript?"}
-
+                        value={"Ivan"}
                     />
-                    <label className={s.label}>
-                        <input className={s.file} type="file"/>
-                        + Attach file
-                    </label>
                 </div>
                 <div className={s.inputWrap}>
                     <InputTextMUI
                         type={"text"}
-                        label={"Answer"}
+                        label={"Email"}
                         autoComplete="off"
-                        value={"This is how \"This\" works in JavaScript"}
+                        value={"j&johnson@gmail.com"}
                     />
-                    <label className={s.label}>
-                        <input className={s.file} type="file"/>
-                        + Attach file
-                    </label>
                 </div>
             </div>
             <div className={s.btns}>

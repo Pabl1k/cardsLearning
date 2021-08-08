@@ -1,7 +1,7 @@
 @import "../../assets/styles/variebles";
 @import "../../assets/styles/mixins";
 
-.cardInfo {
+.personalInfo {
   @extend %loginBlock;
   padding-top: 35px;
   min-height: 445px;
@@ -13,31 +13,11 @@
 }
 
 .inputBox {
-  margin-bottom: 80px;
+  margin: 30px 0 100px;
 }
 
 .inputWrap {
-  margin-bottom: 20px;
-}
-
-input[type="file"] {
-  display: none;
-}
-
-.file {
-  text-align: left;
-  transform: translateX(-90px);
-}
-
-.label {
-  display: block;
-  margin-top: 15px;
-
-  font-size: 13px;
-  line-height: 1.1;
-  text-align: left;
-  color: #21268F;
-  cursor: pointer;
+  margin-bottom: 30px;
 }
 
 .btns {

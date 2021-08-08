@@ -3,10 +3,14 @@ import {CardPacksResponseType, GetPacksResponseType, packsListAPI} from "../../a
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-enum PACKS_LIST_ACTION_TYPE {
-    SET_PACKS_LIST = "SET-PACKS-LIST",
-    SET_PACKS_FOR_SEARCH = "SET-PACKS-FOR-SEARCH",
-    CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS"
+enum PACKS_LIST_ACTIONS_TYPES {
+    SET_PACKS_LIST_STATE = "SET_PACKS_LIST_STATE",
+    CHANGE_TABS_SHOW_PACKS_STATUS = "CHANGE_TABS_SHOW_PACKS_STATUS",
+    SET_DOUBLE_RANGE_VALUES = "SET_DOUBLE_RANGE_VALUES",
+    SET_NEW_SEARCH_PACKS_VALUE = "SET_NEW_SEARCH_PACKS_VALUE",
+    SET_NEW_SORT_PACKS_ORDER_AND_FILTER = "SET_NEW_SORT_PACKS_ORDER_AND_FILTER",
+    SET_NEW_CURRENT_PAGE = "SET_NEW_CURRENT_PAGE",
+    SET_NEW_PAGE_COUNT = "SET_NEW_PAGE_COUNT"
 }
 
 const initialState = {
@@ -15,90 +19,78 @@ const initialState = {
     minCardsCount: 0,
     maxCardsCount: 0,
     page: 1,
-    pageCount: 0,
+    pageCount: 10,
     token: "",
     tokenDeathTime: 0,
 
-    packsForSearch: [] as Array<CardPacksResponseType>,
-
     user_id: "",
 
-    tabsShowPacksStatus: 1 as TabsShowPacksStatusType
+    isShowMyPacks: false,
+    minCardsDoubleRangeValue: 0,
+    maxCardsDoubleRangeValue: 0,
+    searchPacksValue: "",
+    sortPacksOrder: 0 as SortPacksOrderType,
+    sortPacksFilter: "",
+
 }
 
 type InitialStateType = typeof initialState
 
 export const packsListReducer = (state = initialState, action: PacksListReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST:
-            return {
-                ...state,
-                ...action.packsState
-            }
-        case PACKS_LIST_ACTION_TYPE.SET_PACKS_FOR_SEARCH:
-            return {...state, packsForSearch: action.packsForSearch}
-        case PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS:
-            return {...state, tabsShowPacksStatus: action.tabsShowPacksStatus}
+        case PACKS_LIST_ACTIONS_TYPES.SET_PACKS_LIST_STATE:
+            return {...state, ...action.packsState}
+        case PACKS_LIST_ACTIONS_TYPES.CHANGE_TABS_SHOW_PACKS_STATUS:
+            return {...state, isShowMyPacks: action.isShowMyPacks, user_id: action.userId}
+        case PACKS_LIST_ACTIONS_TYPES.SET_DOUBLE_RANGE_VALUES:
+            return {...state, minCardsDoubleRangeValue: action.minCardsDoubleRangeValue, maxCardsDoubleRangeValue: action.maxCardsDoubleRangeValue}
+        case PACKS_LIST_ACTIONS_TYPES.SET_NEW_SEARCH_PACKS_VALUE:
+            return {...state, searchPacksValue: action.searchPacksValue}
+        case PACKS_LIST_ACTIONS_TYPES.SET_NEW_SORT_PACKS_ORDER_AND_FILTER:
+            return {...state, sortPacksOrder: action.sortPacksOrder, sortPacksFilter: action.sortPacksFilter}
+        case PACKS_LIST_ACTIONS_TYPES.SET_NEW_CURRENT_PAGE:
+            return {...state, page: action.page}
+        case PACKS_LIST_ACTIONS_TYPES.SET_NEW_PAGE_COUNT:
+            return {...state, pageCount: action.pageCount}
         default:
             return state
     }
 }
 
 // AC
-const setPacksListStateAC = (packsState: GetPacksResponseType) => (
-    {type: PACKS_LIST_ACTION_TYPE.SET_PACKS_LIST, packsState} as const)
+export const setPacksListStateAC = (packsState: GetPacksResponseType) => {
+    return {type: PACKS_LIST_ACTIONS_TYPES.SET_PACKS_LIST_STATE, packsState} as const
+}
 
-const changesTabsShowPacksStatusAC = (tabsShowPacksStatus: TabsShowPacksStatusType) => (
-    {type: PACKS_LIST_ACTION_TYPE.CHANGE_TABS_SHOW_PACKS_STATUS, tabsShowPacksStatus} as const)
+export const changeShowAllOrMyPacksAC = (isShowMyPacks: boolean, userId: string) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.CHANGE_TABS_SHOW_PACKS_STATUS, isShowMyPacks, userId} as const
+)
 
-const setPacksForSearchAC = (packsForSearch: Array<CardPacksResponseType>) => ({type: PACKS_LIST_ACTION_TYPE.SET_PACKS_FOR_SEARCH, packsForSearch} as const)
+export const setDoubleRangesValuesAC = (minCardsDoubleRangeValue: number, maxCardsDoubleRangeValue: number) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_DOUBLE_RANGE_VALUES, minCardsDoubleRangeValue, maxCardsDoubleRangeValue} as const
+)
+
+export const setSearchPacksValueAC = (searchPacksValue: string) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_SEARCH_PACKS_VALUE, searchPacksValue} as const
+)
+
+export const setNewSortPacksOrderAndFilterAC = (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_SORT_PACKS_ORDER_AND_FILTER, sortPacksOrder, sortPacksFilter} as const
+)
+
+export const setNewCurrentPageAC = (page: number) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_CURRENT_PAGE, page} as const
+)
+
+export const setNewPageCountAC = (pageCount: number) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_PAGE_COUNT, pageCount} as const
+)
+
 // TC
-export const fetchPacksStateTC = (pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const fetchPacksTC = (packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
-        packsListAPI.getPacks(pageNumber, cardsPerPage)
-            .then(res => {
-                console.log(res.data)
-                dispatch(setPacksListStateAC(res.data))
-                // dispatch(setAppStatusAC("succeeded"))
-            })
-            .catch(e => {
-                console.log(e.message)
-                //dispatch(setAppStatusAC("failed"))
-            })
-    }
-export const getPacksForSearchTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        packsListAPI.getPacksForSearch(206)
-            .then(res => {
-                dispatch(setPacksForSearchAC(res.data.cardPacks))
-            })
-            .catch(er => {
-
-            })
-    }
-
-export const fetchPacksStateAfterTabsShowTC = (tabsShowPacksStatus: TabsShowPacksStatusType, user_id?: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        // dispatch(setAppStatusAC("loading"))
-        packsListAPI.getPacksAfterTabsShow(user_id)
-            .then(res => {
-                // console.log("TabsShowData:")
-                console.log(res.data)
-                dispatch(setPacksListStateAC(res.data))
-                dispatch(changesTabsShowPacksStatusAC(tabsShowPacksStatus))
-                // dispatch(setAppStatusAC("succeeded"))
-            })
-            .catch(e => {
-                console.log(e.message)
-                //dispatch(setAppStatusAC("failed"))
-            })
-    }
-
-export const fetchPacksStateAfterDoubleRangeTC = (min: number, max: number, user_id?: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        // dispatch(setAppStatusAC("loading"))
-        packsListAPI.getPacksAfterDoubleRange(min, max)
+        packsListAPI.getPacks(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
             .then(res => {
                 console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
@@ -110,36 +102,36 @@ export const fetchPacksStateAfterDoubleRangeTC = (min: number, max: number, user
             })
     }
 
-export const addNewPackTC = (pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const addNewPackTC = (packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
-        // dispatch(setAppStatusAC("loading"))
         packsListAPI.addPack()
             .then(res => {
-                // console.log(res.data)
-                dispatch(fetchPacksStateTC(pageNumber, cardsPerPage))
-                // dispatch(setAppStatusAC("succeeded"))
+                console.log(res.data)
+                dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+                dispatch(changeShowAllOrMyPacksAC(true, user_id))
             })
             .catch(e => {
                 console.log(e.message)
-                // dispatch(setAppStatusAC("failed"))
             })
     }
 
-export const deletePackTC = (packId: string, pageNumber?: number, cardsPerPage?: number): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const deletePackTC = (packId: string, packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
-        // dispatch(setAppStatusAC("loading"))
         packsListAPI.deletePack(packId)
             .then(res => {
-                dispatch(fetchPacksStateTC(pageNumber, cardsPerPage))
-                // dispatch(setAppStatusAC("succeeded"))
+                console.log(res.data)
+                dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             })
             .catch(e => {
                 console.log(e.message)
-                // dispatch(setAppStatusAC("failed"))
             })
     }
 
-export type TabsShowPacksStatusType = 0 | 1
+export type SortPacksOrderType = 0 | 1
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
-    | ReturnType<typeof changesTabsShowPacksStatusAC>
-    | ReturnType<typeof setPacksForSearchAC>
+    | ReturnType<typeof changeShowAllOrMyPacksAC>
+    | ReturnType<typeof setDoubleRangesValuesAC>
+    | ReturnType<typeof setSearchPacksValueAC>
+    | ReturnType<typeof setNewSortPacksOrderAndFilterAC>
+    | ReturnType<typeof setNewCurrentPageAC>
+    | ReturnType<typeof setNewPageCountAC>

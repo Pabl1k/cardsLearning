@@ -1,8 +1,17 @@
-import React, {useCallback, useEffect, useState} from "react"
+import React, {useCallback, useEffect} from "react"
 import {Redirect} from "react-router-dom"
+import {CardPacksResponseType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
-import {addNewPackTC, deletePackTC, fetchPacksStateAfterDoubleRangeTC, getPacksForSearchTC,fetchPacksStateTC} from "../../redux/reducers/packsList-reducer"
+import {
+    addNewPackTC, changeShowAllOrMyPacksAC,
+    deletePackTC,
+    fetchPacksTC,
+    setDoubleRangesValuesAC,
+    setNewCurrentPageAC,
+    setNewPageCountAC, setNewSortPacksOrderAndFilterAC,
+    setSearchPacksValueAC, SortPacksOrderType
+} from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
@@ -13,39 +22,54 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}
-export type ShowValueType = 5 | 10 | 15
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const userId = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
-    const {cardPacks, minCardsCount, maxCardsCount, tabsShowPacksStatus, packsForSearch} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
+    const userId = useSelector<AppRootStateType, string>(state => state.packsListReducer.user_id)
+    const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const packs = useSelector<AppRootStateType, Array<CardPacksResponseType>>((state) => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
-
-    // console.log(`UserID: ${userId}`)
-
-    const [pageValue, setPageValue] = useState<number>(1)
-    const [packsPerPageValue, setPacksPerPageValue] = useState<ShowValueType>(10)
-
-    const [searchValue, setSearchValue] = useState('')
+    const count = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
-        dispatch(fetchPacksStateTC(pageValue, packsPerPageValue))
-        dispatch(getPacksForSearchTC())
-    }, [dispatch, pageValue, packsPerPageValue])
+        // debugger
+        dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId))
+    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId])
 
-    const applyDoubleRangeValues = useCallback((min: number, max: number) => {
-        //dispatch(fetchPacksStateAfterDoubleRangeTC(min, max))
-        dispatch(fetchPacksStateAfterDoubleRangeTC(min, max))
+    const changeShowAllOrMyPacks = useCallback((isShowMyPacks: boolean, userId: string) => {
+        dispatch(changeShowAllOrMyPacksAC(isShowMyPacks, userId))
+    }, [dispatch])
+
+    const setDoubleRangeValues = useCallback((minCardsDoubleRangeValue: number, maxCardsDoubleRangeValue: number) => {
+        dispatch(setDoubleRangesValuesAC(minCardsDoubleRangeValue, maxCardsDoubleRangeValue))
+    }, [dispatch])
+
+    const setSearchValue = useCallback((newSearchPacksValue: string) => {
+        dispatch(setSearchPacksValueAC(newSearchPacksValue))
+    }, [dispatch])
+
+    const setNewSortPacksOrderAndFilter = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
+        dispatch(setNewSortPacksOrderAndFilterAC(sortPacksOrder, sortPacksFilter))
+    }, [dispatch])
+
+    const setNewCurrentPage = useCallback((newCurrentPage: number) => {
+        dispatch(setNewCurrentPageAC(newCurrentPage))
+    }, [dispatch])
+
+    const setNewPageCount = useCallback((newPageCount: number) => {
+        dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
 
     const addNewPack = useCallback(() => {
-        dispatch(addNewPackTC(pageValue, packsPerPageValue))
-    }, [dispatch, pageValue, packsPerPageValue])
+        dispatch(addNewPackTC(searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 
     const deletePack = useCallback((packId: string) => {
-        dispatch(deletePackTC(packId, pageValue, packsPerPageValue))
-    }, [dispatch])
+        dispatch(deletePackTC(packId, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -57,37 +81,38 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                 <div className={s.inner}>
                     <div className={s.aside}>
                         <TabsShowPacks
-                            userId={userId}
-                            showPacksStatus={tabsShowPacksStatus}
+                            userId={user_id}
+                            showPacksStatus={isShowMyPacks}
+                            changeShowMyPacks={changeShowAllOrMyPacks}
                         />
                         <div className={s.rangeWrap}>
                             <DoubleRange
-                                minValue={minCardsCount}
-                                maxValue={maxCardsCount}
-                                onButtonClick={applyDoubleRangeValues}
+                                minCardsCount={minCardsCount}
+                                maxCardsCount={maxCardsCount}
+                                setDoubleRangeValues={setDoubleRangeValues}
                             />
                         </div>
                     </div>
                     <div className={s.content}>
                         <MainTitle title={"Packs list"} textStyle={s.tableTitle}/>
                         <div className={s.topWrap}>
-                            {/*<SearchInput setSearchValue={setSearchValue}/>*/}
+                            <SearchInput onKeyPressEnter={setSearchValue}/>
                             <Button
                                 onClick={addNewPack}
                                 className={s.button}
                             >Add new pack</Button>
                         </div>
                         <PacksListTableMUI
-                            user_id={userId}
-                            tableState={cardPacks}
+                            user_id={user_id}
+                            packs={packs}
                             onClickDeletePack={deletePack}
-                            searchValue={searchValue}
-                            packsForSearch={packsForSearch}
+                            setNewSortPacksOrderAndFilter={setNewSortPacksOrderAndFilter}
                         />
                         <PaginationTable
-                            item={pageValue}
-                            setItem={setPageValue}
-                            setPerPage={setPacksPerPageValue}
+                            currentPage={page}
+                            count={count}
+                            setNewCurrentPage={setNewCurrentPage}
+                            setNewPageCount={setNewPageCount}
                         />
                     </div>
                 </div>

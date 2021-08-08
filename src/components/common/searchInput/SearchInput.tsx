@@ -5,46 +5,46 @@ import {useStyles} from "./SearchInputStyles"
 import s from "./SearchInput.module.scss"
 
 type SearchInputPropsType = {
-    setSearchValue?: (value: string) => void
+    onKeyPressEnter: (value: string) => void
 }
 
 export const SearchInput = React.memo((props: SearchInputPropsType) => {
 
     const classes = useStyles()
 
-    const [title, setTitle] = useState<string>("")
+    const [searchValue, setSearchValue] = useState<string>("")
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+        setSearchValue(e.currentTarget.value)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-
-
-        // if (e.key === "Enter") {
-        //     props.setSearchValue(title)
-        // }
+        if (e.key === "Enter") {
+            props.onKeyPressEnter(searchValue)
+        }
     }
 
     return (
-        <div className={classes.grow}>
-            <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                    <SearchIcon/>
+        <div className={s.input}>
+            <div className={classes.grow}>
+                <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                        <SearchIcon/>
+                    </div>
+                    <InputBase
+                        type={"text"}
+                        value={searchValue}
+                        onChange={onChangeHandler}
+                        onKeyPress={onKeyPressHandler}
+                        placeholder="Search…"
+                        classes={{
+                            root: classes.inputRoot,
+                            input: classes.inputInput,
+                        }}
+                        inputProps={{'aria-label': "search"}}
+                        className={classes.input}
+                    />
                 </div>
-                <InputBase
-                    type={"text"}
-                    value={title}
-                    onChange={onChangeHandler}
-                    onKeyPress={onKeyPressHandler}
-                    placeholder="Search…"
-                    classes={{
-                        // root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                    inputProps={{'aria-label': "search"}}
-                    className={classes.input}
-                />
             </div>
         </div>
     )
