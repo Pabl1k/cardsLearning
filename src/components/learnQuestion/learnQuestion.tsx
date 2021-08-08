@@ -25,6 +25,7 @@ export const LearnQuestion = React.memo((props: learnQuestionPropsType) => {
                     Show answer
                 </Button>
             </div>
+
         </div>
     )
 })

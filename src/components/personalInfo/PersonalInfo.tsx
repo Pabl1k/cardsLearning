@@ -20,6 +20,7 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
                         type={"text"}
                         label={"Nickname"}
                         autoComplete="off"
+                        value={"Ivan"}
                     />
 
                 </div>
@@ -28,6 +29,7 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
                         type={"text"}
                         label={"Email"}
                         autoComplete="off"
+                        value={"j&johnson@gmail.com"}
                     />
 
                 </div>

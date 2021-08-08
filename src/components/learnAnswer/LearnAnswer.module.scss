@@ -40,7 +40,7 @@
 
 .radio {
   & span {
-    color: #2D2E46;
+    color: $textColor;
     font-family: SFUIDisplay, sans-serif;
     font-weight: 400;
     font-size: 16px;
@@ -51,7 +51,6 @@
     }
   }
 }
-
 
 .btns {
   @include flex();

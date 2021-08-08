@@ -14,13 +14,13 @@ export const StyledTableCell = withStyles((theme: Theme) =>
             textAlign: "left",
             padding: "10px",
 
-
-
+            '& span': {
+                cursor: "pointer",
+            },
         },
         body: {
             fontSize: 13,
             padding: "10px",
-
         },
     })
 )(TableCell)
@@ -44,7 +44,6 @@ export const StyledTableRow = withStyles((theme: Theme) =>
             '& .MuiTableCell-root': {
                 padding: "10px",
             },
-
         },
     })
 )(TableRow)

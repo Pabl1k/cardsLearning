@@ -11,7 +11,6 @@ export const ProfileAvatarBtn = React.memo((props: ProfileAvatarBtnPropsType) =>
                 <img className={s.avatar} src={avatar} alt="avatar"/>
                 <button className={s.photoIcon}></button>
             </div>
-
         </div>
     )
 })

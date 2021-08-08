@@ -8,17 +8,6 @@ type CardInfoPropsType = {}
 
 export const CardInfo = React.memo((props: CardInfoPropsType) => {
 
-    //
-    // const [showPassword, setShowPassword] = useState<boolean>(false)
-    // const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
-    //
-    // const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     event.preventDefault()
-    // }
-    //
-    // const RedirectToLoginHandler = () => {
-    //     history.push("/login")
-    // }
 
     return (
         <div className={s.cardInfo}>
@@ -29,6 +18,8 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
                         type={"text"}
                         label={"Question"}
                         autoComplete="off"
+                        value={"How \"This\" works in JavaScript?"}
+
                     />
                     <label className={s.label}>
                         <input className={s.file} type="file"/>
@@ -40,6 +31,7 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
                         type={"text"}
                         label={"Answer"}
                         autoComplete="off"
+                        value={"This is how \"This\" works in JavaScript"}
                     />
                     <label className={s.label}>
                         <input className={s.file} type="file"/>

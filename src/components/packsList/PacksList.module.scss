@@ -2,8 +2,6 @@
 @import "./src/assets/styles/mixins.scss";
 
 .packsList {
-  //padding: 25px 0;
-
   width: 100%;
 }
 
@@ -20,7 +18,6 @@
   @include media(lg) {
     flex-direction: column;
   }
-
 }
 
 .aside {
@@ -82,7 +79,6 @@
 
     border-radius: 0 0 8px 8px;
   }
-
 }
 
 .topWrap {
@@ -91,7 +87,6 @@
   @include media(xs) {
     flex-direction: column;
     align-items: stretch;
-    //width: 100%;
   }
 }
 
@@ -100,7 +95,6 @@
   font-size: 22px;
   color: $textColor;
 }
-
 
 .button {
   margin: 15px 0 25px 25px;

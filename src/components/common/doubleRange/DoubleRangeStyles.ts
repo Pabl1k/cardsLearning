@@ -42,37 +42,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
             },
         },
 
-        // '& .PrivateValueLabel-circle-12': {
-        //     width: "32px",
-        //     height: "24px",
-        //     transform: "none",
-        //     borderRadius: "3px",
-        //     backgroundColor: "#21268F",
-        // },
-
-        // '& .PrivateValueLabel-label-13': {
-        //     transform: "none",
-        // },
-
-        // '& .PrivateValueLabel-thumb-9.PrivateValueLabel-open-10 .PrivateValueLabel-offset-11': {
-        //     transform:  "translateY(3px)",
-        // },
-        //
-        // '& .PrivateValueLabel-circle-23': {
-        //     width: "32px",
-        //     height: "24px",
-        //     transform: "none",
-        //     borderRadius: "3px",
-        //     backgroundColor: "#21268F",
-        // },
-        //
-        // '& .PrivateValueLabel-label-24': {
-        //     transform: "none",
-        // },
-        //
-        // '& .PrivateValueLabel-thumb-20.PrivateValueLabel-open-21 .PrivateValueLabel-offset-22': {
-        //     transform:  "translateY(3px)",
-        // },
     }
 }))
 

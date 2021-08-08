@@ -36,17 +36,16 @@ const useStyles = makeStyles({
         '&:before': {
             display: 'block',
             width: 19,
-            height: 17,
+            height: 19,
             backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
             content: '""',
             position: "absolute",
-            top: "25%",
-            right: "28%",
+            top: "9px",
+            right: "11px",
         },
         'input:hover ~ &': {
             // backgroundColor: '#21268F',
         },
-
     },
 });
 
@@ -56,8 +55,8 @@ export const RadioMUI = (props: RadioProps) => {
     return (
         <Radio
             className={classes.root}
-            checkedIcon={<span className={classnames(classes.icon, classes.checkedIcon)} />}
-            icon={<span className={classes.icon} />}
+            checkedIcon={<span className={classnames(classes.icon, classes.checkedIcon)}/>}
+            icon={<span className={classes.icon}/>}
             {...props}
         />
     );

@@ -198,4 +198,36 @@ $breakpoints: (
 
 
 
+//modal
+
+%modal {
+  padding: 15px 0 5px;
+
+  max-width: 395px;
+  min-height: 225px;
+  width: 100%;
+
+  position: relative;
+  z-index: 5;
+
+  background-color: $bgWhite;
+}
+
+%cross {
+  width: 14px;
+  height: 14px;
+
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+%accentText {
+  @extend %sf600;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+
 

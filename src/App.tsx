@@ -44,8 +44,6 @@ function App() {
                 : null}
             <section className={s.pagesContainer}>
                 <Switch>
-
-
                     <Route exact path={"/"} render={() => <PacksList/>}/>
                     <Route exact path={"/cardslist/:packId"} render={() => <CardsList/>}/>
                     <Route path={"/profile"} render={() => <Profile/>}/>

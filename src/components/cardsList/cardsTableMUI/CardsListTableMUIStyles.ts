@@ -10,6 +10,9 @@ export const StyledTableCell = withStyles((theme: Theme) =>
             fontFamily: "SFUIDisplay, sans-serif",
             fontWeight: 600,
             lineHeight: "1.05",
+            '& span': {
+                cursor: "pointer",
+            },
 
 
         },
