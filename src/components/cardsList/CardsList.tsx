@@ -55,7 +55,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <SearchInput onKeyPressEnter={applySearchValue}/>
                     </div>
                     {cards.length === 0
-                        ? <div>Empty</div>
+                        ?
+                        <div className={s.empty}>This pack is empty.
+                            Click add new card to fill this pack
+                        </div>
                         : <>
                             <CardsListTableMUI tableState={cards}/>
                             <PaginationTable

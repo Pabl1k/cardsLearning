@@ -33,17 +33,17 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell align="right">Cards</StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell style={{width: "60px"}}>Name</StyledTableCell>
+                        <StyledTableCell>Cards</StyledTableCell>
+                        <StyledTableCell>
                             <ItemsFilterSpan
                                 title={"Updated"}
                                 status={sortPacksOrder}
                                 setSetStatusValue={props.setNewSortPacksOrderAndFilter}
                             />
                         </StyledTableCell>
-                        <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
-                        <StyledTableCell align="right">Actions</StyledTableCell>
+                        <StyledTableCell>Created&nbsp;by</StyledTableCell>
+                        <StyledTableCell>Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
