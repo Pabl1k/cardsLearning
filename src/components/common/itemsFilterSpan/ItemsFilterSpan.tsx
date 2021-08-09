@@ -4,7 +4,7 @@ import s from "./ItemsFilterSpan.module.scss"
 
 type ItemsFilterSpanPropsType = {
     title: string
-    status: SortPacksOrderType
+    status?: SortPacksOrderType
     setSetStatusValue?: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
 }
 
