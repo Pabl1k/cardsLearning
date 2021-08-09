@@ -9,12 +9,22 @@ import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./CardsListTableMUIStyles"
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../redux/store";
+import {SortCardsOrderType} from "../../../redux/reducers/cardsList-reducer";
+import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer";
+
 
 type CardsListTableMUIPropsType = {
     tableState: Array<CardType>
+    setNewSortCardsOrderAndFilter:(sortCardsOrder: SortCardsOrderType, sortCardsFilter: string)=>void
+    setNewSortGradeOrder:(sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string)=>void
+    setNewSortAnswerOrder:(sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string)=>void
 }
 
 export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) => {
+    const {sortCardsOrder,sortCardsAnswerOrder,sortCardsGradeOrder} = useSelector((state: AppRootStateType) => state.cardsListReducer)
+
 
     return (
         <TableContainer component={Paper}>
@@ -27,19 +37,22 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                         <StyledTableCell>
                             <ItemsFilterSpan
                                 title={"Answer"}
-                                status={0}
+                                status={sortCardsAnswerOrder}
+                                setSetStatusValue={props.setNewSortAnswerOrder}
                             />
                         </StyledTableCell>
                         <StyledTableCell>
                             <ItemsFilterSpan
                                 title={"Updated"}
-                                status={0}
+                                status={sortCardsOrder}
+                                setSetStatusValue={props.setNewSortCardsOrderAndFilter}
                             />
                         </StyledTableCell>
                         <StyledTableCell>
                             <ItemsFilterSpan
                                 title={"Grade"}
-                                status={0}
+                                status={sortCardsGradeOrder}
+                                setSetStatusValue={props.setNewSortGradeOrder}
                             />
                         </StyledTableCell>
                     </TableRow>

@@ -1,4 +1,5 @@
 import axios from "axios"
+import {SortPacksOrderType} from "../redux/reducers/packsList-reducer";
 
 //id="60fdcc41c6db2000047c6c84"
 // createdAcc:
@@ -63,20 +64,13 @@ export const packsListAPI = {
     }
 }
 
+
+//cards/card?cardQuestion=&cardsPack_id=60abbfbd6a39d35b188ef6f2&page=1&pageCount=10
+//getCards(packId, page, pageCount, searchCardsValue,sortCardsOrder,sortCardsFilter)
 export const cardsAPI = {
-    getCards(packId: string, page: number, pageCount: number, question?: string, answer?: string,  min?: number, max?: number, sortCards?: string) {
-        return instance.get<GetCardsResponseType>('/cards/card', {
-            params: {
-                cardAnswer: answer,
-                cardQuestion: question,
-                cardsPack_id: packId,
-                min,
-                max,
-                sortCards,
-                page,
-                pageCount
-            }
-        })
+
+    getCards(packId: string, page: number, pageCount: number, question?: string,sortCardsOrder?: number,sortCardsFilter?: string, answer?: string,  min?: number, max?: number) {
+        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`, )
     },
     addCard(packId: string, answer?: string, question?: string) {
         return instance.post(`/cards/card`, {card: {cardsPack_id: packId, answer, question}})
@@ -185,3 +179,17 @@ export type CardType = {
     __v: number
     _id: string
 }
+
+// {
+//
+//     params: {
+//         cardAnswer: answer,
+//             cardQuestion: question,
+//             cardsPack_id: packId,
+//             min,
+//             max,
+//             sortCards,
+//             page,
+//             pageCount
+//     }
+// }
