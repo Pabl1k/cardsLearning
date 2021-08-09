@@ -21,7 +21,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const {cardsTotalCount, cards, pageCount, page, searchCardsValue} = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const count = Math.ceil(cardsTotalCount / pageCount)
-    const {packId} = useParams<{ packId: string }>()
+    const {packId} = useParams<{ packId: string}>()
     const dispatch = useDispatch()
     const history = useHistory()
 
