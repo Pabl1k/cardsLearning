@@ -26,7 +26,7 @@ const initialState = {
 
     sortCardsFilter: "",
     sortCardsAnswerOrder: 0 as SortCardsOrderType,
-    sortCardsGradeOrder: 1 as SortCardsOrderType,
+    sortCardsGradeOrder: 0 as SortCardsOrderType,
     sortCardsOrder: 0 as SortCardsOrderType,
 
 }
