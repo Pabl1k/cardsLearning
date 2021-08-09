@@ -3,6 +3,7 @@ import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {
+    addCardsTC,
     getCardsTC,
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
@@ -16,6 +17,7 @@ import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
 import {SortPacksOrderType} from "../../redux/reducers/packsList-reducer";
+import {Button} from "../common/button/Button";
 
 type CardsListPropsType = {}
 
@@ -43,7 +45,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
                 break;
             case "grade":
-                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue,sortCardsGradeOrder, sortCardsFilter))
+                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsGradeOrder, sortCardsFilter))
                 break;
             case "answer":
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsAnswerOrder, sortCardsFilter))
@@ -83,6 +85,9 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(setSortGradeCardAC(sortCardsGradeOrder, sortCardsFilter))
     }, [dispatch])
 
+    const addNewCard = useCallback(() => {
+        dispatch(addCardsTC(packId))
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -98,7 +103,12 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     </div>
                     <div className={s.searchWrap}>
                         <SearchInput onKeyPressEnter={setCardsSearchValue}/>
+                        <Button
+                            onClick={addNewCard}
+                            className={s.button}
+                        >Add new card</Button>
                     </div>
+
                     {cards.length === 0
                         ? <div>Empty</div>
                         : <>

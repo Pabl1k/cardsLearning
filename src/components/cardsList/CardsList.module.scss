@@ -44,6 +44,12 @@
 }
 
 .searchWrap {
+  @include flex();
+
+  @include media(xs) {
+    flex-direction: column;
+    align-items: stretch;
+  }
   margin-bottom: 25px;
 }
 

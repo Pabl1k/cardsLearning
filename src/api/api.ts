@@ -65,15 +65,14 @@ export const packsListAPI = {
 }
 
 
-//cards/card?cardQuestion=&cardsPack_id=60abbfbd6a39d35b188ef6f2&page=1&pageCount=10
-//getCards(packId, page, pageCount, searchCardsValue,sortCardsOrder,sortCardsFilter)
+
 export const cardsAPI = {
 
-    getCards(packId: string, page: number, pageCount: number, question?: string,sortCardsOrder?: number,sortCardsFilter?: string, answer?: string,  min?: number, max?: number) {
-        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`, )
+    getCards(packId: string, page: number, pageCount: number, question?: string, sortCardsOrder?: number, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
+        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
     },
-    addCard(packId: string, answer?: string, question?: string) {
-        return instance.post(`/cards/card`, {card: {cardsPack_id: packId, answer, question}})
+    addCard(packId: string, question?: string, answer?: string) {
+        return instance.post(`/cards/card`, {card: {cardsPack_id: packId, question, answer,}})
     },
     deleteCard(cardId: string) {
         return instance.delete(`/cards/card?id=${cardId}`)
