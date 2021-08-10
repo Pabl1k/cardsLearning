@@ -36,10 +36,11 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         sortCardsFilter,
         sortCardsAnswerOrder, sortCardsGradeOrder
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
-    const count = Math.ceil(cardsTotalCount / pageCount)
-    const {packId} = useParams<{ packId: string }>()
     const dispatch = useDispatch()
+
+    const {packId} = useParams<{ packId: string }>()
     const history = useHistory()
+    const count = Math.ceil(cardsTotalCount / pageCount)
 
     useEffect(() => {
         switch (sortCardsFilter) {
@@ -85,8 +86,8 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(setSortGradeCardAC(sortCardsGradeOrder, sortCardsFilter))
     }, [dispatch])
 
-    const addNewCard = useCallback(() => {
-        dispatch(addCardTC(packId))
+    const addNewCard = useCallback((cardQuestion: string, cardAnswer: string) => {
+        dispatch(addCardTC(packId, cardQuestion, cardAnswer))
     }, [dispatch, packId])
 
     const updateCard = useCallback((cardId: string, newCardQuestion: string, newCardAnswer: string) => {
@@ -111,14 +112,11 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     </div>
                     <div className={s.searchWrap}>
                         <SearchInput onKeyPressEnter={setCardsSearchValue}/>
-                        {user_id === cards[0].user_id // пофиксить authMe и ошибки не будет !!!
-                        &&
                         <Button
-                            onClick={addNewCard}
+                            onClick={() => addNewCard("AddedCardQuestion", "AddedCardAnswer")}
                             className={s.button}>
                             Add new card
                         </Button>
-                        }
                     </div>
                     {cards.length === 0
                         ? <div>Empty</div>

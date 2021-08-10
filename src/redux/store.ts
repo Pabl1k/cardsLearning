@@ -1,4 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux"
+import {composeWithDevTools} from "redux-devtools-extension"
 import thunkMiddleware from "redux-thunk"
 import {appReducer, AppReducerActionsType} from "./reducers/app-reducer"
 import {packsListReducer, PacksListReducerActionsType} from "./reducers/packsList-reducer"
@@ -20,7 +21,7 @@ const rootReducer = combineReducers({
     updatePasswordReducer: updatePasswordReducer
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)))
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 export type AppActionsType = AppReducerActionsType
