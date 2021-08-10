@@ -87,10 +87,10 @@ export const setNewPageCountAC = (pageCount: number) => (
 )
 
 // TC
-export const fetchPacksTC = (packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const fetchPacksTC = (searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
         // dispatch(setAppStatusAC("loading"))
-        packsListAPI.getPacks(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
+        packsListAPI.getPacks(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
             .then(res => {
                 console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
@@ -102,12 +102,12 @@ export const fetchPacksTC = (packName: string, min: number, max: number, sortPac
             })
     }
 
-export const addNewPackTC = (packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const addNewPackTC = (packName: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch) => {
-        packsListAPI.addPack()
+        packsListAPI.addPack(packName)
             .then(res => {
                 console.log(res.data)
-                dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+                dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
                 dispatch(changeShowAllOrMyPacksAC(true, user_id))
             })
             .catch(e => {

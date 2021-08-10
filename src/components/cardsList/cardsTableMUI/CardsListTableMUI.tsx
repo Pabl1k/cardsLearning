@@ -14,7 +14,6 @@ import {AppRootStateType} from "../../../redux/store";
 import {SortCardsOrderType} from "../../../redux/reducers/cardsList-reducer";
 import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer";
 
-
 type CardsListTableMUIPropsType = {
     tableState: Array<CardType>
     setNewSortCardsOrderAndFilter:(sortCardsOrder: SortCardsOrderType, sortCardsFilter: string)=>void

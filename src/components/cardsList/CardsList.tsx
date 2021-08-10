@@ -108,7 +108,6 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             className={s.button}
                         >Add new card</Button>
                     </div>
-
                     {cards.length === 0
                         ? <div>Empty</div>
                         : <>

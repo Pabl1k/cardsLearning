@@ -7,8 +7,8 @@ import {SortPacksOrderType} from "../redux/reducers/packsList-reducer";
 // password: newPiatnicaTest
 
 const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-    // baseURL: "http://localhost:7542/2.0/",
+    // baseURL: "https://neko-back.herokuapp.com/2.0",
+    baseURL: "http://localhost:7542/2.0/",
     withCredentials: true
 })
 
@@ -53,8 +53,8 @@ export const packsListAPI = {
     getPacks(packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?packName=${packName}&min=${min}&max=${max}&sortPacks=${sortPacksOrder}${sortPacksFilter}&page=${page}&pageCount=${pageCount}&user_id=${user_id}`)
     },
-    addPack() {
-        return instance.post(`cards/pack`, {cardsPack: {name: "CREATEDPackName"}})
+    addPack(packName: string) {
+        return instance.post(`cards/pack`, {cardsPack: {name: packName}})
     },
     deletePack(id: string) {
         return instance.delete(`cards/pack?id=${id}`)
@@ -67,7 +67,6 @@ export const packsListAPI = {
 
 
 export const cardsAPI = {
-
     getCards(packId: string, page: number, pageCount: number, question?: string, sortCardsOrder?: number, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
         return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
     },

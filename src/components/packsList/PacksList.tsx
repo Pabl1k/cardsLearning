@@ -64,7 +64,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     }, [dispatch])
 
     const addNewPack = useCallback(() => {
-        dispatch(addNewPackTC(searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+        dispatch(addNewPackTC("AddedNewPackName" , searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
     }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 
     const deletePack = useCallback((packId: string) => {
