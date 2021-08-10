@@ -89,7 +89,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     }, [dispatch, packId])
 
     const updateCard = useCallback((cardId: string, newCardQuestion: string) => {
-        dispatch(updateCardTC(cardId, newCardQuestion, packId))
+        dispatch(updateCardTC(packId, cardId, newCardQuestion))
     }, [dispatch, packId])
 
     if (!isLoggedIn) {
