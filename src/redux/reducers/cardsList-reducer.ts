@@ -28,7 +28,6 @@ const initialState = {
     sortCardsAnswerOrder: 0 as SortCardsOrderType,
     sortCardsGradeOrder: 0 as SortCardsOrderType,
     sortCardsOrder: 0 as SortCardsOrderType,
-
 }
 
 type InitialStateType = typeof initialState
@@ -90,10 +89,10 @@ export const setSortCardAC = (sortCardsOrder: SortPacksOrderType, sortCardsFilte
     type: SET_SORT_CARDS, sortCardsOrder, sortCardsFilter
 } as const)
 export const setSortAnswerCardAC = (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => ({
-    type: SET_SORT_ANSWER_CARDS, sortCardsAnswerOrder,sortCardsFilter
+    type: SET_SORT_ANSWER_CARDS, sortCardsAnswerOrder, sortCardsFilter
 } as const)
-export const setSortGradeCardAC = (sortCardsGradeOrder: SortPacksOrderType,sortCardsFilter: string) => ({
-    type: SET_SORT_GRADE_CARDS,sortCardsGradeOrder, sortCardsFilter
+export const setSortGradeCardAC = (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => ({
+    type: SET_SORT_GRADE_CARDS, sortCardsGradeOrder, sortCardsFilter
 } as const)
 
 // thunks
@@ -107,6 +106,25 @@ export const getCardsTC = (packId: string, page: number, pageCount: number, sear
 
                 dispatch(setCardsAC(res.data))
                 dispatch(setCardTotalCountAC(res.data.cardsTotalCount))
+                // dispatch(setAppStatusAC("succeeded"))
+            })
+            .catch((e) => {
+                console.log(e)
+                // dispatch(setAppStatusAC("failed"))
+            })
+            .finally(() => {
+                // some code...
+            })
+    }
+
+
+export const addCardsTC = (packId: string, question?: string, answer?: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch, getState) => {
+        // dispatch(setAppStatusAC("loading"))
+        const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
+        cardsAPI.addCard(packId, question, answer)
+            .then(res => {
+                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
                 // dispatch(setAppStatusAC("succeeded"))
             })
             .catch((e) => {
