@@ -3,7 +3,9 @@ import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
+enum LOGIN_ACTIONS_TYPES {
+    SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
+}
 
 type InitialStateType = {
     isLoggedIn: boolean
@@ -15,7 +17,7 @@ const initialState: InitialStateType = {
 
 export const loginReducer = (state: InitialStateType = initialState, action: LoginReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case SET_IS_LOGGED_IN:
+        case LOGIN_ACTIONS_TYPES.SET_IS_LOGGED_IN:
             return {
                 ...state,
                 isLoggedIn: action.isLoggedIn
@@ -27,7 +29,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
 
 // actions
 export const setIsLoggedInAC = (isLoggedIn: boolean) => {
-    return {type: SET_IS_LOGGED_IN, isLoggedIn} as const
+    return {type: LOGIN_ACTIONS_TYPES.SET_IS_LOGGED_IN, isLoggedIn} as const
 }
 
 // thunks

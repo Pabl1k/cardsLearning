@@ -3,7 +3,9 @@ import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-const SET_ERROR_MESSAGE = "SET-ERROR-MESSAGE"
+enum RESTORE_PASSWORD_ACTIONS_TYPES {
+    SET_ERROR_MESSAGE = "SET-ERROR-MESSAGE"
+}
 
 const initialState = {
     errorMessage: null
@@ -15,7 +17,7 @@ type InitialStateType = {
 
 export const restorePasswordReducer = (state: InitialStateType = initialState, action: RestorePasswordReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case SET_ERROR_MESSAGE:
+        case RESTORE_PASSWORD_ACTIONS_TYPES.SET_ERROR_MESSAGE:
             return {...state, errorMessage: action.errorMessage}
         default:
             return state
@@ -23,7 +25,8 @@ export const restorePasswordReducer = (state: InitialStateType = initialState, a
 }
 
 // actions
-export const setErrorMessageAC = (errorMessage: string) => ({type: SET_ERROR_MESSAGE, errorMessage: errorMessage})
+export const setErrorMessageAC = (errorMessage: string) => (
+    {type: RESTORE_PASSWORD_ACTIONS_TYPES.SET_ERROR_MESSAGE, errorMessage: errorMessage})
 
 // thunks
 export const restorePasswordTC = (email: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>

@@ -3,8 +3,10 @@ import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setIsLoggedInAC} from "./login-reducer"
 
-const APP_SET_STATUS = "APP/SET-STATUS"
-const USER_DATA_TYPE = "USER_DATA_TYPE"
+enum APP_ACTIONS_TYPES {
+    APP_SET_STATUS = "APP/SET-STATUS",
+    USER_DATA_TYPE = "USER_DATA_TYPE"
+}
 
 export type UserDataType = {
     _id: string
@@ -44,9 +46,9 @@ const initialState = {
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case APP_SET_STATUS:
+        case APP_ACTIONS_TYPES.APP_SET_STATUS:
             return {...state, status: action.status}
-        case USER_DATA_TYPE:
+        case APP_ACTIONS_TYPES.USER_DATA_TYPE:
             return {...state, userData: action.userData}
         default:
             return state
@@ -54,8 +56,10 @@ export const appReducer = (state: InitialStateType = initialState, action: AppRe
 }
 
 // actions
-export const setAppStatusAC = (status: RequestStatusType) => ({type: APP_SET_STATUS, status} as const)
-export const setUserDataAC = (userData: UserDataType) => ({type: USER_DATA_TYPE, userData} as const)
+export const setAppStatusAC = (status: RequestStatusType) => (
+    {type: APP_ACTIONS_TYPES.APP_SET_STATUS, status} as const)
+export const setUserDataAC = (userData: UserDataType) => (
+    {type: APP_ACTIONS_TYPES.USER_DATA_TYPE, userData} as const)
 
 // thunks
 export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>

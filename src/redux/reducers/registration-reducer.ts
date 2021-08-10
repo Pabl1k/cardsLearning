@@ -3,7 +3,9 @@ import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-const SET_IS_SIGN_UP = "registration/SET_IS_SIGN_UP"
+enum REGISTRATION_ACTIONS_TYPES {
+    SET_IS_SIGN_UP = "registration/SET_IS_SIGN_UP"
+}
 
 type InitialStateType = {
     isSignUp: boolean
@@ -15,7 +17,7 @@ const initialState: InitialStateType = {
 
 export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case SET_IS_SIGN_UP:
+        case REGISTRATION_ACTIONS_TYPES.SET_IS_SIGN_UP:
             return {...state, isSignUp: action.value}
         default:
             return state
@@ -24,7 +26,7 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
 
 // actions
 export const setIsSignUpAC = (value: boolean) => {
-    return {type: SET_IS_SIGN_UP, value} as const
+    return {type: REGISTRATION_ACTIONS_TYPES.SET_IS_SIGN_UP, value} as const
 }
 
 // thunks

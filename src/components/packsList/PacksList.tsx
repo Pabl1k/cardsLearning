@@ -32,10 +32,10 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packs = useSelector<AppRootStateType, Array<CardPacksResponseType>>((state) => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
+
     const count = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
-        // debugger
         dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId))
     }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId])
 
@@ -104,8 +104,9 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             <SearchInput onKeyPressEnter={setSearchValue}/>
                             <Button
                                 onClick={() => addNewPack("AddedPackName")}
-                                className={s.button}
-                            >Add new pack</Button>
+                                className={s.button}>
+                                Add new pack
+                            </Button>
                         </div>
                         <PacksListTableMUI
                             user_id={user_id}

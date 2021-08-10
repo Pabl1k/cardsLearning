@@ -3,7 +3,9 @@ import {profileAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
-const CHANGE_USER_DATA = "CHANGE_USER_DATA"
+enum PROFILE_ACTIONS_TYPES {
+    CHANGE_USER_DATA = "CHANGE_USER_DATA"
+}
 
 type InitialStateType = {
     /*userData: {
@@ -25,7 +27,7 @@ const initialState: InitialStateType = {
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionsType): InitialStateType => {
     switch (action.type) {
-        case CHANGE_USER_DATA:
+        case PROFILE_ACTIONS_TYPES.CHANGE_USER_DATA:
             return {...state, userData: {...action.payload}}
         default:
             return state
@@ -33,9 +35,8 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 }
 
 // actions
-export const updateUserDataAC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null) => {
-    return {type: CHANGE_USER_DATA, payload: {_id, userName, userEmail, userAvatar}} as const
-}
+export const updateUserDataAC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null) => (
+    {type: PROFILE_ACTIONS_TYPES.CHANGE_USER_DATA, payload: {_id, userName, userEmail, userAvatar}} as const)
 
 // thunks
 export const updateUserNameTC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>

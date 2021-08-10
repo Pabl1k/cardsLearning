@@ -13,7 +13,6 @@ export const ModalWindow = React.memo((props: ModalWindow) => {
             <ModalDelete/>
             {/*приходит либо ModalDelete либо ModalAdd (одну компоненту убрать!!!)*/}
             <ModalAdd/>
-
         </div>
     )
 })

@@ -6,7 +6,6 @@ import s from "./Personal.module.scss"
 
 type PersonalInfoPropsType = {}
 
-
 export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
 
     return (
@@ -32,10 +31,12 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
                 </div>
             </div>
             <div className={s.btns}>
-                <Button className={s.button}>
+                <Button
+                    className={s.button}>
                     Cancel
                 </Button>
-                <Button className={s.button}>
+                <Button
+                    className={s.button}>
                     Save
                 </Button>
             </div>

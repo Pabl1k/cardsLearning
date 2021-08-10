@@ -10,6 +10,5 @@ export const useStyles = makeStyles((theme: Theme) => ({
         '& span ': {
             padding: "1px",
         },
-
     }
 }))
