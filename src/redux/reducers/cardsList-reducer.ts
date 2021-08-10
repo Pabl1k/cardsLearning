@@ -129,7 +129,6 @@ export const updateCardTC = (packId: string, cardId: string, newCardQuestion: st
         const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
         cardsAPI.updateCard(cardId, newCardQuestion, newCardAnswer)
             .then(res => {
-                console.log(res.data)
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
             })
             .catch((e) => {

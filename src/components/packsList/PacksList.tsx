@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react"
 import {Redirect} from "react-router-dom"
-import {CardPacksResponseType} from "../../api/api"
+import {PackResponseType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
 import {
@@ -30,7 +30,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const userId = useSelector<AppRootStateType, string>(state => state.packsListReducer.user_id)
     const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
-    const packs = useSelector<AppRootStateType, Array<CardPacksResponseType>>((state) => state.packsListReducer.cardPacks)
+    const packs = useSelector<AppRootStateType, Array<PackResponseType>>((state) => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
 
     const count = Math.ceil(cardPacksTotalCount / pageCount)
@@ -68,7 +68,6 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 
     const updatePack = useCallback((newPackName: string, packId: string) => {
-        debugger
         dispatch(updatePackTC(newPackName, packId, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
     }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 

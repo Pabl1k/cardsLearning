@@ -1,7 +1,7 @@
 import React from "react"
 import {NavLink} from "react-router-dom"
 import {useSelector} from "react-redux"
-import {CardPacksResponseType} from "../../../api/api"
+import {PackResponseType} from "../../../api/api"
 import {AppRootStateType} from "../../../redux/store"
 import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
@@ -17,7 +17,7 @@ import s from "./PacksListTableMUI.module.scss"
 
 type PacksListTableMUIPropsType = {
     user_id: string
-    packs: Array<CardPacksResponseType>
+    packs: Array<PackResponseType>
     updatePack: (newPackName: string, packId: string) => void
     deletePack: (packId: string) => void
     setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void

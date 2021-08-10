@@ -1,5 +1,5 @@
 import {ThunkAction} from "redux-thunk"
-import {CardPacksResponseType, GetPacksResponseType, packsListAPI} from "../../api/api"
+import {PackResponseType, GetPacksResponseType, packsListAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
 
@@ -14,7 +14,7 @@ enum PACKS_LIST_ACTIONS_TYPES {
 }
 
 const initialState = {
-    cardPacks: [] as Array<CardPacksResponseType>,
+    cardPacks: [] as Array<PackResponseType>,
     cardPacksTotalCount: 0,
     minCardsCount: 0,
     maxCardsCount: 0,
@@ -85,7 +85,6 @@ export const fetchPacksTC = (searchPacksValue: string, min: number, max: number,
         // dispatch(setAppStatusAC("loading"))
         packsListAPI.getPacks(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
             .then(res => {
-                console.log(res.data)
                 dispatch(setPacksListStateAC(res.data))
                 // dispatch(setAppStatusAC("succeeded"))
             })
@@ -99,7 +98,6 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
     (dispatch) => {
         packsListAPI.addPack(packName)
             .then(res => {
-                console.log(res.data)
                 dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
                 dispatch(changeShowAllOrMyPacksAC(true, user_id))
             })
@@ -112,8 +110,8 @@ export const updatePackTC = (newPackName: string, packId: string, searchPacksVal
     (dispatch) => {
         packsListAPI.updatePack(newPackName, packId)
             .then(res => {
-                console.log(res.data)
                 dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+                dispatch(changeShowAllOrMyPacksAC(true, user_id))
             })
             .catch(e => {
                 console.log(e.message)
@@ -124,8 +122,8 @@ export const deletePackTC = (packId: string, packName: string, min: number, max:
     (dispatch) => {
         packsListAPI.deletePack(packId)
             .then(res => {
-                console.log(res.data)
                 dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+                dispatch(changeShowAllOrMyPacksAC(true, user_id))
             })
             .catch(e => {
                 console.log(e.message)

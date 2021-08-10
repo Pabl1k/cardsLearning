@@ -56,6 +56,7 @@ export const logoutTC = (): ThunkAction<void, AppRootStateType, unknown, AppActi
         dispatch(setAppStatusAC("loading"))
         authAPI.logout()
             .then(res => {
+                console.log(res.data)
                 dispatch(setIsLoggedInAC(false))
                 dispatch(setAppStatusAC("succeeded"))
             })
