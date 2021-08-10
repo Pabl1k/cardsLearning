@@ -22,7 +22,7 @@ type CardsListTableMUIPropsType = {
     setNewSortCardsOrderAndFilter: (sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => void
     setNewSortGradeOrder: (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => void
     setNewSortAnswerOrder: (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => void
-    updateCard: (cardId: string, question: string) => void
+    updateCard: (cardId: string, newCardQuestion: string) => void
 }
 
 export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) => {

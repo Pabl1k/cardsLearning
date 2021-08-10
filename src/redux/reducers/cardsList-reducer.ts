@@ -124,10 +124,10 @@ export const addCardTC = (packId: string, question?: string, answer?: string): T
             })
     }
 
-export const updateCardTC = (cardId: string, question: string, packId: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const updateCardTC = (cardId: string, newCardQuestion: string, packId: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch, getState) => {
         const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
-        cardsAPI.updateCard(cardId, question)
+        cardsAPI.updateCard(cardId, newCardQuestion)
             .then(res => {
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
             })
