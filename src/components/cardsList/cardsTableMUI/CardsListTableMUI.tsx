@@ -22,7 +22,8 @@ type CardsListTableMUIPropsType = {
     setNewSortCardsOrderAndFilter: (sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => void
     setNewSortGradeOrder: (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => void
     setNewSortAnswerOrder: (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => void
-    updateCard: (cardId: string, newCardQuestion: string) => void
+    updateCard: (cardId: string, newCardQuestion: string, newCardAnswer: string) => void
+    deleteCard: (cardId: string) => void
 }
 
 export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) => {
@@ -74,12 +75,12 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                                 <div className={s.buttonsContainer}>
                                     <ButtonSmall
                                         text={"delete"}
-                                        /*onClick={() => props.onClickDeletePack(pack._id)}*/
+                                        onClick={() => props.deleteCard(card._id)}
                                         style={{backgroundColor: "#F1453D", color: "#ffffff"}}
                                     />
                                     <ButtonSmall
                                         text={"edit"}
-                                        onClick={() => props.updateCard(card._id, "UpdatedQuestion")}
+                                        onClick={() => props.updateCard(card._id, "UpdatedQuestion", "UpdatedAnswer")}
                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
                                     />
                                 </div>

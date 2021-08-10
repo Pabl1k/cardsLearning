@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {
     addCardTC,
+    deleteCardTC,
     getCardsTC,
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
@@ -88,8 +89,12 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(addCardTC(packId))
     }, [dispatch, packId])
 
-    const updateCard = useCallback((cardId: string, newCardQuestion: string) => {
-        dispatch(updateCardTC(packId, cardId, newCardQuestion))
+    const updateCard = useCallback((cardId: string, newCardQuestion: string, newCardAnswer: string) => {
+        dispatch(updateCardTC(packId, cardId, newCardQuestion, newCardAnswer))
+    }, [dispatch, packId])
+
+    const deleteCard = useCallback((cardId: string) => {
+        dispatch(deleteCardTC(packId, cardId))
     }, [dispatch, packId])
 
     if (!isLoggedIn) {
@@ -106,7 +111,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     </div>
                     <div className={s.searchWrap}>
                         <SearchInput onKeyPressEnter={setCardsSearchValue}/>
-                        {(user_id === cards[0].user_id || user_id !== undefined) // пофиксить authMe и убрать underfined!!!
+                        {user_id === cards[0].user_id // пофиксить authMe и ошибки не будет !!!
                         &&
                         <Button
                             onClick={addNewCard}
@@ -125,6 +130,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                                 setNewSortAnswerOrder={setNewSortAnswerOrder}
                                 setNewSortCardsOrderAndFilter={setNewSortCardsOrderAndFilter}
                                 updateCard={updateCard}
+                                deleteCard={deleteCard}
                             />
                             <PaginationTable
                                 currentPage={page}

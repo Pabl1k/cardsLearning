@@ -124,10 +124,26 @@ export const addCardTC = (packId: string, question?: string, answer?: string): T
             })
     }
 
-export const updateCardTC = (packId: string, cardId: string, newCardQuestion: string, ): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const updateCardTC = (packId: string, cardId: string, newCardQuestion: string, newCardAnswer: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     (dispatch, getState) => {
         const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
-        cardsAPI.updateCard(cardId, newCardQuestion)
+        cardsAPI.updateCard(cardId, newCardQuestion, newCardAnswer)
+            .then(res => {
+                console.log(res.data)
+                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+            .finally(() => {
+                // some code...
+            })
+    }
+
+export const deleteCardTC = (packId: string, cardId: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch, getState) => {
+        const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
+        cardsAPI.deleteCard(cardId)
             .then(res => {
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
             })
