@@ -3,27 +3,28 @@ import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {
-    addCardsTC,
+    addCardTC,
     getCardsTC,
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
     setSearchCardsValueAC, setSortAnswerCardAC,
     setSortCardAC, setSortGradeCardAC,
-    SortCardsOrderType
+    SortCardsOrderType, updateCardTC
 } from "../../redux/reducers/cardsList-reducer"
+import {SortPacksOrderType} from "../../redux/reducers/packsList-reducer"
+import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
-import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
+import {Button} from "../common/button/Button"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
-import {SortPacksOrderType} from "../../redux/reducers/packsList-reducer";
-import {Button} from "../common/button/Button";
 
 type CardsListPropsType = {}
 
 export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
+    const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const {
         cardsTotalCount,
         cards,
@@ -35,7 +36,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         sortCardsAnswerOrder, sortCardsGradeOrder
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const count = Math.ceil(cardsTotalCount / pageCount)
-    const {packId} = useParams<{ packId: string}>()
+    const {packId} = useParams<{ packId: string }>()
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -53,8 +54,6 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
             default:
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
         }
-
-
     }, [dispatch, packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
 
     const RedirectToPacksListHandler = () => {
@@ -86,7 +85,11 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     }, [dispatch])
 
     const addNewCard = useCallback(() => {
-        dispatch(addCardsTC(packId))
+        dispatch(addCardTC(packId))
+    }, [dispatch])
+
+    const updateCard = useCallback((cardId: string, question: string) => {
+        dispatch(updateCardTC(cardId, question, packId))
     }, [dispatch])
 
     if (!isLoggedIn) {
@@ -103,18 +106,26 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     </div>
                     <div className={s.searchWrap}>
                         <SearchInput onKeyPressEnter={setCardsSearchValue}/>
+                        {(user_id === cards[0].user_id || user_id !== undefined) // пофиксить authMe и убрать underfined!!!
+                        &&
                         <Button
                             onClick={addNewCard}
-                            className={s.button}
-                        >Add new card</Button>
+                            className={s.button}>
+                            Add new card
+                        </Button>
+                        }
                     </div>
                     {cards.length === 0
                         ? <div>Empty</div>
                         : <>
-                            <CardsListTableMUI tableState={cards}
-                                               setNewSortGradeOrder={setNewSortGradeOrder}
-                                               setNewSortAnswerOrder={setNewSortAnswerOrder}
-                                               setNewSortCardsOrderAndFilter={setNewSortCardsOrderAndFilter}/>
+                            <CardsListTableMUI
+                                user_id={user_id}
+                                tableState={cards}
+                                setNewSortGradeOrder={setNewSortGradeOrder}
+                                setNewSortAnswerOrder={setNewSortAnswerOrder}
+                                setNewSortCardsOrderAndFilter={setNewSortCardsOrderAndFilter}
+                                updateCard={updateCard}
+                            />
                             <PaginationTable
                                 currentPage={page}
                                 count={count}

@@ -58,33 +58,26 @@ export const packsListReducer = (state = initialState, action: PacksListReducerA
 }
 
 // AC
-export const setPacksListStateAC = (packsState: GetPacksResponseType) => {
-    return {type: PACKS_LIST_ACTIONS_TYPES.SET_PACKS_LIST_STATE, packsState} as const
-}
+export const setPacksListStateAC = (packsState: GetPacksResponseType) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_PACKS_LIST_STATE, packsState} as const)
 
 export const changeShowAllOrMyPacksAC = (isShowMyPacks: boolean, userId: string) => (
-    {type: PACKS_LIST_ACTIONS_TYPES.CHANGE_TABS_SHOW_PACKS_STATUS, isShowMyPacks, userId} as const
-)
+    {type: PACKS_LIST_ACTIONS_TYPES.CHANGE_TABS_SHOW_PACKS_STATUS, isShowMyPacks, userId} as const)
 
 export const setDoubleRangesValuesAC = (minCardsDoubleRangeValue: number, maxCardsDoubleRangeValue: number) => (
-    {type: PACKS_LIST_ACTIONS_TYPES.SET_DOUBLE_RANGE_VALUES, minCardsDoubleRangeValue, maxCardsDoubleRangeValue} as const
-)
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_DOUBLE_RANGE_VALUES, minCardsDoubleRangeValue, maxCardsDoubleRangeValue} as const)
 
 export const setSearchPacksValueAC = (searchPacksValue: string) => (
-    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_SEARCH_PACKS_VALUE, searchPacksValue} as const
-)
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_SEARCH_PACKS_VALUE, searchPacksValue} as const)
 
 export const setNewSortPacksOrderAndFilterAC = (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => (
-    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_SORT_PACKS_ORDER_AND_FILTER, sortPacksOrder, sortPacksFilter} as const
-)
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_SORT_PACKS_ORDER_AND_FILTER, sortPacksOrder, sortPacksFilter} as const)
 
 export const setNewCurrentPageAC = (page: number) => (
-    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_CURRENT_PAGE, page} as const
-)
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_CURRENT_PAGE, page} as const)
 
 export const setNewPageCountAC = (pageCount: number) => (
-    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_PAGE_COUNT, pageCount} as const
-)
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_PAGE_COUNT, pageCount} as const)
 
 // TC
 export const fetchPacksTC = (searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
@@ -109,6 +102,18 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
                 console.log(res.data)
                 dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
                 dispatch(changeShowAllOrMyPacksAC(true, user_id))
+            })
+            .catch(e => {
+                console.log(e.message)
+            })
+    }
+
+export const updatePackTC = (newPackName: string, packId: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+    (dispatch) => {
+        packsListAPI.updatePack(newPackName, packId)
+            .then(res => {
+                console.log(res.data)
+                dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             })
             .catch(e => {
                 console.log(e.message)

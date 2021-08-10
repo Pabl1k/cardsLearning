@@ -18,7 +18,8 @@ import s from "./PacksListTableMUI.module.scss"
 type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<CardPacksResponseType>
-    onClickDeletePack: (packId: string) => void
+    updatePack: (newPackName: string, packId: string) => void
+    deletePack: (packId: string) => void
     setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
 }
 
@@ -61,17 +62,26 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                 <div className={s.buttonsContainer}>
                                     {props.user_id === pack.user_id
                                         ? <>
-                                            <ButtonSmall text={"delete"}
-                                                         onClick={() => props.onClickDeletePack(pack._id)}
-                                                         style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
-                                            <ButtonSmall text={"edit"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                                            <ButtonSmall text={"learn"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                            <ButtonSmall
+                                                text={"delete"}
+                                                onClick={() => props.deletePack(pack._id)}
+                                                style={{backgroundColor: "#F1453D", color: "#ffffff"}}
+                                            />
+                                            <ButtonSmall
+                                                text={"edit"}
+                                                onClick={() => props.updatePack("UpdatedPackName", pack._id)}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
+                                            <ButtonSmall
+                                                text={"learn"}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
                                         </>
                                         : <>
-                                            <ButtonSmall text={"learn"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                            <ButtonSmall
+                                                text={"learn"}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
                                         </>
                                     }
                                 </div>

@@ -10,7 +10,7 @@ import {
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC, setNewSortPacksOrderAndFilterAC,
-    setSearchPacksValueAC, SortPacksOrderType
+    setSearchPacksValueAC, SortPacksOrderType, updatePackTC
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -63,8 +63,13 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
 
-    const addNewPack = useCallback(() => {
-        dispatch(addNewPackTC("AddedNewPackName" , searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+    const addNewPack = useCallback((packName: string) => {
+        dispatch(addNewPackTC(packName, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
+    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
+
+    const updatePack = useCallback((newPackName: string, packId: string) => {
+        debugger
+        dispatch(updatePackTC(newPackName, packId, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
     }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 
     const deletePack = useCallback((packId: string) => {
@@ -98,14 +103,15 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         <div className={s.topWrap}>
                             <SearchInput onKeyPressEnter={setSearchValue}/>
                             <Button
-                                onClick={addNewPack}
+                                onClick={() => addNewPack("AddedPackName")}
                                 className={s.button}
                             >Add new pack</Button>
                         </div>
                         <PacksListTableMUI
                             user_id={user_id}
                             packs={packs}
-                            onClickDeletePack={deletePack}
+                            updatePack={updatePack}
+                            deletePack={deletePack}
                             setNewSortPacksOrderAndFilter={setNewSortPacksOrderAndFilter}
                         />
                         <PaginationTable

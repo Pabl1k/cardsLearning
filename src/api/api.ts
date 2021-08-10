@@ -1,5 +1,4 @@
 import axios from "axios"
-import {SortPacksOrderType} from "../redux/reducers/packsList-reducer";
 
 //id="60fdcc41c6db2000047c6c84"
 // createdAcc:
@@ -56,11 +55,11 @@ export const packsListAPI = {
     addPack(packName: string) {
         return instance.post(`cards/pack`, {cardsPack: {name: packName}})
     },
-    deletePack(id: string) {
-        return instance.delete(`cards/pack?id=${id}`)
+    deletePack(packId: string) {
+        return instance.delete(`cards/pack?id=${packId}`)
     },
-    updatePack(id: string) {
-        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewPackName"}})
+    updatePack(packName: string, packId: string) {
+        return instance.put(`cards/pack`, {cardsPack: {_id: packId, name: packName}})
     }
 }
 
@@ -76,8 +75,8 @@ export const cardsAPI = {
     deleteCard(cardId: string) {
         return instance.delete(`/cards/card?id=${cardId}`)
     },
-    updateCard(cardId: string, question?: string, comments?: string) {
-        return instance.put(`/cards/card`, {card: {_id: cardId, question, comments}})
+    updateCard(cardId: string, question: string) {
+        return instance.put(`/cards/card`, {card: {_id: cardId, question}})
     }
 }
 
