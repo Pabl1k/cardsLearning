@@ -28,7 +28,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const {
         cards, cardsTotalCount,
         searchCardsValue,
-        sortCardsAnswerOrder, sortCardsUpdateOrder, sortCardsGradeOrder, sortCardsFilter,
+        sortCardsQuestionOrder, sortCardsAnswerOrder, sortCardsUpdateOrder, sortCardsGradeOrder, sortCardsFilter,
         pageCount, page
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const dispatch = useDispatch()
@@ -39,6 +39,9 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
 
     useEffect(() => {
         switch (sortCardsFilter) {
+            case "question":
+                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsQuestionOrder, sortCardsFilter))
+                break
             case "answer":
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsAnswerOrder, sortCardsFilter))
                 break
@@ -51,7 +54,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
             default:
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
         }
-    }, [dispatch, packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
+    }, [dispatch, packId, page, pageCount, searchCardsValue, sortCardsQuestionOrder, sortCardsUpdateOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
 
     const RedirectToPacksListHandler = () => {
         history.push("/")
