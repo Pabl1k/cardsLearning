@@ -1,10 +1,17 @@
-import React from "react"
+import React, {useState} from "react"
 import {Button} from "../../button/Button"
 import s from "./modalDelete.module.scss"
 
-type ModalDelete = {}
+type ModalDelete = {
+    handler:any
+    setOpen?:any
+}
+
 
 export const ModalDelete = React.memo((props: ModalDelete) => {
+
+
+
     return (
         <div className={s.modalDelete}>
             <div className={s.modalTop}>
@@ -18,10 +25,10 @@ export const ModalDelete = React.memo((props: ModalDelete) => {
                 </span>
             </div>
             <div className={s.btns}>
-                <Button className={s.button}>
+                <Button className={s.button} onClick={()=>{props.setOpen(false)}} >
                     Cancel
                 </Button>
-                <Button className={s.button}>
+                <Button className={s.button} onClick={props.handler}>
                     Delete
                 </Button>
             </div>

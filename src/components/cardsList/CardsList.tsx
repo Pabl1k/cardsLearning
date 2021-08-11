@@ -7,8 +7,10 @@ import {
     getCardsTC,
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
-    setSearchCardsValueAC, setSortAnswerCardAC,
-    setSortCardAC, setSortGradeCardAC,
+    setSearchCardsValueAC,
+    setSortAnswerCardAC,
+    setSortCardAC,
+    setSortGradeCardAC,
     SortCardsOrderType
 } from "../../redux/reducers/cardsList-reducer"
 import {MainTitle} from "../common/mainTitle/MainTitle"
@@ -125,6 +127,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         </>
                     }
                 </div>
+
             </div>
         </div>
     )

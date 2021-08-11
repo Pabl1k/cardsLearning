@@ -14,6 +14,9 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+import SimpleModal from "../../common/modals/ModalTestMaterialUI";
+import {ModalTest} from "../../common/modals/ModalTest";
+import {ModalWindow} from "../../common/modalWindow/ModalWindow";
 
 type PacksListTableMUIPropsType = {
     user_id: string
@@ -25,7 +28,7 @@ type PacksListTableMUIPropsType = {
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
     const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
-
+    const [open, setOpen] = React.useState(false);
     return (
         <TableContainer component={Paper}>
             <Table
@@ -47,7 +50,10 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
+
                     {props.packs.map((pack) => (
+
+
                         <StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
                                 <NavLink to={`/cardsList/${pack._id}`}>
@@ -58,11 +64,15 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                             <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
                             <StyledTableCell>{pack.user_name}</StyledTableCell>
                             <StyledTableCell>
+                                {/*{open && <SimpleModal  handler={props.onClickDeletePack(pack._id) }  />}*/}
+
                                 <div className={s.buttonsContainer}>
                                     {props.user_id === pack.user_id
-                                        ? <>
+                                        ?
+                                    <>
+
                                             <ButtonSmall text={"delete"}
-                                                         onClick={() => props.onClickDeletePack(pack._id)}
+                                                         onClick={props.onClickDeletePack(pack._id)}
                                                          style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
                                             <ButtonSmall text={"edit"}
                                                          style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
