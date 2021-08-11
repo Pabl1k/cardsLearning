@@ -18,14 +18,16 @@ import s from "./PacksListTableMUI.module.scss"
 type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<PackResponseType>
-    setNewSortPacksUpdateOrder: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
+    setNewSortPacksNameOrder: (sortPacksNameOrder: SortPacksOrderType, sortPacksFilter: string) => void
+    setNewSortPacksCardsCountOrder: (sortPacksCardsCountOrder: SortPacksOrderType, sortPacksFilter: string) => void
+    setNewSortPacksUpdateOrder: (sortPacksUpdateOrder: SortPacksOrderType, sortPacksFilter: string) => void
     updatePack: (newPackName: string, packId: string) => void
     deletePack: (packId: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
-    const {sortPacksUpdateOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
 
     return (
         <TableContainer component={Paper}>
@@ -34,8 +36,20 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell align="right">Cards</StyledTableCell>
+                        <StyledTableCell>
+                            <ItemsFilterSpan
+                                title={"Name"}
+                                status={sortPacksNameOrder}
+                                setSetStatusValue={props.setNewSortPacksNameOrder}
+                            />
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            <ItemsFilterSpan
+                                title={"Cards"}
+                                status={sortPacksCardsCountOrder}
+                                setSetStatusValue={props.setNewSortPacksCardsCountOrder}
+                            />
+                        </StyledTableCell>
                         <StyledTableCell align="right">
                             <ItemsFilterSpan
                                 title={"Updated"}

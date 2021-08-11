@@ -27,16 +27,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const {
-        cardsTotalCount,
-        cards,
-        pageCount,
-        page,
+        cards, cardsTotalCount,
         searchCardsValue,
-        sortCardsAnswerOrder,
-        sortCardsUpdateOrder,
-        sortCardsGradeOrder,
-        sortCardsFilter,
-
+        sortCardsAnswerOrder, sortCardsUpdateOrder, sortCardsGradeOrder, sortCardsFilter,
+        pageCount, page
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const dispatch = useDispatch()
 

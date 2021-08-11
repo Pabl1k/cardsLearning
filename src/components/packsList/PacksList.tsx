@@ -10,7 +10,7 @@ import {
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC, setSortPacksUpdateOrderAC,
-    setSearchPacksValueAC, SortPacksOrderType, updatePackTC
+    setSearchPacksValueAC, SortPacksOrderType, updatePackTC, setSortPacksNameOrderAC, setSortPacksCardsCountOrderAC
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -28,7 +28,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const userId = useSelector<AppRootStateType, string>(state => state.packsListReducer.user_id)
-    const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packs = useSelector<AppRootStateType, Array<PackResponseType>>((state) => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
@@ -36,8 +36,21 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const count = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
-        dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
-    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId])
+        switch (sortPacksFilter) {
+            case "updated":
+                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
+                break
+            case "cardsCount":
+                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksCardsCountOrder, sortPacksFilter, page, pageCount, userId))
+                break
+            case "name":
+                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksNameOrder, sortPacksFilter, page, pageCount, userId))
+                break
+            default:
+                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
+        }
+
+    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId])
 
     const changeShowAllOrMyPacks = useCallback((isShowMyPacks: boolean, userId: string) => {
         dispatch(changeShowAllOrMyPacksAC(isShowMyPacks, userId))
@@ -49,6 +62,14 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
 
     const setSearchValue = useCallback((newSearchPacksValue: string) => {
         dispatch(setSearchPacksValueAC(newSearchPacksValue))
+    }, [dispatch])
+
+    const setNewSortPacksNameOrder = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
+        dispatch(setSortPacksNameOrderAC(sortPacksOrder, sortPacksFilter))
+    }, [dispatch])
+
+    const setNewSortPacksCardsCountOrder = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
+        dispatch(setSortPacksCardsCountOrderAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
 
     const setNewSortPacksUpdateOrder = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
@@ -110,6 +131,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         <PacksListTableMUI
                             user_id={user_id}
                             packs={packs}
+                            setNewSortPacksNameOrder={setNewSortPacksNameOrder}
+                            setNewSortPacksCardsCountOrder={setNewSortPacksCardsCountOrder}
                             setNewSortPacksUpdateOrder={setNewSortPacksUpdateOrder}
                             updatePack={updatePack}
                             deletePack={deletePack}

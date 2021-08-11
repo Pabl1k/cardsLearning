@@ -20,7 +20,7 @@ type CardsListTableMUIPropsType = {
     user_id: string
     tableState: Array<CardType>
     setNewSortAnswerOrder: (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => void
-    setNewSortUpdateOrder: (sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => void
+    setNewSortUpdateOrder: (sortCardsUpdateOrder: SortCardsOrderType, sortCardsFilter: string) => void
     setNewSortGradeOrder: (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => void
     updateCard: (cardId: string, newCardQuestion: string, newCardAnswer: string) => void
     deleteCard: (cardId: string) => void
