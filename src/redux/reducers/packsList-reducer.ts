@@ -91,14 +91,11 @@ export const setNewPageCountAC = (pageCount: number) => (
 export const fetchPacksTC = (searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
-            dispatch(setAppStatusAC("loading"))
             const res = await packsListAPI.getPacks(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
             dispatch(setPacksListStateAC(res.data))
-            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Get packs failed: ${e.message}.`)
             console.log(error)
-            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }
@@ -107,12 +104,15 @@ export const fetchPacksTC = (searchPacksValue: string, min: number, max: number,
 export const addNewPackTC = (packName: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
+            dispatch(setAppStatusAC("loading"))
             const res = await packsListAPI.addPack(packName)
             dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Add pack failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }
@@ -121,12 +121,15 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
 export const updatePackTC = (newPackName: string, packId: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
+            dispatch(setAppStatusAC("loading"))
             const res = await packsListAPI.updatePack(newPackName, packId)
             dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Update pack failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }
@@ -135,12 +138,15 @@ export const updatePackTC = (newPackName: string, packId: string, searchPacksVal
 export const deletePackTC = (packId: string, packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
+            dispatch(setAppStatusAC("loading"))
             const res = await packsListAPI.deletePack(packId)
             dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Delete pack failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }

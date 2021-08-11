@@ -75,8 +75,10 @@ export const cardsAPI = {
     }
 }
 
-export const profileAPI = {
-
+export const learnPackAPI = {
+    gradeCard(card_id: string, grade: number) {
+        return instance.put(`/cards/grade`, {card_id, grade})
+    }
 }
 
 // types

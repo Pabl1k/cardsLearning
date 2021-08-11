@@ -56,11 +56,13 @@ export const updateUserDataAC = (_id: string, email: string, name: string, avata
 export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
+            dispatch(setAppStatusAC("loading"))
             const res = await authAPI.me()
             if (res.data._id) {
                 dispatch(setIsLoggedInAC(true))
                 dispatch(setUserDataAC(res.data))
                 console.log("AuthMe success!!!")
+                dispatch(setAppStatusAC("succeeded"))
             }
         } catch (e) {
             const error = e.response ? e.response.data.error : (`AuthMe failed: ${e.message}.`)

@@ -1,6 +1,7 @@
 import {ThunkAction} from "redux-thunk"
 import {cardsAPI, CardType, GetCardsResponseType} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
+import {setAppStatusAC} from "./app-reducer"
 import {SortPacksOrderType} from "./packsList-reducer"
 
 enum CARDS_LIST_ACTIONS_TYPES {
@@ -94,15 +95,12 @@ export const setSortGradeCardAC = (sortCardsGradeOrder: SortPacksOrderType, sort
 export const getCardsTC = (packId: string, page: number, pageCount: number, searchCardsValue: string, sortCardsOrder: SortCardsOrderType, sortCardsFilter: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
-            // dispatch(setAppStatusAC("loading"))
             const res = await cardsAPI.getCards(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter)
             dispatch(setCardsAC(res.data))
             dispatch(setCardTotalCountAC(res.data.cardsTotalCount))
-            // dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Get cards failed: ${e.message}.`)
             console.log(error)
-            // dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }
@@ -111,12 +109,15 @@ export const getCardsTC = (packId: string, page: number, pageCount: number, sear
 export const addCardTC = (packId: string, cardQuestion: string, cardAnswer: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch, getState) => {
         try {
+            dispatch(setAppStatusAC("loading"))
             const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
             const res = await cardsAPI.addCard(packId, cardQuestion, cardAnswer)
             dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Add card failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }
@@ -125,12 +126,15 @@ export const addCardTC = (packId: string, cardQuestion: string, cardAnswer: stri
 export const updateCardTC = (packId: string, cardId: string, newCardQuestion: string, newCardAnswer: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch, getState) => {
         try {
+            dispatch(setAppStatusAC("loading"))
             const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
             const rest = await cardsAPI.updateCard(cardId, newCardQuestion, newCardAnswer)
             dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Update card failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }
@@ -139,12 +143,15 @@ export const updateCardTC = (packId: string, cardId: string, newCardQuestion: st
 export const deleteCardTC = (packId: string, cardId: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch, getState) => {
         try {
+            dispatch(setAppStatusAC("loading"))
             const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
             const res = await cardsAPI.deleteCard(cardId)
             dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Delete card failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }
