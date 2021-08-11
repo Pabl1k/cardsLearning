@@ -10,7 +10,7 @@ type PaginationTablePropsType = {
     currentPage: number
     setNewCurrentPage: (value: number) => void
     setNewPageCount: (value: ShowValueType) => void
-    count?: number
+    count: number
 }
 
 export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
@@ -30,7 +30,14 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
             <div className={s.pagination}>
                 <div className={s.paginationMUI}>
                     <Typography>Page: {props.currentPage}</Typography>
-                    <Pagination count={props.count ? props.count : 10} page={props.currentPage} siblingCount={1} hidePrevButton hideNextButton onChange={onCurrentPageChangeHandler} size={"small"}/>
+                    <Pagination
+                        count={props.count ? props.count : 10}
+                        page={props.currentPage}
+                        onChange={onCurrentPageChangeHandler} size={"small"}
+                        siblingCount={1}
+                        hidePrevButton
+                        hideNextButton
+                    />
                 </div>
                 <div className={s.show}>
                     <span>Show</span>

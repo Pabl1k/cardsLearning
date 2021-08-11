@@ -14,11 +14,3 @@ export const ButtonSmall = React.memo((props: ButtonSmallPropsType) => {
         </button>
     )
 })
-
-//     Для быстрого использования copy/paste:
-
-// <ButtonSmall text={"delete"} style={{backgroundColor: "#F1453D", color: "#ffffff"}} />
-//
-// <ButtonSmall text={"edit"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}} />
-//
-// <ButtonSmall text={"learn"} style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>

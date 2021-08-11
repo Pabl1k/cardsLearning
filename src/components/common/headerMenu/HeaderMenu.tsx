@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../../redux/store"
 import {logoutTC} from "../../../redux/reducers/login-reducer"
@@ -10,7 +11,6 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
-import {Link} from "react-router-dom"
 
 type HeaderMenuPropsType = {}
 
@@ -21,11 +21,11 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const dispatch = useDispatch()
 
+    const [value, setValue] = React.useState(0)
+
     const onLogoutClickHandler = () => {
         dispatch(logoutTC())
     }
-
-    const [value, setValue] = React.useState(0)
 
     const onTabClickChangeHandler = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue)
@@ -38,7 +38,6 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                     <div className={s.titleWrap}>
                         <MainTitle title={"It-Incubator"}/>
                     </div>
-
                     <div className={s.tabsWrap}>
                         <div className={classes.root}>
                             <AppBar position="static">
@@ -49,13 +48,11 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                             </AppBar>
                         </div>
                     </div>
-
                     <Button
                         onClick={onLogoutClickHandler}
                         disabled={status === "loading"}
                         className={s.logoutButton}>Log out
                     </Button>
-
                 </div>
             </div>
         </div>

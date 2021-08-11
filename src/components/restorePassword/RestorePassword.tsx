@@ -73,7 +73,8 @@ export const RestorePassword = React.memo(function (props: RestorePasswordPropsT
                 <Button
                     type={"submit"}
                     disabled={status === "loading"}
-                    className={s.button}>Send Instructions
+                    className={s.button}>
+                    Send Instructions
                 </Button>
                 <p className={s.password}>Did you remember your password?</p>
                 <NavLink to={"/login"} className={s.try}>Try logging in</NavLink>

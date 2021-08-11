@@ -12,8 +12,6 @@ export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
 
     const classes = useStyles()
 
-    // const [isShowAllOrMy, setIsShowAllOrMy] = useState(false) // switch to redux
-
     const onAllButtonClick = () => {
         props.changeShowMyPacks(false, "")
     }

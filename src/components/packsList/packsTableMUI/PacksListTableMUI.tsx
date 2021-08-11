@@ -1,9 +1,9 @@
 import React from "react"
 import {NavLink} from "react-router-dom"
 import {useSelector} from "react-redux"
-import {CardPacksResponseType} from "../../../api/api"
+import {PackResponseType} from "../../../api/api"
 import {AppRootStateType} from "../../../redux/store"
-import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
+import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
 import TableRow from "@material-ui/core/TableRow"
@@ -17,14 +17,17 @@ import s from "./PacksListTableMUI.module.scss"
 
 type PacksListTableMUIPropsType = {
     user_id: string
-    packs: Array<CardPacksResponseType>
-    onClickDeletePack: (packId: string) => void
-    setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
+    packs: Array<PackResponseType>
+    setNewSortPacksNameOrder: (sortPacksNameOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksCardsCountOrder: (sortPacksCardsCountOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksUpdateOrder: (sortPacksUpdateOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    updatePack: (newPackName: string, packId: string) => void
+    deletePack: (packId: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
-    const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
 
     return (
         <TableContainer component={Paper}>
@@ -33,17 +36,29 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell style={{width: "60px"}}>Name</StyledTableCell>
-                        <StyledTableCell>Cards</StyledTableCell>
                         <StyledTableCell>
                             <ItemsFilterSpan
-                                title={"Updated"}
-                                status={sortPacksOrder}
-                                setSetStatusValue={props.setNewSortPacksOrderAndFilter}
+                                title={"Name"}
+                                status={sortPacksNameOrder}
+                                setSetStatusValue={props.setNewSortPacksNameOrder}
                             />
                         </StyledTableCell>
-                        <StyledTableCell>Created&nbsp;by</StyledTableCell>
-                        <StyledTableCell>Actions</StyledTableCell>
+                        <StyledTableCell align="right">
+                            <ItemsFilterSpan
+                                title={"Cards"}
+                                status={sortPacksCardsCountOrder}
+                                setSetStatusValue={props.setNewSortPacksCardsCountOrder}
+                            />
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            <ItemsFilterSpan
+                                title={"Last Updated"}
+                                status={sortPacksUpdateOrder}
+                                setSetStatusValue={props.setNewSortPacksUpdateOrder}
+                            />
+                        </StyledTableCell>
+                        <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
+                        <StyledTableCell align="right">Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -61,17 +76,26 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                 <div className={s.buttonsContainer}>
                                     {props.user_id === pack.user_id
                                         ? <>
-                                            <ButtonSmall text={"delete"}
-                                                         onClick={() => props.onClickDeletePack(pack._id)}
-                                                         style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
-                                            <ButtonSmall text={"edit"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                                            <ButtonSmall text={"learn"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                            <ButtonSmall
+                                                text={"delete"}
+                                                onClick={() => props.deletePack(pack._id)}
+                                                style={{backgroundColor: "#F1453D", color: "#ffffff"}}
+                                            />
+                                            <ButtonSmall
+                                                text={"edit"}
+                                                onClick={() => props.updatePack("UpdatedPackName", pack._id)}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
+                                            <ButtonSmall
+                                                text={"learn"}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
                                         </>
                                         : <>
-                                            <ButtonSmall text={"learn"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                            <ButtonSmall
+                                                text={"learn"}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
                                         </>
                                     }
                                 </div>

@@ -1,10 +1,10 @@
 @import "./src/assets/styles/variebles.scss";
 @import "./src/assets/styles/mixins.scss";
 
-
 .modalDelete {
   @extend %modal;
 }
+
 .modalTop {
   @include flex();
   padding: 0 25px 15px;
@@ -36,7 +36,7 @@
 }
 
 .accent {
-@extend %accentText;
+  @extend %accentText;
 }
 
 .btns {
