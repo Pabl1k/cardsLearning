@@ -52,7 +52,6 @@ export const setUserDataAC = (userData: UserDataType) => (
 export const updateUserDataAC = (_id: string, email: string, name: string, avatar: string | undefined) => (
     {type: APP_ACTIONS_TYPES.CHANGE_USER_DATA, userData: {_id, email, name, avatar}} as const)
 
-
 // thunks
 export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
