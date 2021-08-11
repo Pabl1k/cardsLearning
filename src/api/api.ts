@@ -39,6 +39,9 @@ export const authAPI = {
     },
     me() {
         return instance.post<UserDataType>(`auth/me`, {})
+    },
+    updateUserData(name: string, avatar: string | undefined | null) {
+        return instance.put<UpdateUserDataResponseType>(`auth/me`, {name, avatar})
     }
 }
 
@@ -73,9 +76,7 @@ export const cardsAPI = {
 }
 
 export const profileAPI = {
-    updateUserData(name: string, avatar: string | undefined | null) {
-        return instance.put<UpdateUserDataResponseType>(`auth/me`, {name, avatar})
-    }
+
 }
 
 // types

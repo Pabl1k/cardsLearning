@@ -1,10 +1,10 @@
 import {ThunkAction} from "redux-thunk"
-import {authAPI, profileAPI, UserDataType} from "../../api/api"
+import {authAPI, UserDataType} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setIsLoggedInAC} from "./login-reducer"
 
 enum APP_ACTIONS_TYPES {
-    SET_APP_STATUS = "APP/SET-STATUS",
+    SET_APP_STATUS = "SET_APP_STATUS",
     SET_USER_DATA_TYPE = "USER_DATA_TYPE",
     CHANGE_USER_DATA = "CHANGE_USER_DATA"
 }
@@ -56,13 +56,11 @@ export const updateUserDataAC = (_id: string, email: string, name: string, avata
 export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
-            dispatch(setAppStatusAC("loading"))
             const res = await authAPI.me()
             if (res.data._id) {
                 dispatch(setIsLoggedInAC(true))
                 dispatch(setUserDataAC(res.data))
-                dispatch(setAppStatusAC("succeeded"))
-                // console.log("AuthMe success!!!")
+                console.log("AuthMe success!!!")
             }
         } catch (e) {
             const error = e.response ? e.response.data.error : (`AuthMe failed: ${e.message}.`)
@@ -77,7 +75,7 @@ export const updateUserDataTC = (_id: string, userName: string, userEmail: strin
     async (dispatch) => {
         try {
             dispatch(setAppStatusAC("loading"))
-            const res = await profileAPI.updateUserData(userName, userAvatar)
+            const res = await authAPI.updateUserData(userName, userAvatar)
             const {_id, name, email, avatar} = res.data.updatedUser
             dispatch(updateUserDataAC(_id, name, email, avatar))
             dispatch(setAppStatusAC("succeeded"))

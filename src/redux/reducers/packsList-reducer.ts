@@ -91,13 +91,14 @@ export const setNewPageCountAC = (pageCount: number) => (
 export const fetchPacksTC = (searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
-            // dispatch(setAppStatusAC("loading"))
+            dispatch(setAppStatusAC("loading"))
             const res = await packsListAPI.getPacks(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
             dispatch(setPacksListStateAC(res.data))
-            // dispatch(setAppStatusAC("succeeded"))
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Get packs failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
         }

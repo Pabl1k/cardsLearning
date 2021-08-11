@@ -36,6 +36,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const count = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
+        debugger
         dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId))
     }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId])
 
