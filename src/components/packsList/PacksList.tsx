@@ -10,7 +10,7 @@ import {
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC, setSortPacksUpdateOrderAC,
-    setSearchPacksValueAC, SortPacksOrderType, updatePackTC, setSortPacksNameOrderAC, setSortPacksCardsCountOrderAC
+    setSearchPacksValueAC, SortPacksAndCardsOrderType, updatePackTC, setSortPacksNameOrderAC, setSortPacksCardsCountOrderAC
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -64,15 +64,15 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setSearchPacksValueAC(newSearchPacksValue))
     }, [dispatch])
 
-    const setNewSortPacksNameOrder = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
+    const setNewSortPacksNameOrder = useCallback((sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => {
         dispatch(setSortPacksNameOrderAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
 
-    const setNewSortPacksCardsCountOrder = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
+    const setNewSortPacksCardsCountOrder = useCallback((sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => {
         dispatch(setSortPacksCardsCountOrderAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
 
-    const setNewSortPacksUpdateOrder = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
+    const setNewSortPacksUpdateOrder = useCallback((sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => {
         dispatch(setSortPacksUpdateOrderAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
 

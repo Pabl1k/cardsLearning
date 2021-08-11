@@ -31,9 +31,9 @@ const initialState = {
     minCardsDoubleRangeValue: 0,
     maxCardsDoubleRangeValue: 0,
     searchPacksValue: "",
-    sortPacksNameOrder: 0 as SortPacksOrderType,
-    sortPacksCardsCountOrder: 0 as SortPacksOrderType,
-    sortPacksUpdateOrder: 0 as SortPacksOrderType,
+    sortPacksNameOrder: "default" as SortPacksAndCardsOrderType,
+    sortPacksCardsCountOrder: "default" as SortPacksAndCardsOrderType,
+    sortPacksUpdateOrder: "default" as SortPacksAndCardsOrderType,
     sortPacksFilter: "",
 
 }
@@ -58,17 +58,23 @@ export const packsListReducer = (state = initialState, action: AppActionsType): 
             return {
                 ...state,
                 sortPacksNameOrder: action.sortPacksNameOrder,
+                sortPacksCardsCountOrder: "default",
+                sortPacksUpdateOrder: "default",
                 sortPacksFilter: action.sortPacksFilter
             }
         case PACKS_LIST_ACTIONS_TYPES.SET_SORT_CARDS_COUNT_PACKS:
             return {
                 ...state,
+                sortPacksNameOrder: "default",
                 sortPacksCardsCountOrder: action.sortPacksCardsCountOrder,
-                sortPacksFilter: action.sortPacksFilter
+                sortPacksUpdateOrder: "default",
+                sortPacksFilter: action.sortPacksFilter,
             }
         case PACKS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_PACKS:
             return {
                 ...state,
+                sortPacksNameOrder: "default",
+                sortPacksCardsCountOrder: "default",
                 sortPacksUpdateOrder: action.sortPacksUpdateOrder,
                 sortPacksFilter: action.sortPacksFilter
             }
@@ -98,13 +104,13 @@ export const setDoubleRangesValuesAC = (minCardsDoubleRangeValue: number, maxCar
 export const setSearchPacksValueAC = (searchPacksValue: string) => (
     {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_SEARCH_PACKS_VALUE, searchPacksValue} as const)
 
-export const setSortPacksNameOrderAC = (sortPacksNameOrder: SortPacksOrderType, sortPacksFilter: string) => (
+export const setSortPacksNameOrderAC = (sortPacksNameOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => (
     {type: PACKS_LIST_ACTIONS_TYPES.SET_SORT_NAME_PACKS, sortPacksNameOrder, sortPacksFilter} as const)
 
-export const setSortPacksCardsCountOrderAC = (sortPacksCardsCountOrder: SortPacksOrderType, sortPacksFilter: string) => (
+export const setSortPacksCardsCountOrderAC = (sortPacksCardsCountOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => (
     {type: PACKS_LIST_ACTIONS_TYPES.SET_SORT_CARDS_COUNT_PACKS, sortPacksCardsCountOrder, sortPacksFilter} as const)
 
-export const setSortPacksUpdateOrderAC = (sortPacksUpdateOrder: SortPacksOrderType, sortPacksFilter: string) => (
+export const setSortPacksUpdateOrderAC = (sortPacksUpdateOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => (
     {type: PACKS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_PACKS, sortPacksUpdateOrder, sortPacksFilter} as const)
 
 export const setNewCurrentPageAC = (page: number) => (
@@ -114,7 +120,7 @@ export const setNewPageCountAC = (pageCount: number) => (
     {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_PAGE_COUNT, pageCount} as const)
 
 // TC
-export const fetchPacksTC = (searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const fetchPacksTC = (searchPacksValue: string, min: number, max: number, sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
             const res = await packsListAPI.getPacks(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
@@ -127,7 +133,7 @@ export const fetchPacksTC = (searchPacksValue: string, min: number, max: number,
         }
     }
 
-export const addNewPackTC = (packName: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const addNewPackTC = (packName: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
             dispatch(setAppStatusAC("loading"))
@@ -144,7 +150,7 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
         }
     }
 
-export const updatePackTC = (newPackName: string, packId: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const updatePackTC = (newPackName: string, packId: string, searchPacksValue: string, min: number, max: number, sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
             dispatch(setAppStatusAC("loading"))
@@ -161,7 +167,7 @@ export const updatePackTC = (newPackName: string, packId: string, searchPacksVal
         }
     }
 
-export const deletePackTC = (packId: string, packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const deletePackTC = (packId: string, packName: string, min: number, max: number, sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string, page: number, pageCount: number, user_id: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
             dispatch(setAppStatusAC("loading"))
@@ -178,7 +184,7 @@ export const deletePackTC = (packId: string, packName: string, min: number, max:
         }
     }
 
-export type SortPacksOrderType = 0 | 1
+export type SortPacksAndCardsOrderType = 0 | 1 | "default"
 export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
     | ReturnType<typeof changeShowAllOrMyPacksAC>
     | ReturnType<typeof setDoubleRangesValuesAC>

@@ -2,7 +2,7 @@ import {ThunkAction} from "redux-thunk"
 import {cardsAPI, CardType, GetCardsResponseType} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
 import {setAppStatusAC} from "./app-reducer"
-import {SortPacksOrderType} from "./packsList-reducer"
+import {SortPacksAndCardsOrderType} from "./packsList-reducer"
 
 enum CARDS_LIST_ACTIONS_TYPES {
     SET_CARDS = "SET-CARDS",
@@ -10,8 +10,9 @@ enum CARDS_LIST_ACTIONS_TYPES {
     SET_CARDS_NEW_CURRENT_PAGE = "SET_CARDS_NEW_CURRENT_PAGE",
     SET_CARDS_NEW_PAGE_COUNT = "SET_CARDS_NEW_PAGE_COUNT",
     SET_SEARCH_CARDS_VALUE = "SET_SEARCH_CARDS_VALUE",
-    SET_SORT_UPDATE_CARDS = "SET_SORT_UPDATE_CARDS",
+    SET_SORT_QUESTION_CARDS = "SET_SORT_QUESTION_CARDS",
     SET_SORT_ANSWER_CARDS = "SET_SORT_ANSWER_CARDS",
+    SET_SORT_UPDATE_CARDS = "SET_SORT_UPDATE_CARDS",
     SET_SORT_GRADE_CARDS = "SET_SORT_GRADE_CARDS"
 }
 
@@ -27,10 +28,11 @@ const initialState = {
     tokenDeathTime: 0,
     searchCardsValue: "",
 
-    sortCardsFilter: "",
-    sortCardsAnswerOrder: 0 as SortCardsOrderType,
-    sortCardsUpdateOrder: 0 as SortCardsOrderType,
-    sortCardsGradeOrder: 0 as SortCardsOrderType
+    sortCardsQuestionOrder: "default" as SortPacksAndCardsOrderType,
+    sortCardsAnswerOrder: "default" as SortPacksAndCardsOrderType,
+    sortCardsUpdateOrder: "default" as SortPacksAndCardsOrderType,
+    sortCardsGradeOrder: "default" as SortPacksAndCardsOrderType,
+    sortCardsFilter: ""
 }
 
 type InitialStateType = typeof initialState
@@ -47,12 +49,42 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
             return {...state, pageCount: action.newPageCount}
         case CARDS_LIST_ACTIONS_TYPES.SET_SEARCH_CARDS_VALUE:
             return {...state, searchCardsValue: action.searchCardsValue}
+        case CARDS_LIST_ACTIONS_TYPES.SET_SORT_QUESTION_CARDS:
+            return {
+                ...state,
+                sortCardsQuestionOrder: action.sortCardsQuestionOrder,
+                sortCardsAnswerOrder: "default",
+                sortCardsUpdateOrder: "default",
+                sortCardsGradeOrder: "default",
+                sortCardsFilter: action.sortCardsFilter
+            }
         case CARDS_LIST_ACTIONS_TYPES.SET_SORT_ANSWER_CARDS:
-            return {...state, sortCardsAnswerOrder: action.sortCardsAnswerOrder, sortCardsFilter: action.sortCardsFilter}
+            return {
+                ...state,
+                sortCardsQuestionOrder: "default",
+                sortCardsAnswerOrder: action.sortCardsAnswerOrder,
+                sortCardsUpdateOrder: "default",
+                sortCardsGradeOrder: "default",
+                sortCardsFilter: action.sortCardsFilter
+            }
         case CARDS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_CARDS:
-            return {...state, sortCardsUpdateOrder: action.sortCardsUpdateOrder, sortCardsFilter: action.sortCardsFilter}
+            return {
+                ...state,
+                sortCardsQuestionOrder: "default",
+                sortCardsAnswerOrder: "default",
+                sortCardsUpdateOrder: action.sortCardsUpdateOrder,
+                sortCardsGradeOrder: "default",
+                sortCardsFilter: action.sortCardsFilter
+            }
         case CARDS_LIST_ACTIONS_TYPES.SET_SORT_GRADE_CARDS:
-            return {...state, sortCardsGradeOrder: action.sortCardsGradeOrder, sortCardsFilter: action.sortCardsFilter}
+            return {
+                ...state,
+                sortCardsQuestionOrder: "default",
+                sortCardsAnswerOrder: "default",
+                sortCardsUpdateOrder: "default",
+                sortCardsGradeOrder: action.sortCardsGradeOrder,
+                sortCardsFilter: action.sortCardsFilter
+            }
         default:
             return state
     }
@@ -74,17 +106,20 @@ export const setCardsNewCardsPageCountAC = (newPageCount: number) => (
 export const setSearchCardsValueAC = (searchCardsValue: string) => (
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SEARCH_CARDS_VALUE, searchCardsValue} as const)
 
-export const setSortAnswerCardsAC = (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => (
+export const setSortQuestionCardsAC = (sortCardsQuestionOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => (
+    {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_QUESTION_CARDS, sortCardsQuestionOrder, sortCardsFilter} as const)
+
+export const setSortAnswerCardsAC = (sortCardsAnswerOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => (
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_ANSWER_CARDS, sortCardsAnswerOrder, sortCardsFilter} as const)
 
-export const setSortUpdateCardsAC = (sortCardsUpdateOrder: SortPacksOrderType, sortCardsFilter: string) => (
+export const setSortUpdateCardsAC = (sortCardsUpdateOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => (
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_CARDS, sortCardsUpdateOrder, sortCardsFilter} as const)
 
-export const setSortGradeCardsAC = (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => (
+export const setSortGradeCardsAC = (sortCardsGradeOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => (
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_GRADE_CARDS, sortCardsGradeOrder, sortCardsFilter} as const)
 
 // thunks
-export const getCardsTC = (packId: string, page: number, pageCount: number, searchCardsValue: string, sortCardsOrder: SortCardsOrderType, sortCardsFilter: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const getCardsTC = (packId: string, page: number, pageCount: number, searchCardsValue: string, sortCardsOrder: SortPacksAndCardsOrderType, sortCardsFilter: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
             const res = await cardsAPI.getCards(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter)
@@ -150,12 +185,12 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkAction<void, 
     }
 
 // types
-export type SortCardsOrderType = 0 | 1
 export type CardsListReducerActionsType = ReturnType<typeof setCardsAC>
     | ReturnType<typeof setCardTotalCountAC>
     | ReturnType<typeof setCardsNewCardsPageCountAC>
     | ReturnType<typeof setCardsNewCurrentPageAC>
     | ReturnType<typeof setSearchCardsValueAC>
-    | ReturnType<typeof setSortUpdateCardsAC>
+    | ReturnType<typeof setSortQuestionCardsAC>
     | ReturnType<typeof setSortAnswerCardsAC>
+    | ReturnType<typeof setSortUpdateCardsAC>
     | ReturnType<typeof setSortGradeCardsAC>

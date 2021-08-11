@@ -1,4 +1,5 @@
 import axios from "axios"
+import {SortPacksAndCardsOrderType} from "../redux/reducers/packsList-reducer"
 
 //id="60fdcc41c6db2000047c6c84"
 // createdAcc:
@@ -46,7 +47,7 @@ export const authAPI = {
 }
 
 export const packsListAPI = {
-    getPacks(packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string) {
+    getPacks(packName: string, min: number, max: number, sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string, page: number, pageCount: number, user_id: string) {
         return instance.get<GetPacksResponseType>(`/cards/pack?packName=${packName}&min=${min}&max=${max}&sortPacks=${sortPacksOrder}${sortPacksFilter}&page=${page}&pageCount=${pageCount}&user_id=${user_id}`)
     },
     addPack(packName: string) {
@@ -61,7 +62,7 @@ export const packsListAPI = {
 }
 
 export const cardsAPI = {
-    getCards(packId: string, page: number, pageCount: number, question?: string, sortCardsOrder?: number, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
+    getCards(packId: string, page: number, pageCount: number, question: string, sortCardsOrder: SortPacksAndCardsOrderType, sortCardsFilter: string, answer?: string, min?: number, max?: number) {
         return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
     },
     addCard(packId: string, question?: string, answer?: string) {

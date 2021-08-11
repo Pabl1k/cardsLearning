@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom"
 import {useSelector} from "react-redux"
 import {PackResponseType} from "../../../api/api"
 import {AppRootStateType} from "../../../redux/store"
-import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
+import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
 import TableRow from "@material-ui/core/TableRow"
@@ -18,9 +18,9 @@ import s from "./PacksListTableMUI.module.scss"
 type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<PackResponseType>
-    setNewSortPacksNameOrder: (sortPacksNameOrder: SortPacksOrderType, sortPacksFilter: string) => void
-    setNewSortPacksCardsCountOrder: (sortPacksCardsCountOrder: SortPacksOrderType, sortPacksFilter: string) => void
-    setNewSortPacksUpdateOrder: (sortPacksUpdateOrder: SortPacksOrderType, sortPacksFilter: string) => void
+    setNewSortPacksNameOrder: (sortPacksNameOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksCardsCountOrder: (sortPacksCardsCountOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksUpdateOrder: (sortPacksUpdateOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
     updatePack: (newPackName: string, packId: string) => void
     deletePack: (packId: string) => void
 }
@@ -52,7 +52,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                         </StyledTableCell>
                         <StyledTableCell align="right">
                             <ItemsFilterSpan
-                                title={"Updated"}
+                                title={"Last Updated"}
                                 status={sortPacksUpdateOrder}
                                 setSetStatusValue={props.setNewSortPacksUpdateOrder}
                             />

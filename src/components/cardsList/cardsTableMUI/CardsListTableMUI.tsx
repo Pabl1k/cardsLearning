@@ -2,8 +2,7 @@ import React from "react"
 import {useSelector} from "react-redux"
 import {CardType} from "../../../api/api"
 import {AppRootStateType} from "../../../redux/store"
-import {SortCardsOrderType} from "../../../redux/reducers/cardsList-reducer"
-import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
+import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import {RatingMUI} from "../../common/rating/Rating"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
@@ -19,16 +18,17 @@ import s from "./CardsListTableMUI.module.scss"
 type CardsListTableMUIPropsType = {
     user_id: string
     tableState: Array<CardType>
-    setNewSortAnswerOrder: (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => void
-    setNewSortUpdateOrder: (sortCardsUpdateOrder: SortCardsOrderType, sortCardsFilter: string) => void
-    setNewSortGradeOrder: (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => void
+    setNewSortQuestionOrder: (sortCardsQuestionOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => void
+    setNewSortAnswerOrder: (sortCardsAnswerOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => void
+    setNewSortUpdateOrder: (sortCardsUpdateOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => void
+    setNewSortGradeOrder: (sortCardsGradeOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => void
     updateCard: (cardId: string, newCardQuestion: string, newCardAnswer: string) => void
     deleteCard: (cardId: string) => void
 }
 
 export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) => {
 
-    const {sortCardsUpdateOrder, sortCardsAnswerOrder, sortCardsGradeOrder} = useSelector((state: AppRootStateType) => state.cardsListReducer)
+    const {sortCardsQuestionOrder, sortCardsUpdateOrder, sortCardsAnswerOrder, sortCardsGradeOrder} = useSelector((state: AppRootStateType) => state.cardsListReducer)
 
     return (
         <TableContainer component={Paper}>
@@ -37,7 +37,13 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                 aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Question</StyledTableCell>
+                        <StyledTableCell>
+                            <ItemsFilterSpan
+                                title={"Question"}
+                                status={sortCardsQuestionOrder}
+                                setSetStatusValue={props.setNewSortQuestionOrder}
+                            />
+                        </StyledTableCell>
                         <StyledTableCell>
                             <ItemsFilterSpan
                                 title={"Answer"}
@@ -47,7 +53,7 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                         </StyledTableCell>
                         <StyledTableCell>
                             <ItemsFilterSpan
-                                title={"Updated"}
+                                title={"Last Updated"}
                                 status={sortCardsUpdateOrder}
                                 setSetStatusValue={props.setNewSortUpdateOrder}
                             />

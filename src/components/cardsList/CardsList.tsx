@@ -9,10 +9,9 @@ import {
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
     setSearchCardsValueAC, setSortAnswerCardsAC,
-    setSortUpdateCardsAC, setSortGradeCardsAC,
-    SortCardsOrderType, updateCardTC
+    setSortUpdateCardsAC, setSortGradeCardsAC, updateCardTC, setSortQuestionCardsAC
 } from "../../redux/reducers/cardsList-reducer"
-import {SortPacksOrderType} from "../../redux/reducers/packsList-reducer"
+import {SortPacksAndCardsOrderType} from "../../redux/reducers/packsList-reducer"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -62,15 +61,19 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(setSearchCardsValueAC(newSearchCardsValue))
     }, [dispatch])
 
-    const setNewSortAnswerOrder = useCallback((sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => {
+    const setNewSortQuestionOrder = useCallback((sortCardsQuestionOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => {
+        dispatch(setSortQuestionCardsAC(sortCardsQuestionOrder, sortCardsFilter))
+    }, [dispatch])
+
+    const setNewSortAnswerOrder = useCallback((sortCardsAnswerOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => {
         dispatch(setSortAnswerCardsAC(sortCardsAnswerOrder, sortCardsFilter))
     }, [dispatch])
 
-    const setNewSortUpdateOrder = useCallback((sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => {
+    const setNewSortUpdateOrder = useCallback((sortCardsOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => {
         dispatch(setSortUpdateCardsAC(sortCardsOrder, sortCardsFilter))
     }, [dispatch])
 
-    const setNewSortGradeOrder = useCallback((sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => {
+    const setNewSortGradeOrder = useCallback((sortCardsGradeOrder: SortPacksAndCardsOrderType, sortCardsFilter: string) => {
         dispatch(setSortGradeCardsAC(sortCardsGradeOrder, sortCardsFilter))
     }, [dispatch])
 
@@ -120,6 +123,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             <CardsListTableMUI
                                 user_id={user_id}
                                 tableState={cards}
+                                setNewSortQuestionOrder={setNewSortQuestionOrder}
                                 setNewSortAnswerOrder={setNewSortAnswerOrder}
                                 setNewSortUpdateOrder={setNewSortUpdateOrder}
                                 setNewSortGradeOrder={setNewSortGradeOrder}
