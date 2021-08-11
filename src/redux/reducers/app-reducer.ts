@@ -63,24 +63,23 @@ export const setUserDataAC = (userData: UserDataType) => (
 
 // thunks
 export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        authAPI.me()
-            .then(res => {
-                console.log("AuthMe success!!!")
-                if (res.data._id) {
-                    dispatch(setIsLoggedInAC(true))
-                    dispatch(setUserDataAC(res.data))
-                    dispatch(setAppStatusAC("succeeded"))
-                }
-            })
-            .catch((e) => {
-                console.log(`AuthMe failed: ${e}`)
-                dispatch(setAppStatusAC("failed"))
-            })
-            .finally(() => {
-                // ...some code
-            })
+    async (dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading"))
+            const res = await authAPI.me()
+            if (res.data._id) {
+                dispatch(setIsLoggedInAC(true))
+                dispatch(setUserDataAC(res.data))
+                dispatch(setAppStatusAC("succeeded"))
+                // console.log("AuthMe success!!!")
+            }
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (`AuthMe failed: ${e.message}.`)
+            console.log(error)
+            dispatch(setAppStatusAC("failed"))
+        } finally {
+            // ...some code
+        }
     }
 
 // types

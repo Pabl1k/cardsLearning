@@ -26,24 +26,23 @@ export const updatePasswordReducer = (state: InitialStateType = initialState, ac
 
 // actions
 export const isSuccessAC = (isSuccess: boolean) => (
-    {type: UPDATE_PASSWORD_ACTIONS_TYPES.IS_SUCCESS, isSuccess} as const )
+    {type: UPDATE_PASSWORD_ACTIONS_TYPES.IS_SUCCESS, isSuccess} as const)
 
 // thunks
 export const updatePasswordTC = (newPassword: string, token: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        authAPI.setNewPassword(newPassword, token)
-            .then(res => {
-                dispatch(isSuccessAC(true))
-                dispatch(setAppStatusAC("succeeded"))
-            })
-            .catch((e) => {
-                console.log(e)
-                dispatch(setAppStatusAC("failed"))
-            })
-            .finally(() => {
-                // ...some code
-            })
+    async (dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading"))
+            const res = await authAPI.setNewPassword(newPassword, token)
+            dispatch(isSuccessAC(true))
+            dispatch(setAppStatusAC("succeeded"))
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (`Update password failed: ${e.message}.`)
+            console.log(error)
+            dispatch(setAppStatusAC("failed"))
+        } finally {
+            // some code...
+        }
     }
 
 // types

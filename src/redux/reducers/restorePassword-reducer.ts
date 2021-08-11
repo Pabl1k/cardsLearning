@@ -30,22 +30,19 @@ export const setErrorMessageAC = (errorMessage: string) => (
 
 // thunks
 export const restorePasswordTC = (email: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        authAPI.restorePassword(email)
-            .then((res) => {
-                console.log(res)
-                dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
-                dispatch(setAppStatusAC("succeeded"))
-            })
-            .catch(e => {
-                console.log(e)
-                dispatch(setErrorMessageAC(`Account with email: ${email}, does not exist`))
-                dispatch(setAppStatusAC("failed"))
-            })
-            .finally(() => {
-                // ...some code
-            })
+    async (dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading"))
+            const res = await authAPI.restorePassword(email)
+            dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
+            dispatch(setAppStatusAC("succeeded"))
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (`Restore password failed: ${e.message}.`)
+            console.log(error)
+            dispatch(setAppStatusAC("failed"))
+        } finally {
+            // some code...
+        }
     }
 
 // types

@@ -7,23 +7,9 @@ enum PROFILE_ACTIONS_TYPES {
     CHANGE_USER_DATA = "CHANGE_USER_DATA"
 }
 
-type InitialStateType = {
-    /*userData: {
-        _id: string
-        userName: string
-        userEmail: string
-        userAvatar: string | undefined | null
-    }*/
-}
+type InitialStateType = {}
 
-const initialState: InitialStateType = {
-    /*userData: {
-        _id: "",
-        userName: "",
-        userEmail: "",
-        userAvatar: ""
-    }*/
-}
+const initialState: InitialStateType = {}
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileReducerActionsType): InitialStateType => {
     switch (action.type) {
@@ -40,21 +26,20 @@ export const updateUserDataAC = (_id: string, userName: string, userEmail: strin
 
 // thunks
 export const updateUserNameTC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined | null): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        profileAPI.updateUserData(userName, userAvatar)
-            .then(res => {
-                const {_id, name, email, avatar} = res.data.updatedUser
-                dispatch(updateUserDataAC(_id, name, email, avatar))
-                dispatch(setAppStatusAC("succeeded"))
-            })
-            .catch((e) => {
-                console.log(e)
-                dispatch(setAppStatusAC("failed"))
-            })
-            .finally(() => {
-                // ...some code
-            })
+    async (dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading"))
+            const res = await profileAPI.updateUserData(userName, userAvatar)
+            const {_id, name, email, avatar} = res.data.updatedUser
+            dispatch(updateUserDataAC(_id, name, email, avatar))
+            dispatch(setAppStatusAC("succeeded"))
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (`Update userData failed: ${e.message}.`)
+            console.log(error)
+            dispatch(setAppStatusAC("failed"))
+        } finally {
+            // some code...
+        }
     }
 
 // types

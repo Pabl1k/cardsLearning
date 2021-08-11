@@ -31,20 +31,19 @@ export const setIsSignUpAC = (value: boolean) => {
 
 // thunks
 export const signUpTC = (email: string, password: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
-    (dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        authAPI.signUp(email, password)
-            .then(res => {
-                dispatch(setAppStatusAC("succeeded"))
-                dispatch(setIsSignUpAC(true))
-            })
-            .catch((e) => {
-                console.log(e)
-                dispatch(setAppStatusAC("failed"))
-            })
-            .finally(() => {
-                // ...some code
-            })
+    async (dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading"))
+            const res = await authAPI.signUp(email, password)
+            dispatch(setIsSignUpAC(true))
+            dispatch(setAppStatusAC("succeeded"))
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (`Registration failed: ${e.message}.`)
+            console.log(error)
+            dispatch(setAppStatusAC("failed"))
+        } finally {
+            // some code...
+        }
     }
 
 // types
