@@ -83,7 +83,7 @@ export type UserDataType = {
     _id: string
     email: string
     name: string
-    avatar: string | undefined | null
+    avatar: string | undefined
     publicCardPacksCount: number
 
     created: string
