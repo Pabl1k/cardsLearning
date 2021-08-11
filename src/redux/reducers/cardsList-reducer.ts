@@ -34,7 +34,7 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListReducerActionsType): InitialStateType => {
+export const cardsListReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case CARDS_LIST_ACTIONS_TYPES.SET_CARDS:
             return {...state, ...action.cardsState}

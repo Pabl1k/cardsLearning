@@ -15,7 +15,7 @@ const initialState: InitialStateType = {
     isLoggedIn: false
 }
 
-export const loginReducer = (state: InitialStateType = initialState, action: LoginReducerActionsType): InitialStateType => {
+export const loginReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case LOGIN_ACTIONS_TYPES.SET_IS_LOGGED_IN:
             return {

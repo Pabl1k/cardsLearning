@@ -36,7 +36,7 @@ const initialState = {
 
 type InitialStateType = typeof initialState
 
-export const packsListReducer = (state = initialState, action: PacksListReducerActionsType): InitialStateType => {
+export const packsListReducer = (state = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case PACKS_LIST_ACTIONS_TYPES.SET_PACKS_LIST_STATE:
             return {...state, ...action.packsState}

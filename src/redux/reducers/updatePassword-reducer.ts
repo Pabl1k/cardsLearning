@@ -15,7 +15,7 @@ const initialState: InitialStateType = {
     isSuccess: false
 }
 
-export const updatePasswordReducer = (state: InitialStateType = initialState, action: UpdatePasswordReducerActionsType): InitialStateType => {
+export const updatePasswordReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case UPDATE_PASSWORD_ACTIONS_TYPES.IS_SUCCESS:
             return {...state, isSuccess: action.isSuccess}

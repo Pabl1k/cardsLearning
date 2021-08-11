@@ -15,7 +15,7 @@ const initialState: InitialStateType = {
     isSignUp: false
 }
 
-export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationReducerActionsType): InitialStateType => {
+export const registrationReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case REGISTRATION_ACTIONS_TYPES.SET_IS_SIGN_UP:
             return {...state, isSignUp: action.value}

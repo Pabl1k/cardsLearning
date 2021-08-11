@@ -15,7 +15,7 @@ type InitialStateType = {
     errorMessage: string | null
 }
 
-export const restorePasswordReducer = (state: InitialStateType = initialState, action: RestorePasswordReducerActionsType): InitialStateType => {
+export const restorePasswordReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case RESTORE_PASSWORD_ACTIONS_TYPES.SET_ERROR_MESSAGE:
             return {...state, errorMessage: action.errorMessage}
