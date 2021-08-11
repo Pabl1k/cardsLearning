@@ -10,7 +10,7 @@ enum CARDS_LIST_ACTIONS_TYPES {
     SET_CARDS_NEW_CURRENT_PAGE = "SET_CARDS_NEW_CURRENT_PAGE",
     SET_CARDS_NEW_PAGE_COUNT = "SET_CARDS_NEW_PAGE_COUNT",
     SET_SEARCH_CARDS_VALUE = "SET_SEARCH_CARDS_VALUE",
-    SET_SORT_CARDS = "SET_SORT_CARDS",
+    SET_SORT_UPDATE_CARDS = "SET_SORT_UPDATE_CARDS",
     SET_SORT_ANSWER_CARDS = "SET_SORT_ANSWER_CARDS",
     SET_SORT_GRADE_CARDS = "SET_SORT_GRADE_CARDS"
 }
@@ -29,8 +29,8 @@ const initialState = {
 
     sortCardsFilter: "",
     sortCardsAnswerOrder: 0 as SortCardsOrderType,
-    sortCardsGradeOrder: 0 as SortCardsOrderType,
-    sortCardsOrder: 0 as SortCardsOrderType,
+    sortCardsUpdateOrder: 0 as SortCardsOrderType,
+    sortCardsGradeOrder: 0 as SortCardsOrderType
 }
 
 type InitialStateType = typeof initialState
@@ -47,20 +47,12 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
             return {...state, pageCount: action.newPageCount}
         case CARDS_LIST_ACTIONS_TYPES.SET_SEARCH_CARDS_VALUE:
             return {...state, searchCardsValue: action.searchCardsValue}
-        case CARDS_LIST_ACTIONS_TYPES.SET_SORT_CARDS:
-            return {...state, sortCardsOrder: action.sortCardsOrder, sortCardsFilter: action.sortCardsFilter}
         case CARDS_LIST_ACTIONS_TYPES.SET_SORT_ANSWER_CARDS:
-            return {
-                ...state,
-                sortCardsAnswerOrder: action.sortCardsAnswerOrder,
-                sortCardsFilter: action.sortCardsFilter
-            }
+            return {...state, sortCardsAnswerOrder: action.sortCardsAnswerOrder, sortCardsFilter: action.sortCardsFilter}
+        case CARDS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_CARDS:
+            return {...state, sortCardsUpdateOrder: action.sortCardsUpdateOrder, sortCardsFilter: action.sortCardsFilter}
         case CARDS_LIST_ACTIONS_TYPES.SET_SORT_GRADE_CARDS:
-            return {
-                ...state,
-                sortCardsGradeOrder: action.sortCardsGradeOrder,
-                sortCardsFilter: action.sortCardsFilter
-            }
+            return {...state, sortCardsGradeOrder: action.sortCardsGradeOrder, sortCardsFilter: action.sortCardsFilter}
         default:
             return state
     }
@@ -82,13 +74,13 @@ export const setCardsNewCardsPageCountAC = (newPageCount: number) => (
 export const setSearchCardsValueAC = (searchCardsValue: string) => (
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SEARCH_CARDS_VALUE, searchCardsValue} as const)
 
-export const setSortCardAC = (sortCardsOrder: SortPacksOrderType, sortCardsFilter: string) => (
-    {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_CARDS, sortCardsOrder, sortCardsFilter} as const)
-
-export const setSortAnswerCardAC = (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => (
+export const setSortAnswerCardsAC = (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => (
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_ANSWER_CARDS, sortCardsAnswerOrder, sortCardsFilter} as const)
 
-export const setSortGradeCardAC = (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => (
+export const setSortUpdateCardsAC = (sortCardsUpdateOrder: SortPacksOrderType, sortCardsFilter: string) => (
+    {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_CARDS, sortCardsUpdateOrder, sortCardsFilter} as const)
+
+export const setSortGradeCardsAC = (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => (
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_GRADE_CARDS, sortCardsGradeOrder, sortCardsFilter} as const)
 
 // thunks
@@ -110,9 +102,9 @@ export const addCardTC = (packId: string, cardQuestion: string, cardAnswer: stri
     async (dispatch, getState) => {
         try {
             dispatch(setAppStatusAC("loading"))
-            const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
+            const {page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter} = getState().cardsListReducer
             const res = await cardsAPI.addCard(packId, cardQuestion, cardAnswer)
-            dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+            dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Add card failed: ${e.message}.`)
@@ -127,9 +119,9 @@ export const updateCardTC = (packId: string, cardId: string, newCardQuestion: st
     async (dispatch, getState) => {
         try {
             dispatch(setAppStatusAC("loading"))
-            const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
+            const {page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter} = getState().cardsListReducer
             const rest = await cardsAPI.updateCard(cardId, newCardQuestion, newCardAnswer)
-            dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+            dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Update card failed: ${e.message}.`)
@@ -144,9 +136,9 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkAction<void, 
     async (dispatch, getState) => {
         try {
             dispatch(setAppStatusAC("loading"))
-            const {page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter} = getState().cardsListReducer
+            const {page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter} = getState().cardsListReducer
             const res = await cardsAPI.deleteCard(cardId)
-            dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+            dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Delete card failed: ${e.message}.`)
@@ -164,6 +156,6 @@ export type CardsListReducerActionsType = ReturnType<typeof setCardsAC>
     | ReturnType<typeof setCardsNewCardsPageCountAC>
     | ReturnType<typeof setCardsNewCurrentPageAC>
     | ReturnType<typeof setSearchCardsValueAC>
-    | ReturnType<typeof setSortCardAC>
-    | ReturnType<typeof setSortAnswerCardAC>
-    | ReturnType<typeof setSortGradeCardAC>
+    | ReturnType<typeof setSortUpdateCardsAC>
+    | ReturnType<typeof setSortAnswerCardsAC>
+    | ReturnType<typeof setSortGradeCardsAC>

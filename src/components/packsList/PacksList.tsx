@@ -9,7 +9,7 @@ import {
     fetchPacksTC,
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
-    setNewPageCountAC, setNewSortPacksOrderAndFilterAC,
+    setNewPageCountAC, setSortPacksUpdateOrderAC,
     setSearchPacksValueAC, SortPacksOrderType, updatePackTC
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
@@ -28,7 +28,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const userId = useSelector<AppRootStateType, string>(state => state.packsListReducer.user_id)
-    const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packs = useSelector<AppRootStateType, Array<PackResponseType>>((state) => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
@@ -36,9 +36,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const count = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
-        debugger
-        dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId))
-    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksOrder, sortPacksFilter, page, pageCount, userId])
+        dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
+    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId])
 
     const changeShowAllOrMyPacks = useCallback((isShowMyPacks: boolean, userId: string) => {
         dispatch(changeShowAllOrMyPacksAC(isShowMyPacks, userId))
@@ -52,9 +51,21 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setSearchPacksValueAC(newSearchPacksValue))
     }, [dispatch])
 
-    const setNewSortPacksOrderAndFilter = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
-        dispatch(setNewSortPacksOrderAndFilterAC(sortPacksOrder, sortPacksFilter))
+    const setNewSortPacksUpdateOrder = useCallback((sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => {
+        dispatch(setSortPacksUpdateOrderAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
+
+    const addNewPack = useCallback((packName: string) => {
+        dispatch(addNewPackTC(packName, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id))
+    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id])
+
+    const updatePack = useCallback((newPackName: string, packId: string) => {
+        dispatch(updatePackTC(newPackName, packId, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id))
+    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id])
+
+    const deletePack = useCallback((packId: string) => {
+        dispatch(deletePackTC(packId, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id))
+    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id])
 
     const setNewCurrentPage = useCallback((newCurrentPage: number) => {
         dispatch(setNewCurrentPageAC(newCurrentPage))
@@ -63,18 +74,6 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const setNewPageCount = useCallback((newPageCount: number) => {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
-
-    const addNewPack = useCallback((packName: string) => {
-        dispatch(addNewPackTC(packName, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
-    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
-
-    const updatePack = useCallback((newPackName: string, packId: string) => {
-        dispatch(updatePackTC(newPackName, packId, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
-    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
-
-    const deletePack = useCallback((packId: string) => {
-        dispatch(deletePackTC(packId, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
-    }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -111,9 +110,9 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         <PacksListTableMUI
                             user_id={user_id}
                             packs={packs}
+                            setNewSortPacksUpdateOrder={setNewSortPacksUpdateOrder}
                             updatePack={updatePack}
                             deletePack={deletePack}
-                            setNewSortPacksOrderAndFilter={setNewSortPacksOrderAndFilter}
                         />
                         <PaginationTable
                             currentPage={page}

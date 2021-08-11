@@ -19,16 +19,16 @@ import s from "./CardsListTableMUI.module.scss"
 type CardsListTableMUIPropsType = {
     user_id: string
     tableState: Array<CardType>
-    setNewSortCardsOrderAndFilter: (sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => void
-    setNewSortGradeOrder: (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => void
     setNewSortAnswerOrder: (sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => void
+    setNewSortUpdateOrder: (sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => void
+    setNewSortGradeOrder: (sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => void
     updateCard: (cardId: string, newCardQuestion: string, newCardAnswer: string) => void
     deleteCard: (cardId: string) => void
 }
 
 export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) => {
 
-    const {sortCardsOrder, sortCardsAnswerOrder, sortCardsGradeOrder} = useSelector((state: AppRootStateType) => state.cardsListReducer)
+    const {sortCardsUpdateOrder, sortCardsAnswerOrder, sortCardsGradeOrder} = useSelector((state: AppRootStateType) => state.cardsListReducer)
 
     return (
         <TableContainer component={Paper}>
@@ -48,8 +48,8 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                         <StyledTableCell>
                             <ItemsFilterSpan
                                 title={"Updated"}
-                                status={sortCardsOrder}
-                                setSetStatusValue={props.setNewSortCardsOrderAndFilter}
+                                status={sortCardsUpdateOrder}
+                                setSetStatusValue={props.setNewSortUpdateOrder}
                             />
                         </StyledTableCell>
                         <StyledTableCell>

@@ -18,14 +18,14 @@ import s from "./PacksListTableMUI.module.scss"
 type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<PackResponseType>
+    setNewSortPacksUpdateOrder: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
     updatePack: (newPackName: string, packId: string) => void
     deletePack: (packId: string) => void
-    setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
-    const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {sortPacksUpdateOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
 
     return (
         <TableContainer component={Paper}>
@@ -39,8 +39,8 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                         <StyledTableCell align="right">
                             <ItemsFilterSpan
                                 title={"Updated"}
-                                status={sortPacksOrder}
-                                setSetStatusValue={props.setNewSortPacksOrderAndFilter}
+                                status={sortPacksUpdateOrder}
+                                setSetStatusValue={props.setNewSortPacksUpdateOrder}
                             />
                         </StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>

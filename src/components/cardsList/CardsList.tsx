@@ -8,8 +8,8 @@ import {
     getCardsTC,
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
-    setSearchCardsValueAC, setSortAnswerCardAC,
-    setSortCardAC, setSortGradeCardAC,
+    setSearchCardsValueAC, setSortAnswerCardsAC,
+    setSortUpdateCardsAC, setSortGradeCardsAC,
     SortCardsOrderType, updateCardTC
 } from "../../redux/reducers/cardsList-reducer"
 import {SortPacksOrderType} from "../../redux/reducers/packsList-reducer"
@@ -32,9 +32,11 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         pageCount,
         page,
         searchCardsValue,
-        sortCardsOrder,
+        sortCardsAnswerOrder,
+        sortCardsUpdateOrder,
+        sortCardsGradeOrder,
         sortCardsFilter,
-        sortCardsAnswerOrder, sortCardsGradeOrder
+
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const dispatch = useDispatch()
 
@@ -44,46 +46,38 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
 
     useEffect(() => {
         switch (sortCardsFilter) {
-            case "updated":
-                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
-                break;
-            case "grade":
-                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsGradeOrder, sortCardsFilter))
-                break;
             case "answer":
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsAnswerOrder, sortCardsFilter))
-                break;
+                break
+            case "updated":
+                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
+                break
+            case "grade":
+                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsGradeOrder, sortCardsFilter))
+                break
             default:
-                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
+                dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
         }
-    }, [dispatch, packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
+    }, [dispatch, packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
 
     const RedirectToPacksListHandler = () => {
         history.push("/")
     }
 
-    const setCardsNewCurrentPage = useCallback((newCurrentPage: number) => {
-        dispatch(setCardsNewCurrentPageAC(newCurrentPage))
-    }, [dispatch])
-
-    const setCardsNewPageCount = useCallback((newPageCount: number) => {
-        dispatch(setCardsNewCardsPageCountAC(newPageCount))
-    }, [dispatch])
-
     const setCardsSearchValue = useCallback((newSearchCardsValue: string) => {
         dispatch(setSearchCardsValueAC(newSearchCardsValue))
     }, [dispatch])
 
-    const setNewSortCardsOrderAndFilter = useCallback((sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => {
-        dispatch(setSortCardAC(sortCardsOrder, sortCardsFilter))
+    const setNewSortAnswerOrder = useCallback((sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => {
+        dispatch(setSortAnswerCardsAC(sortCardsAnswerOrder, sortCardsFilter))
     }, [dispatch])
 
-    const setNewSortAnswerOrder = useCallback((sortCardsAnswerOrder: SortPacksOrderType, sortCardsFilter: string) => {
-        dispatch(setSortAnswerCardAC(sortCardsAnswerOrder, sortCardsFilter))
+    const setNewSortUpdateOrder = useCallback((sortCardsOrder: SortCardsOrderType, sortCardsFilter: string) => {
+        dispatch(setSortUpdateCardsAC(sortCardsOrder, sortCardsFilter))
     }, [dispatch])
 
     const setNewSortGradeOrder = useCallback((sortCardsGradeOrder: SortPacksOrderType, sortCardsFilter: string) => {
-        dispatch(setSortGradeCardAC(sortCardsGradeOrder, sortCardsFilter))
+        dispatch(setSortGradeCardsAC(sortCardsGradeOrder, sortCardsFilter))
     }, [dispatch])
 
     const addNewCard = useCallback((cardQuestion: string, cardAnswer: string) => {
@@ -97,6 +91,14 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const deleteCard = useCallback((cardId: string) => {
         dispatch(deleteCardTC(packId, cardId))
     }, [dispatch, packId])
+
+    const setCardsNewCurrentPage = useCallback((newCurrentPage: number) => {
+        dispatch(setCardsNewCurrentPageAC(newCurrentPage))
+    }, [dispatch])
+
+    const setCardsNewPageCount = useCallback((newPageCount: number) => {
+        dispatch(setCardsNewCardsPageCountAC(newPageCount))
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -124,9 +126,9 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             <CardsListTableMUI
                                 user_id={user_id}
                                 tableState={cards}
-                                setNewSortGradeOrder={setNewSortGradeOrder}
                                 setNewSortAnswerOrder={setNewSortAnswerOrder}
-                                setNewSortCardsOrderAndFilter={setNewSortCardsOrderAndFilter}
+                                setNewSortUpdateOrder={setNewSortUpdateOrder}
+                                setNewSortGradeOrder={setNewSortGradeOrder}
                                 updateCard={updateCard}
                                 deleteCard={deleteCard}
                             />
