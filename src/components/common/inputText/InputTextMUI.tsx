@@ -11,7 +11,9 @@ type InputTextMUIPropsType = {
 } & TextFieldProps
 
 export const InputTextMUI = React.memo((props: InputTextMUIPropsType) => {
+
     const classes = useStyles()
+
     const {...restProps} = props
 
 
