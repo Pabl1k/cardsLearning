@@ -31,9 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 type ModalAddPackPropsType={
-    addPack:(newValue:string)=>void
     onCancelHandler:()=>void
-    onAddNewPackHandler:()=>void
+    onAddNewPackHandler:(newValue:string)=>void
 }
 export default function ModalAddPack(props:ModalAddPackPropsType) {
     const classes = useStyles();
@@ -41,7 +40,7 @@ export default function ModalAddPack(props:ModalAddPackPropsType) {
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <ModalAdd addPack={props.addPack} onCancelHandler={props.onCancelHandler} onAddNewPackHandler={props.onAddNewPackHandler}/>
+            <ModalAdd  onCancelHandler={props.onCancelHandler} onAddNewPackHandler={props.onAddNewPackHandler}/>
         </div>
     );
 }

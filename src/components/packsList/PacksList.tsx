@@ -91,23 +91,16 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksOrder, sortPacksFilter, page, pageCount, user_id])
 
 
-    const [value, setValue] = useState("")
     const [openModal, setOpenModal] = useState(false)
 
-    const  onCancelHandler = () => {
+    const onCancelHandler = () => {
         setOpenModal(false)
     }
 
-    const onAddNewPackHandler = () => {
-        addNewPack(value)
-
+    const onAddNewPackHandler = (newValue: string) => {
+        addNewPack(newValue)
         setOpenModal(false)
     }
-
-    const addPack = (newValue: string) => {
-        setValue(newValue)
-    }
-
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -116,7 +109,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     return (
         <div className={s.packsList}>
             <div className={s.container}>
-                {openModal && < ModalAddPack addPack={addPack} onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
+                {openModal &&
+                < ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
                 <div className={s.inner}>
                     <div className={s.aside}>
                         <TabsShowPacks

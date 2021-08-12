@@ -4,9 +4,8 @@ import {Button} from "../../button/Button"
 import s from "./modalAdd.module.scss"
 
 type ModalAdd = {
-    addPack:(newValue:string)=>void
     onCancelHandler?:()=>void
-    onAddNewPackHandler:()=>void
+    onAddNewPackHandler:(newValue:string)=>void
 }
 
 export const ModalAdd = React.memo((props: ModalAdd) => {
@@ -18,11 +17,10 @@ export const ModalAdd = React.memo((props: ModalAdd) => {
     }
     const addSaveHandler = () => {
         if (title.trim() !== "") {
-            props.addPack(title);
+            props.onAddNewPackHandler(title);
             setTitle("");
-
         }
-        props.onAddNewPackHandler()
+
     }
     return (
         <div className={s.modalAdd}>
