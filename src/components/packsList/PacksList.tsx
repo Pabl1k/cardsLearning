@@ -21,7 +21,7 @@ import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import s from "./PacksList.module.scss"
 import ModalAddPack from "../common/modals/ModalAddPack";
-import {ModalAdd} from "../common/modalWindow/modalAdd/modalAdd";
+
 
 type PacksListPropsType = {}
 
