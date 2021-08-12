@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import {Button} from "../common/button/Button"
 import s from "./CardInfo.module.scss"
@@ -7,7 +7,6 @@ type CardInfoPropsType = {}
 
 
 export const CardInfo = React.memo((props: CardInfoPropsType) => {
-
 
     return (
         <div className={s.cardInfo}>

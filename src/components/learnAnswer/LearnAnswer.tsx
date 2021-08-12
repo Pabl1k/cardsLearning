@@ -41,10 +41,12 @@ export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
                 </FormControl>
             </div>
             <div className={s.btns}>
-                <Button className={s.button}>
+                <Button
+                    className={s.button}>
                     Cancel
                 </Button>
-                <Button className={s.button}>
+                <Button
+                    className={s.button}>
                     Next
                 </Button>
             </div>

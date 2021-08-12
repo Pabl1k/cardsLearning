@@ -3,29 +3,29 @@ import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {
-    addCardsTC,
+    addCardTC,
+    deleteCardTC,
     getCardsTC,
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
-    setSearchCardsValueAC,
-    setSortAnswerCardAC,
-    setSortCardAC,
-    setSortGradeCardAC,
-    SortCardsOrderType
+    setSearchCardsValueAC, setSortAnswerCardAC,
+    setSortCardAC, setSortGradeCardAC,
+    SortCardsOrderType, updateCardTC
 } from "../../redux/reducers/cardsList-reducer"
+import {SortPacksOrderType} from "../../redux/reducers/packsList-reducer"
+import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
-import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
+import {Button} from "../common/button/Button"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
-import {SortPacksOrderType} from "../../redux/reducers/packsList-reducer";
-import {Button} from "../common/button/Button";
 
 type CardsListPropsType = {}
 
 export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
+    const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const {
         cardsTotalCount,
         cards,
@@ -36,10 +36,11 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         sortCardsFilter,
         sortCardsAnswerOrder, sortCardsGradeOrder
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
-    const count = Math.ceil(cardsTotalCount / pageCount)
-    const {packId} = useParams<{ packId: string }>()
     const dispatch = useDispatch()
+
+    const {packId} = useParams<{ packId: string }>()
     const history = useHistory()
+    const count = Math.ceil(cardsTotalCount / pageCount)
 
     useEffect(() => {
         switch (sortCardsFilter) {
@@ -55,8 +56,6 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
             default:
                 dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter))
         }
-
-
     }, [dispatch, packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
 
     const RedirectToPacksListHandler = () => {
@@ -87,9 +86,17 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(setSortGradeCardAC(sortCardsGradeOrder, sortCardsFilter))
     }, [dispatch])
 
-    const addNewCard = useCallback(() => {
-        dispatch(addCardsTC(packId))
-    }, [dispatch])
+    const addNewCard = useCallback((cardQuestion: string, cardAnswer: string) => {
+        dispatch(addCardTC(packId, cardQuestion, cardAnswer))
+    }, [dispatch, packId])
+
+    const updateCard = useCallback((cardId: string, newCardQuestion: string, newCardAnswer: string) => {
+        dispatch(updateCardTC(packId, cardId, newCardQuestion, newCardAnswer))
+    }, [dispatch, packId])
+
+    const deleteCard = useCallback((cardId: string) => {
+        dispatch(deleteCardTC(packId, cardId))
+    }, [dispatch, packId])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -106,18 +113,23 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     <div className={s.searchWrap}>
                         <SearchInput onKeyPressEnter={setCardsSearchValue}/>
                         <Button
-                            onClick={addNewCard}
-                            className={s.button}
-                        >Add new card</Button>
+                            onClick={() => addNewCard("AddedCardQuestion", "AddedCardAnswer")}
+                            className={s.button}>
+                            Add new card
+                        </Button>
                     </div>
-
                     {cards.length === 0
                         ? <div>Empty</div>
                         : <>
-                            <CardsListTableMUI tableState={cards}
-                                               setNewSortGradeOrder={setNewSortGradeOrder}
-                                               setNewSortAnswerOrder={setNewSortAnswerOrder}
-                                               setNewSortCardsOrderAndFilter={setNewSortCardsOrderAndFilter}/>
+                            <CardsListTableMUI
+                                user_id={user_id}
+                                tableState={cards}
+                                setNewSortGradeOrder={setNewSortGradeOrder}
+                                setNewSortAnswerOrder={setNewSortAnswerOrder}
+                                setNewSortCardsOrderAndFilter={setNewSortCardsOrderAndFilter}
+                                updateCard={updateCard}
+                                deleteCard={deleteCard}
+                            />
                             <PaginationTable
                                 currentPage={page}
                                 count={count}
@@ -127,7 +139,6 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         </>
                     }
                 </div>
-
             </div>
         </div>
     )

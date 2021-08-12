@@ -1,7 +1,7 @@
-import React from "react"
+import React, {useState} from "react"
 import {NavLink} from "react-router-dom"
 import {useSelector} from "react-redux"
-import {CardPacksResponseType} from "../../../api/api"
+import {PackResponseType} from "../../../api/api"
 import {AppRootStateType} from "../../../redux/store"
 import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
@@ -14,21 +14,36 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
-import SimpleModal from "../../common/modals/ModalTestMaterialUI";
-import {ModalTest} from "../../common/modals/ModalTest";
-import {ModalWindow} from "../../common/modalWindow/ModalWindow";
+import ModalDeletePack from "../../common/modals/ModalDeletePack";
+
 
 type PacksListTableMUIPropsType = {
     user_id: string
-    packs: Array<CardPacksResponseType>
-    onClickDeletePack: (packId: string) => void
+    packs: Array<PackResponseType>
+    updatePack: (newPackName: string, packId: string) => void
+    deletePack: (packId: string) => void
     setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
     const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
-    const [open, setOpen] = React.useState(false);
+    const [openModal, setOpenModal] = useState(false)
+    const [idToDelete, setIdToDelete] = useState("")
+    const [namePackToDelete, setnamePackToDelete] = useState("")
+
+    const onDeletePackHandler = () => {
+        props.deletePack(idToDelete)
+        setOpenModal(false)
+    }
+    const onRemoveHanlder = (id: string, name: string) => {
+        setOpenModal(true)
+        setIdToDelete(id)
+        setnamePackToDelete(name)
+    }
+    const onCancelHandler = () => {
+        setOpenModal(false)
+    }
     return (
         <TableContainer component={Paper}>
             <Table
@@ -50,11 +65,11 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
+                    {openModal &&
+                    <ModalDeletePack onDeleteHandler={onDeletePackHandler} onCancelHandler={onCancelHandler}
+                                     packName={namePackToDelete}/>}
 
-                    {props.packs.map((pack) => (
-
-
-                        <StyledTableRow key={pack._id}>
+                    {props.packs.map((pack) => (<StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
                                 <NavLink to={`/cardsList/${pack._id}`}>
                                     {pack.name}
@@ -64,24 +79,30 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                             <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
                             <StyledTableCell>{pack.user_name}</StyledTableCell>
                             <StyledTableCell>
-                                {/*{open && <SimpleModal  handler={props.onClickDeletePack(pack._id) }  />}*/}
 
                                 <div className={s.buttonsContainer}>
                                     {props.user_id === pack.user_id
-                                        ?
-                                    <>
-
-                                            <ButtonSmall text={"delete"}
-                                                         onClick={props.onClickDeletePack(pack._id)}
-                                                         style={{backgroundColor: "#F1453D", color: "#ffffff"}}/>
-                                            <ButtonSmall text={"edit"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
-                                            <ButtonSmall text={"learn"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                        ? <>
+                                            <ButtonSmall
+                                                text={"delete"}
+                                                onClick={() => onRemoveHanlder(pack._id, pack.name)}
+                                                style={{backgroundColor: "#F1453D", color: "#ffffff"}}
+                                            />
+                                            <ButtonSmall
+                                                text={"edit"}
+                                                onClick={() => props.updatePack("UpdatedPackName", pack._id)}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
+                                            <ButtonSmall
+                                                text={"learn"}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
                                         </>
                                         : <>
-                                            <ButtonSmall text={"learn"}
-                                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}/>
+                                            <ButtonSmall
+                                                text={"learn"}
+                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                            />
                                         </>
                                     }
                                 </div>

@@ -13,10 +13,12 @@ export const LearnQuestion = React.memo((props: learnQuestionPropsType) => {
                 <span className={s.text}> “How "This" works in JavaScript?”</span>
             </div>
             <div className={s.btns}>
-                <Button className={s.button}>
+                <Button
+                    className={s.button}>
                     Cancel
                 </Button>
-                <Button className={s.button}>
+                <Button
+                    className={s.button}>
                     Show answer
                 </Button>
             </div>

@@ -97,11 +97,12 @@
 }
 
 .button {
-  margin: 15px 0 25px 25px;
+  margin: 25px 0 25px 25px;
+  padding: 0;
 
   @include media(xs) {
-    //max-width: 100%;
-    margin: 15px 0 25px;
+    max-width: 100%;
+    margin: 10px 0 20px;
   }
 }
 

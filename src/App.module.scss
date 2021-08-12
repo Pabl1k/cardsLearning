@@ -1,17 +1,6 @@
-@import '../src/assets/styles/variebles';
-@import '../src/assets/styles/mixins';
-@import '../src/assets/styles/fonts';
-
-/*.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}*/
+@import "../src/assets/styles/variebles";
+@import "../src/assets/styles/mixins";
+@import "../src/assets/styles/fonts";
 
 .pagesContainer {
   @include flex(column, center, flex-start);

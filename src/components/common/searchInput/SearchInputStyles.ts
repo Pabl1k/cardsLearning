@@ -9,7 +9,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: "#ECECF9",
             border: "1px solid lightGray",
         },
-
         search: {
             position: "relative",
             borderRadius: theme.shape.borderRadius,
@@ -22,7 +21,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             width: "100%",
 
         },
-
         searchIcon: {
             padding: theme.spacing(0, 2),
             height: "100%",
@@ -34,14 +32,12 @@ export const useStyles = makeStyles((theme: Theme) =>
             opacity: ".5",
 
         },
-
         inputInput: {
             padding: theme.spacing(1, 1, 1, 0),
             paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
             transition: theme.transitions.create("width"),
             width: "100%",
         },
-
         input: {
             display: "flex",
             fontFamily: "SFUIDisplay, sans-serif",
@@ -53,7 +49,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             borderRadius: "2px",
             opacity: ".5",
         },
-
         inputRoot: {
             color: "#2D2E46",
 

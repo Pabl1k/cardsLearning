@@ -1,5 +1,4 @@
 import axios from "axios"
-import {SortPacksOrderType} from "../redux/reducers/packsList-reducer";
 
 //id="60fdcc41c6db2000047c6c84"
 // createdAcc:
@@ -7,8 +6,8 @@ import {SortPacksOrderType} from "../redux/reducers/packsList-reducer";
 // password: newPiatnicaTest
 
 const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-    // baseURL: "http://localhost:7542/2.0/",
+    // baseURL: "https://neko-back.herokuapp.com/2.0",
+    baseURL: "http://localhost:7542/2.0/",
     withCredentials: true
 })
 
@@ -17,8 +16,8 @@ export const authAPI = {
     login(email: string, password: string, rememberMe: boolean) {
         return instance.post<LoginUserResponseType>(`auth/login`, {email, password, rememberMe})
     },
-    me() {
-        return instance.post<UserDataType>(`auth/me`, {})
+    logout() {
+        return instance.delete<LogoutResponseType>(`auth/me`, {})
     },
     restorePassword(email: string) {
         return instance.post<RestorePasswordResponseType>(`auth/forgot`, {
@@ -30,16 +29,46 @@ export const authAPI = {
         })
     },
     signUp(email: string, password: string) {
-        return instance.post<ResponseSignUpType>(`auth/register`, {email, password})
-    },
-    logout() {
-        return instance.delete(`auth/me`, {})
+        return instance.post<SignUpResponseType>(`auth/register`, {email, password})
     },
     setNewPassword(newPassword: string, resetPasswordToken: string) {
         return instance.post(`/auth/set-new-password`, {
             password: newPassword,
             resetPasswordToken
         })
+    },
+    me() {
+        return instance.post<UserDataType>(`auth/me`, {})
+    }
+}
+
+export const packsListAPI = {
+    getPacks(packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string) {
+        return instance.get<GetPacksResponseType>(`/cards/pack?packName=${packName}&min=${min}&max=${max}&sortPacks=${sortPacksOrder}${sortPacksFilter}&page=${page}&pageCount=${pageCount}&user_id=${user_id}`)
+    },
+    addPack(packName: string) {
+        return instance.post<AddPackResponseType>(`cards/pack`, {cardsPack: {name: packName}})
+    },
+    updatePack(packName: string, packId: string) {
+        return instance.put<UpdatePackResponseType>(`cards/pack`, {cardsPack: {_id: packId, name: packName}})
+    },
+    deletePack(packId: string) {
+        return instance.delete<DeletePackResponseType>(`cards/pack?id=${packId}`)
+    }
+}
+
+export const cardsAPI = {
+    getCards(packId: string, page: number, pageCount: number, question?: string, sortCardsOrder?: number, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
+        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
+    },
+    addCard(packId: string, question?: string, answer?: string) {
+        return instance.post<AddCardResponseType>(`/cards/card`, {card: {cardsPack_id: packId, question, answer,}})
+    },
+    updateCard(cardId: string, question: string, answer: string) {
+        return instance.put<UpdateCardResponseType>(`/cards/card`, {card: {_id: cardId, question, answer}})
+    },
+    deleteCard(cardId: string) {
+        return instance.delete<DeleteCardResponseType>(`/cards/card?id=${cardId}`)
     }
 }
 
@@ -49,65 +78,12 @@ export const profileAPI = {
     }
 }
 
-export const packsListAPI = {
-    getPacks(packName: string, min: number, max: number, sortPacksOrder: number, sortPacksFilter: string, page: number, pageCount: number, user_id: string) {
-        return instance.get<GetPacksResponseType>(`/cards/pack?packName=${packName}&min=${min}&max=${max}&sortPacks=${sortPacksOrder}${sortPacksFilter}&page=${page}&pageCount=${pageCount}&user_id=${user_id}`)
-    },
-    addPack() {
-        return instance.post(`cards/pack`, {cardsPack: {name: "CREATEDPackName"}})
-    },
-    deletePack(id: string) {
-        return instance.delete(`cards/pack?id=${id}`)
-    },
-    updatePack(id: string) {
-        return instance.put(`cards/pack`, {cardsPack: {_id: id, name: "NewPackName"}})
-    }
-}
-
-
-
-export const cardsAPI = {
-
-    getCards(packId: string, page: number, pageCount: number, question?: string, sortCardsOrder?: number, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
-        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
-    },
-    addCard(packId: string, question?: string, answer?: string) {
-        return instance.post(`/cards/card`, {card: {cardsPack_id: packId, question, answer,}})
-    },
-    deleteCard(cardId: string) {
-        return instance.delete(`/cards/card?id=${cardId}`)
-    },
-    updateCard(cardId: string, question?: string, comments?: string) {
-        return instance.put(`/cards/card`, {card: {_id: cardId, question, comments}})
-    }
-}
-
 // types
-export type LoginUserResponseType = UserDataType
-
-export type UpdateUserDataResponseType = {
-    token: string
-    tokenDeathTime: number
-    updatedUser: UserDataType
-}
-
-export type ResponseSignUpType = {
-    addedUser: any
-    error?: string
-}
-
-type RestorePasswordResponseType = {
-    answer: boolean
-    html: boolean
-    info: string
-    success: boolean
-}
-
 export type UserDataType = {
     _id: string
     email: string
     name: string
-    avatar: string | undefined | null
+    avatar: string | undefined
     publicCardPacksCount: number
 
     created: string
@@ -119,20 +95,24 @@ export type UserDataType = {
     error?: string
 }
 
-export type GetPacksResponseType = {
-    cardPacks: Array<CardPacksResponseType>
-    cardPacksTotalCount: number
-    minCardsCount: number
-    maxCardsCount: number
-    page: number
-    pageCount: number
-    token: string
-    tokenDeathTime: number
+export type LoginUserResponseType = UserDataType
 
-    user_id: string
+export type LogoutResponseType = {
+    info: string
 }
 
-export type CardPacksResponseType = {
+export type SignUpResponseType = {
+    addedUser: UserDataType
+}
+
+type RestorePasswordResponseType = {
+    answer: boolean
+    html: boolean
+    info: string
+    success: boolean
+}
+
+export type PackResponseType = {
     cardsCount: number
     created: string
     grade: number
@@ -150,14 +130,31 @@ export type CardPacksResponseType = {
     _id: string
 }
 
-export type GetCardsResponseType = {
-    cards: Array<CardType>
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    packUserId: string
+export type GetPacksResponseType = {
+    cardPacks: Array<PackResponseType>
+    cardPacksTotalCount: number
+    minCardsCount: number
+    maxCardsCount: number
     page: number
     pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type AddPackResponseType = {
+    newCardsPack: PackResponseType
+    token: string
+    tokenDeathTime: number
+}
+
+export type UpdatePackResponseType = {
+    updatedCardsPack: PackResponseType
+    token: string
+    tokenDeathTime: number
+}
+
+export type DeletePackResponseType = {
+    deletedCardsPack: PackResponseType
     token: string
     tokenDeathTime: number
 }
@@ -179,16 +176,38 @@ export type CardType = {
     _id: string
 }
 
-// {
-//
-//     params: {
-//         cardAnswer: answer,
-//             cardQuestion: question,
-//             cardsPack_id: packId,
-//             min,
-//             max,
-//             sortCards,
-//             page,
-//             pageCount
-//     }
-// }
+export type GetCardsResponseType = {
+    cards: Array<CardType>
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    packUserId: string
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type AddCardResponseType = {
+    newCard: CardType
+    token: string
+    tokenDeathTime: number
+}
+
+export type UpdateCardResponseType = {
+    updatedCard: CardType
+    token: string
+    tokenDeathTime: number
+}
+
+export type DeleteCardResponseType = {
+    deletedCard: CardType
+    token: string
+    tokenDeathTime: number
+}
+
+export type UpdateUserDataResponseType = {
+    token: string
+    tokenDeathTime: number
+    updatedUser: UserDataType
+}
