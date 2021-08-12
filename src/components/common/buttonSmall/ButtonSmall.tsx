@@ -8,6 +8,7 @@ type ButtonSmallPropsType = {
 }
 
 export const ButtonSmall = React.memo((props: ButtonSmallPropsType) => {
+
     return (
         <button onClick={props.onClick} className={s.buttonSmall} style={props.style}>
             {props.text}

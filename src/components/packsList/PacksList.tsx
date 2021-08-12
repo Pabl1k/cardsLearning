@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {Redirect} from "react-router-dom"
 import {PackResponseType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
@@ -19,6 +19,7 @@ import {DoubleRange} from "../common/doubleRange/DoubleRange"
 import {PacksListTableMUI} from "./packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {MainTitle} from "../common/mainTitle/MainTitle"
+import ModalAddPack from "../common/modals/ModalAddPack"
 import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}
@@ -96,6 +97,23 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
 
+    const [value, setValue] = useState("")
+    const [openModal, setOpenModal] = useState(false)
+
+    const  onCancelHandler = () => {
+        setOpenModal(false)
+    }
+
+    const onAddNewPackHandler = () => {
+        addNewPack(value)
+        setOpenModal(false)
+    }
+
+    const addPack = (newValue: string) => {
+        setValue(newValue)
+    }
+
+
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
     }
@@ -103,6 +121,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     return (
         <div className={s.packsList}>
             <div className={s.container}>
+                {openModal && < ModalAddPack addPack={addPack} onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
                 <div className={s.inner}>
                     <div className={s.aside}>
                         <TabsShowPacks
@@ -123,7 +142,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         <div className={s.topWrap}>
                             <SearchInput onKeyPressEnter={setSearchValue}/>
                             <Button
-                                onClick={() => addNewPack("AddedPackName")}
+                                onClick={() => setOpenModal(true)}
                                 className={s.button}>
                                 Add new pack
                             </Button>

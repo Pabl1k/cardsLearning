@@ -2,26 +2,33 @@ import React from "react"
 import {Button} from "../../button/Button"
 import s from "./modalDelete.module.scss"
 
-type ModalDelete = {}
+type ModalDelete = {
+    handler: any
+    onCancelHandler: any
+    packName:string
+}
+
 
 export const ModalDelete = React.memo((props: ModalDelete) => {
+
+
     return (
         <div className={s.modalDelete}>
             <div className={s.modalTop}>
                 <h2 className={s.caption}>Delete Pack</h2>
-                <button className={s.btnCross}></button>
+                <button className={s.btnCross}  onClick={props.onCancelHandler} ></button>
             </div>
             <div className={s.inputWrap}>
                 <span className={s.text}>Do you really want to remove
-                    <span className={s.accent}>Pack Name - Name Pack?</span>
+                    <span className={s.accent}>Pack Name - {props.packName}?</span>
                     All cards will be excluded from this course.
                 </span>
             </div>
             <div className={s.btns}>
-                <Button className={s.button}>
+                <Button className={s.button} onClick={props.onCancelHandler}>
                     Cancel
                 </Button>
-                <Button className={s.button}>
+                <Button className={s.button} onClick={props.handler}>
                     Delete
                 </Button>
             </div>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import {NavLink} from "react-router-dom"
 import {useSelector} from "react-redux"
 import {PackResponseType} from "../../../api/api"
@@ -12,8 +12,10 @@ import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
+import ModalDeletePack from "../../common/modals/ModalDeletePack"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+
 
 type PacksListTableMUIPropsType = {
     user_id: string
@@ -28,7 +30,23 @@ type PacksListTableMUIPropsType = {
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
     const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const [openModal, setOpenModal] = useState(false)
+    const [idToDelete, setIdToDelete] = useState("")
+    const [namePackToDelete, setnamePackToDelete] = useState("")
 
+    const onDeletePackHandler = () => {
+        props.deletePack(idToDelete)
+        setOpenModal(false)
+    }
+    const onRemoveHanlder = (id: string, name: string) => {
+        setOpenModal(true)
+        setIdToDelete(id)
+        setnamePackToDelete(name)
+    }
+    const onCancelHandler = () => {
+        setOpenModal(false)
+    }
     return (
         <TableContainer component={Paper}>
             <Table
@@ -62,8 +80,11 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.packs.map((pack) => (
-                        <StyledTableRow key={pack._id}>
+                    {openModal &&
+                    <ModalDeletePack onDeleteHandler={onDeletePackHandler} onCancelHandler={onCancelHandler}
+                                     packName={namePackToDelete}/>}
+
+                    {props.packs.map((pack) => (<StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
                                 <NavLink to={`/cardsList/${pack._id}`}>
                                     {pack.name}
@@ -78,7 +99,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                         ? <>
                                             <ButtonSmall
                                                 text={"delete"}
-                                                onClick={() => props.deletePack(pack._id)}
+                                                onClick={() => onRemoveHanlder(pack._id, pack.name)}
                                                 style={{backgroundColor: "#F1453D", color: "#ffffff"}}
                                             />
                                             <ButtonSmall

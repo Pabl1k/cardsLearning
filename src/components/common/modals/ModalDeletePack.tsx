@@ -1,8 +1,6 @@
-import React from "react"
-import s from "./ModalWindow.module.scss"
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
-import {ModalDelete} from "./modalDelete/modalDelete";
-
+import React from 'react';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {ModalDelete} from "../modalWindow/modalDelete/modalDelete";
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -31,40 +29,22 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-
-
-
-
-
-type ModalWindow = {
+type ModalDeletePackPropsType={
     onDeleteHandler:any
     onCancelHandler:any
     packName:string
 }
-
-
-
-
-export const ModalWindow = React.memo((props: ModalWindow) => {
-    // const classes = useStyles();
-    // getModalStyle is not a pure function, we roll the style only on the first render
+export default function ModalDeletePack(props:ModalDeletePackPropsType) {
+    const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
 
     return (
-
-
-
-
-            <div style={modalStyle} className={s.modalWindow}>
-                <ModalDelete
-                    handler={props.onDeleteHandler}
-                    onCancelHandler={props.onCancelHandler}
-                    packName={props.packName}
-                />
-            </div>
-
-
-
-    )
-})
+        <div style={modalStyle} className={classes.paper}>
+            <ModalDelete
+                handler={props.onDeleteHandler}
+                onCancelHandler={props.onCancelHandler}
+                packName={props.packName}
+            />
+        </div>
+    );
+}
