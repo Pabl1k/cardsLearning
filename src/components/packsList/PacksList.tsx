@@ -22,6 +22,7 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import ModalAddPack from "../common/modals/ModalAddPack"
 import s from "./PacksList.module.scss"
 
+
 type PacksListPropsType = {}
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
