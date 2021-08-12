@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom"
 import {useSelector} from "react-redux"
 import {PackResponseType} from "../../../api/api"
 import {AppRootStateType} from "../../../redux/store"
-import {SortPacksOrderType} from "../../../redux/reducers/packsList-reducer"
+import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
 import TableRow from "@material-ui/core/TableRow"
@@ -12,22 +12,23 @@ import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
+import ModalDeletePack from "../../common/modals/ModalDeletePack"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
-import ModalDeletePack from "../../common/modals/ModalDeletePack";
-
 
 type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<PackResponseType>
+    setNewSortPacksNameOrder: (sortPacksNameOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksCardsCountOrder: (sortPacksCardsCountOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksUpdateOrder: (sortPacksUpdateOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
     updatePack: (newPackName: string, packId: string) => void
     deletePack: (packId: string) => void
-    setNewSortPacksOrderAndFilter: (sortPacksOrder: SortPacksOrderType, sortPacksFilter: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
-    const {sortPacksOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const [openModal, setOpenModal] = useState(false)
     const [idToDelete, setIdToDelete] = useState("")
     const [namePackToDelete, setnamePackToDelete] = useState("")
@@ -51,13 +52,25 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell align="right">Cards</StyledTableCell>
+                        <StyledTableCell>
+                            <ItemsFilterSpan
+                                title={"Name"}
+                                status={sortPacksNameOrder}
+                                setSetStatusValue={props.setNewSortPacksNameOrder}
+                            />
+                        </StyledTableCell>
                         <StyledTableCell align="right">
                             <ItemsFilterSpan
-                                title={"Updated"}
-                                status={sortPacksOrder}
-                                setSetStatusValue={props.setNewSortPacksOrderAndFilter}
+                                title={"Cards"}
+                                status={sortPacksCardsCountOrder}
+                                setSetStatusValue={props.setNewSortPacksCardsCountOrder}
+                            />
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                            <ItemsFilterSpan
+                                title={"Last Updated"}
+                                status={sortPacksUpdateOrder}
+                                setSetStatusValue={props.setNewSortPacksUpdateOrder}
                             />
                         </StyledTableCell>
                         <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
@@ -66,9 +79,11 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 </TableHead>
                 <TableBody>
                     {openModal &&
-                    <ModalDeletePack onDeleteHandler={onDeletePackHandler} onCancelHandler={onCancelHandler}
-                                     packName={namePackToDelete}/>}
-
+                    <ModalDeletePack
+                        onDeleteHandler={onDeletePackHandler}
+                        onCancelHandler={onCancelHandler}
+                        packName={namePackToDelete}
+                    />}
                     {props.packs.map((pack) => (<StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
                                 <NavLink to={`/cardsList/${pack._id}`}>
@@ -79,7 +94,6 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                             <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
                             <StyledTableCell>{pack.user_name}</StyledTableCell>
                             <StyledTableCell>
-
                                 <div className={s.buttonsContainer}>
                                     {props.user_id === pack.user_id
                                         ? <>

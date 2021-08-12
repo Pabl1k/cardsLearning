@@ -26,7 +26,7 @@ export const ModalAdd = React.memo((props: ModalAdd) => {
         <div className={s.modalAdd}>
             <div className={s.modalTop}>
                 <h2 className={s.caption}>Add new pack</h2>
-                <button className={s.btnCross} onClick={props. onCancelHandler}></button>
+                <button className={s.btnCross} onClick={props.onCancelHandler}></button>
             </div>
             <div className={s.inputWrap}>
                 <InputTextMUI
@@ -38,7 +38,7 @@ export const ModalAdd = React.memo((props: ModalAdd) => {
                 />
             </div>
             <div className={s.btns}>
-                <Button className={s.button} onClick={props. onCancelHandler}>
+                <Button className={s.button} onClick={props.onCancelHandler}>
                     Cancel
                 </Button>
                 <Button className={s.button} onClick={addSaveHandler}>

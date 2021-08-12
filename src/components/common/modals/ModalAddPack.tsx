@@ -1,21 +1,20 @@
-import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {ModalDelete} from "../modalWindow/modalDelete/modalDelete";
-import {ModalAdd} from "../modalWindow/modalAdd/modalAdd";
+import React from "react"
+import {ModalAdd} from "../modalWindow/modalAdd/modalAdd"
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
 }
 
 function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
+    const top = 50 + rand()
+    const left = 50 + rand()
 
     return {
         top: `${top}%`,
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
-    };
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,9 +33,10 @@ type ModalAddPackPropsType={
     onCancelHandler:()=>void
     onAddNewPackHandler:(newValue:string)=>void
 }
-export default function ModalAddPack(props:ModalAddPackPropsType) {
-    const classes = useStyles();
-    const [modalStyle] = React.useState(getModalStyle);
+export default function ModalAddPack(props: ModalAddPackPropsType) {
+
+    const classes = useStyles()
+    const [modalStyle] = React.useState(getModalStyle)
 
     return (
         <div style={modalStyle} className={classes.paper}>
