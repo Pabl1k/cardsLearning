@@ -22,7 +22,6 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import ModalAddPack from "../common/modals/ModalAddPack"
 import s from "./PacksList.module.scss"
 
-
 type PacksListPropsType = {}
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
@@ -113,7 +112,6 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const addPack = (newValue: string) => {
         setValue(newValue)
     }
-
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
