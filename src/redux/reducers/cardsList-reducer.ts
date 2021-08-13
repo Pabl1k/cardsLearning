@@ -119,7 +119,7 @@ export const setSortGradeCardsAC = (sortCardsGradeOrder: SortPacksAndCardsOrderT
     {type: CARDS_LIST_ACTIONS_TYPES.SET_SORT_GRADE_CARDS, sortCardsGradeOrder, sortCardsFilter} as const)
 
 // thunks
-export const getCardsTC = (packId: string, page: number, pageCount: number, searchCardsValue: string, sortCardsOrder: SortPacksAndCardsOrderType, sortCardsFilter: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const getCardsTC = (packId: string, page?: number, pageCount?: number, searchCardsValue?: string, sortCardsOrder?: SortPacksAndCardsOrderType, sortCardsFilter?: string): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
             const res = await cardsAPI.getCards(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter)

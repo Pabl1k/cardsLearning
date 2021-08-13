@@ -62,8 +62,8 @@ export const packsListAPI = {
 }
 
 export const cardsAPI = {
-    getCards(packId: string, page: number, pageCount: number, question: string, sortCardsOrder: SortPacksAndCardsOrderType, sortCardsFilter: string, answer?: string, min?: number, max?: number) {
-        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
+    getCards(packId: string, page?: number, pageCount?: number, question?: string, sortCardsOrder?: SortPacksAndCardsOrderType, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
+        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question ? question : ""}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
     },
     addCard(packId: string, question?: string, answer?: string) {
         return instance.post<AddCardResponseType>(`/cards/card`, {card: {cardsPack_id: packId, question, answer,}})

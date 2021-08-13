@@ -34,6 +34,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const dispatch = useDispatch()
 
     const {packId} = useParams<{ packId: string }>()
+    console.log('cardsList ' + packId)
     const history = useHistory()
     const count = Math.ceil(cardsTotalCount / pageCount)
 

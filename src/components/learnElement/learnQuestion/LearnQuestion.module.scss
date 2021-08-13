@@ -1,7 +1,7 @@
-@import "../../assets/styles/variebles";
-@import "../../assets/styles/mixins";
+@import "../../../assets/styles/variebles";
+@import "../../../assets/styles/mixins";
 
-.learnAnswer {
+.learnQuestion {
   @extend %loginBlock;
   padding: 35px 30px 25px;
 
@@ -14,11 +14,14 @@
 }
 
 .block {
-  margin-bottom: 20px;
+  margin-bottom: 80px;
 
   text-align: left;
-}
 
+  @include media(xs) {
+    text-align: center;
+  }
+}
 
 .action {
   @extend %sf600;
@@ -30,30 +33,9 @@
   font-size: 16px;
 }
 
-.radioWrap {
-  @include flex(column, flex-start);
-
-  margin: 40px 0 65px;
-
-  text-align: left;
-}
-
-.radio {
-  & span {
-    color: $textColor;
-    font-family: SFUIDisplay, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-
-    &:first-child:hover {
-      background-color: #ECECF9 !important;
-    }
-  }
-}
-
 .btns {
   @include flex();
+
   padding-bottom: 25px;
 
   @include media(xs) {
