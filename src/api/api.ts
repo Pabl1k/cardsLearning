@@ -6,8 +6,8 @@ import axios from "axios"
 // password: newPiatnicaTest
 
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0",
-    baseURL: "http://localhost:7542/2.0/",
+    baseURL: "https://neko-back.herokuapp.com/2.0",
+    // baseURL: "http://localhost:7542/2.0/",
     withCredentials: true
 })
 
@@ -61,8 +61,8 @@ export const packsListAPI = {
 }
 
 export const cardsAPI = {
-    getCards(packId: string, page: number, pageCount: number, question?: string, sortCardsOrder?: number, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
-        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
+    getCards(packId: string, page?: number, pageCount?: number, question?: string, sortCardsOrder?: number, sortCardsFilter?: string, answer?: string, min?: number, max?: number) {
+        return instance.get<GetCardsResponseType>(`/cards/card?cardQuestion=${question ? question : ''}&cardsPack_id=${packId}&page=${page}&pageCount=${pageCount}&sortCards=${sortCardsOrder}${sortCardsFilter}`,)
     },
     addCard(packId: string, question?: string, answer?: string) {
         return instance.post<AddCardResponseType>(`/cards/card`, {card: {cardsPack_id: packId, question, answer,}})

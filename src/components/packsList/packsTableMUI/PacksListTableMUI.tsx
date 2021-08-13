@@ -72,16 +72,21 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                                 onClick={() => props.updatePack("UpdatedPackName", pack._id)}
                                                 style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
                                             />
-                                            <ButtonSmall
-                                                text={"learn"}
-                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
-                                            />
+                                            <NavLink to={`/learnCard/:${pack._id}`}>
+                                                <ButtonSmall
+                                                    text={"learn"}
+                                                    style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+
+                                                />
+                                            </NavLink>
                                         </>
                                         : <>
-                                            <ButtonSmall
-                                                text={"learn"}
-                                                style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
-                                            />
+                                            <NavLink to={`/learnCard/:${pack._id}`}>
+                                                <ButtonSmall
+                                                    text={"learn"}
+                                                    style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                                />
+                                            </NavLink>
                                         </>
                                     }
                                 </div>
