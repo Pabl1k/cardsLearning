@@ -1,20 +1,20 @@
 import React from "react"
+import {useHistory} from "react-router-dom"
+import {CardType} from "../../../api/api"
 import {Button} from "../../common/button/Button"
 import s from "./LearnQuestion.module.scss"
-import {CardType} from "../../../api/api";
-import {useHistory} from "react-router-dom";
 
 type learnQuestionPropsType = {
     card: CardType
     setShowAnswer: (value: boolean) => void
-    onNextCard: (value: number) => void
+    /*onNextCard: (value: number) => void*/
 }
 
 export const LearnQuestion = React.memo((props: learnQuestionPropsType) => {
 
-    const history = useHistory();
+    const history = useHistory()
 
-    console.log('LearnQuestion component: ' + props.card)
+    console.log("LearnQuestion component: " + props.card)
 
     return (
         <div className={s.learnQuestion}>
@@ -25,17 +25,14 @@ export const LearnQuestion = React.memo((props: learnQuestionPropsType) => {
             </div>
             <div className={s.btns}>
                 <Button
-                    className={s.button}
                     onClick={() => history.push("/")}
-                >
+                    className={s.button}>
                     Cancel
                 </Button>
                 <Button
-                    className={s.button}
                     onClick={() => props.setShowAnswer(true)}
-                >
+                    className={s.button}>
                     Show answer
-
                 </Button>
             </div>
         </div>

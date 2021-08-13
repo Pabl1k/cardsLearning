@@ -1,12 +1,12 @@
 import React from "react"
+import {useHistory} from "react-router-dom"
+import {CardType} from "../../../api/api"
 import {RadioMUI} from "./RadioMUI"
 import {Button} from "../../common/button/Button"
 import FormControl from "@material-ui/core/FormControl"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import s from "./LearnAnswer.module.scss"
-import {CardType} from "../../../api/api";
-import {useHistory} from "react-router-dom";
 
 type LearnAnswerPropsType = {
     card: CardType
@@ -17,7 +17,7 @@ type LearnAnswerPropsType = {
 
 export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
 
-    const [value, setValue] = React.useState('answer5')
+    const [value, setValue] = React.useState("answer5")
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value)
@@ -37,9 +37,8 @@ export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
             <div className={s.radioWrap}>
                 <span className={s.action}>Rate yourself:</span>
                 <FormControl component="fieldset" className={s.radio}>
-                    <RadioGroup aria-label="answer" name="answer" value={value} onChange={handleChange}>
-                        <FormControlLabel className={s.radioItem} value={1} control={<RadioMUI/>}
-                                          label="Did not know"/>
+                    <RadioGroup value={value} onChange={handleChange} aria-label="answer" name="answer">
+                        <FormControlLabel value={1} control={<RadioMUI/>} label="Did not know"/>
                         <FormControlLabel value={2} control={<RadioMUI/>} label="Forgot"/>
                         <FormControlLabel value={3} control={<RadioMUI/>} label="A lot of thought"/>
                         <FormControlLabel value={4} control={<RadioMUI/>} label="Confused"/>
@@ -49,14 +48,12 @@ export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
             </div>
             <div className={s.btns}>
                 <Button
-                    className={s.button}
                     onClick={() => props.setShowAnswer(false)}
-                >
+                    className={s.button}>
                     Cancel
                 </Button>
                 <Button
-                    className={s.button}
-                >
+                    className={s.button}>
                     Next
                 </Button>
             </div>
