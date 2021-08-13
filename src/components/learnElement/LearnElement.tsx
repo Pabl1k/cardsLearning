@@ -45,7 +45,7 @@ export const LearnElement: React.FC = React.memo(() => {
         if (cards.length > 0) {
             setCard(getRandomCard(cards))
             return () => {
-                console.log("Learning Page clear effect ")
+                console.log("Learning Page clear effect")
             }
         }
     }, [dispatch, cards, firstCard, questionId, page, pageCount, searchCardsValue, sortCardsQuestionOrder, sortCardsUpdateOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
