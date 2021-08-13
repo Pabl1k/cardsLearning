@@ -33,7 +33,7 @@ const initialState = {
     searchPacksValue: "",
     sortPacksNameOrder: "default" as SortPacksAndCardsOrderType,
     sortPacksCardsCountOrder: "default" as SortPacksAndCardsOrderType,
-    sortPacksUpdateOrder: "default" as SortPacksAndCardsOrderType,
+    sortPacksUpdateOrder: 0 as SortPacksAndCardsOrderType,
     sortPacksFilter: "",
 
 }

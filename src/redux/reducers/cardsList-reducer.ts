@@ -30,7 +30,7 @@ const initialState = {
 
     sortCardsQuestionOrder: "default" as SortPacksAndCardsOrderType,
     sortCardsAnswerOrder: "default" as SortPacksAndCardsOrderType,
-    sortCardsUpdateOrder: "default" as SortPacksAndCardsOrderType,
+    sortCardsUpdateOrder: 0 as SortPacksAndCardsOrderType,
     sortCardsGradeOrder: "default" as SortPacksAndCardsOrderType,
     sortCardsFilter: ""
 }
