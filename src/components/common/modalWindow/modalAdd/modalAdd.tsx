@@ -4,13 +4,12 @@ import {Button} from "../../button/Button"
 import s from "./modalAdd.module.scss"
 
 type ModalAdd = {
-    addPack: (newValue: string) => void
-    onCancelHandler?: () => void
-    onAddNewPackHandler: () => void
+    onCancelHandler?:()=>void
+    onAddNewPackHandler:(newValue:string)=>void
 }
 
 export const ModalAdd = React.memo((props: ModalAdd) => {
-    let [title, setTitle] = useState("")
+    let [title, setTitle] = useState("");
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -18,11 +17,10 @@ export const ModalAdd = React.memo((props: ModalAdd) => {
     }
     const addSaveHandler = () => {
         if (title.trim() !== "") {
-            props.addPack(title)
-            setTitle("")
-
+            props.onAddNewPackHandler(title);
+            setTitle("");
         }
-        props.onAddNewPackHandler()
+
     }
     return (
         <div className={s.modalAdd}>
@@ -32,11 +30,11 @@ export const ModalAdd = React.memo((props: ModalAdd) => {
             </div>
             <div className={s.inputWrap}>
                 <InputTextMUI
-                    type={"text"}
-                    value={title}
                     onChangeHandler={onChangeHandler}
-                    autoComplete="off"
+                    type={"text"}
                     label={"Name Pack"}
+                    autoComplete="off"
+                    value={title}
                 />
             </div>
             <div className={s.btns}>

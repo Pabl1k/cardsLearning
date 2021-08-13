@@ -1,5 +1,4 @@
 import React from "react"
-import {ModalDelete} from "../modalWindow/modalDelete/modalDelete"
 import {ModalAdd} from "../modalWindow/modalAdd/modalAdd"
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
 
@@ -30,10 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-type ModalAddPackPropsType = {
-    addPack: (newValue: string) => void
-    onCancelHandler: () => void
-    onAddNewPackHandler: () => void
+type ModalAddPackPropsType={
+    onCancelHandler:()=>void
+    onAddNewPackHandler:(newValue:string)=>void
 }
 export default function ModalAddPack(props: ModalAddPackPropsType) {
 
@@ -42,8 +40,7 @@ export default function ModalAddPack(props: ModalAddPackPropsType) {
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <ModalAdd addPack={props.addPack} onCancelHandler={props.onCancelHandler}
-                      onAddNewPackHandler={props.onAddNewPackHandler}/>
+            <ModalAdd  onCancelHandler={props.onCancelHandler} onAddNewPackHandler={props.onAddNewPackHandler}/>
         </div>
     );
 }

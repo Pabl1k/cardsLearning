@@ -38,11 +38,7 @@ function App() {
     }
 
     return (
-        <>
-
-
-            {/*<ModalTest/>*/}
-            {isLoggedIn && pathname !== "/404"
+        <>{isLoggedIn && pathname !== "/404"
                 ? <HeaderMenu/>
                 : null}
             <section className={s.pagesContainer}>
