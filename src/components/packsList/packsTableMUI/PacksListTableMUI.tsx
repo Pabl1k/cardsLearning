@@ -20,15 +20,16 @@ type PacksListTableMUIPropsType = {
     user_id: string
     packs: Array<PackResponseType>
     setNewSortPacksNameOrder: (sortPacksNameOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
-    setNewSortPacksCardsCountOrder: (sortPacksCardsCountOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
-    setNewSortPacksUpdateOrder: (sortPacksUpdateOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksCardsCountOrder: (sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksUpdateOrder: (sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
+    setNewSortPacksCreatedByOrder: (sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => void
     updatePack: (newPackName: string, packId: string) => void
     deletePack: (packId: string) => void
 }
 
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
-    const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksCreatedByOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const [openModal, setOpenModal] = useState(false)
     const [idToDelete, setIdToDelete] = useState("")
     const [namePackToDelete, setnamePackToDelete] = useState("")
@@ -73,7 +74,13 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                 setSetStatusValue={props.setNewSortPacksUpdateOrder}
                             />
                         </StyledTableCell>
-                        <StyledTableCell align="right">Created&nbsp;by</StyledTableCell>
+                        <StyledTableCell align="right">
+                            <ItemsFilterSpan
+                                title={"Created by"}
+                                status={sortPacksCreatedByOrder}
+                                setSetStatusValue={props.setNewSortPacksCreatedByOrder}
+                            />
+                        </StyledTableCell>
                         <StyledTableCell align="right">Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
@@ -111,7 +118,6 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                                 <ButtonSmall
                                                     text={"learn"}
                                                     style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
-
                                                 />
                                             </NavLink>
                                         </>

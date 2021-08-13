@@ -4,9 +4,9 @@ import {useDispatch, useSelector} from "react-redux"
 import {CardType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
 import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
+import {gradeCardTC} from "../../redux/reducers/learnPack-reducer"
 import {LearnQuestion} from "./learnQuestion/LearnQuestion"
 import {LearnAnswer} from "./learnAnswer/LearnAnswer"
-import { gradeCardTC } from "../../redux/reducers/learnPack-reducer"
 
 const grades = ["No idea", "Forgot", "Think long", "Mix up", "Knew"]
 
@@ -22,7 +22,11 @@ const getRandomCard = (cards: CardType[]) => {
 
 export const LearnElement: React.FC = React.memo(() => {
 
-    const cards = useSelector<AppRootStateType, CardType[]>(state => state.cardsListReducer.cards)
+    const {
+        cards, searchCardsValue,
+        sortCardsQuestionOrder, sortCardsAnswerOrder, sortCardsUpdateOrder, sortCardsGradeOrder, sortCardsFilter,
+        pageCount, page
+    } = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const dispatch = useDispatch()
 
     const {questionId} = useParams<{ questionId: string }>()
@@ -33,7 +37,7 @@ export const LearnElement: React.FC = React.memo(() => {
 
     useEffect(() => {
         if (firstCard) {
-            dispatch(getCardsTC(questionId.slice(1)))
+            dispatch(getCardsTC(questionId.slice(1), page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
             setFirstCard(false)
         }
         if (cards.length > 0) {
@@ -42,20 +46,19 @@ export const LearnElement: React.FC = React.memo(() => {
                 console.log("Learning Page clear effect ")
             }
         }
-    }, [dispatch, cards])
+    }, [dispatch, cards, firstCard, questionId, page, pageCount, searchCardsValue, sortCardsQuestionOrder, sortCardsUpdateOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
 
     const onNextCard = useCallback((grade: number) => {
         setShowAnswer(false)
         if (cards.length > 0) {
-            if (!card._id) {
-                console.log("error in useCallback")
+            if (grade !== -1) {
+                dispatch(gradeCardTC(card._id, grade))
             }
-            dispatch(gradeCardTC(card._id, grade))
             setCard(getRandomCard(cards))
         } else {
-            alert(`Something bad "onNextCard"`)
+            console.log(`Something bad "onNextCard"`)
         }
-    }, [cards, card])
+    }, [dispatch, cards, card])
 
     return (
         <div>

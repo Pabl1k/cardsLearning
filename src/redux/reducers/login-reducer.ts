@@ -39,7 +39,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
             dispatch(setAppStatusAC("loading"))
             const res = await authAPI.login(email, password, rememberMe)
             dispatch(initializeAppTC())
-            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Login failed: ${e.message}.`)
             console.log(error)

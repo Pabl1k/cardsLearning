@@ -62,8 +62,8 @@ export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, 
                 dispatch(setIsLoggedInAC(true))
                 dispatch(setUserDataAC(res.data))
                 console.log("AuthMe success!!!")
-                dispatch(setAppStatusAC("succeeded"))
             }
+            dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`AuthMe failed: ${e.message}.`)
             console.log(error)

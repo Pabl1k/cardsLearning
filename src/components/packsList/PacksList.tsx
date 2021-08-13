@@ -4,13 +4,20 @@ import {PackResponseType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    addNewPackTC, changeShowAllOrMyPacksAC,
-    deletePackTC,
     fetchPacksTC,
+    changeShowAllOrMyPacksAC,
+    addNewPackTC,
+    deletePackTC,
+    updatePackTC,
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
-    setNewPageCountAC, setSortPacksUpdateOrderAC,
-    setSearchPacksValueAC, SortPacksAndCardsOrderType, updatePackTC, setSortPacksNameOrderAC, setSortPacksCardsCountOrderAC
+    setNewPageCountAC,
+    setSortPacksUpdateOrderAC,
+    setSearchPacksValueAC,
+    setSortPacksNameOrderAC,
+    setSortPacksCardsCountOrderAC,
+    setSortPacksCreatedByOrderAC,
+    SortPacksAndCardsOrderType,
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -22,7 +29,6 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import ModalAddPack from "../common/modals/ModalAddPack"
 import s from "./PacksList.module.scss"
 
-
 type PacksListPropsType = {}
 
 export const PacksList = React.memo((props: PacksListPropsType) => {
@@ -30,29 +36,33 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
     const userId = useSelector<AppRootStateType, string>(state => state.packsListReducer.user_id)
-    const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    const {searchPacksValue, minCardsCount, maxCardsCount, sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksCreatedByOrder, sortPacksFilter, page, pageCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const {isShowMyPacks, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const packs = useSelector<AppRootStateType, Array<PackResponseType>>((state) => state.packsListReducer.cardPacks)
     const dispatch = useDispatch()
 
+    const [openModal, setOpenModal] = useState(false)
     const count = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
         switch (sortPacksFilter) {
-            case "updated":
-                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
+            case "name":
+                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksNameOrder, sortPacksFilter, page, pageCount, userId))
                 break
             case "cardsCount":
                 dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksCardsCountOrder, sortPacksFilter, page, pageCount, userId))
                 break
-            case "name":
-                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksNameOrder, sortPacksFilter, page, pageCount, userId))
+            case "updated":
+                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
+                break
+            case "user_name":
+                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksCreatedByOrder, sortPacksFilter, page, pageCount, userId))
                 break
             default:
                 dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
         }
 
-    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId])
+    }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksCreatedByOrder, sortPacksFilter, page, pageCount, userId])
 
     const changeShowAllOrMyPacks = useCallback((isShowMyPacks: boolean, userId: string) => {
         dispatch(changeShowAllOrMyPacksAC(isShowMyPacks, userId))
@@ -78,6 +88,10 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setSortPacksUpdateOrderAC(sortPacksOrder, sortPacksFilter))
     }, [dispatch])
 
+    const setNewSortPacksCreatedByOrder = useCallback((sortPacksOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => {
+        dispatch(setSortPacksCreatedByOrderAC(sortPacksOrder, sortPacksFilter))
+    }, [dispatch])
+
     const addNewPack = useCallback((packName: string) => {
         dispatch(addNewPackTC(packName, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id))
     }, [dispatch, searchPacksValue, minCardsCount, maxCardsCount, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, user_id])
@@ -98,10 +112,6 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
 
-
-    const [openModal, setOpenModal] = useState(false)
-
-
     const onCancelHandler = () => {
         setOpenModal(false)
     }
@@ -111,7 +121,6 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         setOpenModal(false)
     }
 
-
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
     }
@@ -119,7 +128,6 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     return (
         <div className={s.packsList}>
             <div className={s.container}>
-
                 <div className={s.inner}>
                     <div className={s.aside}>
                         <TabsShowPacks
@@ -151,11 +159,12 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             setNewSortPacksNameOrder={setNewSortPacksNameOrder}
                             setNewSortPacksCardsCountOrder={setNewSortPacksCardsCountOrder}
                             setNewSortPacksUpdateOrder={setNewSortPacksUpdateOrder}
+                            setNewSortPacksCreatedByOrder={setNewSortPacksCreatedByOrder}
                             updatePack={updatePack}
                             deletePack={deletePack}
                         />
                         {openModal &&
-                        < ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
+                        <ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
                         <PaginationTable
                             currentPage={page}
                             count={count}

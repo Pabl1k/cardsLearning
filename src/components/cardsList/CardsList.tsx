@@ -25,6 +25,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
+    const packUserId = useSelector<AppRootStateType, string>(state => state.cardsListReducer.packUserId)
     const {
         cards, cardsTotalCount,
         searchCardsValue,
@@ -34,7 +35,6 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     const dispatch = useDispatch()
 
     const {packId} = useParams<{ packId: string }>()
-    console.log('cardsList ' + packId)
     const history = useHistory()
     const count = Math.ceil(cardsTotalCount / pageCount)
 
@@ -115,11 +115,12 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                     </div>
                     <div className={s.searchWrap}>
                         <SearchInput onKeyPressEnter={setCardsSearchValue}/>
-                        <Button
+                        {packUserId === user_id
+                        && <Button
                             onClick={() => addNewCard("AddedCardQuestion", "AddedCardAnswer")}
                             className={s.button}>
                             Add new card
-                        </Button>
+                        </Button>}
                     </div>
                     {cards.length === 0
                         ? <div>Empty</div>

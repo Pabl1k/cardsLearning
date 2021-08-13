@@ -27,6 +27,11 @@ export const ItemsFilterSpan = React.memo((props: ItemsFilterSpanPropsType) => {
                     ? props.setSetStatusValue(0, "updated")
                     : props.setSetStatusValue(1, "updated")
                 break
+            case "Created by":
+                props.status === 1
+                    ? props.setSetStatusValue(0, "user_name")
+                    : props.setSetStatusValue(1, "user_name")
+                break
             case "Question":
                 props.status === 1
                     ? props.setSetStatusValue(0, "question")

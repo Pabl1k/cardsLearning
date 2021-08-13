@@ -6,6 +6,7 @@ import {initializeAppTC, RequestStatusType} from "./redux/reducers/app-reducer"
 import {HeaderMenu} from "./components/common/headerMenu/HeaderMenu"
 import {PacksList} from "./components/packsList/PacksList"
 import {CardsList} from "./components/cardsList/CardsList"
+import {LearnElement} from "./components/learnElement/LearnElement"
 import {Profile} from "./components/profile/Profile"
 import {Login} from "./components/login/Login"
 import {Registration} from "./components/registration/Registration"
@@ -15,7 +16,6 @@ import {PageNotFound} from "./components/pageNotFound/PageNotFound"
 import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
-import {LearnElement} from "./components/learnElement/LearnElement";
 
 function App() {
 

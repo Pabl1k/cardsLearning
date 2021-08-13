@@ -11,6 +11,7 @@ enum PACKS_LIST_ACTIONS_TYPES {
     SET_SORT_NAME_PACKS = "SET_SORT_NAME_PACKS",
     SET_SORT_CARDS_COUNT_PACKS = "SET_SORT_CARDS_COUNT_PACKS",
     SET_SORT_UPDATE_PACKS = "SET_SORT_UPDATE_PACKS",
+    SET_SORT_CREATED_BY_PACKS = "SET_SORT_CREATED_BY_PACKS",
     SET_NEW_CURRENT_PAGE = "SET_NEW_CURRENT_PAGE",
     SET_NEW_PAGE_COUNT = "SET_NEW_PAGE_COUNT"
 }
@@ -34,8 +35,8 @@ const initialState = {
     sortPacksNameOrder: "default" as SortPacksAndCardsOrderType,
     sortPacksCardsCountOrder: "default" as SortPacksAndCardsOrderType,
     sortPacksUpdateOrder: 0 as SortPacksAndCardsOrderType,
+    sortPacksCreatedByOrder: "default" as SortPacksAndCardsOrderType,
     sortPacksFilter: "",
-
 }
 
 type InitialStateType = typeof initialState
@@ -60,6 +61,7 @@ export const packsListReducer = (state = initialState, action: AppActionsType): 
                 sortPacksNameOrder: action.sortPacksNameOrder,
                 sortPacksCardsCountOrder: "default",
                 sortPacksUpdateOrder: "default",
+                sortPacksCreatedByOrder: "default",
                 sortPacksFilter: action.sortPacksFilter
             }
         case PACKS_LIST_ACTIONS_TYPES.SET_SORT_CARDS_COUNT_PACKS:
@@ -68,6 +70,7 @@ export const packsListReducer = (state = initialState, action: AppActionsType): 
                 sortPacksNameOrder: "default",
                 sortPacksCardsCountOrder: action.sortPacksCardsCountOrder,
                 sortPacksUpdateOrder: "default",
+                sortPacksCreatedByOrder: "default",
                 sortPacksFilter: action.sortPacksFilter,
             }
         case PACKS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_PACKS:
@@ -76,6 +79,16 @@ export const packsListReducer = (state = initialState, action: AppActionsType): 
                 sortPacksNameOrder: "default",
                 sortPacksCardsCountOrder: "default",
                 sortPacksUpdateOrder: action.sortPacksUpdateOrder,
+                sortPacksCreatedByOrder: "default",
+                sortPacksFilter: action.sortPacksFilter
+            }
+        case PACKS_LIST_ACTIONS_TYPES.SET_SORT_CREATED_BY_PACKS:
+            return {
+                ...state,
+                sortPacksNameOrder: "default",
+                sortPacksCardsCountOrder: "default",
+                sortPacksUpdateOrder: "default",
+                sortPacksCreatedByOrder: action.sortPacksCreatedByOrder,
                 sortPacksFilter: action.sortPacksFilter
             }
         case PACKS_LIST_ACTIONS_TYPES.SET_NEW_CURRENT_PAGE:
@@ -112,6 +125,9 @@ export const setSortPacksCardsCountOrderAC = (sortPacksCardsCountOrder: SortPack
 
 export const setSortPacksUpdateOrderAC = (sortPacksUpdateOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => (
     {type: PACKS_LIST_ACTIONS_TYPES.SET_SORT_UPDATE_PACKS, sortPacksUpdateOrder, sortPacksFilter} as const)
+
+export const setSortPacksCreatedByOrderAC = (sortPacksCreatedByOrder: SortPacksAndCardsOrderType, sortPacksFilter: string) => (
+    {type: PACKS_LIST_ACTIONS_TYPES.SET_SORT_CREATED_BY_PACKS, sortPacksCreatedByOrder, sortPacksFilter} as const)
 
 export const setNewCurrentPageAC = (page: number) => (
     {type: PACKS_LIST_ACTIONS_TYPES.SET_NEW_CURRENT_PAGE, page} as const)
@@ -192,5 +208,6 @@ export type PacksListReducerActionsType = ReturnType<typeof setPacksListStateAC>
     | ReturnType<typeof setSortPacksNameOrderAC>
     | ReturnType<typeof setSortPacksCardsCountOrderAC>
     | ReturnType<typeof setSortPacksUpdateOrderAC>
+    | ReturnType<typeof setSortPacksCreatedByOrderAC>
     | ReturnType<typeof setNewCurrentPageAC>
     | ReturnType<typeof setNewPageCountAC>
