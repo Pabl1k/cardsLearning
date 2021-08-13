@@ -142,11 +142,14 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
+
             const error = e.response ? e.response.data.error : (`Add pack failed: ${e.message}.`)
             dispatch(setAppErrorAC(error))
             console.log(error)
+
             dispatch(setAppStatusAC("failed"))
         } finally {
+
             // some code...
         }
     }
