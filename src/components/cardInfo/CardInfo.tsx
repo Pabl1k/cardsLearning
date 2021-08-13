@@ -18,7 +18,6 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
                         label={"Question"}
                         autoComplete="off"
                         value={"How \"This\" works in JavaScript?"}
-
                     />
                     <label className={s.label}>
                         <input className={s.file} type="file"/>
