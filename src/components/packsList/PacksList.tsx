@@ -97,7 +97,10 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const setNewPageCount = useCallback((newPageCount: number) => {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
+
+
     const [openModal, setOpenModal] = useState(false)
+
 
     const onCancelHandler = () => {
         setOpenModal(false)
@@ -108,6 +111,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         setOpenModal(false)
     }
 
+
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
     }
@@ -115,8 +119,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     return (
         <div className={s.packsList}>
             <div className={s.container}>
-                {openModal &&
-                < ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
+
                 <div className={s.inner}>
                     <div className={s.aside}>
                         <TabsShowPacks
@@ -151,6 +154,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             updatePack={updatePack}
                             deletePack={deletePack}
                         />
+                        {openModal &&
+                        < ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
                         <PaginationTable
                             currentPage={page}
                             count={count}
