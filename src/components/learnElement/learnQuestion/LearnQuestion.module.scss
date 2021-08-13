@@ -47,6 +47,7 @@
 
 .button {
   max-width: 125px;
+  margin: 0 5px 0 5px;
 
   @include media(xs) {
     max-width: 125px;

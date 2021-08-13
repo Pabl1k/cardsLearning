@@ -7,14 +7,11 @@ import s from "./LearnQuestion.module.scss"
 type learnQuestionPropsType = {
     card: CardType
     setShowAnswer: (value: boolean) => void
-    /*onNextCard: (value: number) => void*/
 }
 
 export const LearnQuestion = React.memo((props: learnQuestionPropsType) => {
 
     const history = useHistory()
-
-    console.log("LearnQuestion component: " + props.card)
 
     return (
         <div className={s.learnQuestion}>

@@ -6,16 +6,17 @@ import {AppRootStateType} from "../../redux/store"
 import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
 import {LearnQuestion} from "./learnQuestion/LearnQuestion"
 import {LearnAnswer} from "./learnAnswer/LearnAnswer"
+import { gradeCardTC } from "../../redux/reducers/learnPack-reducer"
 
-const grades = ["no idea", "forgot", "think long", "mix up", "knew"]
+const grades = ["No idea", "Forgot", "Think long", "Mix up", "Knew"]
 
 const getRandomCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0)
     const rand = Math.random() * sum
     const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
-            const newSum = acc.sum + (6 - card.grade) * (6 - card.grade)
-            return {sum: newSum, id: newSum < rand ? i : acc.id}
-        }, {sum: 0, id: -1})
+        const newSum = acc.sum + (6 - card.grade) * (6 - card.grade)
+        return {sum: newSum, id: newSum < rand ? i : acc.id}
+    }, {sum: 0, id: -1})
     return cards[res.id + 1]
 }
 
@@ -49,7 +50,7 @@ export const LearnElement: React.FC = React.memo(() => {
             if (!card._id) {
                 console.log("error in useCallback")
             }
-            // dispatch(sendGrade(grade)
+            dispatch(gradeCardTC(card._id, grade))
             setCard(getRandomCard(cards))
         } else {
             alert(`Something bad "onNextCard"`)
@@ -62,7 +63,6 @@ export const LearnElement: React.FC = React.memo(() => {
                 ? <LearnQuestion
                     card={card}
                     setShowAnswer={setShowAnswer}
-                    /*onNextCard={onNextCard}*/
                 />
                 : <LearnAnswer
                     card={card}

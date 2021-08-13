@@ -52,6 +52,22 @@
   }
 }
 
+.radioLabel {
+  display: flex;
+  align-items: center;
+  color: $textColor;
+  font-family: SFUIDisplay, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 5px 0;
+  padding: 0 3px;
+}
+
+.radioInput {
+  margin-right: 10px;
+}
+
 .btns {
   @include flex();
   padding-bottom: 25px;
@@ -65,6 +81,7 @@
 
 .button {
   max-width: 125px;
+  margin: 0 5px 0 5px;
 
   @include media(xs) {
     max-width: 125px;

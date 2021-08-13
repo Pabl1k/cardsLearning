@@ -2,7 +2,7 @@ import {Radio, RadioProps} from "@material-ui/core"
 import classnames from "classnames"
 import {makeStyles} from "@material-ui/core/styles"
 
-const useStyles = makeStyles({
+export const useStyles = makeStyles({
     root: {
         padding: "10px",
         '&:hover': {
@@ -53,10 +53,10 @@ export const RadioMUI = (props: RadioProps) => {
 
     return (
         <Radio
-            className={classes.root}
             checkedIcon={<span className={classnames(classes.icon, classes.checkedIcon)}/>}
             icon={<span className={classes.icon}/>}
             {...props}
+            className={classes.root}
         />
     )
 }

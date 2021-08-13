@@ -1,27 +1,37 @@
 import React from "react"
-import {useHistory} from "react-router-dom"
 import {CardType} from "../../../api/api"
-import {RadioMUI} from "./RadioMUI"
 import {Button} from "../../common/button/Button"
-import FormControl from "@material-ui/core/FormControl"
-import RadioGroup from "@material-ui/core/RadioGroup"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
 import s from "./LearnAnswer.module.scss"
 
 type LearnAnswerPropsType = {
     card: CardType
     setShowAnswer: (value: boolean) => void
-    onNextCard: (value: number) => void
+    onNextCard: (grade: number) => void
     grades: string[]
 }
 
+export type AnswerType = -1 | 0 | 1 | 2 | 3 | 4 | 5
+
 export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
 
-    const [value, setValue] = React.useState("answer5")
+    const [value, setValue] = React.useState<AnswerType>(-1)
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue((event.target as HTMLInputElement).value)
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(Number(e.currentTarget.value) as AnswerType)
     }
+
+    const mappedOptions = props.grades ? props.grades.map((option, index) => (
+        <label key={index} className={s.radioLabel}>
+            <input
+                type={"radio"}
+                value={index}
+                checked={value === index}
+                onChange={onChangeHandler}
+                className={s.radioInput}
+            />
+            {option}
+        </label>
+    )) : []
 
     return (
         <div className={s.learnAnswer}>
@@ -36,15 +46,7 @@ export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
             </div>
             <div className={s.radioWrap}>
                 <span className={s.action}>Rate yourself:</span>
-                <FormControl component="fieldset" className={s.radio}>
-                    <RadioGroup value={value} onChange={handleChange} aria-label="answer" name="answer">
-                        <FormControlLabel value={1} control={<RadioMUI/>} label="Did not know"/>
-                        <FormControlLabel value={2} control={<RadioMUI/>} label="Forgot"/>
-                        <FormControlLabel value={3} control={<RadioMUI/>} label="A lot of thought"/>
-                        <FormControlLabel value={4} control={<RadioMUI/>} label="Confused"/>
-                        <FormControlLabel value={5} control={<RadioMUI/>} label="Knew the answer"/>
-                    </RadioGroup>
-                </FormControl>
+                {mappedOptions}
             </div>
             <div className={s.btns}>
                 <Button
@@ -53,6 +55,7 @@ export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
                     Cancel
                 </Button>
                 <Button
+                    onClick={() => props.onNextCard(value)}
                     className={s.button}>
                     Next
                 </Button>
