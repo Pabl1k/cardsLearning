@@ -165,6 +165,7 @@ export const updatePackTC = (newPackName: string, packId: string, searchPacksVal
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Update pack failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppErrorAC(error))
             dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...

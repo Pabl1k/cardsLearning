@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk"
 import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
-import {initializeAppTC, setAppStatusAC} from "./app-reducer"
+import {initializeAppTC, setAppErrorAC, setAppStatusAC} from "./app-reducer"
 
 enum LOGIN_ACTIONS_TYPES {
     SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
@@ -43,6 +43,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Login failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppErrorAC(error))
             dispatch(setAppStatusAC("failed"))
         } finally {
             // ...some code

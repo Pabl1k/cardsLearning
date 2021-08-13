@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk"
 import {cardsAPI, CardType, GetCardsResponseType} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
-import {setAppStatusAC} from "./app-reducer"
+import {setAppErrorAC, setAppStatusAC} from "./app-reducer"
 import {SortPacksAndCardsOrderType} from "./packsList-reducer"
 
 enum CARDS_LIST_ACTIONS_TYPES {
@@ -145,6 +145,7 @@ export const addCardTC = (packId: string, cardQuestion: string, cardAnswer: stri
             const error = e.response ? e.response.data.error : (`Add card failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppStatusAC("failed"))
+            dispatch(setAppErrorAC(error))
         } finally {
             // some code...
         }
@@ -161,6 +162,7 @@ export const updateCardTC = (packId: string, cardId: string, newCardQuestion: st
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Update card failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppErrorAC(error))
             dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
@@ -178,6 +180,7 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkAction<void, 
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Delete card failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppErrorAC(error))
             dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
