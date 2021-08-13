@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk"
 import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
-import {setAppStatusAC} from "./app-reducer"
+import {setAppErrorAC, setAppStatusAC} from "./app-reducer"
 
 enum REGISTRATION_ACTIONS_TYPES {
     SET_IS_SIGN_UP = "registration/SET_IS_SIGN_UP"
@@ -40,6 +40,7 @@ export const signUpTC = (email: string, password: string): ThunkAction<void, App
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Registration failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppErrorAC(error))
             dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...

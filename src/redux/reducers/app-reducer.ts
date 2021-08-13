@@ -6,7 +6,8 @@ import {setIsLoggedInAC} from "./login-reducer"
 enum APP_ACTIONS_TYPES {
     SET_APP_STATUS = "SET_APP_STATUS",
     SET_USER_DATA_TYPE = "USER_DATA_TYPE",
-    CHANGE_USER_DATA = "CHANGE_USER_DATA"
+    CHANGE_USER_DATA = "CHANGE_USER_DATA",
+    SET_ERROR = "SET_ERROR",
 }
 
 const initialState = {
@@ -23,7 +24,8 @@ const initialState = {
         verified: false,
         rememberMe: false,
     } as UserDataType,
-    status: "idle" as RequestStatusType
+    status: "idle" as RequestStatusType,
+    error: null as string | null,
 }
 
 type InitialStateType = typeof initialState
@@ -36,13 +38,19 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
             return {...state, userData: action.userData}
         case APP_ACTIONS_TYPES.CHANGE_USER_DATA:
             return {...state, ...action.userData}
-            // return {...state, userData: {...action.userData}}
+        // return {...state, userData: {...action.userData}}
+        case APP_ACTIONS_TYPES.SET_ERROR:
+            return {...state, error: action.error}
         default:
             return state
     }
 }
 
 // actions
+export const setAppErrorAC = (error: string | null) => ({
+    type: APP_ACTIONS_TYPES.SET_ERROR,
+    error
+} as const)
 export const setAppStatusAC = (status: RequestStatusType) => (
     {type: APP_ACTIONS_TYPES.SET_APP_STATUS, status} as const)
 
@@ -95,3 +103,4 @@ export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 export type AppReducerActionsType = ReturnType<typeof setAppStatusAC>
     | ReturnType<typeof setUserDataAC>
     | ReturnType<typeof updateUserDataAC>
+    | ReturnType<typeof setAppErrorAC>

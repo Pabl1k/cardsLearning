@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk"
 import {PackResponseType, GetPacksResponseType, packsListAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
-import {setAppStatusAC} from "./app-reducer"
+import {setAppErrorAC, setAppStatusAC} from "./app-reducer"
 
 enum PACKS_LIST_ACTIONS_TYPES {
     SET_PACKS_LIST_STATE = "SET_PACKS_LIST_STATE",
@@ -158,10 +158,14 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
+
             const error = e.response ? e.response.data.error : (`Add pack failed: ${e.message}.`)
+            dispatch(setAppErrorAC(error))
             console.log(error)
+
             dispatch(setAppStatusAC("failed"))
         } finally {
+
             // some code...
         }
     }
@@ -177,6 +181,7 @@ export const updatePackTC = (newPackName: string, packId: string, searchPacksVal
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Update pack failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppErrorAC(error))
             dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
@@ -194,6 +199,7 @@ export const deletePackTC = (packId: string, packName: string, min: number, max:
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Delete pack failed: ${e.message}.`)
             console.log(error)
+            dispatch(setAppErrorAC(error))
             dispatch(setAppStatusAC("failed"))
         } finally {
             // some code...
