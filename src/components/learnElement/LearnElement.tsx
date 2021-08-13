@@ -8,6 +8,8 @@ import {gradeCardTC} from "../../redux/reducers/learnPack-reducer"
 import {LearnQuestion} from "./learnQuestion/LearnQuestion"
 import {LearnAnswer} from "./learnAnswer/LearnAnswer"
 
+export type AnswerType = -1 | 0 | 1 | 2 | 3 | 4 | 5
+
 const grades = ["No idea", "Forgot", "Think long", "Mix up", "Knew"]
 
 const getRandomCard = (cards: CardType[]) => {

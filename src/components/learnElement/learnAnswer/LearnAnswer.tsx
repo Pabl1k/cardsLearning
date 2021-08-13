@@ -1,6 +1,7 @@
 import React from "react"
 import {CardType} from "../../../api/api"
 import {Button} from "../../common/button/Button"
+import { AnswerType } from "../LearnElement"
 import s from "./LearnAnswer.module.scss"
 
 type LearnAnswerPropsType = {
@@ -9,8 +10,6 @@ type LearnAnswerPropsType = {
     onNextCard: (grade: number) => void
     grades: string[]
 }
-
-export type AnswerType = -1 | 0 | 1 | 2 | 3 | 4 | 5
 
 export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
 
