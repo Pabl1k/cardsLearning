@@ -20,19 +20,21 @@ function getModalStyle() {
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
-            position: 'absolute',
+            position: "absolute",
             width: 400,
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
+            border: "2px solid #000",
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
     }),
-);
-type ModalAddPackPropsType={
-    onCancelHandler:()=>void
-    onAddNewPackHandler:(newValue:string)=>void
+)
+
+type ModalAddPackPropsType = {
+    onCancelHandler: () => void
+    onAddNewPackHandler: (newValue: string) => void
 }
+
 export default function ModalAddPack(props: ModalAddPackPropsType) {
 
     const classes = useStyles()
@@ -40,7 +42,7 @@ export default function ModalAddPack(props: ModalAddPackPropsType) {
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <ModalAdd  onCancelHandler={props.onCancelHandler} onAddNewPackHandler={props.onAddNewPackHandler}/>
+            <ModalAdd onCancelHandler={props.onCancelHandler} onAddNewPackHandler={props.onAddNewPackHandler}/>
         </div>
-    );
+    )
 }

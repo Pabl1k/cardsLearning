@@ -1,42 +1,45 @@
-import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {ModalDelete} from "../modalWindow/modalDelete/modalDelete";
+import React from "react"
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
+import {ModalDelete} from "../modalWindow/modalDelete/modalDelete"
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
 }
 
 function getModalStyle() {
-    const top = 50 + rand();
-    const left = 50 + rand();
+    const top = 50 + rand()
+    const left = 50 + rand()
 
     return {
         top: `${top}%`,
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
-    };
+    }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
-            position: 'absolute',
+            position: "absolute",
             width: 400,
             backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
+            border: "2px solid #000",
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
     }),
-);
-type ModalDeletePackPropsType={
-    onDeleteHandler:any
-    onCancelHandler:any
-    packName:string
+)
+
+type ModalDeletePackPropsType = {
+    onDeleteHandler: any
+    onCancelHandler: any
+    packName: string
 }
-export default function ModalDeletePack(props:ModalDeletePackPropsType) {
-    const classes = useStyles();
-    const [modalStyle] = React.useState(getModalStyle);
+
+export default function ModalDeletePack(props: ModalDeletePackPropsType) {
+
+    const classes = useStyles()
+    const [modalStyle] = React.useState(getModalStyle)
 
     return (
         <div style={modalStyle} className={classes.paper}>
@@ -46,5 +49,5 @@ export default function ModalDeletePack(props:ModalDeletePackPropsType) {
                 packName={props.packName}
             />
         </div>
-    );
+    )
 }
