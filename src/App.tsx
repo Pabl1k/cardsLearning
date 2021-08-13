@@ -16,6 +16,7 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
 import {LearnElement} from "./components/learnElement/LearnElement";
+import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar";
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
                     <Redirect from={"*"} to={"/404"}/>
                 </Switch>
             </section>
+            <ErrorSnackbar/>
         </>
     )
 }
