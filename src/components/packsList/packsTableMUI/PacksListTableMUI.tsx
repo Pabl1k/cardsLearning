@@ -38,14 +38,17 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
         props.deletePack(idToDelete)
         setOpenModal(false)
     }
+
     const onRemoveHanlder = (id: string, name: string) => {
         setOpenModal(true)
         setIdToDelete(id)
         setnamePackToDelete(name)
     }
+
     const onCancelHandler = () => {
         setOpenModal(false)
     }
+
     return (
         <TableContainer component={Paper}>
             <Table
