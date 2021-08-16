@@ -17,6 +17,7 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
+import { PersonalInfo } from "./components/personalInfo/PersonalInfo"
 
 function App() {
 
@@ -46,13 +47,14 @@ function App() {
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
                     <Route exact path={"/cardslist/:packId"} render={() => <CardsList/>}/>
+                    <Route exact path={"/learnCard/:questionId"} render={() => <LearnElement/>}/>
                     <Route path={"/profile"} render={() => <Profile/>}/>
+                    <Route path={"/editProfile"} render={() => <PersonalInfo/>}/>
                     <Route path={"/login"} render={() => <Login/>}/>
                     <Route path={"/registration"} render={() => <Registration/>}/>
                     <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
                     <Route path={"/updatePassword/:token"} render={() => <UpdatePassword/>}/>
                     <Route exact path={"/checkEmail"} render={() => <CheckEmail/>}/>
-                    <Route exact path={"/learnCard/:questionId"} render={() => <LearnElement/>}/>
                     <Route path={"/404"} render={() => <PageNotFound/>}/>
                     <Redirect from={"*"} to={"/404"}/>
                 </Switch>

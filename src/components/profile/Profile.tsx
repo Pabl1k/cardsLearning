@@ -116,8 +116,6 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
         addNewPack(newValue)
         setOpenModal(false)
     }
-    // const {name, avatar} = useSelector((state: AppRootStateType) => state.appReducer.userData)
-    // const dispatch = useDispatch()
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -125,15 +123,6 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
 
     return (
         <div className={s.packsList}>
-            {/*{avatar
-                    ? <div>
-                        <img src={avatar} alt={"User's avatar"} style={{width: "60px", height: "60px"}}/>
-                    </div>
-                    : <div>
-                        <img src={defaultUserAvatar} alt={"User's avatar"} style={{width: "60px", height: "60px"}}/>
-                    </div>
-                }
-                <p>UserName: {name}</p>*/}
             <div className={s.container}>
                 <div className={s.inner}>
                     <div className={s.aside}>
