@@ -8,13 +8,19 @@ function rand() {
 }
 
 function getModalStyle() {
-    const top = 50 + rand()
-    const left = 50 + rand()
+    // const top = 50 + rand()
+    // const left = 50 + rand()
+    const top = 0
+    const left = 0
+    const bottom = 0
+    const right = 0
 
     return {
         top: `${top}%`,
         left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
+        right: `${right}%`,
+        bottom: `${bottom}%`,
+        // transform: `translate(-${top}%, -${left}%)`,
     }
 }
 

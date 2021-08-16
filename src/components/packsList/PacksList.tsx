@@ -179,8 +179,8 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             setNewPageCount={setNewPageCount}
                         />
 
-                    {/*    Если это расскомментировать, то оно встанет как надо... Нужно логику прикрутить :) */}
-                    {/*<ModalWindow onDeleteHandler={deletePack} packName={''} onCancelHandler={onCancelHandler}/>*/}
+                        {/*Если это расскомментировать, то оно встанет как надо... Нужно логику прикрутить :) */}
+                    <ModalWindow onDeleteHandler={deletePack} packName={''} onCancelHandler={onCancelHandler}/>
                         
                     </div>
                 </div>
