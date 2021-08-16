@@ -13,15 +13,13 @@ import {IconButton} from "@material-ui/core"
 import {Visibility, VisibilityOff} from "@material-ui/icons"
 import s from "./Registration.module.scss"
 
-type LoginPropsType = {}
-
 type FormikErrorType = {
     email?: string
     password?: string
     repeatPassword?: string
 }
 
-export const Registration = React.memo((props: LoginPropsType) => {
+export const Registration = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const isSignUp = useSelector<AppRootStateType, boolean>(state => state.registrationReducer.isSignUp)

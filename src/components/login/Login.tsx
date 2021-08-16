@@ -14,15 +14,13 @@ import {Visibility, VisibilityOff} from "@material-ui/icons"
 import {useStyles} from "./LoginStyles"
 import s from "./Login.module.scss"
 
-type LoginPropsType = {}
-
 type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
 }
 
-export const Login = React.memo(function (props: LoginPropsType) {
+export const Login = React.memo(() => {
 
     const classes = useStyles()
 
@@ -34,7 +32,7 @@ export const Login = React.memo(function (props: LoginPropsType) {
 
     const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-    }, [props])
+    }, [])
 
     const formik = useFormik({
         initialValues: {
