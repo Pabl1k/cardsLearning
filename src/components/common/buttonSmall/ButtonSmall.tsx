@@ -3,15 +3,23 @@ import s from "./ButtonSmall.module.scss"
 
 type ButtonSmallPropsType = {
     text: string
-    style: any
     onClick?: any
+    disabled?: boolean
+    style?: any
 }
 
 export const ButtonSmall = React.memo((props: ButtonSmallPropsType) => {
 
     return (
-        <button onClick={props.onClick} className={s.buttonSmall} style={props.style}>
-            {props.text}
-        </button>
+        <>
+            {props.disabled
+            ? <button onClick={props.onClick} disabled={props.disabled} className={s.buttonSmallDisabled}>
+                    {props.text}
+                </button>
+            : <button onClick={props.onClick} className={s.buttonSmall} style={props.style}>
+                    {props.text}
+                </button>
+            }
+        </>
     )
 })

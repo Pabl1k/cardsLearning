@@ -30,22 +30,25 @@ type PacksListTableMUIPropsType = {
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
     const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksCreatedByOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
+    // const {cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
     const [openModal, setOpenModal] = useState(false)
     const [idToDelete, setIdToDelete] = useState("")
-    const [namePackToDelete, setnamePackToDelete] = useState("")
+    const [namePackToDelete, setNamePackToDelete] = useState("")
+
+    // console.log(`CARDS_TOTAL_COUNT: ${cardPacksTotalCount}`)
 
     const onDeletePackHandler = () => {
         props.deletePack(idToDelete)
         setOpenModal(false)
     }
 
-    const onRemoveHanlder = (id: string, name: string) => {
+    const onRemoveClickHandler = (id: string, name: string) => {
         setOpenModal(true)
         setIdToDelete(id)
-        setnamePackToDelete(name)
+        setNamePackToDelete(name)
     }
 
-    const onCancelHandler = () => {
+    const onCancelClickHandler = () => {
         setOpenModal(false)
     }
 
@@ -91,14 +94,12 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     {openModal &&
                     <ModalDeletePack
                         onDeleteHandler={onDeletePackHandler}
-                        onCancelHandler={onCancelHandler}
+                        onCancelHandler={onCancelClickHandler}
                         packName={namePackToDelete}
                     />}
                     {props.packs.map((pack) => (<StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
-                                <NavLink to={`/cardsList/${pack._id}`}>
-                                    {pack.name}
-                                </NavLink>
+                                <NavLink to={`/cardsList/${pack._id}`}>{pack.name}</NavLink>
                             </StyledTableCell>
                             <StyledTableCell>{pack.cardsCount}</StyledTableCell>
                             <StyledTableCell>{pack.updated.slice(0, 10)}</StyledTableCell>
@@ -109,7 +110,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                         ? <>
                                             <ButtonSmall
                                                 text={"delete"}
-                                                onClick={() => onRemoveHanlder(pack._id, pack.name)}
+                                                onClick={() => onRemoveClickHandler(pack._id, pack.name)}
                                                 style={{backgroundColor: "#F1453D", color: "#ffffff"}}
                                             />
                                             <ButtonSmall
@@ -121,6 +122,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                                 <ButtonSmall
                                                     text={"learn"}
                                                     style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                                    disabled={pack.cardsCount === 0}
                                                 />
                                             </NavLink>
                                         </>
@@ -129,6 +131,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                                 <ButtonSmall
                                                     text={"learn"}
                                                     style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
+                                                    disabled={pack.cardsCount === 0}
                                                 />
                                             </NavLink>
                                         </>

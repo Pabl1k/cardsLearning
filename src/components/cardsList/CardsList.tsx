@@ -36,7 +36,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
 
     const {packId} = useParams<{ packId: string }>()
     const history = useHistory()
-    const count = Math.ceil(cardsTotalCount / pageCount)
+    const pagesCount = Math.ceil(cardsTotalCount / pageCount)
 
     useEffect(() => {
         switch (sortCardsFilter) {
@@ -140,7 +140,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             />
                             <PaginationTable
                                 currentPage={page}
-                                count={count}
+                                pagesCount={pagesCount}
                                 setNewCurrentPage={setCardsNewCurrentPage}
                                 setNewPageCount={setCardsNewPageCount}
                             />

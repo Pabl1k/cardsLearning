@@ -42,7 +42,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
     const dispatch = useDispatch()
 
     const [openModal, setOpenModal] = useState(false)
-    const count = Math.ceil(cardPacksTotalCount / pageCount)
+    const pagesCount = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
         switch (sortPacksFilter) {
@@ -167,7 +167,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         <ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
                         <PaginationTable
                             currentPage={page}
-                            count={count}
+                            pagesCount={pagesCount}
                             setNewCurrentPage={setNewCurrentPage}
                             setNewPageCount={setNewPageCount}
                         />

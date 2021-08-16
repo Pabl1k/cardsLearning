@@ -16,10 +16,28 @@
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0px 1px 2px rgb(33, 38, 143);
+    box-shadow: 0 1px 2px rgb(33, 38, 143);
   }
 
   &:active {
-  box-shadow: 0px 2px 4px rgb(33, 38, 143);
+  box-shadow: 0 2px 4px rgb(33, 38, 143);
   }
+}
+
+.buttonSmallDisabled {
+  background-color: #efefef;
+  color: #ababab;
+
+  padding: 7px;
+  margin: 0 2px;
+
+  border: none;
+  border-radius: 2px;
+
+  @extend %sf600;
+  font-size: 12px;
+  line-height: 1.05;
+  text-transform: capitalize;
+
+  cursor: pointer;
 }
