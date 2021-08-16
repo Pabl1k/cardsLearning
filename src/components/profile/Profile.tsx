@@ -4,13 +4,13 @@ import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {
     fetchPacksTC,
-    addNewPackTC, deletePackTC,
     setDoubleRangesValuesAC, setNewCurrentPageAC, setNewPageCountAC,
     setSearchPacksValueAC,
     setSortPacksCardsCountOrderAC, setSortPacksCreatedByOrderAC,
     setSortPacksNameOrderAC,
     setSortPacksUpdateOrderAC,
-    SortPacksAndCardsOrderType, updatePackTC
+    addNewPackTC, updatePackTC, deletePackTC,
+    SortPacksAndCardsOrderType
 } from "../../redux/reducers/packsList-reducer"
 import {ProfileAvatar} from "../common/profileAvatar/ProfileAvatar"
 import {DoubleRange} from "../common/doubleRange/DoubleRange"
@@ -18,10 +18,9 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
 import {PacksListTableMUI} from "../packsList/packsTableMUI/PacksListTableMUI"
-import ModalAddPack from "../common/modals/ModalAddPack"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
+import {ModalAddPack} from "../common/modalWindow/modalAdd/ModalAddPack"
 import {PackResponseType} from "../../api/api"
-// import defaultUserAvatar from "./../../assets/images/defaultUserAvatar.png"
 import s from "./Profile.module.scss"
 
 type ProfilePropsType = {}
@@ -108,14 +107,14 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
 
-    const onCancelHandler = () => {
+    const onCancelClickHandler = useCallback(() => {
         setOpenModal(false)
-    }
+    }, [])
 
-    const onAddNewPackHandler = (newValue: string) => {
+    const onAddNewClickPackHandler = useCallback((newValue: string) => {
         addNewPack(newValue)
         setOpenModal(false)
-    }
+    }, [addNewPack])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -155,12 +154,15 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
                             updatePack={updatePack}
                             deletePack={deletePack}
                         />
-                        {openModal &&
-                        <ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
+                        {openModal
+                        && <ModalAddPack
+                            addNewPack={onAddNewClickPackHandler}
+                            closeModal={onCancelClickHandler}
+                        />}
                         <PaginationTable
                             currentPage={page}
-                            itemsPerPageCount={pageCount}
                             pagesCount={pagesCount}
+                            itemsPerPageCount={pageCount}
                             setNewCurrentPage={setNewCurrentPage}
                             setNewPageCount={setNewPageCount}
                         />

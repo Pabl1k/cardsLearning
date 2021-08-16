@@ -6,9 +6,7 @@ import {Button} from "../button/Button"
 import defaultAvatar from "../../../assets/images/defaultUserAvatar.png"
 import s from "./ProfileAvatar.module.scss"
 
-type ProfileAvatarPropsType = {}
-
-export const ProfileAvatar = React.memo((props: ProfileAvatarPropsType) => {
+export const ProfileAvatar = React.memo(() => {
 
     const {name, avatar} = useSelector((state: AppRootStateType) => state.appReducer.userData)
 

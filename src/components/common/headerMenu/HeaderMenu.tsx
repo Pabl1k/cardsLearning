@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useCallback} from "react"
 import {Link} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../../redux/store"
@@ -12,9 +12,7 @@ import Tab from "@material-ui/core/Tab"
 import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
 
-type HeaderMenuPropsType = {}
-
-export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
+export const HeaderMenu = React.memo(() => {
 
     const classes = useStyles()
 
@@ -23,13 +21,13 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
 
     const [value, setValue] = React.useState(0)
 
-    const onLogoutClickHandler = () => {
+    const onLogoutClickHandler = useCallback(() => {
         dispatch(logoutTC())
-    }
+    }, [dispatch])
 
-    const onTabClickChangeHandler = (event: React.ChangeEvent<{}>, newValue: number) => {
+    const onTabClickChangeHandler = useCallback((event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue)
-    }
+    }, [])
 
     return (
         <div className={s.headerMenu}>
@@ -51,7 +49,8 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                     <Button
                         onClick={onLogoutClickHandler}
                         disabled={status === "loading"}
-                        className={s.logoutButton}>Log out
+                        className={s.logoutButton}>
+                        Log out
                     </Button>
                 </div>
             </div>

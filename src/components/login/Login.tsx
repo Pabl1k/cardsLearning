@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useCallback, useState} from "react"
 import {NavLink, Redirect} from "react-router-dom"
 import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
@@ -25,15 +25,16 @@ type FormikErrorType = {
 export const Login = React.memo(function (props: LoginPropsType) {
 
     const classes = useStyles()
+
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const dispatch = useDispatch()
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-    }
+    }, [props])
 
     const formik = useFormik({
         initialValues: {
@@ -125,7 +126,8 @@ export const Login = React.memo(function (props: LoginPropsType) {
                 <Button
                     type={"submit"}
                     disabled={status === "loading"}
-                    className={s.button}>Login
+                    className={s.button}>
+                    Login
                 </Button>
                 <span className={s.account}>Don’t have an account?</span>
                 <NavLink to={"/registration"} className={s.singUp}>Sign Up</NavLink>

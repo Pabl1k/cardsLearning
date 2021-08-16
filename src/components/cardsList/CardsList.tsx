@@ -3,17 +3,17 @@ import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {
-    addCardTC,
-    deleteCardTC,
     getCardsTC,
-    setCardsNewCardsPageCountAC,
-    setCardsNewCurrentPageAC,
     setSearchCardsValueAC,
-    setSortAnswerCardsAC,
-    setSortGradeCardsAC,
     setSortQuestionCardsAC,
+    setSortAnswerCardsAC,
     setSortUpdateCardsAC,
-    updateCardTC
+    setSortGradeCardsAC,
+    addCardTC,
+    updateCardTC,
+    deleteCardTC,
+    setCardsNewCurrentPageAC,
+    setCardsNewCardsPageCountAC
 } from "../../redux/reducers/cardsList-reducer"
 import {SortPacksAndCardsOrderType} from "../../redux/reducers/packsList-reducer"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
@@ -21,14 +21,10 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
+import {ModalCardInfo} from "../common/modalWindow/modalCardInfo/ModalCardInfo"
 import s from "./CardsList.module.scss"
-import ModalCardInfo from "../common/modalWindow/modalCardInfo/ModalCardInfo";
 
-
-
-type CardsListPropsType = {}
-
-export const CardsList = React.memo((props: CardsListPropsType) => {
+export const CardsList = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
@@ -41,9 +37,11 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const dispatch = useDispatch()
 
+    const [openNewCardModal, setOpenNewCardModal] = useState(false)
+    const pagesCount = Math.ceil(cardsTotalCount / pageCount)
+
     const {packId} = useParams<{ packId: string }>()
     const history = useHistory()
-    const pagesCount = Math.ceil(cardsTotalCount / pageCount)
 
     useEffect(() => {
         switch (sortCardsFilter) {
@@ -108,19 +106,18 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(setCardsNewCardsPageCountAC(newPageCount))
     }, [dispatch])
 
-
-    const [openNewCardModal, setOpenNewCardModal] = useState(false)
-
-    const onAddNewHandler = (question:string,answer:string) => {
+    const onAddNewHandler = useCallback((question: string, answer: string) => {
         addNewCard(question, answer)
         setOpenNewCardModal(false)
-    }
-    const onOpenModalHandler = () => {
+    }, [addNewCard])
+
+    const onOpenModalHandler = useCallback(() => {
         setOpenNewCardModal(true)
-    }
-    const onCloseModalHandler = () => {
+    }, [])
+
+    const onCloseModalHandler = useCallback(() => {
         setOpenNewCardModal(false)
-    }
+    }, [])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -129,10 +126,9 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     return (
         <div className={s.cardsList}>
             <div className={s.container}>
-
                 <div className={s.inner}>
                     <div className={s.topWrap}>
-                        <button className={s.btn} onClick={RedirectToPacksListHandler}/>
+                        <button onClick={RedirectToPacksListHandler} className={s.btn}/>
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>
@@ -145,10 +141,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         </Button>}
                     </div>
                     {cards.length === 0
-                        ?
-                        <div className={s.empty}>This pack is empty.
-                            Click add new card to fill this pack
-                        </div>
+                        ? <span className={s.empty}>This pack is empty. Click add new card to fill this pack</span>
                         : <>
                             <CardsListTableMUI
                                 user_id={user_id}
@@ -162,14 +155,18 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             />
                             <PaginationTable
                                 currentPage={page}
-                                itemsPerPageCount={pageCount}
                                 pagesCount={pagesCount}
+                                itemsPerPageCount={pageCount}
                                 setNewCurrentPage={setCardsNewCurrentPage}
                                 setNewPageCount={setCardsNewPageCount}
                             />
-                        </>
-                    }
-                    {openNewCardModal && <ModalCardInfo onAddNewHandler={onAddNewHandler} onCloseModalHandler={onCloseModalHandler} name={"Card info"}/>}
+                        </>}
+                    {openNewCardModal
+                    && <ModalCardInfo
+                        name={"Add new card"}
+                        editCard={onAddNewHandler}
+                        closeModal={onCloseModalHandler}
+                    />}
                 </div>
             </div>
         </div>

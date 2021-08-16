@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react"
+import React, {ChangeEvent, useCallback, useState} from "react"
 import SearchIcon from "@material-ui/icons/Search"
 import {InputBase} from "@material-ui/core"
 import {useStyles} from "./SearchInputStyles"
@@ -14,10 +14,10 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
 
     const [searchValue, setSearchValue] = useState<string>("")
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.currentTarget.value)
         props.onKeyPressEnter(searchValue.trim())
-    }
+    }, [props, searchValue])
 
     return (
         <div className={s.input}>

@@ -6,32 +6,30 @@ import {useDispatch, useSelector} from "react-redux"
 import {
     fetchPacksTC,
     changeShowAllOrMyPacksAC,
-    addNewPackTC,
-    deletePackTC,
-    updatePackTC,
     setDoubleRangesValuesAC,
-    setNewCurrentPageAC,
-    setNewPageCountAC,
     setSortPacksUpdateOrderAC,
     setSearchPacksValueAC,
     setSortPacksNameOrderAC,
     setSortPacksCardsCountOrderAC,
     setSortPacksCreatedByOrderAC,
-    SortPacksAndCardsOrderType,
+    addNewPackTC,
+    deletePackTC,
+    updatePackTC,
+    setNewCurrentPageAC,
+    setNewPageCountAC,
+    SortPacksAndCardsOrderType
 } from "../../redux/reducers/packsList-reducer"
+import {MainTitle} from "../common/mainTitle/MainTitle"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
-import {Button} from "../common/button/Button"
 import {DoubleRange} from "../common/doubleRange/DoubleRange"
 import {PacksListTableMUI} from "./packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
-import {MainTitle} from "../common/mainTitle/MainTitle"
-import ModalAddPack from "../common/modalWindow/modalAdd/ModalAddPack"
+import {Button} from "../common/button/Button"
+import {ModalAddPack} from "../common/modalWindow/modalAdd/ModalAddPack"
 import s from "./PacksList.module.scss"
 
-type PacksListPropsType = {}
-
-export const PacksList = React.memo((props: PacksListPropsType) => {
+export const PacksList = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const user_id = useSelector<AppRootStateType, string>(state => state.appReducer.userData._id)
@@ -118,14 +116,14 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
 
-    const onCancelHandler = () => {
-        setOpenModal(false)
-    }
-
-    const onAddNewPackHandler = (newValue: string) => {
+    const onAddNewPack = useCallback((newValue: string) => {
         addNewPack(newValue)
         setOpenModal(false)
-    }
+    }, [addNewPack])
+
+    const onCancel = useCallback(() => {
+        setOpenModal(false)
+    }, [])
 
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
@@ -170,11 +168,14 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             deletePack={deletePack}
                         />
                         {openModal &&
-                        <ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
+                        <ModalAddPack
+                            addNewPack={onAddNewPack}
+                            closeModal={onCancel}
+                        />}
                         <PaginationTable
                             currentPage={page}
-                            itemsPerPageCount={pageCount}
                             pagesCount={pagesCount}
+                            itemsPerPageCount={pageCount}
                             setNewCurrentPage={setNewCurrentPage}
                             setNewPageCount={setNewPageCount}
                         />

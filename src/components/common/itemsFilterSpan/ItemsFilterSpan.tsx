@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useCallback} from "react"
 import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import s from "./ItemsFilterSpan.module.scss"
 
@@ -10,7 +10,7 @@ type ItemsFilterSpanPropsType = {
 
 export const ItemsFilterSpan = React.memo((props: ItemsFilterSpanPropsType) => {
 
-    const onStatusClickHandler = () => {
+    const onStatusClickHandler = useCallback(() => {
         switch (props.title) {
             case "Name":
                 props.status === 1
@@ -48,7 +48,8 @@ export const ItemsFilterSpan = React.memo((props: ItemsFilterSpanPropsType) => {
                     : props.setSetStatusValue(1, "grade")
                 break
         }
-    }
+    }, [props])
+
     return (
         <span onClick={onStatusClickHandler} className={s.spanTitle}>
             {props.title}

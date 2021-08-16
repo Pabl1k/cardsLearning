@@ -1,21 +1,20 @@
 import React from "react"
 import {Button} from "../../button/Button"
-import s from "./modalDelete.module.scss"
+import s from "./ModalDelete.module.scss"
 
 type ModalDelete = {
-    handler: any
-    onCancelHandler: any
-    packName: string
     name: string
+    packName: string
+    onDeleteButtonClick: any
+    onCloseModalButtonClick: any
 }
 
 export const ModalDelete = React.memo((props: ModalDelete) => {
-
     return (
         <div className={s.modalDelete}>
             <div className={s.modalTop}>
-                <h2 className={s.caption}>Delete {props.name}</h2>
-                <button className={s.btnCross} onClick={props.onCancelHandler}></button>
+                <h2 className={s.caption}>Delete {props.name}:</h2>
+                <button onClick={props.onCloseModalButtonClick} className={s.btnCross}/>
             </div>
             <div className={s.inputWrap}>
                 <span className={s.text}>Do you really want to remove
@@ -25,12 +24,12 @@ export const ModalDelete = React.memo((props: ModalDelete) => {
             </div>
             <div className={s.btns}>
                 <Button
-                    onClick={props.onCancelHandler}
+                    onClick={props.onCloseModalButtonClick}
                     className={s.button}>
                     Cancel
                 </Button>
                 <Button
-                    onClick={props.handler}
+                    onClick={props.onDeleteButtonClick}
                     className={s.button}>
                     Delete
                 </Button>

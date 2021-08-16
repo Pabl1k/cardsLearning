@@ -3,7 +3,6 @@ import {createStyles} from "@material-ui/core"
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-
         '& .MuiInputBase-input': {
             fontFamily: "SFUIDisplay, sans-serif",
             fontWeight: 500,

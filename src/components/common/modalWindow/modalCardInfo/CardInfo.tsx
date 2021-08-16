@@ -1,74 +1,69 @@
-import React, {ChangeEvent, useState} from "react"
+import React, {ChangeEvent, useCallback, useState} from "react"
 import {InputTextMUI} from "../../inputText/InputTextMUI"
 import {Button} from "../../button/Button"
 import s from "./CardInfo.module.scss"
 
 type CardInfoPropsType = {
-    onAddNewHandler: (question: string, answer: string) => void
-    onCloseModalHandler: () => void
-    answer?: string
+    name: string
     question?: string
-    name:string
+    answer?: string
+    onAddNewHandler: (question: string, answer: string) => void
+    onCloseModalButtonClick: () => void
 }
-
 
 export const CardInfo = React.memo((props: CardInfoPropsType) => {
 
-    let [question, setQuestion] = useState(props.question ? props.question : "")
-    let [answer, setAnswer] = useState(props.answer ? props.answer : "")
+    const [question, setQuestion] = useState(props.question ? props.question : "")
+    const [answer, setAnswer] = useState(props.answer ? props.answer : "")
 
-    const onChangeHandlerQuestion = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandlerQuestion = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setQuestion(e.currentTarget.value)
+    }, [])
 
-    }
-    const onChangeHandlerAnswer = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandlerAnswer = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setAnswer(e.currentTarget.value)
+    }, [])
 
-    }
-    const addSaveHandler = () => {
+    const addSaveHandler = useCallback(() => {
         if (question.trim() !== "") {
             props.onAddNewHandler(question, answer)
             setQuestion("")
             setAnswer("")
         }
-    }
+    }, [props, question, answer])
 
     return (
         <div className={s.cardInfo}>
-            <h2 className={s.caption}>{props.name}</h2>
+            <h2 className={s.caption}>{props.name}:</h2>
             <div className={s.inputBox}>
                 <div className={s.inputWrap}>
                     <InputTextMUI
-                        onChangeHandler={onChangeHandlerQuestion}
                         type={"text"}
+                        value={question}
+                        onChangeHandler={onChangeHandlerQuestion}
                         label={"Question"}
                         autoComplete="off"
-                        value={question}
                     />
-                    <label className={s.label}>
-                        <input className={s.file} type="file"/>
-                        + Attach file
-                    </label>
                 </div>
                 <div className={s.inputWrap}>
                     <InputTextMUI
-                        onChangeHandler={onChangeHandlerAnswer}
                         type={"text"}
+                        value={answer}
+                        onChangeHandler={onChangeHandlerAnswer}
                         label={"Answer"}
                         autoComplete="off"
-                        value={answer}
                     />
-                    <label className={s.label}>
-                        <input className={s.file} type="file"/>
-                        + Attach file
-                    </label>
                 </div>
             </div>
             <div className={s.btns}>
-                <Button className={s.button} onClick={props.onCloseModalHandler}>
+                <Button
+                    onClick={props.onCloseModalButtonClick}
+                    className={s.button}>
                     Cancel
                 </Button>
-                <Button className={s.button} onClick={addSaveHandler}>
+                <Button
+                    onClick={addSaveHandler}
+                    className={s.button}>
                     Save
                 </Button>
             </div>

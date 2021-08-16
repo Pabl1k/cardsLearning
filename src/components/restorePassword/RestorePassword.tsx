@@ -10,13 +10,11 @@ import {Button} from "../common/button/Button"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import s from "./RestorePassword.module.scss"
 
-type RestorePasswordPropsType = {}
-
 type FormikErrorType = {
     email?: string
 }
 
-export const RestorePassword = React.memo(function (props: RestorePasswordPropsType) {
+export const RestorePassword = React.memo(() => {
 
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const errorMessage = useSelector<AppRootStateType, string | null>(message => message.restorePasswordReducer.errorMessage)

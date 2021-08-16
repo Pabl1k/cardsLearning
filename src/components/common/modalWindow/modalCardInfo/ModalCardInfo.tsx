@@ -1,9 +1,9 @@
 import React from "react"
+import {CardInfo} from "./CardInfo"
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
-import {CardInfo} from "./CardInfo";
 
 function rand() {
-    return Math.round(Math.random() * 20) - 10;
+    return Math.round(Math.random() * 20) - 10
 }
 
 function getModalStyle() {
@@ -27,33 +27,31 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
-    }),
+    })
 )
 
 type ModalCardInfoPropsType = {
-    onAddNewHandler: (question: string, answer: string) => void
-    onCloseModalHandler: () => void
-    answer?: string
+    name: string
     question?: string
-    name:string
+    answer?: string
+    editCard: (question: string, answer: string) => void
+    closeModal: () => void
 }
 
-function ModalCardInfo(props: ModalCardInfoPropsType) {
+export const ModalCardInfo = React.memo((props: ModalCardInfoPropsType) => {
 
     const classes = useStyles()
     const [modalStyle] = React.useState(getModalStyle)
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <CardInfo answer={props.answer}
-                      question={props.question}
-                      onAddNewHandler={props.onAddNewHandler}
-                      onCloseModalHandler={props.onCloseModalHandler}
-                      name={props.name}
+            <CardInfo
+                name={props.name}
+                answer={props.answer}
+                question={props.question}
+                onAddNewHandler={props.editCard}
+                onCloseModalButtonClick={props.closeModal}
             />
         </div>
     )
-}
-
-
-export default ModalCardInfo
+})

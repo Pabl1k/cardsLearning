@@ -1,34 +1,34 @@
-import React, {ChangeEvent, useState} from "react"
+import React, {ChangeEvent, useCallback, useState} from "react"
 import {InputTextMUI} from "../../inputText/InputTextMUI"
 import {Button} from "../../button/Button"
-import s from "./modalEdit.module.scss"
+import s from "./ModalEdit.module.scss"
 
 type ModalEdit = {
-    onCancelHandler?: () => void
-    onEditNewPackHandler: (newValue: string) => void
-    packName:string
+    packName: string
+    onEditNewPackButtonClick: (newValue: string) => void
+    onCloseModalButtonClick?: () => void
 }
 
 export const ModalEdit = React.memo((props: ModalEdit) => {
 
-    let [title, setTitle] = useState(props.packName)
+    const [title, setTitle] = useState(props.packName)
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
+    }, [])
 
-    }
-    const addSaveHandler = () => {
+    const onSaveClickHandler = useCallback(() => {
         if (title.trim() !== "") {
-           props.onEditNewPackHandler(title)
+            props.onEditNewPackButtonClick(title)
             setTitle("")
         }
-   }
+    }, [props, title])
 
     return (
         <div className={s.modalAdd}>
             <div className={s.modalTop}>
-                <h2 className={s.caption}>Edit pack</h2>
-                <button onClick={props.onCancelHandler} className={s.btnCross}></button>
+                <h2 className={s.caption}>Edit pack:</h2>
+                <button onClick={props.onCloseModalButtonClick} className={s.btnCross}/>
             </div>
             <div className={s.inputWrap}>
                 <InputTextMUI
@@ -40,10 +40,14 @@ export const ModalEdit = React.memo((props: ModalEdit) => {
                 />
             </div>
             <div className={s.btns}>
-                <Button className={s.button} onClick={props.onCancelHandler}>
+                <Button
+                    onClick={props.onCloseModalButtonClick}
+                    className={s.button}>
                     Cancel
                 </Button>
-                <Button className={s.button} onClick={addSaveHandler}>
+                <Button
+                    onClick={onSaveClickHandler}
+                    className={s.button}>
                     Save
                 </Button>
             </div>

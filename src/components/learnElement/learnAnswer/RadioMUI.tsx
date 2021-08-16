@@ -1,6 +1,7 @@
+import React from "react"
 import {Radio, RadioProps} from "@material-ui/core"
-import classnames from "classnames"
 import {makeStyles} from "@material-ui/core/styles"
+import classnames from "classnames"
 
 export const useStyles = makeStyles({
     root: {
@@ -23,10 +24,6 @@ export const useStyles = makeStyles({
         'input:hover ~ &': {
             // backgroundColor: "#ECECF9",
         },
-        // 'input:disabled ~ &': {
-        //     boxShadow: "none",
-        //     background: "rgba(206,217,224,.5)",
-        // },
     },
     checkedIcon: {
         backgroundColor: "#21268F",
@@ -47,7 +44,7 @@ export const useStyles = makeStyles({
     },
 })
 
-export const RadioMUI = (props: RadioProps) => {
+export const RadioMUI = React.memo((props: RadioProps) => {
 
     const classes = useStyles()
 
@@ -59,6 +56,4 @@ export const RadioMUI = (props: RadioProps) => {
             className={classes.root}
         />
     )
-}
-
-
+})

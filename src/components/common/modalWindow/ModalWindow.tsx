@@ -1,26 +1,22 @@
 import React from "react"
-import {ModalDelete} from "./modalDelete/modalDelete"
+import {ModalDelete} from "./modalDelete/ModalDelete"
 import s from "./ModalWindow.module.scss"
 
-
 type ModalWindow = {
-    onDeleteHandler: any
-    onCancelHandler: any
+    name: string
     packName: string
-    name:string
+    onDeleteButtonClick: any
+    onCloseModalButtonClick: any
 }
 
 export const ModalWindow = React.memo((props: ModalWindow) => {
-
-
-
     return (
-        <div  className={s.modalWindow}>
+        <div className={s.modalWindow}>
             <ModalDelete
-                handler={props.onDeleteHandler}
-                onCancelHandler={props.onCancelHandler}
-                packName={props.packName}
                 name={props.name}
+                packName={props.packName}
+                onDeleteButtonClick={props.onDeleteButtonClick}
+                onCloseModalButtonClick={props.onCloseModalButtonClick}
             />
         </div>
     )

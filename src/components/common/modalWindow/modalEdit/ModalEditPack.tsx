@@ -1,10 +1,9 @@
 import React from "react"
-import {ModalAdd} from "../modalAdd/modalAdd"
+import {ModalEdit} from "./ModalEdit"
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
-import {ModalEdit} from "./modalEdit";
 
 function rand() {
-    return Math.round(Math.random() * 20) - 10;
+    return Math.round(Math.random() * 20) - 10
 }
 
 function getModalStyle() {
@@ -28,23 +27,27 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
-    }),
+    })
 )
 
 type ModalEditPackPropsType = {
-    onCancelHandler?: () => void
-    onEditNewPackHandler: (newValue: string) => void
-    packName:string
+    packName: string
+    editNewPack: (newValue: string) => void
+    closeModal?: () => void
 }
 
-export default function ModalEditPack(props: ModalEditPackPropsType) {
+export const ModalEditPack = React.memo((props: ModalEditPackPropsType) => {
 
     const classes = useStyles()
     const [modalStyle] = React.useState(getModalStyle)
 
     return (
-        <div style={modalStyle} className={classes.paper}>
-            <ModalEdit onCancelHandler={props.onCancelHandler} onEditNewPackHandler={props.onEditNewPackHandler} packName={props.packName}/>
+        <div className={classes.paper} style={modalStyle}>
+            <ModalEdit
+                packName={props.packName}
+                onEditNewPackButtonClick={props.editNewPack}
+                onCloseModalButtonClick={props.closeModal}
+            />
         </div>
     )
-}
+})

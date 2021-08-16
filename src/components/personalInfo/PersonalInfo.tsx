@@ -76,9 +76,9 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
                 <div className={s.inputWrap}>
                     <InputTextMUI
                         type={"text"}
+                        {...formik.getFieldProps("email")}
                         label={"Email"}
                         autoComplete="off"
-                        {...formik.getFieldProps("email")}
                     />
                     {formik.touched.email && formik.errors.email
                         ? <div>{formik.errors.email}</div>

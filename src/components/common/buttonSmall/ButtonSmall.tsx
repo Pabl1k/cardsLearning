@@ -9,7 +9,6 @@ type ButtonSmallPropsType = {
 }
 
 export const ButtonSmall = React.memo((props: ButtonSmallPropsType) => {
-
     return (
         <>
             {props.disabled

@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react"
+import React, {ChangeEvent, useCallback} from "react"
 import {Pagination} from "@material-ui/lab"
 import {Typography} from "@material-ui/core"
 import {useStyles} from "./PaginationTableStyles"
@@ -8,8 +8,8 @@ export type ShowValueType = 5 | 10 | 15
 
 type PaginationTablePropsType = {
     currentPage: number
-    itemsPerPageCount: number
     pagesCount: number
+    itemsPerPageCount: number
     setNewCurrentPage: (value: number) => void
     setNewPageCount: (value: ShowValueType) => void
 }
@@ -18,13 +18,13 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
 
     const classes = useStyles()
 
-    const onCurrentPageChangeHandler = (event: ChangeEvent<unknown>, value: number) => {
+    const onCurrentPageChangeHandler = useCallback((event: ChangeEvent<unknown>, value: number) => {
         props.setNewCurrentPage(value)
-    }
+    }, [props])
 
-    const onPageCountChangeHandler = (e: ChangeEvent<any>) => {
-        props.setNewPageCount(e.currentTarget.value)
-    }
+    const onPageCountChangeHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+        props.setNewPageCount(Number(e.currentTarget.value) as ShowValueType)
+    }, [props])
 
     return (
         <div className={classes.root}>
@@ -32,9 +32,10 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
                 <div className={s.paginationMUI}>
                     <Typography>Page: {props.currentPage}</Typography>
                     <Pagination
-                        count={props.pagesCount ? props.pagesCount : 10}
                         page={props.currentPage}
-                        onChange={onCurrentPageChangeHandler} size={"small"}
+                        count={props.pagesCount ? props.pagesCount : 10}
+                        onChange={onCurrentPageChangeHandler}
+                        size={"small"}
                         siblingCount={1}
                         hidePrevButton
                         hideNextButton
@@ -44,7 +45,7 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
                     <span>Show</span>
                     <select defaultValue={props.itemsPerPageCount} onChange={onPageCountChangeHandler}>
                         <option value={5}>5</option>
-                        <option value={10} selected>10</option>
+                        <option value={10}>10</option>
                         <option value={15}>15</option>
                     </select>
                     <span>Cards per Page</span>

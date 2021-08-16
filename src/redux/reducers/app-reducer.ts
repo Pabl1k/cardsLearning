@@ -11,7 +11,7 @@ enum APP_ACTIONS_TYPES {
 }
 
 const initialState = {
-    navMenuStatus: "PacksList" as NavMenuStatusType,
+    navMenuStatus: "packsList" as NavMenuStatusType,
     status: "idle" as RequestStatusType,
     error: null as string | null,
     userData: {
@@ -47,11 +47,11 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
 }
 
 // actions
-export const setAppErrorAC = (error: string | null) => (
-    {type: APP_ACTIONS_TYPES.SET_ERROR, error} as const)
-
 export const setAppStatusAC = (status: RequestStatusType) => (
     {type: APP_ACTIONS_TYPES.SET_APP_STATUS, status} as const)
+
+export const setAppErrorAC = (error: string | null) => (
+    {type: APP_ACTIONS_TYPES.SET_ERROR, error} as const)
 
 export const setUserDataAC = (userData: UserDataType) => (
     {type: APP_ACTIONS_TYPES.SET_USER_DATA_TYPE, userData} as const)
@@ -98,7 +98,7 @@ export const updateUserDataTC = (userName: string, userEmail: string, userAvatar
     }
 
 // types
-export type NavMenuStatusType = "PacksList" | "Profile"
+export type NavMenuStatusType = "packsList" | "profile"
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 export type AppReducerActionsType = ReturnType<typeof setAppStatusAC>
     | ReturnType<typeof setUserDataAC>

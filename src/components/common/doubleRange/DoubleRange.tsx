@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useCallback, useState} from "react"
 import {Slider} from "@material-ui/core"
 import {useStyles} from "./DoubleRangeStyles"
 import s from "./DoubleRange.module.scss"
@@ -15,10 +15,10 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
 
     const [value, setValue] = useState<number[]>([0, props.maxCardsCount])
 
-    const onDoubleRangeHandleChange = (event: any, newValue: number | number[]) => {
+    const onDoubleRangeHandleChange = useCallback((event: any, newValue: number | number[]) => {
         setValue(newValue as number[])
         props.setDoubleRangeValues(value[0], value[1])
-    }
+    }, [props, value])
 
     return (
         <div className={s.numberCards}>
