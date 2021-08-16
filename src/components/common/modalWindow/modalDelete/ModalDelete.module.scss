@@ -3,6 +3,8 @@
 
 .modalDelete {
   @extend %modal;
+
+  z-index: 99;
 }
 
 .modalTop {

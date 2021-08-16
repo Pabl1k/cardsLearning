@@ -16,6 +16,7 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+import {ModalWindow} from "../../common/modalWindow/ModalWindow";
 
 type PacksListTableMUIPropsType = {
     user_id: string

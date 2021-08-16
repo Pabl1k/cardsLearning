@@ -25,19 +25,18 @@
 }
 
 .buttonSmallDisabled {
-  background-color: #efefef;
-  color: #c1c1c1;
-
   padding: 7px;
   margin: 0 2px;
 
   border: none;
   border-radius: 2px;
 
+  background-color: #efefef;
+  color: #c1c1c1;
   @extend %sf600;
   font-size: 12px;
   line-height: 1.05;
   text-transform: capitalize;
 
-  cursor: pointer;
+  cursor: not-allowed;
 }

@@ -28,6 +28,7 @@ import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {Button} from "../common/button/Button"
 import {ModalAddPack} from "../common/modalWindow/modalAdd/ModalAddPack"
 import s from "./PacksList.module.scss"
+import {ModalWindow} from "../common/modalWindow/ModalWindow";
 
 export const PacksList = React.memo(() => {
 
@@ -179,6 +180,10 @@ export const PacksList = React.memo(() => {
                             setNewCurrentPage={setNewCurrentPage}
                             setNewPageCount={setNewPageCount}
                         />
+
+                        {/*Если это расскомментировать, то оно встанет как надо... Нужно логику прикрутить :) */}
+                    <ModalWindow onDeleteHandler={deletePack} packName={''} onCancelHandler={onCancelHandler}/>
+
                     </div>
                 </div>
             </div>

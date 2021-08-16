@@ -5,6 +5,7 @@ import {AppRootStateType} from "../../../redux/store"
 import {Button} from "../button/Button"
 import defaultAvatar from "../../../assets/images/defaultUserAvatar.png"
 import s from "./ProfileAvatar.module.scss"
+import {ButtonSmall} from "../buttonSmall/ButtonSmall";
 
 export const ProfileAvatar = React.memo(() => {
 
@@ -30,6 +31,17 @@ export const ProfileAvatar = React.memo(() => {
                         Edit profile
                     </Button>
                 </NavLink>
+                <Button
+                    onClick={() => {
+                    }}
+                    className={s.profileAvatarButton}>
+                    Edit profile
+                </Button>
+
+                {/*    <ButtonSmall text={"Edit profile"}*/}
+                {/*                 onClick={() => {}}*/}
+                {/*                 style={{backgroundColor: "#21268F",*/}
+                {/*                 color: "#fff"}}/>*/}
             </div>
         </div>
     )

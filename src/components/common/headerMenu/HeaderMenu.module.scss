@@ -3,6 +3,9 @@
 
 .headerMenu {
   min-height: 60px;
+
+  @include flex();
+
   background-color: $bgMenu;
 }
 
@@ -35,22 +38,69 @@
 }
 
 .tabsWrap {
+  @include flex();
+  max-width: 350px;
+
+  background-color: $bgMenu;
+  color: $textColor;
+  font-size: 14px;
+
+  cursor: pointer;
+
   @include media(sm) {
-    max-width: 350px;
     margin: 0 auto;
+  }
+
+  @include media(xs) {
+    max-width: 270px;
   }
 }
 
 .tabPack {
-  background: url(../../../assets/images/packsIcon.svg) no-repeat 25% 50%;
+  padding: 20px 0 0 77px;
+
+  min-width: 175px;
+  height: 60px;
+
+  border-bottom: 3px solid $accent;
+  background-color: #DCCCDB;
+  background-image: url(../../../assets/images/packsIcon.svg);
+  background-repeat: no-repeat;
+  background-position: 25% 50%;
+  transition: .3s;
 
   @include media(xs) {
     background-position-x: 15%;
+    min-width: 135px;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 4px rgba(33, 38, 143, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .3);
   }
 }
 
 .tabProfile {
-  background: url(../../../assets/images/profileIcon.svg) no-repeat 30% 50%;
+  padding: 20px 0 0 85px;
+
+  min-width: 175px;
+  height: 60px;
+
+  background-image: url(../../../assets/images/profileIcon.svg);
+  background-repeat: no-repeat;
+  background-position: 30% 50%;
+
+  transition: .3s;
+
+  @include media(xs) {
+    background-position-x: 15%;
+    min-width: 135px;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 4px rgba(33, 38, 143, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .3);
+  }
 }
 
 .logoutButton {
@@ -63,7 +113,6 @@
   color: $accent;
   border-radius: 2px;
   font-size: 16px;
-
 
   box-shadow: 0 2px 4px rgba(33, 38, 143, .35),
   inset 0 1px 0 rgba(255, 255, 255, .3);
