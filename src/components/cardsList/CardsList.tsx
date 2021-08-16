@@ -109,17 +109,17 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     }, [dispatch])
 
 
-    const [openModal, setOpenModal] = useState(false)
+    const [openNewCardModal, setOpenNewCardModal] = useState(false)
 
     const onAddNewHandler = (question:string,answer:string) => {
         addNewCard(question, answer)
-        setOpenModal(false)
+        setOpenNewCardModal(false)
     }
     const onOpenModalHandler = () => {
-        setOpenModal(true)
+        setOpenNewCardModal(true)
     }
     const onCloseModalHandler = () => {
-        setOpenModal(false)
+        setOpenNewCardModal(false)
     }
 
     if (!isLoggedIn) {
@@ -165,7 +165,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             />
                         </>
                     }
-                    {openModal && <ModalCardInfo onAddNewHandler={onAddNewHandler} onCloseModalHandler={onCloseModalHandler}/>}
+                    {openNewCardModal && <ModalCardInfo onAddNewHandler={onAddNewHandler} onCloseModalHandler={onCloseModalHandler} name={"Card info"}/>}
                 </div>
             </div>
         </div>

@@ -6,13 +6,16 @@ import s from "./CardInfo.module.scss"
 type CardInfoPropsType = {
     onAddNewHandler: (question: string, answer: string) => void
     onCloseModalHandler: () => void
+    answer?: string
+    question?: string
+    name:string
 }
 
 
 export const CardInfo = React.memo((props: CardInfoPropsType) => {
 
-    let [question, setQuestion] = useState("")
-    let [answer, setAnswer] = useState("")
+    let [question, setQuestion] = useState(props.question ? props.question : "")
+    let [answer, setAnswer] = useState(props.answer ? props.answer : "")
 
     const onChangeHandlerQuestion = (e: ChangeEvent<HTMLInputElement>) => {
         setQuestion(e.currentTarget.value)
@@ -24,7 +27,7 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
     }
     const addSaveHandler = () => {
         if (question.trim() !== "") {
-            props.onAddNewHandler(question,answer)
+            props.onAddNewHandler(question, answer)
             setQuestion("")
             setAnswer("")
         }
@@ -32,7 +35,7 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
 
     return (
         <div className={s.cardInfo}>
-            <h2 className={s.caption}>Card Info</h2>
+            <h2 className={s.caption}>{props.name}</h2>
             <div className={s.inputBox}>
                 <div className={s.inputWrap}>
                     <InputTextMUI

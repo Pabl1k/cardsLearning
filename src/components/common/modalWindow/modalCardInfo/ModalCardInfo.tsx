@@ -31,8 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 type ModalCardInfoPropsType = {
-    onAddNewHandler:(question:string,answer:string)=>void
-    onCloseModalHandler:()=>void
+    onAddNewHandler: (question: string, answer: string) => void
+    onCloseModalHandler: () => void
+    answer?: string
+    question?: string
+    name:string
 }
 
 function ModalCardInfo(props: ModalCardInfoPropsType) {
@@ -42,7 +45,12 @@ function ModalCardInfo(props: ModalCardInfoPropsType) {
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <CardInfo  onAddNewHandler={props.onAddNewHandler}  onCloseModalHandler={props.onCloseModalHandler} />
+            <CardInfo answer={props.answer}
+                      question={props.question}
+                      onAddNewHandler={props.onAddNewHandler}
+                      onCloseModalHandler={props.onCloseModalHandler}
+                      name={props.name}
+            />
         </div>
     )
 }

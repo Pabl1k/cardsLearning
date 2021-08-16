@@ -16,6 +16,7 @@ import ModalDeletePack from "../../common/modalWindow/modalDelete/ModalDeletePac
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
 import ModalEditPack from "../../common/modalWindow/modalEdit/ModalEditPack";
+import {ModalWindow} from "../../common/modalWindow/ModalWindow";
 
 type PacksListTableMUIPropsType = {
     user_id: string
@@ -107,10 +108,11 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 </TableHead>
                 <TableBody>
                     {openDeleteModal &&
-                    <ModalDeletePack
+                    <ModalWindow
                         onDeleteHandler={onDeletePackHandler}
                         onCancelHandler={onCancelHandler}
                         packName={packName}
+                        name={"Pack"}
                     />}
                     {openEditModal &&
                     <ModalEditPack onCancelHandler={onCancelHandler} onEditNewPackHandler={onEditNewPackHandler}

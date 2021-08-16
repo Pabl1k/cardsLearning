@@ -6,6 +6,7 @@ type ModalDelete = {
     handler: any
     onCancelHandler: any
     packName: string
+    name: string
 }
 
 export const ModalDelete = React.memo((props: ModalDelete) => {
@@ -13,12 +14,12 @@ export const ModalDelete = React.memo((props: ModalDelete) => {
     return (
         <div className={s.modalDelete}>
             <div className={s.modalTop}>
-                <h2 className={s.caption}>Delete Pack</h2>
+                <h2 className={s.caption}>Delete {props.name}</h2>
                 <button className={s.btnCross} onClick={props.onCancelHandler}></button>
             </div>
             <div className={s.inputWrap}>
                 <span className={s.text}>Do you really want to remove
-                    <span className={s.accent}>Pack Name - {props.packName}?</span>
+                    <span className={s.accent}>{props.name} Name - {props.packName}?</span>
                     All cards will be excluded from this course.
                 </span>
             </div>

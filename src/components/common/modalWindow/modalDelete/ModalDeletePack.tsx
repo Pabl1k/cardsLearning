@@ -34,6 +34,7 @@ type ModalDeletePackPropsType = {
     onDeleteHandler: any
     onCancelHandler: any
     packName: string
+    name:string
 }
 
 export default function ModalDeletePack(props: ModalDeletePackPropsType) {
@@ -47,6 +48,7 @@ export default function ModalDeletePack(props: ModalDeletePackPropsType) {
                 handler={props.onDeleteHandler}
                 onCancelHandler={props.onCancelHandler}
                 packName={props.packName}
+                name={props.name}
             />
         </div>
     )
