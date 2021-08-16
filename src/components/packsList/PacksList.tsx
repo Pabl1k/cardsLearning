@@ -26,7 +26,7 @@ import {DoubleRange} from "../common/doubleRange/DoubleRange"
 import {PacksListTableMUI} from "./packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {MainTitle} from "../common/mainTitle/MainTitle"
-import ModalAddPack from "../common/modals/ModalAddPack"
+import ModalAddPack from "../common/modalWindow/modalAdd/ModalAddPack"
 import s from "./PacksList.module.scss"
 
 type PacksListPropsType = {}

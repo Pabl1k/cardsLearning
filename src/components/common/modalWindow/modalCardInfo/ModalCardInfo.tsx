@@ -1,6 +1,6 @@
 import React from "react"
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
-import {ModalDelete} from "../modalWindow/modalDelete/modalDelete"
+import {CardInfo} from "./CardInfo";
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -30,24 +30,30 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 )
 
-type ModalDeletePackPropsType = {
-    onDeleteHandler: any
-    onCancelHandler: any
-    packName: string
+type ModalCardInfoPropsType = {
+    onAddNewHandler: (question: string, answer: string) => void
+    onCloseModalHandler: () => void
+    answer?: string
+    question?: string
+    name:string
 }
 
-export default function ModalDeletePack(props: ModalDeletePackPropsType) {
+function ModalCardInfo(props: ModalCardInfoPropsType) {
 
     const classes = useStyles()
     const [modalStyle] = React.useState(getModalStyle)
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <ModalDelete
-                handler={props.onDeleteHandler}
-                onCancelHandler={props.onCancelHandler}
-                packName={props.packName}
+            <CardInfo answer={props.answer}
+                      question={props.question}
+                      onAddNewHandler={props.onAddNewHandler}
+                      onCloseModalHandler={props.onCloseModalHandler}
+                      name={props.name}
             />
         </div>
     )
 }
+
+
+export default ModalCardInfo

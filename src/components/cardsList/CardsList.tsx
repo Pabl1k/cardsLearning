@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
@@ -8,8 +8,12 @@ import {
     getCardsTC,
     setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
-    setSearchCardsValueAC, setSortAnswerCardsAC,
-    setSortUpdateCardsAC, setSortGradeCardsAC, updateCardTC, setSortQuestionCardsAC
+    setSearchCardsValueAC,
+    setSortAnswerCardsAC,
+    setSortGradeCardsAC,
+    setSortQuestionCardsAC,
+    setSortUpdateCardsAC,
+    updateCardTC
 } from "../../redux/reducers/cardsList-reducer"
 import {SortPacksAndCardsOrderType} from "../../redux/reducers/packsList-reducer"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
@@ -18,6 +22,9 @@ import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import s from "./CardsList.module.scss"
+import ModalCardInfo from "../common/modalWindow/modalCardInfo/ModalCardInfo";
+
+
 
 type CardsListPropsType = {}
 
@@ -101,6 +108,20 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
         dispatch(setCardsNewCardsPageCountAC(newPageCount))
     }, [dispatch])
 
+
+    const [openNewCardModal, setOpenNewCardModal] = useState(false)
+
+    const onAddNewHandler = (question:string,answer:string) => {
+        addNewCard(question, answer)
+        setOpenNewCardModal(false)
+    }
+    const onOpenModalHandler = () => {
+        setOpenNewCardModal(true)
+    }
+    const onCloseModalHandler = () => {
+        setOpenNewCardModal(false)
+    }
+
     if (!isLoggedIn) {
         return <Redirect to={"/login"}/>
     }
@@ -108,6 +129,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
     return (
         <div className={s.cardsList}>
             <div className={s.container}>
+
                 <div className={s.inner}>
                     <div className={s.topWrap}>
                         <button className={s.btn} onClick={RedirectToPacksListHandler}/>
@@ -117,7 +139,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         <SearchInput onKeyPressEnter={setCardsSearchValue}/>
                         {packUserId === user_id
                         && <Button
-                            onClick={() => addNewCard("AddedCardQuestion", "AddedCardAnswer")}
+                            onClick={() => onOpenModalHandler()}
                             className={s.button}>
                             Add new card
                         </Button>}
@@ -147,6 +169,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             />
                         </>
                     }
+                    {openNewCardModal && <ModalCardInfo onAddNewHandler={onAddNewHandler} onCloseModalHandler={onCloseModalHandler} name={"Card info"}/>}
                 </div>
             </div>
         </div>

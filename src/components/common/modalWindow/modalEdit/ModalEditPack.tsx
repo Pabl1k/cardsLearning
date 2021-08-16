@@ -1,6 +1,7 @@
 import React from "react"
-import {ModalAdd} from "../modalWindow/modalAdd/modalAdd"
+import {ModalAdd} from "../modalAdd/modalAdd"
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
+import {ModalEdit} from "./modalEdit";
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -30,19 +31,20 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 )
 
-type ModalAddPackPropsType = {
-    onCancelHandler: () => void
-    onAddNewPackHandler: (newValue: string) => void
+type ModalEditPackPropsType = {
+    onCancelHandler?: () => void
+    onEditNewPackHandler: (newValue: string) => void
+    packName:string
 }
 
-export default function ModalAddPack(props: ModalAddPackPropsType) {
+export default function ModalEditPack(props: ModalEditPackPropsType) {
 
     const classes = useStyles()
     const [modalStyle] = React.useState(getModalStyle)
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <ModalAdd onCancelHandler={props.onCancelHandler} onAddNewPackHandler={props.onAddNewPackHandler}/>
+            <ModalEdit onCancelHandler={props.onCancelHandler} onEditNewPackHandler={props.onEditNewPackHandler} packName={props.packName}/>
         </div>
     )
 }

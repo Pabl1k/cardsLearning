@@ -12,9 +12,11 @@ import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
-import ModalDeletePack from "../../common/modals/ModalDeletePack"
+import ModalDeletePack from "../../common/modalWindow/modalDelete/ModalDeletePack"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+import ModalEditPack from "../../common/modalWindow/modalEdit/ModalEditPack";
+import {ModalWindow} from "../../common/modalWindow/ModalWindow";
 
 type PacksListTableMUIPropsType = {
     user_id: string
@@ -37,19 +39,41 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
 
     // console.log(`CARDS_TOTAL_COUNT: ${cardPacksTotalCount}`)
 
+    const [openDeleteModal, setOpenDeleteModal] = useState(false)
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [id, setId] = useState("")
+    const [packName, setPackName] = useState("")
+
+
     const onDeletePackHandler = () => {
-        props.deletePack(idToDelete)
-        setOpenModal(false)
+        props.deletePack(id)
+        setOpenDeleteModal(false)
     }
 
     const onRemoveClickHandler = (id: string, name: string) => {
         setOpenModal(true)
         setIdToDelete(id)
         setNamePackToDelete(name)
+    const onRemoveHanlder = (id: string, name: string) => {
+        setOpenDeleteModal(true)
+        setId(id)
+        setPackName(name)
     }
 
     const onCancelClickHandler = () => {
         setOpenModal(false)
+    const onCancelHandler = () => {
+        setOpenDeleteModal(false)
+        setOpenEditModal(false)
+    }
+    const onUpdatePackHandler = (packId: string, packName: string) => {
+        setOpenEditModal(true)
+        setId(packId)
+        setPackName(packName)
+    }
+
+    const onEditNewPackHandler = (newValue: string) => {
+        props.updatePack(newValue, id)
     }
 
     return (
@@ -91,12 +115,18 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {openModal &&
-                    <ModalDeletePack
+                    {openDeleteModal &&
+                    <ModalWindow
                         onDeleteHandler={onDeletePackHandler}
                         onCancelHandler={onCancelClickHandler}
                         packName={namePackToDelete}
+                        onCancelHandler={onCancelHandler}
+                        packName={packName}
+                        name={"Pack"}
                     />}
+                    {openEditModal &&
+                    <ModalEditPack onCancelHandler={onCancelHandler} onEditNewPackHandler={onEditNewPackHandler}
+                                   packName={packName}/>}
                     {props.packs.map((pack) => (<StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
                                 <NavLink to={`/cardsList/${pack._id}`}>{pack.name}</NavLink>
@@ -106,6 +136,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                             <StyledTableCell>{pack.user_name}</StyledTableCell>
                             <StyledTableCell>
                                 <div className={s.buttonsContainer}>
+
                                     {props.user_id === pack.user_id
                                         ? <>
                                             <ButtonSmall
@@ -115,7 +146,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                             />
                                             <ButtonSmall
                                                 text={"edit"}
-                                                onClick={() => props.updatePack("UpdatedPackName", pack._id)}
+                                                onClick={() => onUpdatePackHandler(pack._id, pack.name)}
                                                 style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
                                             />
                                             <NavLink to={`/learnCard/:${pack._id}`}>
