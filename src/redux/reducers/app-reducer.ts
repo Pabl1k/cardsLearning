@@ -6,14 +6,15 @@ import {setIsLoggedInAC} from "./login-reducer"
 enum APP_ACTIONS_TYPES {
     SET_APP_STATUS = "SET_APP_STATUS",
     SET_ERROR = "SET_ERROR",
-    SET_USER_DATA_TYPE = "USER_DATA_TYPE",
+    SET_HEADER_MENU_STATUS = "SET_HEADER_MENU_STATUS",
+    SET_USER_DATA = "USER_DATA",
     UPDATE_USER_DATA = "UPDATE_USER_DATA"
 }
 
 const initialState = {
-    navMenuStatus: "packsList" as NavMenuStatusType,
     status: "idle" as RequestStatusType,
     error: null as string | null,
+    headerMenuStatus: "packsList" as HeaderMenuStatusType,
     userData: {
         _id: "",
         email: "",
@@ -35,12 +36,14 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
     switch (action.type) {
         case APP_ACTIONS_TYPES.SET_APP_STATUS:
             return {...state, status: action.status}
-        case APP_ACTIONS_TYPES.SET_USER_DATA_TYPE:
+        case APP_ACTIONS_TYPES.SET_ERROR:
+            return {...state, error: action.error}
+        case APP_ACTIONS_TYPES.SET_HEADER_MENU_STATUS:
+            return {...state, headerMenuStatus: action.headerMenuStatus}
+        case APP_ACTIONS_TYPES.SET_USER_DATA:
             return {...state, userData: action.userData}
         case APP_ACTIONS_TYPES.UPDATE_USER_DATA:
             return {...state, ...action.userData}
-        case APP_ACTIONS_TYPES.SET_ERROR:
-            return {...state, error: action.error}
         default:
             return state
     }
@@ -53,8 +56,11 @@ export const setAppStatusAC = (status: RequestStatusType) => (
 export const setAppErrorAC = (error: string | null) => (
     {type: APP_ACTIONS_TYPES.SET_ERROR, error} as const)
 
+export const setHeaderMenuStatusAC = (headerMenuStatus: HeaderMenuStatusType) => (
+    {type: APP_ACTIONS_TYPES.SET_HEADER_MENU_STATUS, headerMenuStatus} as const)
+
 export const setUserDataAC = (userData: UserDataType) => (
-    {type: APP_ACTIONS_TYPES.SET_USER_DATA_TYPE, userData} as const)
+    {type: APP_ACTIONS_TYPES.SET_USER_DATA, userData} as const)
 
 export const updateUserDataAC = (email: string, name: string, avatar: string | undefined) => (
     {type: APP_ACTIONS_TYPES.UPDATE_USER_DATA, userData: {email, name, avatar}} as const)
@@ -98,9 +104,10 @@ export const updateUserDataTC = (userName: string, userEmail: string, userAvatar
     }
 
 // types
-export type NavMenuStatusType = "packsList" | "profile"
+export type HeaderMenuStatusType = "packsList" | "profile"
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 export type AppReducerActionsType = ReturnType<typeof setAppStatusAC>
+    | ReturnType<typeof setAppErrorAC>
+    | ReturnType<typeof setHeaderMenuStatusAC>
     | ReturnType<typeof setUserDataAC>
     | ReturnType<typeof updateUserDataAC>
-    | ReturnType<typeof setAppErrorAC>

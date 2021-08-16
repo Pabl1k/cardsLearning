@@ -107,7 +107,7 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
         dispatch(setNewPageCountAC(newPageCount))
     }, [dispatch])
 
-    const onCancelClickHandler = useCallback(() => {
+    const onCloseModalHandler = useCallback(() => {
         setOpenModal(false)
     }, [])
 
@@ -157,7 +157,7 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
                         {openModal
                         && <ModalAddPack
                             addNewPack={onAddNewClickPackHandler}
-                            closeModal={onCancelClickHandler}
+                            closeModal={onCloseModalHandler}
                         />}
                         <PaginationTable
                             currentPage={page}

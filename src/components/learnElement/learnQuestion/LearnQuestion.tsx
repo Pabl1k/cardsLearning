@@ -1,6 +1,8 @@
-import React from "react"
+import React, {useCallback} from "react"
 import {useHistory} from "react-router-dom"
+import {useSelector} from "react-redux"
 import {CardType} from "../../../api/api"
+import {AppRootStateType} from "../../../redux/store"
 import {Button} from "../../common/button/Button"
 import s from "./LearnQuestion.module.scss"
 
@@ -11,7 +13,17 @@ type learnQuestionPropsType = {
 
 export const LearnQuestion = React.memo((props: learnQuestionPropsType) => {
 
+    const {headerMenuStatus} = useSelector((state: AppRootStateType) => state.appReducer)
+
     const history = useHistory()
+
+    const onCancelClickHandler = useCallback(() => {
+        if (headerMenuStatus === "packsList") {
+            history.push("/")
+        } else {
+            history.push("/profile")
+        }
+    }, [history, headerMenuStatus])
 
     return (
         <div className={s.learnQuestion}>
@@ -22,7 +34,7 @@ export const LearnQuestion = React.memo((props: learnQuestionPropsType) => {
             </div>
             <div className={s.btns}>
                 <Button
-                    onClick={() => history.push("/")}
+                    onClick={onCancelClickHandler}
                     className={s.button}>
                     Cancel
                 </Button>

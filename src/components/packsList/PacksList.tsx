@@ -28,7 +28,7 @@ import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {Button} from "../common/button/Button"
 import {ModalAddPack} from "../common/modalWindow/modalAdd/ModalAddPack"
 import s from "./PacksList.module.scss"
-import {ModalWindow} from "../common/modalWindow/ModalWindow";
+// import {ModalWindow} from "../common/modalWindow/ModalWindow";
 
 export const PacksList = React.memo(() => {
 
@@ -122,7 +122,7 @@ export const PacksList = React.memo(() => {
         setOpenModal(false)
     }, [addNewPack])
 
-    const onCancel = useCallback(() => {
+    const onCloseModalHandler = useCallback(() => {
         setOpenModal(false)
     }, [])
 
@@ -171,7 +171,7 @@ export const PacksList = React.memo(() => {
                         {openModal &&
                         <ModalAddPack
                             addNewPack={onAddNewPack}
-                            closeModal={onCancel}
+                            closeModal={onCloseModalHandler}
                         />}
                         <PaginationTable
                             currentPage={page}
@@ -182,8 +182,7 @@ export const PacksList = React.memo(() => {
                         />
 
                         {/*Если это расскомментировать, то оно встанет как надо... Нужно логику прикрутить :) */}
-                    <ModalWindow onDeleteHandler={deletePack} packName={''} onCancelHandler={onCancelHandler}/>
-
+                        {/*<ModalWindow name={"test"} onDeleteButtonClick={deletePack} packName={""} onCloseModalButtonClick={onCancel}/>*/}
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@ function getModalStyle() {
     }
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+/*const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             position: "absolute",
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2, 4, 3),
         },
     }),
-)
+)*/
 
 type ModalWindow = {
     name: string
