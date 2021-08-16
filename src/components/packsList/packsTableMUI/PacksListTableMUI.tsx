@@ -15,6 +15,7 @@ import TableBody from "@material-ui/core/TableBody"
 import ModalDeletePack from "../../common/modals/ModalDeletePack"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+import {ModalWindow} from "../../common/modalWindow/ModalWindow";
 
 type PacksListTableMUIPropsType = {
     user_id: string

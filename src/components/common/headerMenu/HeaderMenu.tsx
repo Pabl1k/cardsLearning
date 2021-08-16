@@ -1,22 +1,22 @@
 import React from "react"
-import {Link} from "react-router-dom"
+// import {Link} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../../redux/store"
 import {logoutTC} from "../../../redux/reducers/login-reducer"
 import {RequestStatusType} from "../../../redux/reducers/app-reducer"
 import {MainTitle} from "../mainTitle/MainTitle"
 import {Button} from "../button/Button"
-import AppBar from "@material-ui/core/AppBar"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import {useStyles} from "./HeaderMenuTabsStyles"
+// import AppBar from "@material-ui/core/AppBar"
+// import Tabs from "@material-ui/core/Tabs"
+// import Tab from "@material-ui/core/Tab"
+// import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
 
 type HeaderMenuPropsType = {}
 
 export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
 
-    const classes = useStyles()
+    // const classes = useStyles()
 
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
     const dispatch = useDispatch()
@@ -39,14 +39,21 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                         <MainTitle title={"It-Incubator"}/>
                     </div>
                     <div className={s.tabsWrap}>
-                        <div className={classes.root}>
-                            <AppBar position="static">
-                                <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">
-                                    <Tab label="Packs list" className={s.tabPack} component={Link} to="/"/>
-                                    <Tab label="Profile" className={s.tabProfile} component={Link} to="/profile"/>
-                                </Tabs>
-                            </AppBar>
+                        <div className={s.tabPack} >
+                            Packs list
                         </div>
+                        <div className={s.tabProfile} >
+                            Profile
+                        </div>
+
+                        {/*<div className={classes.root}>*/}
+                        {/*    <AppBar position="static">*/}
+                        {/*        <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">*/}
+                        {/*            <Tab label="Packs list" className={s.tabPack} component={Link} to="/"/>*/}
+                        {/*            <Tab label="Profile" className={s.tabProfile} component={Link} to="/profile"/>*/}
+                        {/*        </Tabs>*/}
+                        {/*    </AppBar>*/}
+                        {/*</div>*/}
                     </div>
                     <Button
                         onClick={onLogoutClickHandler}

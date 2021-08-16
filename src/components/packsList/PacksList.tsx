@@ -4,20 +4,20 @@ import {PackResponseType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    fetchPacksTC,
-    changeShowAllOrMyPacksAC,
     addNewPackTC,
+    changeShowAllOrMyPacksAC,
     deletePackTC,
-    updatePackTC,
+    fetchPacksTC,
     setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC,
-    setSortPacksUpdateOrderAC,
     setSearchPacksValueAC,
-    setSortPacksNameOrderAC,
     setSortPacksCardsCountOrderAC,
     setSortPacksCreatedByOrderAC,
+    setSortPacksNameOrderAC,
+    setSortPacksUpdateOrderAC,
     SortPacksAndCardsOrderType,
+    updatePackTC,
 } from "../../redux/reducers/packsList-reducer"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
 import {SearchInput} from "../common/searchInput/SearchInput"
@@ -28,6 +28,7 @@ import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import ModalAddPack from "../common/modals/ModalAddPack"
 import s from "./PacksList.module.scss"
+import {ModalWindow} from "../common/modalWindow/ModalWindow";
 
 type PacksListPropsType = {}
 
@@ -177,6 +178,10 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                             setNewCurrentPage={setNewCurrentPage}
                             setNewPageCount={setNewPageCount}
                         />
+
+                    {/*    Если это расскомментировать, то оно встанет как надо... Нужно логику прикрутить :) */}
+                    {/*<ModalWindow onDeleteHandler={deletePack} packName={''} onCancelHandler={onCancelHandler}/>*/}
+                        
                     </div>
                 </div>
             </div>
