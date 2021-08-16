@@ -16,12 +16,7 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.currentTarget.value)
-    }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            props.onKeyPressEnter(searchValue.trim())
-        }
+        props.onKeyPressEnter(searchValue.trim())
     }
 
     return (
@@ -35,7 +30,6 @@ export const SearchInput = React.memo((props: SearchInputPropsType) => {
                         type={"text"}
                         value={searchValue}
                         onChange={onChangeHandler}
-                        onKeyPress={onKeyPressHandler}
                         placeholder="Search…"
                         classes={{
                             root: classes.inputRoot,

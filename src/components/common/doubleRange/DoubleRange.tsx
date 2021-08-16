@@ -17,9 +17,6 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
 
     const onDoubleRangeHandleChange = (event: any, newValue: number | number[]) => {
         setValue(newValue as number[])
-    }
-
-    const onButtonClickHandler = () => {
         props.setDoubleRangeValues(value[0], value[1])
     }
 
@@ -36,10 +33,6 @@ export const DoubleRange = React.memo((props: DoubleRangePropsType) => {
                     max={props.maxCardsCount}
                 />
             </div>
-            <br/>
-            <button className={s.none}
-                onClick={onButtonClickHandler}
-            >Apply range values</button>
         </div>
     )
 })

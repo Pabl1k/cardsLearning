@@ -58,8 +58,14 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
             case "user_name":
                 dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksCreatedByOrder, sortPacksFilter, page, pageCount, userId))
                 break
-            default:
-                dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
+            default: {
+                const setTimer = setTimeout(() => {
+                    dispatch(fetchPacksTC(searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksUpdateOrder, sortPacksFilter, page, pageCount, userId))
+                }, 300)
+                return () => {
+                    clearTimeout(setTimer)
+                }
+            }
         }
 
     }, [dispatch, searchPacksValue, minCardsDoubleRangeValue, maxCardsDoubleRangeValue, sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksCreatedByOrder, sortPacksFilter, page, pageCount, userId])
