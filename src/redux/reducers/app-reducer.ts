@@ -5,12 +5,15 @@ import {setIsLoggedInAC} from "./login-reducer"
 
 enum APP_ACTIONS_TYPES {
     SET_APP_STATUS = "SET_APP_STATUS",
-    SET_USER_DATA_TYPE = "USER_DATA_TYPE",
-    CHANGE_USER_DATA = "CHANGE_USER_DATA",
     SET_ERROR = "SET_ERROR",
+    SET_USER_DATA_TYPE = "USER_DATA_TYPE",
+    UPDATE_USER_DATA = "UPDATE_USER_DATA"
 }
 
 const initialState = {
+    navMenuStatus: "PacksList" as NavMenuStatusType,
+    status: "idle" as RequestStatusType,
+    error: null as string | null,
     userData: {
         _id: "",
         email: "",
@@ -23,9 +26,7 @@ const initialState = {
         isAdmin: false,
         verified: false,
         rememberMe: false,
-    } as UserDataType,
-    status: "idle" as RequestStatusType,
-    error: null as string | null,
+    } as UserDataType
 }
 
 type InitialStateType = typeof initialState
@@ -36,9 +37,8 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
             return {...state, status: action.status}
         case APP_ACTIONS_TYPES.SET_USER_DATA_TYPE:
             return {...state, userData: action.userData}
-        case APP_ACTIONS_TYPES.CHANGE_USER_DATA:
+        case APP_ACTIONS_TYPES.UPDATE_USER_DATA:
             return {...state, ...action.userData}
-        // return {...state, userData: {...action.userData}}
         case APP_ACTIONS_TYPES.SET_ERROR:
             return {...state, error: action.error}
         default:
@@ -47,18 +47,17 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
 }
 
 // actions
-export const setAppErrorAC = (error: string | null) => ({
-    type: APP_ACTIONS_TYPES.SET_ERROR,
-    error
-} as const)
+export const setAppErrorAC = (error: string | null) => (
+    {type: APP_ACTIONS_TYPES.SET_ERROR, error} as const)
+
 export const setAppStatusAC = (status: RequestStatusType) => (
     {type: APP_ACTIONS_TYPES.SET_APP_STATUS, status} as const)
 
 export const setUserDataAC = (userData: UserDataType) => (
     {type: APP_ACTIONS_TYPES.SET_USER_DATA_TYPE, userData} as const)
 
-export const updateUserDataAC = (_id: string, email: string, name: string, avatar: string | undefined) => (
-    {type: APP_ACTIONS_TYPES.CHANGE_USER_DATA, userData: {_id, email, name, avatar}} as const)
+export const updateUserDataAC = (email: string, name: string, avatar: string | undefined) => (
+    {type: APP_ACTIONS_TYPES.UPDATE_USER_DATA, userData: {email, name, avatar}} as const)
 
 // thunks
 export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
@@ -81,13 +80,13 @@ export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, 
         }
     }
 
-export const updateUserDataTC = (_id: string, userName: string, userEmail: string, userAvatar: string | undefined): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
+export const updateUserDataTC = (userName: string, userEmail: string, userAvatar: string | undefined): ThunkAction<void, AppRootStateType, unknown, AppActionsType> =>
     async (dispatch) => {
         try {
             dispatch(setAppStatusAC("loading"))
             const res = await authAPI.updateUserData(userName, userAvatar)
-            const {_id, name, email, avatar} = res.data.updatedUser
-            dispatch(updateUserDataAC(_id, name, email, avatar))
+            const {name, email, avatar} = res.data.updatedUser
+            dispatch(updateUserDataAC(name, email, avatar))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Update userData failed: ${e.message}.`)
@@ -99,6 +98,7 @@ export const updateUserDataTC = (_id: string, userName: string, userEmail: strin
     }
 
 // types
+export type NavMenuStatusType = "PacksList" | "Profile"
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
 export type AppReducerActionsType = ReturnType<typeof setAppStatusAC>
     | ReturnType<typeof setUserDataAC>

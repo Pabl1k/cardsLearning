@@ -159,6 +159,7 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
                         <ModalAddPack onCancelHandler={onCancelHandler} onAddNewPackHandler={onAddNewPackHandler}/>}
                         <PaginationTable
                             currentPage={page}
+                            itemsPerPageCount={pageCount}
                             pagesCount={pagesCount}
                             setNewCurrentPage={setNewCurrentPage}
                             setNewPageCount={setNewPageCount}

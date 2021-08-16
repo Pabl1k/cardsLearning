@@ -3,6 +3,7 @@ import {Redirect, useHistory} from "react-router-dom"
 import {useFormik} from "formik"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
+import {updateUserDataTC} from "../../redux/reducers/app-reducer"
 import {InputTextMUI} from "../common/inputText/InputTextMUI"
 import {ProfileAvatarBtn} from "../common/profileAvatarBtn/ProfileAvatarBtn"
 import {Button} from "../common/button/Button"
@@ -26,6 +27,7 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
         initialValues: {
             nickName: "",
             email: "",
+            avatar: ""
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -43,7 +45,7 @@ export const PersonalInfo = React.memo((props: PersonalInfoPropsType) => {
         },
         onSubmit: (values) => {
             if (!formik.errors.nickName && !formik.errors.email) {
-                // dispatch()
+                dispatch(updateUserDataTC(values.nickName, values.email, values.avatar))
                 formik.resetForm()
                 history.push("/profile")
             }

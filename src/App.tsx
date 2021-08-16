@@ -8,6 +8,7 @@ import {PacksList} from "./components/packsList/PacksList"
 import {CardsList} from "./components/cardsList/CardsList"
 import {LearnElement} from "./components/learnElement/LearnElement"
 import {Profile} from "./components/profile/Profile"
+import {PersonalInfo} from "./components/personalInfo/PersonalInfo"
 import {Login} from "./components/login/Login"
 import {Registration} from "./components/registration/Registration"
 import {RestorePassword} from "./components/restorePassword/RestorePassword"
@@ -17,7 +18,6 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
-import { PersonalInfo } from "./components/personalInfo/PersonalInfo"
 
 function App() {
 
@@ -40,9 +40,8 @@ function App() {
     }
 
     return (
-        <>{isLoggedIn && pathname !== "/404"
-                ? <HeaderMenu/>
-                : null}
+        <>
+            {isLoggedIn && pathname !== "/404" && <HeaderMenu/>}
             <section className={s.pagesContainer}>
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>

@@ -140,6 +140,7 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                             />
                             <PaginationTable
                                 currentPage={page}
+                                itemsPerPageCount={pageCount}
                                 pagesCount={pagesCount}
                                 setNewCurrentPage={setCardsNewCurrentPage}
                                 setNewPageCount={setCardsNewPageCount}

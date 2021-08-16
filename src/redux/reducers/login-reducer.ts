@@ -4,7 +4,7 @@ import {AppActionsType, AppRootStateType} from "../store"
 import {initializeAppTC, setAppErrorAC, setAppStatusAC} from "./app-reducer"
 
 enum LOGIN_ACTIONS_TYPES {
-    SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
+    SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN",
 }
 
 type InitialStateType = {

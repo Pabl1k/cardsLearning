@@ -8,6 +8,7 @@ export type ShowValueType = 5 | 10 | 15
 
 type PaginationTablePropsType = {
     currentPage: number
+    itemsPerPageCount: number
     pagesCount: number
     setNewCurrentPage: (value: number) => void
     setNewPageCount: (value: ShowValueType) => void
@@ -41,7 +42,7 @@ export const PaginationTable = React.memo((props: PaginationTablePropsType) => {
                 </div>
                 <div className={s.show}>
                     <span>Show</span>
-                    <select onChange={onPageCountChangeHandler}>
+                    <select defaultValue={props.itemsPerPageCount} onChange={onPageCountChangeHandler}>
                         <option value={5}>5</option>
                         <option value={10} selected>10</option>
                         <option value={15}>15</option>
