@@ -1,12 +1,34 @@
-import React from "react"
-import {InputTextMUI} from "../common/inputText/InputTextMUI"
-import {Button} from "../common/button/Button"
+import React, {ChangeEvent, useState} from "react"
+import {InputTextMUI} from "../../inputText/InputTextMUI"
+import {Button} from "../../button/Button"
 import s from "./CardInfo.module.scss"
 
-type CardInfoPropsType = {}
+type CardInfoPropsType = {
+    onAddNewHandler: (question: string, answer: string) => void
+    onCloseModalHandler: () => void
+}
 
 
 export const CardInfo = React.memo((props: CardInfoPropsType) => {
+
+    let [question, setQuestion] = useState("")
+    let [answer, setAnswer] = useState("")
+
+    const onChangeHandlerQuestion = (e: ChangeEvent<HTMLInputElement>) => {
+        setQuestion(e.currentTarget.value)
+
+    }
+    const onChangeHandlerAnswer = (e: ChangeEvent<HTMLInputElement>) => {
+        setAnswer(e.currentTarget.value)
+
+    }
+    const addSaveHandler = () => {
+        if (question.trim() !== "") {
+            props.onAddNewHandler(question,answer)
+            setQuestion("")
+            setAnswer("")
+        }
+    }
 
     return (
         <div className={s.cardInfo}>
@@ -14,10 +36,11 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
             <div className={s.inputBox}>
                 <div className={s.inputWrap}>
                     <InputTextMUI
+                        onChangeHandler={onChangeHandlerQuestion}
                         type={"text"}
                         label={"Question"}
                         autoComplete="off"
-                        value={"How \"This\" works in JavaScript?"}
+                        value={question}
                     />
                     <label className={s.label}>
                         <input className={s.file} type="file"/>
@@ -26,10 +49,11 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
                 </div>
                 <div className={s.inputWrap}>
                     <InputTextMUI
+                        onChangeHandler={onChangeHandlerAnswer}
                         type={"text"}
                         label={"Answer"}
                         autoComplete="off"
-                        value={"This is how \"This\" works in JavaScript"}
+                        value={answer}
                     />
                     <label className={s.label}>
                         <input className={s.file} type="file"/>
@@ -38,10 +62,10 @@ export const CardInfo = React.memo((props: CardInfoPropsType) => {
                 </div>
             </div>
             <div className={s.btns}>
-                <Button className={s.button}>
+                <Button className={s.button} onClick={props.onCloseModalHandler}>
                     Cancel
                 </Button>
-                <Button className={s.button}>
+                <Button className={s.button} onClick={addSaveHandler}>
                     Save
                 </Button>
             </div>

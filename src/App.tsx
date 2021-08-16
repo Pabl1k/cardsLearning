@@ -17,7 +17,6 @@ import {CheckEmail} from "./components/checkEmail/CheckEmail"
 import {ErrorSnackbar} from "./components/common/ErrorSnackbar/ErrorSnackbar"
 import {CircularProgress} from "@material-ui/core"
 import s from "./App.module.scss"
-import {CardInfo} from "./components/cardInfo/CardInfo";
 
 function App() {
 
