@@ -31,6 +31,10 @@ $brBtn: 30px;
   width: 100%;
   padding: 0 15px;
   margin: 0 auto;
+
+  @media (max-width: 574.8px) {
+    padding: 0 5px;
+  }
 }
 
 //@extend %ff600;
@@ -104,9 +108,8 @@ $brBtn: 30px;
   color: $textLight;
 
   background-color: $accent;
-  box-shadow:
-          0 4px 18px rgba(33, 38, 143, .35),
-          inset 0 1px 0  rgba(255, 255, 255, .3);
+  box-shadow: 0 4px 18px rgba(33, 38, 143, .35),
+  inset 0 1px 0 rgba(255, 255, 255, .3);
   border-radius: $brBtn;
   border: none;
   cursor: pointer;
@@ -194,8 +197,6 @@ $breakpoints: (
 // @media (max-width: 630px) {
 //   width: 240px;
 // }
-
-
 
 
 //modal

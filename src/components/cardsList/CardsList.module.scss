@@ -7,6 +7,7 @@
 
 .container {
   @extend %container;
+  position: relative;
 }
 
 .inner {
@@ -44,22 +45,25 @@
 }
 
 .searchWrap {
-  @include flex();
-
-  @include media(xs) {
-    flex-direction: column;
-    align-items: stretch;
-  }
   margin-bottom: 25px;
 }
 
-.button {
-  margin: 25px 0 25px 25px;
+.empty {
+  position: absolute;
+  top: 50%;
+  right: 50%;
 
-  @include media(xs) {
-    //max-width: 100%;
-    margin: 15px 0 25px;
-  }
+  transform: translate(50%, -50%);
+
+  @extend %sf400;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #000000;
+  opacity: 0.5;
+
+   @media (max-width: 800px) {
+     text-align: center;
+   }
 }
 
 

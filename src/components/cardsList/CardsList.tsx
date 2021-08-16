@@ -123,7 +123,10 @@ export const CardsList = React.memo((props: CardsListPropsType) => {
                         </Button>}
                     </div>
                     {cards.length === 0
-                        ? <div>Empty</div>
+                        ?
+                        <div className={s.empty}>This pack is empty.
+                            Click add new card to fill this pack
+                        </div>
                         : <>
                             <CardsListTableMUI
                                 user_id={user_id}
