@@ -25,7 +25,7 @@ export const HeaderMenu = React.memo(() => {
             history.push("/profile")
         }
         dispatch(setHeaderMenuStatusAC(headerMenuStatus))
-    }, [dispatch])
+    }, [dispatch, history])
 
     const onLogoutClickHandler = useCallback(() => {
         dispatch(logoutTC())
