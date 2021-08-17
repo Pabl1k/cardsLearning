@@ -70,6 +70,7 @@
   @include media(xs) {
     background-position-x: 15%;
     min-width: 135px;
+    padding-left: 55px;
   }
 
   &:hover {
@@ -93,6 +94,8 @@
   @include media(xs) {
     background-position-x: 15%;
     min-width: 135px;
+    padding-left: 50px;
+
   }
 
   &:hover {
