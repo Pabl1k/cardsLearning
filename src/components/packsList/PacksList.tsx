@@ -180,7 +180,7 @@ export const PacksList = React.memo((props: PacksListPropsType) => {
                         />
 
                         {/*Если это расскомментировать, то оно встанет как надо... Нужно логику прикрутить :) */}
-                    <ModalWindow onDeleteHandler={deletePack} packName={''} onCancelHandler={onCancelHandler}/>
+                    {/*<ModalWindow onDeleteHandler={deletePack} packName={''} onCancelHandler={onCancelHandler}/>*/}
                         
                     </div>
                 </div>
