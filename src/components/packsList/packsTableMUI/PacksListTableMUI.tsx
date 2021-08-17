@@ -6,8 +6,6 @@ import {AppRootStateType} from "../../../redux/store"
 import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
-import {ModalEditPack} from "../../common/modalWindow/modalEdit/ModalEditPack"
-import {ModalWindow} from "../../common/modalWindow/ModalWindow"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
 import Paper from "@material-ui/core/Paper"
@@ -16,6 +14,8 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
+import {ModalWindowDelete} from "../../common/modalWindow/modalDelete/ModalWindowDelete";
+import {ModalWindowEditPack} from "../../common/modalWindow/modalEdit/ModalWindowEditPack";
 
 type PacksListTableMUIPropsType = {
     user_id: string
@@ -103,14 +103,14 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                 </TableHead>
                 <TableBody>
                     {openDeleteModal &&
-                    <ModalWindow
+                    <ModalWindowDelete
                         name={"Pack"}
                         packName={packName}
                         onDeleteButtonClick={onDeletePackHandler}
                         onCloseModalButtonClick={onCancelClickHandler}
                     />}
                     {openEditModal &&
-                    <ModalEditPack
+                    <ModalWindowEditPack
                         packName={packName}
                         editNewPack={onEditNewPackHandler}
                         closeModal={onCancelClickHandler}

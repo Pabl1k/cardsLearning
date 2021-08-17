@@ -4,20 +4,20 @@ import {PackResponseType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
 import {useDispatch, useSelector} from "react-redux"
 import {
-    fetchPacksTC,
-    changeShowAllOrMyPacksAC,
-    setDoubleRangesValuesAC,
-    setSortPacksUpdateOrderAC,
-    setSearchPacksValueAC,
-    setSortPacksNameOrderAC,
-    setSortPacksCardsCountOrderAC,
-    setSortPacksCreatedByOrderAC,
     addNewPackTC,
+    changeShowAllOrMyPacksAC,
     deletePackTC,
-    updatePackTC,
+    fetchPacksTC,
+    setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC,
-    SortPacksAndCardsOrderType
+    setSearchPacksValueAC,
+    setSortPacksCardsCountOrderAC,
+    setSortPacksCreatedByOrderAC,
+    setSortPacksNameOrderAC,
+    setSortPacksUpdateOrderAC,
+    SortPacksAndCardsOrderType,
+    updatePackTC
 } from "../../redux/reducers/packsList-reducer"
 import {MainTitle} from "../common/mainTitle/MainTitle"
 import {TabsShowPacks} from "./tabsShowPacks/TabsShowPacks"
@@ -26,8 +26,8 @@ import {DoubleRange} from "../common/doubleRange/DoubleRange"
 import {PacksListTableMUI} from "./packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
 import {Button} from "../common/button/Button"
-import {ModalAddPack} from "../common/modalWindow/modalAdd/ModalAddPack"
 import s from "./PacksList.module.scss"
+import {ModalWindowAdd} from "../common/modalWindow/modalAdd/ModalWindowAdd";
 // import {ModalWindow} from "../common/modalWindow/ModalWindow";
 
 export const PacksList = React.memo(() => {
@@ -169,7 +169,7 @@ export const PacksList = React.memo(() => {
                             deletePack={deletePack}
                         />
                         {openModal &&
-                        <ModalAddPack
+                        <ModalWindowAdd
                             addNewPack={onAddNewPack}
                             closeModal={onCloseModalHandler}
                         />}
