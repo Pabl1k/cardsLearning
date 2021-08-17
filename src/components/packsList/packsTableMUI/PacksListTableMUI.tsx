@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useCallback, useState} from "react"
 import {NavLink} from "react-router-dom"
 import {useSelector} from "react-redux"
 import {PackResponseType} from "../../../api/api"
@@ -6,16 +6,16 @@ import {AppRootStateType} from "../../../redux/store"
 import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
+import {ModalEditPack} from "../../common/modalWindow/modalEdit/ModalEditPack"
+import {ModalWindow} from "../../common/modalWindow/ModalWindow"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
 import Paper from "@material-ui/core/Paper"
 import Table from "@material-ui/core/Table"
 import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
-import ModalDeletePack from "../../common/modals/ModalDeletePack"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
-import {ModalWindow} from "../../common/modalWindow/ModalWindow";
 
 type PacksListTableMUIPropsType = {
     user_id: string
@@ -31,27 +31,37 @@ type PacksListTableMUIPropsType = {
 export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) => {
 
     const {sortPacksNameOrder, sortPacksCardsCountOrder, sortPacksUpdateOrder, sortPacksCreatedByOrder} = useSelector((state: AppRootStateType) => state.packsListReducer)
-    // const {cardPacksTotalCount} = useSelector((state: AppRootStateType) => state.packsListReducer)
-    const [openModal, setOpenModal] = useState(false)
-    const [idToDelete, setIdToDelete] = useState("")
-    const [namePackToDelete, setNamePackToDelete] = useState("")
 
-    // console.log(`CARDS_TOTAL_COUNT: ${cardPacksTotalCount}`)
+    const [openDeleteModal, setOpenDeleteModal] = useState(false)
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [id, setId] = useState("")
+    const [packName, setPackName] = useState("")
 
-    const onDeletePackHandler = () => {
-        props.deletePack(idToDelete)
-        setOpenModal(false)
-    }
+    const onEditNewPackHandler = useCallback((newValue: string) => {
+        props.updatePack(newValue, id)
+    }, [props, id])
 
-    const onRemoveClickHandler = (id: string, name: string) => {
-        setOpenModal(true)
-        setIdToDelete(id)
-        setNamePackToDelete(name)
-    }
+    const onDeletePackHandler = useCallback(() => {
+        props.deletePack(id)
+        setOpenDeleteModal(false)
+    }, [props, id])
 
-    const onCancelClickHandler = () => {
-        setOpenModal(false)
-    }
+    const onRemoveClickHandler = useCallback((id: string, name: string) => {
+        setOpenDeleteModal(true)
+        setId(id)
+        setPackName(name)
+    }, [])
+
+    const onUpdatePackHandler = useCallback((packId: string, packName: string) => {
+        setOpenEditModal(true)
+        setId(packId)
+        setPackName(packName)
+    }, [])
+
+    const onCancelClickHandler = useCallback(() => {
+        setOpenDeleteModal(false)
+        setOpenEditModal(false)
+    }, [])
 
     return (
         <TableContainer component={Paper}>
@@ -92,11 +102,18 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {openModal &&
-                    <ModalDeletePack
-                        onDeleteHandler={onDeletePackHandler}
-                        onCancelHandler={onCancelClickHandler}
-                        packName={namePackToDelete}
+                    {openDeleteModal &&
+                    <ModalWindow
+                        name={"Pack"}
+                        packName={packName}
+                        onDeleteButtonClick={onDeletePackHandler}
+                        onCloseModalButtonClick={onCancelClickHandler}
+                    />}
+                    {openEditModal &&
+                    <ModalEditPack
+                        packName={packName}
+                        editNewPack={onEditNewPackHandler}
+                        closeModal={onCancelClickHandler}
                     />}
                     {props.packs.map((pack) => (<StyledTableRow key={pack._id}>
                             <StyledTableCell component="th" scope="row">
@@ -116,7 +133,7 @@ export const PacksListTableMUI = React.memo((props: PacksListTableMUIPropsType) 
                                             />
                                             <ButtonSmall
                                                 text={"edit"}
-                                                onClick={() => props.updatePack("UpdatedPackName", pack._id)}
+                                                onClick={() => onUpdatePackHandler(pack._id, pack.name)}
                                                 style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
                                             />
                                             <NavLink to={`/learnCard/:${pack._id}`}>

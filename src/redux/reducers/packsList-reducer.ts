@@ -165,7 +165,6 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
 
             dispatch(setAppStatusAC("failed"))
         } finally {
-
             // some code...
         }
     }

@@ -12,9 +12,11 @@ import {IconButton} from "@material-ui/core"
 import {Visibility, VisibilityOff} from "@material-ui/icons"
 import s from "./UpdatePassword.module.scss"
 
-type UpdatePasswordPropsType = {}
+type FormikErrorType = {
+    newPassword?: string
+}
 
-export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsType) {
+export const UpdatePassword = React.memo(() => {
 
     const isSuccess = useSelector<AppRootStateType, boolean>(state => state.updatePasswordReducer.isSuccess)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
@@ -23,12 +25,8 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const {token} = useParams<{token: string}>()
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const mouseDownPasswordHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-    }
-
-    type FormikErrorType = {
-        newPassword?: string
     }
 
     const formik = useFormik({
@@ -74,7 +72,7 @@ export const UpdatePassword = React.memo(function (props: UpdatePasswordPropsTyp
                                     <IconButton
                                         aria-label="toggle password visibility"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        onMouseDown={handleMouseDownPassword}
+                                        onMouseDown={mouseDownPasswordHandler}
                                     >
                                         {showPassword ? <Visibility/> : <VisibilityOff/>}
                                     </IconButton>

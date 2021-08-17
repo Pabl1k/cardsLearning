@@ -41,7 +41,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
 
             },
         },
-
     }
 }))
 

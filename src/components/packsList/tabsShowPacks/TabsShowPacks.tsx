@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useCallback} from "react"
 import {useStyles} from "./TabsStylesShowPacks"
 import s from "./TabsShowPacks.module.scss"
 
@@ -12,13 +12,13 @@ export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
 
     const classes = useStyles()
 
-    const onAllButtonClick = () => {
+    const onAllButtonClickHandler = useCallback(() => {
         props.changeShowMyPacks(false, "")
-    }
+    }, [props])
 
-    const onMyButtonClick = () => {
+    const onMyButtonClickHandler = useCallback(() => {
         props.changeShowMyPacks(true, props.userId)
-    }
+    }, [props])
 
     return (
         <div className={s.tabsShowPacks}>
@@ -26,12 +26,12 @@ export const TabsShowPacks = React.memo((props: TabsShowPacksPropsType) => {
             <div className={classes.root}>
                 {!props.showPacksStatus
                     ? <div className={s.tabItemsContainer}>
-                        <button onClick={onAllButtonClick} className={`${s.tabItem} ${s.activeTabItem}`}>All</button>
-                        <button onClick={onMyButtonClick} className={s.tabItem}>My</button>
+                        <button onClick={onAllButtonClickHandler} className={`${s.tabItem} ${s.activeTabItem}`}>All</button>
+                        <button onClick={onMyButtonClickHandler} className={s.tabItem}>My</button>
                     </div>
                     : <div className={s.tabItemsContainer}>
-                        <button onClick={onAllButtonClick} className={s.tabItem}>All</button>
-                        <button onClick={onMyButtonClick} className={`${s.tabItem} ${s.activeTabItem}`}>My</button>
+                        <button onClick={onAllButtonClickHandler} className={s.tabItem}>All</button>
+                        <button onClick={onMyButtonClickHandler} className={`${s.tabItem} ${s.activeTabItem}`}>My</button>
                     </div>
                 }
             </div>

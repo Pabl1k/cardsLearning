@@ -62,8 +62,6 @@
   min-width: 175px;
   height: 60px;
 
-  border-bottom: 3px solid $accent;
-  background-color: #DCCCDB;
   background-image: url(../../../assets/images/packsIcon.svg);
   background-repeat: no-repeat;
   background-position: 25% 50%;
@@ -101,6 +99,11 @@
     box-shadow: 0 2px 4px rgba(33, 38, 143, .35),
     inset 0 1px 0 rgba(255, 255, 255, .3);
   }
+}
+
+.activeHeaderMenuItem {
+  background-color: #DCCCDB;
+  border-bottom: 3px solid $accent;
 }
 
 .logoutButton {

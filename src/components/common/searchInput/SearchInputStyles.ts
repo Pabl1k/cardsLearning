@@ -51,8 +51,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         },
         inputRoot: {
             color: "#2D2E46",
-
             opacity: 1,
-        },
+        }
     })
 )

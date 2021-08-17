@@ -1,14 +1,9 @@
 import axios from "axios"
 import {SortPacksAndCardsOrderType} from "../redux/reducers/packsList-reducer"
 
-//id="60fdcc41c6db2000047c6c84"
-// createdAcc:
-// email: poiumazaya@gmail.com
-// password: newPiatnicaTest
-
 const instance = axios.create({
-    // baseURL: "https://neko-back.herokuapp.com/2.0",
-    baseURL: "http://localhost:7542/2.0/",
+     baseURL: "https://neko-back.herokuapp.com/2.0",
+    // baseURL: "http://localhost:7542/2.0/",
     withCredentials: true
 })
 

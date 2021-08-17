@@ -1,35 +1,35 @@
-import React from "react"
-// import {Link} from "react-router-dom"
+import React, {useCallback} from "react"
+import {useHistory} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../../redux/store"
 import {logoutTC} from "../../../redux/reducers/login-reducer"
-import {RequestStatusType} from "../../../redux/reducers/app-reducer"
+import {HeaderMenuStatusType, setHeaderMenuStatusAC} from "../../../redux/reducers/app-reducer"
 import {MainTitle} from "../mainTitle/MainTitle"
 import {Button} from "../button/Button"
-// import AppBar from "@material-ui/core/AppBar"
-// import Tabs from "@material-ui/core/Tabs"
-// import Tab from "@material-ui/core/Tab"
-// import {useStyles} from "./HeaderMenuTabsStyles"
 import s from "./HeaderMenu.module.scss"
 
-type HeaderMenuPropsType = {}
+export const HeaderMenu = React.memo(() => {
 
-export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
-
-    // const classes = useStyles()
-
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.appReducer.status)
+    const {status, headerMenuStatus} = useSelector((state: AppRootStateType) => state.appReducer)
     const dispatch = useDispatch()
 
-    const [value, setValue] = React.useState(0)
+    const history = useHistory()
 
-    const onLogoutClickHandler = () => {
+    const packsListClassName = headerMenuStatus === "packsList" ? `${s.tabPack} ${s.activeHeaderMenuItem}` : s.tabPack
+    const profileClassName = headerMenuStatus === "profile" ? `${s.tabProfile} ${s.activeHeaderMenuItem}` : s.tabProfile
+
+    const onChangeHeaderMenuStatus = useCallback((headerMenuStatus: HeaderMenuStatusType) => {
+        if (headerMenuStatus === "packsList") {
+            history.push("/")
+        } else {
+            history.push("/profile")
+        }
+        dispatch(setHeaderMenuStatusAC(headerMenuStatus))
+    }, [dispatch, history])
+
+    const onLogoutClickHandler = useCallback(() => {
         dispatch(logoutTC())
-    }
-
-    const onTabClickChangeHandler = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue)
-    }
+    }, [dispatch])
 
     return (
         <div className={s.headerMenu}>
@@ -39,29 +39,30 @@ export const HeaderMenu = React.memo((props: HeaderMenuPropsType) => {
                         <MainTitle title={"It-Incubator"}/>
                     </div>
                     <div className={s.tabsWrap}>
-                        <div className={s.tabPack} >
+                        <div
+                            onClick={() => {
+                                onChangeHeaderMenuStatus("packsList")
+                            }}
+                            className={packsListClassName}>
                             Packs list
                         </div>
-                        <div className={s.tabProfile} >
+                        <div
+                            onClick={() => {
+                                onChangeHeaderMenuStatus("profile")
+                            }}
+                            className={profileClassName}>
                             Profile
                         </div>
-
-                        {/*<div className={classes.root}>*/}
-                        {/*    <AppBar position="static">*/}
-                        {/*        <Tabs value={value} onChange={onTabClickChangeHandler} aria-label="simple tabs example">*/}
-                        {/*            <Tab label="Packs list" className={s.tabPack} component={Link} to="/"/>*/}
-                        {/*            <Tab label="Profile" className={s.tabProfile} component={Link} to="/profile"/>*/}
-                        {/*        </Tabs>*/}
-                        {/*    </AppBar>*/}
-                        {/*</div>*/}
                     </div>
                     <Button
                         onClick={onLogoutClickHandler}
                         disabled={status === "loading"}
-                        className={s.logoutButton}>Log out
+                        className={s.logoutButton}>
+                        Log out
                     </Button>
                 </div>
             </div>
         </div>
     )
 })
+

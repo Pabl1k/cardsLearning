@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useCallback, useState} from "react"
 import {useSelector} from "react-redux"
 import {CardType} from "../../../api/api"
 import {AppRootStateType} from "../../../redux/store"
@@ -6,6 +6,8 @@ import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-redu
 import {RatingMUI} from "../../common/rating/Rating"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
+import {ModalCardInfo} from "../../common/modalWindow/modalCardInfo/ModalCardInfo"
+import {ModalWindow} from "../../common/modalWindow/ModalWindow"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
 import Paper from "@material-ui/core/Paper"
@@ -29,6 +31,39 @@ type CardsListTableMUIPropsType = {
 export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) => {
 
     const {sortCardsQuestionOrder, sortCardsUpdateOrder, sortCardsAnswerOrder, sortCardsGradeOrder} = useSelector((state: AppRootStateType) => state.cardsListReducer)
+
+    const [openDeleteModal, setOpenDeleteModal] = useState(false)
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [id, setId] = useState("")
+    const [question, setQuestion] = useState("")
+    const [answer, setAnswer] = useState("")
+
+    const onDeleteCardHandler = () => {
+        props.deleteCard(id)
+        setOpenDeleteModal(false)
+    }
+
+    const onRemoveHanlder = useCallback((id: string, question: string) => {
+        setOpenDeleteModal(true)
+        setId(id)
+        setQuestion(question)
+    }, [])
+
+    const onUpdatePackHandler = useCallback((packId: string, question: string, answer: string) => {
+        setOpenEditModal(true)
+        setId(packId)
+        setQuestion(question)
+        setAnswer(answer)
+    }, [])
+
+    const onEditNewPackHandler = useCallback((question: string, answer: string) => {
+        props.updateCard(id, question, answer)
+    }, [props, id])
+
+    const onCancelHandler = useCallback(() => {
+        setOpenDeleteModal(false)
+        setOpenEditModal(false)
+    }, [])
 
     return (
         <TableContainer component={Paper}>
@@ -70,6 +105,21 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                     </TableRow>
                 </TableHead>
                 <TableBody>
+                    {openDeleteModal
+                    && <ModalWindow
+                        name={"Card"}
+                        packName={question}
+                        onDeleteButtonClick={onDeleteCardHandler}
+                        onCloseModalButtonClick={onCancelHandler}
+                    />}
+                    {openEditModal
+                    && <ModalCardInfo
+                        name={"Edit card"}
+                        question={question}
+                        answer={answer}
+                        editCard={onEditNewPackHandler}
+                        closeModal={onCancelHandler}
+                    />}
                     {props.tableState.map((card) => (
                         <StyledTableRow key={card._id}>
                             <StyledTableCell>{card.question}</StyledTableCell>
@@ -81,12 +131,12 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                                 <div className={s.buttonsContainer}>
                                     <ButtonSmall
                                         text={"delete"}
-                                        onClick={() => props.deleteCard(card._id)}
+                                        onClick={() => onRemoveHanlder(card._id, card.question)}
                                         style={{backgroundColor: "#F1453D", color: "#ffffff"}}
                                     />
                                     <ButtonSmall
                                         text={"edit"}
-                                        onClick={() => props.updateCard(card._id, "UpdatedQuestion", "UpdatedAnswer")}
+                                        onClick={() => onUpdatePackHandler(card._id, card.question, card.answer)}
                                         style={{backgroundColor: "#D7D8EF", color: "#21268F"}}
                                     />
                                 </div>

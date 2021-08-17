@@ -8,6 +8,7 @@ import {PacksList} from "./components/packsList/PacksList"
 import {CardsList} from "./components/cardsList/CardsList"
 import {LearnElement} from "./components/learnElement/LearnElement"
 import {Profile} from "./components/profile/Profile"
+import {PersonalInfo} from "./components/personalInfo/PersonalInfo"
 import {Login} from "./components/login/Login"
 import {Registration} from "./components/registration/Registration"
 import {RestorePassword} from "./components/restorePassword/RestorePassword"
@@ -39,20 +40,20 @@ function App() {
     }
 
     return (
-        <>{isLoggedIn && pathname !== "/404"
-                ? <HeaderMenu/>
-                : null}
+        <>
+            {isLoggedIn && pathname !== "/404" && <HeaderMenu/>}
             <section className={s.pagesContainer}>
                 <Switch>
                     <Route exact path={"/"} render={() => <PacksList/>}/>
                     <Route exact path={"/cardslist/:packId"} render={() => <CardsList/>}/>
+                    <Route exact path={"/learnCard/:questionId"} render={() => <LearnElement/>}/>
                     <Route path={"/profile"} render={() => <Profile/>}/>
+                    <Route path={"/editProfile"} render={() => <PersonalInfo/>}/>
                     <Route path={"/login"} render={() => <Login/>}/>
                     <Route path={"/registration"} render={() => <Registration/>}/>
                     <Route path={"/restorePassword"} render={() => <RestorePassword/>}/>
                     <Route path={"/updatePassword/:token"} render={() => <UpdatePassword/>}/>
                     <Route exact path={"/checkEmail"} render={() => <CheckEmail/>}/>
-                    <Route exact path={"/learnCard/:questionId"} render={() => <LearnElement/>}/>
                     <Route path={"/404"} render={() => <PageNotFound/>}/>
                     <Redirect from={"*"} to={"/404"}/>
                 </Switch>

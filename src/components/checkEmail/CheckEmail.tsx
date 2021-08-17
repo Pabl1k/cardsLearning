@@ -22,9 +22,7 @@ export const CheckEmail = React.memo(() => {
                     <img src={icon} alt="icon" className={s.icon}/>
                 </div>
                 <h2 className={s.caption}>Check Email</h2>
-                <p className={s.text}>
-                    We’ve sent an Email with instructions to example@mail.com
-                </p>
+                <p className={s.text}>We’ve sent an Email with instructions to example@mail.com</p>
             </div>
         </div>
     )

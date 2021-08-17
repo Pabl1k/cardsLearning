@@ -1,6 +1,5 @@
 import React from "react"
-import {ModalDelete} from "./modalDelete/modalDelete"
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
+import {ModalDelete} from "./modalDelete/ModalDelete"
 import s from "./ModalWindow.module.scss"
 
 function rand() {
@@ -24,7 +23,7 @@ function getModalStyle() {
     }
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+/*const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             position: "absolute",
@@ -35,25 +34,23 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(2, 4, 3),
         },
     }),
-)
+)*/
 
 type ModalWindow = {
-    onDeleteHandler: any
-    onCancelHandler: any
+    name: string
     packName: string
+    onDeleteButtonClick: any
+    onCloseModalButtonClick: any
 }
 
 export const ModalWindow = React.memo((props: ModalWindow) => {
-    // const classes = useStyles()
-    // getModalStyle is not a pure function, we roll the style only on the first render
-    const [modalStyle] = React.useState(getModalStyle)
-
     return (
-        <div style={modalStyle} className={s.modalWindow}>
+        <div className={s.modalWindow}>
             <ModalDelete
-                handler={props.onDeleteHandler}
-                onCancelHandler={props.onCancelHandler}
+                name={props.name}
                 packName={props.packName}
+                onDeleteButtonClick={props.onDeleteButtonClick}
+                onCloseModalButtonClick={props.onCloseModalButtonClick}
             />
         </div>
     )

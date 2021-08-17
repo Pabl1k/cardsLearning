@@ -2,7 +2,6 @@ import {makeStyles, Theme} from "@material-ui/core/styles"
 //
 // export const useStyles = makeStyles((theme: Theme) => ({
 //     root: {
-//
 //         '& .MuiAppBar-colorPrimary': {
 //             backgroundColor: "#EBE0E9",
 //             color: "#2D2E46"

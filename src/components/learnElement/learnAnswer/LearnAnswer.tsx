@@ -1,23 +1,23 @@
-import React from "react"
+import React, {useCallback} from "react"
 import {CardType} from "../../../api/api"
 import {Button} from "../../common/button/Button"
-import { AnswerType } from "../LearnElement"
+import {AnswerType} from "../LearnElement"
 import s from "./LearnAnswer.module.scss"
 
 type LearnAnswerPropsType = {
     card: CardType
+    grades: string[]
     setShowAnswer: (value: boolean) => void
     onNextCard: (grade: number) => void
-    grades: string[]
 }
 
 export const LearnAnswer = React.memo((props: LearnAnswerPropsType) => {
 
     const [value, setValue] = React.useState<AnswerType>(-1)
 
-    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(Number(e.currentTarget.value) as AnswerType)
-    }
+    }, [])
 
     const mappedOptions = props.grades ? props.grades.map((option, index) => (
         <label key={index} className={s.radioLabel}>

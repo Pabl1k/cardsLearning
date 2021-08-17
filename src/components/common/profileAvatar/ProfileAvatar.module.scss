@@ -49,35 +49,23 @@
 }
 
 .profileAvatarButton {
+  @extend %btn;
+  width: 100px;
+  min-height: 25px;
+  font-size: 14px;
+  color: #21268F;
+  background-color: transparent;
+  border: 1px solid #635D80;
+  border-radius: 3px;
+  box-shadow: none;
   padding: 5px;
 
-  max-width: 80px;
-  min-height: 25px;
+  &:hover {
+    background-color: transparent;
+    box-shadow: 0 0 5px;
+  }
 
-  @extend %btn;
-  border-radius: 3px;
-  font-size: 12px;
+  &:focus {
+    outline: none;
+  }
 }
-
-
-//
-//.profileAvatarButton {
-//  width: 100px;
-//  height: 15px;
-//  @extend %ff600;
-//  font-size: 12px;
-//  color: #21268F;
-//  background-color: transparent;
-//  border: 1px solid #635D80;
-//  border-radius: 2px;
-//  box-shadow: none;
-//
-//  &:hover {
-//    background-color: transparent;
-//    box-shadow: 0 0 5px;
-//  }
-//
-//  &:focus {
-//    outline: none;
-//  }
-//}

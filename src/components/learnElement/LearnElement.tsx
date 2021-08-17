@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react"
-import {useParams} from "react-router-dom"
+import {Redirect, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {CardType} from "../../api/api"
 import {AppRootStateType} from "../../redux/store"
@@ -24,6 +24,8 @@ const getRandomCard = (cards: CardType[]) => {
 
 export const LearnElement: React.FC = React.memo(() => {
 
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
+
     const {
         cards, searchCardsValue,
         sortCardsQuestionOrder, sortCardsAnswerOrder, sortCardsUpdateOrder, sortCardsGradeOrder, sortCardsFilter,
@@ -31,11 +33,11 @@ export const LearnElement: React.FC = React.memo(() => {
     } = useSelector((state: AppRootStateType) => state.cardsListReducer)
     const dispatch = useDispatch()
 
-    const {questionId} = useParams<{ questionId: string }>()
-
     const [firstCard, setFirstCard] = useState<boolean>(true)
     const [showAnswer, setShowAnswer] = useState<boolean>(false)
     const [card, setCard] = useState<CardType>({_id: ""} as CardType)
+
+    const {questionId} = useParams<{ questionId: string }>()
 
     useEffect(() => {
         if (firstCard) {
@@ -44,9 +46,6 @@ export const LearnElement: React.FC = React.memo(() => {
         }
         if (cards.length > 0) {
             setCard(getRandomCard(cards))
-            return () => {
-                console.log("Learning Page clear effect")
-            }
         }
     }, [dispatch, cards, firstCard, questionId, page, pageCount, searchCardsValue, sortCardsQuestionOrder, sortCardsUpdateOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
 
@@ -57,10 +56,12 @@ export const LearnElement: React.FC = React.memo(() => {
                 dispatch(gradeCardTC(card._id, grade))
             }
             setCard(getRandomCard(cards))
-        } else {
-            console.log(`Something bad "onNextCard"`)
         }
     }, [dispatch, cards, card])
+
+    if (!isLoggedIn) {
+        return <Redirect to={"/login"}/>
+    }
 
     return (
         <div>
@@ -71,9 +72,9 @@ export const LearnElement: React.FC = React.memo(() => {
                 />
                 : <LearnAnswer
                     card={card}
+                    grades={grades}
                     setShowAnswer={setShowAnswer}
                     onNextCard={onNextCard}
-                    grades={grades}
                 />
             }
         </div>

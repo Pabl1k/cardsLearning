@@ -1,9 +1,9 @@
 import React from "react"
+import {ModalAdd} from "./ModalAdd"
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles"
-import {ModalDelete} from "../modalWindow/modalDelete/modalDelete"
 
 function rand() {
-    return Math.round(Math.random() * 20) - 10;
+    return Math.round(Math.random() * 20) - 10
 }
 
 function getModalStyle() {
@@ -27,27 +27,25 @@ const useStyles = makeStyles((theme: Theme) =>
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
         },
-    }),
+    })
 )
 
-type ModalDeletePackPropsType = {
-    onDeleteHandler: any
-    onCancelHandler: any
-    packName: string
+type ModalAddPackPropsType = {
+    addNewPack: (newValue: string) => void
+    closeModal: () => void
 }
 
-export default function ModalDeletePack(props: ModalDeletePackPropsType) {
+export const ModalAddPack = React.memo((props: ModalAddPackPropsType) => {
 
     const classes = useStyles()
     const [modalStyle] = React.useState(getModalStyle)
 
     return (
         <div style={modalStyle} className={classes.paper}>
-            <ModalDelete
-                handler={props.onDeleteHandler}
-                onCancelHandler={props.onCancelHandler}
-                packName={props.packName}
+            <ModalAdd
+                onAddNewPackHandler={props.addNewPack}
+                onCloseModalButtonClick={props.closeModal}
             />
         </div>
     )
-}
+})
