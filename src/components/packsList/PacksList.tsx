@@ -6,17 +6,17 @@ import {useDispatch, useSelector} from "react-redux"
 import {
     fetchPacksTC,
     changeShowAllOrMyPacksAC,
-    setDoubleRangesValuesAC,
-    setSortPacksUpdateOrderAC,
-    setSearchPacksValueAC,
-    setSortPacksNameOrderAC,
-    setSortPacksCardsCountOrderAC,
-    setSortPacksCreatedByOrderAC,
     addNewPackTC,
-    deletePackTC,
     updatePackTC,
+    deletePackTC,
+    setDoubleRangesValuesAC,
     setNewCurrentPageAC,
     setNewPageCountAC,
+    setSearchPacksValueAC,
+    setSortPacksCardsCountOrderAC,
+    setSortPacksCreatedByOrderAC,
+    setSortPacksNameOrderAC,
+    setSortPacksUpdateOrderAC,
     SortPacksAndCardsOrderType
 } from "../../redux/reducers/packsList-reducer"
 import {MainTitle} from "../common/mainTitle/MainTitle"
@@ -25,10 +25,9 @@ import {SearchInput} from "../common/searchInput/SearchInput"
 import {DoubleRange} from "../common/doubleRange/DoubleRange"
 import {PacksListTableMUI} from "./packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
+import {ModalWindowAdd} from "../common/modalWindow/modalAdd/ModalWindowAdd"
 import {Button} from "../common/button/Button"
-import {ModalAddPack} from "../common/modalWindow/modalAdd/ModalAddPack"
 import s from "./PacksList.module.scss"
-// import {ModalWindow} from "../common/modalWindow/ModalWindow";
 
 export const PacksList = React.memo(() => {
 
@@ -158,31 +157,32 @@ export const PacksList = React.memo(() => {
                                 Add new pack
                             </Button>
                         </div>
-                        <PacksListTableMUI
-                            user_id={user_id}
-                            packs={packs}
-                            setNewSortPacksNameOrder={setNewSortPacksNameOrder}
-                            setNewSortPacksCardsCountOrder={setNewSortPacksCardsCountOrder}
-                            setNewSortPacksUpdateOrder={setNewSortPacksUpdateOrder}
-                            setNewSortPacksCreatedByOrder={setNewSortPacksCreatedByOrder}
-                            updatePack={updatePack}
-                            deletePack={deletePack}
-                        />
+                        {packs.length === 0
+                            ? <span className={s.empty}><div>Packs list is empty. Click add new pack to create your own pack.</div></span>
+                            : <>
+                                <PacksListTableMUI
+                                    user_id={user_id}
+                                    packs={packs}
+                                    setNewSortPacksNameOrder={setNewSortPacksNameOrder}
+                                    setNewSortPacksCardsCountOrder={setNewSortPacksCardsCountOrder}
+                                    setNewSortPacksUpdateOrder={setNewSortPacksUpdateOrder}
+                                    setNewSortPacksCreatedByOrder={setNewSortPacksCreatedByOrder}
+                                    updatePack={updatePack}
+                                    deletePack={deletePack}
+                                />
+                                <PaginationTable
+                                    currentPage={page}
+                                    pagesCount={pagesCount}
+                                    itemsPerPageCount={pageCount}
+                                    setNewCurrentPage={setNewCurrentPage}
+                                    setNewPageCount={setNewPageCount}
+                                />
+                            </>}
                         {openModal &&
-                        <ModalAddPack
+                        <ModalWindowAdd
                             addNewPack={onAddNewPack}
                             closeModal={onCloseModalHandler}
                         />}
-                        <PaginationTable
-                            currentPage={page}
-                            pagesCount={pagesCount}
-                            itemsPerPageCount={pageCount}
-                            setNewCurrentPage={setNewCurrentPage}
-                            setNewPageCount={setNewPageCount}
-                        />
-
-                        {/*Если это расскомментировать, то оно встанет как надо... Нужно логику прикрутить :) */}
-                        {/*<ModalWindow name={"test"} onDeleteButtonClick={deletePack} packName={""} onCloseModalButtonClick={onCancel}/>*/}
                     </div>
                 </div>
             </div>

@@ -6,8 +6,8 @@ import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-redu
 import {RatingMUI} from "../../common/rating/Rating"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
-import {ModalCardInfo} from "../../common/modalWindow/modalCardInfo/ModalCardInfo"
-import {ModalWindow} from "../../common/modalWindow/ModalWindow"
+import {ModalWindowDelete} from "../../common/modalWindow/modalDelete/ModalWindowDelete"
+import {ModalWindowCardInfo} from "../../common/modalWindow/modalCardInfo/ModalWindowCardInfo"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
 import Paper from "@material-ui/core/Paper"
@@ -106,14 +106,14 @@ export const CardsListTableMUI = React.memo((props: CardsListTableMUIPropsType) 
                 </TableHead>
                 <TableBody>
                     {openDeleteModal
-                    && <ModalWindow
+                    && <ModalWindowDelete
                         name={"Card"}
                         packName={question}
                         onDeleteButtonClick={onDeleteCardHandler}
                         onCloseModalButtonClick={onCancelHandler}
                     />}
                     {openEditModal
-                    && <ModalCardInfo
+                    && <ModalWindowCardInfo
                         name={"Edit card"}
                         question={question}
                         answer={answer}

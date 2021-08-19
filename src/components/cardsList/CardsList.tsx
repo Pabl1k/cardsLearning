@@ -3,17 +3,17 @@ import {Redirect, useHistory, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import {AppRootStateType} from "../../redux/store"
 import {
-    getCardsTC,
-    setSearchCardsValueAC,
-    setSortQuestionCardsAC,
-    setSortAnswerCardsAC,
-    setSortUpdateCardsAC,
-    setSortGradeCardsAC,
     addCardTC,
-    updateCardTC,
     deleteCardTC,
+    getCardsTC,
+    setCardsNewCardsPageCountAC,
     setCardsNewCurrentPageAC,
-    setCardsNewCardsPageCountAC
+    setSearchCardsValueAC,
+    setSortAnswerCardsAC,
+    setSortGradeCardsAC,
+    setSortQuestionCardsAC,
+    setSortUpdateCardsAC,
+    updateCardTC
 } from "../../redux/reducers/cardsList-reducer"
 import {SortPacksAndCardsOrderType} from "../../redux/reducers/packsList-reducer"
 import {CardsListTableMUI} from "./cardsTableMUI/CardsListTableMUI"
@@ -21,7 +21,7 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
-import {ModalCardInfo} from "../common/modalWindow/modalCardInfo/ModalCardInfo"
+import {ModalWindowCardInfo} from "../common/modalWindow/modalCardInfo/ModalWindowCardInfo"
 import s from "./CardsList.module.scss"
 
 export const CardsList = React.memo(() => {
@@ -141,7 +141,7 @@ export const CardsList = React.memo(() => {
                         </Button>}
                     </div>
                     {cards.length === 0
-                        ? <span className={s.empty}>This pack is empty. Click add new card to fill this pack</span>
+                        ? <span className={s.empty}>This pack is empty. Click add new card to fill this pack.</span>
                         : <>
                             <CardsListTableMUI
                                 user_id={user_id}
@@ -162,7 +162,7 @@ export const CardsList = React.memo(() => {
                             />
                         </>}
                     {openNewCardModal
-                    && <ModalCardInfo
+                    && <ModalWindowCardInfo
                         name={"Add new card"}
                         editCard={onAddNewHandler}
                         closeModal={onCloseModalHandler}

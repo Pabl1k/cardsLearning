@@ -19,9 +19,10 @@ import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
 import {PacksListTableMUI} from "../packsList/packsTableMUI/PacksListTableMUI"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
-import {ModalAddPack} from "../common/modalWindow/modalAdd/ModalAddPack"
+import {ModalWindowAdd} from "../common/modalWindow/modalAdd/ModalWindowAdd";
 import {PackResponseType} from "../../api/api"
 import s from "./Profile.module.scss"
+
 
 type ProfilePropsType = {}
 
@@ -155,7 +156,7 @@ export const Profile = React.memo(function (props: ProfilePropsType) {
                             deletePack={deletePack}
                         />
                         {openModal
-                        && <ModalAddPack
+                        && <ModalWindowAdd
                             addNewPack={onAddNewClickPackHandler}
                             closeModal={onCloseModalHandler}
                         />}
