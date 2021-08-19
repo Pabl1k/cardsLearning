@@ -1,7 +1,7 @@
 import {ThunkAction} from "redux-thunk"
 import {authAPI} from "../../api/api"
 import {AppActionsType, AppRootStateType} from "../store"
-import {initializeAppTC, setAppErrorAC, setAppStatusAC} from "./app-reducer"
+import {initializeAppTC, setAppErrorAC, setAppStatusAC, setHeaderMenuStatusAC} from "./app-reducer"
 
 enum LOGIN_ACTIONS_TYPES {
     SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN",
@@ -38,6 +38,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         try {
             dispatch(setAppStatusAC("loading"))
             const res = await authAPI.login(email, password, rememberMe)
+            dispatch(setHeaderMenuStatusAC("packsList"))
             dispatch(initializeAppTC())
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Login failed: ${e.message}.`)
@@ -55,6 +56,7 @@ export const logoutTC = (): ThunkAction<void, AppRootStateType, unknown, AppActi
             dispatch(setAppStatusAC("loading"))
             const res = await authAPI.logout()
             dispatch(setIsLoggedInAC(false))
+            dispatch(setHeaderMenuStatusAC("packsList"))
             dispatch(setAppStatusAC("succeeded"))
         } catch (e) {
             const error = e.response ? e.response.data.error : (`Logout failed: ${e.message}.`)
