@@ -40,10 +40,12 @@
 
   @include flex();
 
-  padding-bottom: 25px;
+  //padding-bottom: 25px;
 
   @include media(xs) {
     flex-direction: column-reverse;
+    padding-bottom: 0;
+
   }
 }
 

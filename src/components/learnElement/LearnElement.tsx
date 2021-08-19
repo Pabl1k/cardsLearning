@@ -7,6 +7,7 @@ import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
 import {gradeCardTC} from "../../redux/reducers/learnPack-reducer"
 import {LearnQuestion} from "./learnQuestion/LearnQuestion"
 import {LearnAnswer} from "./learnAnswer/LearnAnswer"
+import s from "./learnQuestion/LearnQuestion.module.scss";
 
 export type AnswerType = -1 | 0 | 1 | 2 | 3 | 4 | 5
 
@@ -64,7 +65,7 @@ export const LearnElement: React.FC = React.memo(() => {
     }
 
     return (
-        <div>
+        <div className={s.learnWrap}>
             {!showAnswer
                 ? <LearnQuestion
                     card={card}

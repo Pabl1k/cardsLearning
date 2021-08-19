@@ -202,7 +202,7 @@ $breakpoints: (
 //modal
 
 %modal {
-  padding: 15px 0 5px;
+  padding: 15px 0 30px;
 
   max-width: 395px;
   min-height: 225px;
@@ -212,6 +212,13 @@ $breakpoints: (
   z-index: 99;
 
   background-color: $bgWhite;
+
+
+  @media (max-height: 380px) {
+    min-height: 190px;
+    padding-bottom: 10px;
+  }
+
 }
 
 %cross {

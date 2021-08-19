@@ -6,8 +6,13 @@
   padding: 35px 30px 25px;
 
   min-height: 295px;
-  min-width: 415px;
 }
+
+.learnWrap .learnQuestion {
+  max-width: 415px;
+  width: 100%;
+}
+
 
 .caption {
   @extend %loginCaption;
