@@ -1,6 +1,7 @@
 import React from "react"
 import {ModalDelete} from "./modalDelete/ModalDelete"
 import s from "./ModalWindow.module.scss"
+import {ModalCardInfo} from "./modalCardInfo/ModalCardInfo";
 
 function rand() {
     return Math.round(Math.random() * 20) - 10
@@ -53,5 +54,6 @@ export const ModalWindow = React.memo((props: ModalWindow) => {
                 onCloseModalButtonClick={props.onCloseModalButtonClick}
             />
         </div>
+// <ModalCardInfo name={} editCard={} closeModal={}/>
     )
 })
