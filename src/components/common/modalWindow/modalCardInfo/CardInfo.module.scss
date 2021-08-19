@@ -5,6 +5,9 @@
   @extend %loginBlock;
   padding-top: 35px;
   min-height: 445px;
+  position: relative;
+  z-index: 99;
+  background-color: $bgWhite;
 }
 
 .caption {
