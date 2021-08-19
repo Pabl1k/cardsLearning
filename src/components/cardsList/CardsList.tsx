@@ -21,8 +21,8 @@ import {MainTitle} from "../common/mainTitle/MainTitle"
 import {SearchInput} from "../common/searchInput/SearchInput"
 import {Button} from "../common/button/Button"
 import {PaginationTable} from "../common/paginationTable/PaginationTable"
+import {ModalWindowCardInfo} from "../common/modalWindow/modalCardInfo/ModalWindowCardInfo"
 import s from "./CardsList.module.scss"
-import {ModalWindowCardInfo} from "../common/modalWindow/modalCardInfo/ModalWindowCardInfo";
 
 export const CardsList = React.memo(() => {
 
@@ -141,7 +141,7 @@ export const CardsList = React.memo(() => {
                         </Button>}
                     </div>
                     {cards.length === 0
-                        ? <span className={s.empty}>This pack is empty. Click add new card to fill this pack</span>
+                        ? <span className={s.empty}>This pack is empty. Click add new card to fill this pack.</span>
                         : <>
                             <CardsListTableMUI
                                 user_id={user_id}

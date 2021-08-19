@@ -6,6 +6,8 @@ import {AppRootStateType} from "../../../redux/store"
 import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-reducer"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
+import {ModalWindowDelete} from "../../common/modalWindow/modalDelete/ModalWindowDelete"
+import {ModalWindowEditPack} from "../../common/modalWindow/modalEdit/ModalWindowEditPack"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
 import Paper from "@material-ui/core/Paper"
@@ -14,8 +16,6 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./PacksListTableMUIStyles"
 import s from "./PacksListTableMUI.module.scss"
-import {ModalWindowDelete} from "../../common/modalWindow/modalDelete/ModalWindowDelete";
-import {ModalWindowEditPack} from "../../common/modalWindow/modalEdit/ModalWindowEditPack";
 
 type PacksListTableMUIPropsType = {
     user_id: string

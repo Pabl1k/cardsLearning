@@ -6,6 +6,8 @@ import {SortPacksAndCardsOrderType} from "../../../redux/reducers/packsList-redu
 import {RatingMUI} from "../../common/rating/Rating"
 import {ItemsFilterSpan} from "../../common/itemsFilterSpan/ItemsFilterSpan"
 import {ButtonSmall} from "../../common/buttonSmall/ButtonSmall"
+import {ModalWindowDelete} from "../../common/modalWindow/modalDelete/ModalWindowDelete"
+import {ModalWindowCardInfo} from "../../common/modalWindow/modalCardInfo/ModalWindowCardInfo"
 import TableRow from "@material-ui/core/TableRow"
 import TableContainer from "@material-ui/core/TableContainer"
 import Paper from "@material-ui/core/Paper"
@@ -14,8 +16,6 @@ import TableHead from "@material-ui/core/TableHead"
 import TableBody from "@material-ui/core/TableBody"
 import {StyledTableCell, StyledTableRow} from "./CardsListTableMUIStyles"
 import s from "./CardsListTableMUI.module.scss"
-import {ModalWindowDelete} from "../../common/modalWindow/modalDelete/ModalWindowDelete";
-import {ModalWindowCardInfo} from "../../common/modalWindow/modalCardInfo/ModalWindowCardInfo";
 
 type CardsListTableMUIPropsType = {
     user_id: string
