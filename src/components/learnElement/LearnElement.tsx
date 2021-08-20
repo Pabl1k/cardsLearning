@@ -7,7 +7,7 @@ import {getCardsTC} from "../../redux/reducers/cardsList-reducer"
 import {gradeCardTC} from "../../redux/reducers/learnPack-reducer"
 import {LearnQuestion} from "./learnQuestion/LearnQuestion"
 import {LearnAnswer} from "./learnAnswer/LearnAnswer"
-import s from "./learnQuestion/LearnQuestion.module.scss";
+import s from "./LearnElement.module.scss";
 
 export type AnswerType = -1 | 0 | 1 | 2 | 3 | 4 | 5
 

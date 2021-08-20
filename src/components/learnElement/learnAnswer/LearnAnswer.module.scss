@@ -2,16 +2,9 @@
 @import "../../../assets/styles/mixins";
 
 .learnAnswer {
-  @extend %loginBlock;
-  padding: 35px 30px 25px;
-
-  min-height: 295px;
+  @extend %learnBlock;
 }
 
-.learnWrap .learnAnswer {
-  max-width: 415px;
-  width: 100%;
-}
 
 .caption {
   @extend %loginCaption;
@@ -22,6 +15,10 @@
   margin-bottom: 20px;
 
   text-align: left;
+
+  @include media(xs) {
+    text-align: center;
+  }
 }
 
 .action {
