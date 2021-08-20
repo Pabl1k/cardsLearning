@@ -18,7 +18,6 @@ $bgGrayBlue: #D7D8EF;
 $bgMenu: #EBE0E9;
 $bgDelete: #F1453D;
 
-
 $br: 8px;
 $brBtn: 30px;
 
@@ -37,9 +36,10 @@ $brBtn: 30px;
   }
 }
 
-//@extend %ff600;
 
 //FONTS
+//@extend %ff600;
+
 
 %sf600 {
   font-family: SFUIDisplay, sans-serif;
@@ -91,6 +91,7 @@ $brBtn: 30px;
   line-height: 1.1;
   text-align: left;
 }
+
 
 //BTNS
 
@@ -183,8 +184,8 @@ $brBtn: 30px;
 }
 
 // Breakpoints
-
-//             @include media(sm) {    }
+//   @include media(sm) {    }
+// @media (max-width: 630px) {  }
 
 $breakpoints: (
         xs: 574.8px,
@@ -193,10 +194,6 @@ $breakpoints: (
         lg: 1080.8px,
         xl: 1199.8px,
 );
-
-// @media (max-width: 630px) {
-//   width: 240px;
-// }
 
 
 //modal
@@ -213,12 +210,10 @@ $breakpoints: (
 
   background-color: $bgWhite;
 
-
   @media (max-height: 380px) {
     min-height: 190px;
     padding-bottom: 10px;
   }
-
 }
 
 %cross {
@@ -235,6 +230,9 @@ $breakpoints: (
   font-size: 14px;
   line-height: 1.6;
 }
+
+
+//learn
 
 %learnBlock {
   @extend %loginBlock;

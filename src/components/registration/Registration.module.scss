@@ -30,8 +30,9 @@
 
 .button {
   @include media(xs) {
-    max-width: 125px;
     margin-bottom: 30px;
+
+    max-width: 125px;
   }
 }
 

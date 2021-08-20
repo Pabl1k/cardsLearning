@@ -4,6 +4,7 @@
 .personalInfo {
   @extend %loginBlock;
   padding-top: 35px;
+
   min-height: 445px;
 }
 
@@ -35,6 +36,7 @@
 
   @include media(xs) {
     max-width: 125px;
+
     margin-bottom: 30px;
   }
 }

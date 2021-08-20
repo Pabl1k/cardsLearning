@@ -22,7 +22,6 @@
 .btnCross {
   @extend %cross;
   background-image: url(./../../../../assets/images/cross.svg);
-
 }
 
 .inputWrap {
@@ -40,14 +39,13 @@
 }
 
 .btns {
-  margin: 0 25px;
-
   @include flex();
 
-  //padding-bottom: 25px;
+  margin: 0 25px;
 
   @include media(xs) {
     flex-direction: column-reverse;
+
     padding-bottom: 0;
   }
 }
@@ -57,6 +55,7 @@
 
   @include media(xs) {
     max-width: 125px;
+
     margin-bottom: 30px;
   }
 }

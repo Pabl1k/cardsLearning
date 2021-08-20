@@ -47,6 +47,7 @@
   @include text($fontFamilyStyle, $fonstSize, 400, $textColor);
 }
 
+
 //nata
 
 @mixin flex($flex-direction: row, $align-items: center, $justifyContent: space-between) {
@@ -60,8 +61,6 @@
 //   @include flex();
 //   @include flex(center, flex-start);
 //   @include flex(center, center);
-
-
 
 @mixin media($width, $type:max) {
   @if map_has_key($breakpoints, $width) {

@@ -44,7 +44,6 @@
   color: $textColor;
 }
 
-
 .searchWrap {
   @include flex();
 
@@ -67,10 +66,10 @@
   color: #000000;
   opacity: .5;
 
-   @media (max-width: 800px) {
-     text-align: center;
-     font-size: 14px;
-   }
+  @media (max-width: 800px) {
+    text-align: center;
+    font-size: 14px;
+  }
 }
 
 .button {
