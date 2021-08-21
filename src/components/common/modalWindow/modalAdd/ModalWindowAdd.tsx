@@ -1,9 +1,6 @@
 import React from "react"
-
+import {ModalAdd} from "./ModalAdd"
 import s from "../ModalWindow.module.scss"
-import {ModalAdd} from "./ModalAdd";
-
-
 
 type ModalWindowAddPropsType = {
     addNewPack: (newValue: string) => void
