@@ -158,7 +158,9 @@ export const PacksList = React.memo(() => {
                             </Button>
                         </div>
                         {packs.length === 0
-                            ? <span className={s.empty}><div>Packs list is empty. Click add new pack to create your own pack.</div></span>
+                            ? <div className={s.empty}>
+                                <span>Packs list is empty.</span>
+                            </div>
                             : <>
                                 <PacksListTableMUI
                                     user_id={user_id}
