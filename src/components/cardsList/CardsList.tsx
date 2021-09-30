@@ -62,7 +62,7 @@ export const CardsList = React.memo(() => {
         }
     }, [dispatch, packId, page, pageCount, searchCardsValue, sortCardsQuestionOrder, sortCardsUpdateOrder, sortCardsFilter, sortCardsGradeOrder, sortCardsAnswerOrder])
 
-    const RedirectToPacksListHandler = () => {
+    const redirectToPacksListHandler = () => {
         history.push("/")
     }
 
@@ -128,7 +128,7 @@ export const CardsList = React.memo(() => {
             <div className={s.container}>
                 <div className={s.inner}>
                     <div className={s.topWrap}>
-                        <button onClick={RedirectToPacksListHandler} className={s.btn}/>
+                        <button onClick={redirectToPacksListHandler} className={s.btn}/>
                         <MainTitle title={"Pack Name"} textStyle={s.tableTitle}/>
                     </div>
                     <div className={s.searchWrap}>

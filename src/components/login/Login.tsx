@@ -93,8 +93,7 @@ export const Login = React.memo(() => {
                                         <IconButton
                                             aria-label="toggle password visibility"
                                             onClick={() => setShowPassword(!showPassword)}
-                                            onMouseDown={handleMouseDownPassword}
-                                        >
+                                            onMouseDown={handleMouseDownPassword}>
                                             {showPassword ? <Visibility/> : <VisibilityOff/>}
                                         </IconButton>
                                     </InputAdornment>)
