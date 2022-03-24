@@ -141,7 +141,7 @@ export const fetchPacksTC = (searchPacksValue: string, min: number, max: number,
         try {
             const res = await packsListAPI.getPacks(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id)
             dispatch(setPacksListStateAC(res.data))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Get packs failed: ${e.message}.`)
             console.log(error)
         } finally {
@@ -157,7 +157,7 @@ export const addNewPackTC = (packName: string, searchPacksValue: string, min: nu
             dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
 
             const error = e.response ? e.response.data.error : (`Add pack failed: ${e.message}.`)
             dispatch(setAppErrorAC(error))
@@ -177,7 +177,7 @@ export const updatePackTC = (newPackName: string, packId: string, searchPacksVal
             dispatch(fetchPacksTC(searchPacksValue, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Update pack failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppErrorAC(error))
@@ -195,7 +195,7 @@ export const deletePackTC = (packId: string, packName: string, min: number, max:
             dispatch(fetchPacksTC(packName, min, max, sortPacksOrder, sortPacksFilter, page, pageCount, user_id))
             dispatch(changeShowAllOrMyPacksAC(true, user_id))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Delete pack failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppErrorAC(error))

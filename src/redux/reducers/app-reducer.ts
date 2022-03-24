@@ -74,12 +74,11 @@ export const initializeAppTC = (): ThunkAction<void, AppRootStateType, unknown, 
             if (res.data._id) {
                 dispatch(setIsLoggedInAC(true))
                 dispatch(setUserDataAC(res.data))
-                console.log("AuthMe success!!!")
             }
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
-            const error = e.response ? e.response.data.error : (`AuthMe failed: ${e.message}.`)
-            console.log(error)
+        } catch (e: any) {
+            // const error = e.response ? e.response.data.error : (`AuthMe failed: ${e.message}.`)
+            // console.log(error)
             dispatch(setAppStatusAC("failed"))
         } finally {
             // ...some code
@@ -94,7 +93,7 @@ export const updateUserDataTC = (userName: string, userEmail: string, userAvatar
             const {name, email, avatar} = res.data.updatedUser
             dispatch(updateUserDataAC(name, email, avatar))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Update userData failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppStatusAC("failed"))

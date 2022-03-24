@@ -36,7 +36,7 @@ export const restorePasswordTC = (email: string): ThunkAction<void, AppRootState
             const res = await authAPI.restorePassword(email)
             dispatch(setErrorMessageAC(`Recovery instructions was sent to email: ${email}`))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Restore password failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppStatusAC("failed"))

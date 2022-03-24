@@ -125,7 +125,7 @@ export const getCardsTC = (packId: string, page?: number, pageCount?: number, se
             const res = await cardsAPI.getCards(packId, page, pageCount, searchCardsValue, sortCardsOrder, sortCardsFilter)
             dispatch(setCardsAC(res.data))
             dispatch(setCardTotalCountAC(res.data.cardsTotalCount))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Get cards failed: ${e.message}.`)
             console.log(error)
         } finally {
@@ -141,7 +141,7 @@ export const addCardTC = (packId: string, cardQuestion: string, cardAnswer: stri
             const res = await cardsAPI.addCard(packId, cardQuestion, cardAnswer)
             dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Add card failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppStatusAC("failed"))
@@ -159,7 +159,7 @@ export const updateCardTC = (packId: string, cardId: string, newCardQuestion: st
             const rest = await cardsAPI.updateCard(cardId, newCardQuestion, newCardAnswer)
             dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Update card failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppErrorAC(error))
@@ -177,7 +177,7 @@ export const deleteCardTC = (packId: string, cardId: string): ThunkAction<void, 
             const res = await cardsAPI.deleteCard(cardId)
             dispatch(getCardsTC(packId, page, pageCount, searchCardsValue, sortCardsUpdateOrder, sortCardsFilter))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Delete card failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppErrorAC(error))

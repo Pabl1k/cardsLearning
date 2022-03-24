@@ -36,7 +36,7 @@ export const updatePasswordTC = (newPassword: string, token: string): ThunkActio
             const res = await authAPI.setNewPassword(newPassword, token)
             dispatch(isSuccessAC(true))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Update password failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppStatusAC("failed"))

@@ -37,7 +37,7 @@ export const signUpTC = (email: string, password: string): ThunkAction<void, App
             const res = await authAPI.signUp(email, password)
             dispatch(setIsSignUpAC(true))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Registration failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppErrorAC(error))

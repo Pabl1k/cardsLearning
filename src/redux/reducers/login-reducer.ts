@@ -40,7 +40,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
             const res = await authAPI.login(email, password, rememberMe)
             dispatch(setHeaderMenuStatusAC("packsList"))
             dispatch(initializeAppTC())
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Login failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppErrorAC(error))
@@ -58,7 +58,7 @@ export const logoutTC = (): ThunkAction<void, AppRootStateType, unknown, AppActi
             dispatch(setIsLoggedInAC(false))
             dispatch(setHeaderMenuStatusAC("packsList"))
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Logout failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppStatusAC("failed"))

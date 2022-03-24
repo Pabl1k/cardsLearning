@@ -32,7 +32,7 @@ export const gradeCardTC = (card_id: string, grade: number): ThunkAction<void, A
             dispatch(setAppStatusAC("loading"))
             const res = await learnPackAPI.gradeCard(card_id, grade)
             dispatch(setAppStatusAC("succeeded"))
-        } catch (e) {
+        } catch (e: any) {
             const error = e.response ? e.response.data.error : (`Delete card failed: ${e.message}.`)
             console.log(error)
             dispatch(setAppStatusAC("failed"))
