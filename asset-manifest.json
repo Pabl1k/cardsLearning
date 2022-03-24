@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/cardsLearning/static/css/main.77445b54.chunk.css",
+    "main.js": "/cardsLearning/static/js/main.4d133b6b.chunk.js",
+    "main.js.map": "/cardsLearning/static/js/main.4d133b6b.chunk.js.map",
+    "runtime-main.js": "/cardsLearning/static/js/runtime-main.4c5c16aa.js",
+    "runtime-main.js.map": "/cardsLearning/static/js/runtime-main.4c5c16aa.js.map",
+    "static/js/2.d5c5816d.chunk.js": "/cardsLearning/static/js/2.d5c5816d.chunk.js",
+    "static/js/2.d5c5816d.chunk.js.map": "/cardsLearning/static/js/2.d5c5816d.chunk.js.map",
+    "static/js/3.dbdb0fda.chunk.js": "/cardsLearning/static/js/3.dbdb0fda.chunk.js",
+    "static/js/3.dbdb0fda.chunk.js.map": "/cardsLearning/static/js/3.dbdb0fda.chunk.js.map",
+    "index.html": "/cardsLearning/index.html",
+    "static/css/main.77445b54.chunk.css.map": "/cardsLearning/static/css/main.77445b54.chunk.css.map",
+    "static/js/2.d5c5816d.chunk.js.LICENSE.txt": "/cardsLearning/static/js/2.d5c5816d.chunk.js.LICENSE.txt",
+    "static/media/App.module.scss": "/cardsLearning/static/media/SFUIDisplay-Regular.d5b1bd49.woff2",
+    "static/media/CardsList.module.scss": "/cardsLearning/static/media/arrow.54207b29.svg",
+    "static/media/ModalAdd.module.scss": "/cardsLearning/static/media/cross.bd72ece5.svg",
+    "static/media/defaultUserAvatar.0deba007.png": "/cardsLearning/static/media/defaultUserAvatar.0deba007.png",
+    "static/media/email.7b2dee87.svg": "/cardsLearning/static/media/email.7b2dee87.svg",
+    "static/media/HeaderMenu.module.scss": "/cardsLearning/static/media/profileIcon.6008b765.svg",
+    "static/media/ProfileAvatarBtn.module.scss": "/cardsLearning/static/media/photoIcon.c128641c.svg",
+    "static/media/search.26dbc43d.svg": "/cardsLearning/static/media/search.26dbc43d.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4c5c16aa.js",
+    "static/js/2.d5c5816d.chunk.js",
+    "static/css/main.77445b54.chunk.css",
+    "static/js/main.4d133b6b.chunk.js"
+  ]
+}
